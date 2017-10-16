@@ -3,7 +3,7 @@
 	<Resource name="jdbc/COMP3095"
 		auth="Container"
 		type="javax.sql.DataSource"
-		username="root"
+		username="admin"
 		password="admin"
 		driverClassName="com.mysql.jdbc.Driver"
 		url="jdbc:mysql:/localhost:3306/COMP3095"

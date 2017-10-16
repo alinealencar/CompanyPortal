@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DatabaseAccess {
-	private String username = "root";
+	private String username = "admin";
 	private String password = "admin";
 	private String database = "COMP3095";
 	
