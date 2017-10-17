@@ -1,7 +1,20 @@
+/*********************************************************************************
+* Project: COMP3095_TechGirls
+* Assignment: Assignment 1
+* Author(s): Aline Neves Alencar,
+* 				Kie Ogiya,
+* 				Maria Alyssa Villacete,
+* 				Princess Ilasin
+* Student Number: 101036808,
+* 					100984638
+* 					100923181
+* 					100879176
+* Date: October 17, 2017.
+* Description: This class provides the connection and creation of the database.
+*********************************************************************************/
+
 package database;
-/****************************************************************************************************
-* Description: DatabaseAccess - Example provides access to database
-****************************************************************************************************/
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
