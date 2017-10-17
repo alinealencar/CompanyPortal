@@ -24,8 +24,11 @@ public class ValidateAuthentication {
 	public static boolean isValidLogin(String username, String password, Connection conn) 
 		throws Exception {
 		Statement statement = conn.createStatement();
-		ResultSet rs = statement.executeQuery("select * from user where username='" 
-				+ username + "' and password='" + password + "' " );
-		return (rs != null);
+		ResultSet rs = statement.executeQuery("select * from appusers where username='" 
+				+ username + "' and password='" + password + "';" );
+		if(rs != null){
+			return(rs.next());
+		}
+		else return false;
 	}
 }
