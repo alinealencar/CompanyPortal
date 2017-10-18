@@ -10,7 +10,7 @@ public class Employee {
         this.lName = lName;
         this.employeeNo = employeeNo;
         this.email = email;
-        this.jobPos = jobPos;
+        this.role = role;
         this.hireYear = hireYear;
     }
 

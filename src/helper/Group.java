@@ -6,9 +6,9 @@ public class Group {
 	private String deptName;
     private String groupName;
 
-    public Group(String getDeptName, String groupName) {
-        this.getDeptName = getDeptName;
-        this.groupName = groupNamae;
+    public Group(String deptName, String groupName) {
+        this.deptName = deptName;
+        this.groupName = groupName;
     }
 
     public String getDeptName() {
@@ -23,7 +23,7 @@ public class Group {
         return groupName;
     }
 
-    public void setGroupNamae(String groupNamae) {
+    public void setGroupNamae(String groupName) {
         this.groupName = groupName;
     } 
 }
