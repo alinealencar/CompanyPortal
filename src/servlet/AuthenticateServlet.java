@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import database.DatabaseAccess;
+import databaseTables.User;
 import helper.ValidateAuthentication;
 
 @WebServlet("/AuthenticateServlet")
@@ -48,7 +49,7 @@ public class AuthenticateServlet extends HttpServlet {
 				// Read from the users table
 //				boolean authSuccess = false;
 //				User aUser;
-				
+//				
 				//Validate the user/password combination exists in the Users table
 //				Statement statement = conn.createStatement();
 //				ResultSet rs = statement.executeQuery("select * from appusers where username='" 

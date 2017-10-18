@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS COMP3095;
 USE COMP3095;
 grant all on COMP3095.* to 'admin'@'localhost' identified by 'admin'; 
 
-CREATE TABLE USERS 
+CREATE TABLE APPUSERS 
 ( 
 	id int(11) AUTO_INCREMENT PRIMARY KEY, 
 	firstname varchar(255),
