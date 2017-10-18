@@ -35,15 +35,16 @@ public class DepartmentEntry extends HttpServlet {
 		Connection conn = null;
 		response.setContentType("text/html");
 		
-		String deptName = request.getParameter("deptName");
-		String loc = request.getParameter("location");
+		//String deptName = request.getParameter("deptName");
+		//String loc = request.getParameter("location");
 		
 		try {
 			DatabaseAccess.createDatabase();
 			conn = DatabaseAccess.connectDataBase();
 			
 			PrintWriter pw = response.getWriter();
-			pw.println(DatabaseManagement.insertDepartment(deptName, loc, conn));		
+			//pw.println(DatabaseManagement.insertDepartment(deptName, loc, conn));
+			pw.println("\n" + DatabaseManagement.selectFromTable("department", conn));
 		}
 		catch(Exception e){
 			System.out.println(e);

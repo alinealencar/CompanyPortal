@@ -9,16 +9,15 @@ public class DatabaseManagement {
 	public static String selectFromTable(String tableName, Connection conn)
 			throws Exception {
 			String result = "";
-			int index = 1;
+			int index = 0;
 			Statement statement = conn.createStatement();
 			String query = "select * from " + tableName;
 			ResultSet rs = statement.executeQuery(query);
 			
 			if(rs != null){
 				while(rs.next()){
-					result += rs.getString(index) + " ";
-					index++;
-				}
+					result += rs.getString(++index) + " ";
+				}while(rs.next());
 			}
 			else
 				result += "No data retrieved. Table is empty.";
