@@ -6,29 +6,22 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 
 public class DatabaseManagement {
-	public static String selectFromTable(String tableName, Connection conn)
+	public static ResultSet selectFromTable(String tableName, Connection conn)
 			throws Exception {
-			String result = "";
-			int index = 0;
 			Statement statement = conn.createStatement();
 			String query = "select * from " + tableName;
 			ResultSet rs = statement.executeQuery(query);
 			
 			if(rs != null){
-				while(rs.next()){
-					result += rs.getString(++index) + " ";
-				}while(rs.next());
+				while(rs.next())
+					rs.next();
 			}
-			else
-				result += "No data retrieved. Table is empty.";
-			
-			return result;
+			return rs;
 		}
 	
 	
-	public static String insertEmployee(String fName, String lName, String empNo, String email, String hireYear, String position, Connection conn)
+	public static Boolean insertEmployee(String fName, String lName, String empNo, String email, String hireYear, String position, Connection conn)
 			throws Exception {
-			String msg = "";
 			String query = "insert into employee(firstname, lastname, emp_no, email, hire_year, position) values(?,?,?,?,?,?,?)";
 			
 		    PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -41,17 +34,13 @@ public class DatabaseManagement {
 		    
 		    int rowsAffected = preparedStmt.executeUpdate();
 		    if (rowsAffected > 0)
-		    	msg += "Employee was successfully added!";
+		    	return true;
 		    else
-		    	msg += "Something went wrong. Please try again.";
-		    
-		    return msg;    
-		     
+		    	return false;	     
 	}
 	
-	public static String insertDepartment(String deptName, String location, Connection conn)
+	public static Boolean insertDepartment(String deptName, String location, Connection conn)
 			throws Exception {
-			String msg = "";
 			String query = "insert into department(dept_name, location) values(?,?)";
 			
 		    PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -61,17 +50,14 @@ public class DatabaseManagement {
 		    
 		    int rowsAffected = preparedStmt.executeUpdate();
 		    if (rowsAffected > 0)
-		    	msg += "Department was successfully added!";
+		    	return true;
 		    else
-		    	msg += "Something went wrong. Please try again.";
-		    
-		    return msg;
+		    	return false;
 		    
 	}
 	
-	public static String insertGroup(String deptName, String groupName, String member1, String member2, String member3, String member4, String member5, String member6, Connection conn)
+	public static Boolean insertGroup(String deptName, String groupName, String member1, String member2, String member3, String member4, String member5, String member6, Connection conn)
 			throws Exception {
-			String msg = "";
 			Statement statement = conn.createStatement();
 			String query = "insert into group(dept_name, group_name, member1, member2, member3, member4, member5, member6)  values(?,?,?,?,?,?,?,?)";
 			
@@ -88,12 +74,9 @@ public class DatabaseManagement {
 		    
 		    int rowsAffected = preparedStmt.executeUpdate();
 		    if (rowsAffected > 0)
-		    	msg += "Group was successfully created!";
+		    	return true;
 		    else
-		    	msg += "Something went wrong. Please try again.";
-		    
-		    return msg;
-		    
+		    	return false;
 	}
 	
 }
