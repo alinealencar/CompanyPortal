@@ -4,10 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Log In</title>
 </head>
 <body>
-<span><% session.getAttribute("error"); %></span>
+	<span>
+	<% if((String) session.getAttribute("error") != null){
+			out.println((String) session.getAttribute("error"));
+		}
+	%>
+	</span>
 	<form action="Login" method="post">
 		User: <input type="text" name="username"/><br>
 		Password: <input type="password" name="password"/><br>
