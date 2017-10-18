@@ -4,12 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title></title>
 </head>
 <body>
-
 <h1><center>UNDER CONSTRUCTION</center></h1>
 <center><img src= image/underconstruction.png width="600" height="500"></center>
-
 </body>
 </html>
