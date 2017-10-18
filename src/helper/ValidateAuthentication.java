@@ -25,7 +25,7 @@ public class ValidateAuthentication {
 		throws Exception {
 		Statement statement = conn.createStatement();
 		ResultSet rs = statement.executeQuery("select * from appusers where username='" 
-				+ username + "' and password='" + password + "';" );
+				+ username + "' and password='" + password + "'" );
 		if(rs != null){
 			// There is any entry in the appusers table that satisfies the conditions for username and password
 			return(rs.next());
