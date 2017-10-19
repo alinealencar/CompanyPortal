@@ -2,30 +2,33 @@ package databaseTables;
 
 public class User {
 
-	private String firstname, lastname, email, role, username, password;
+	private String firstName, lastName, email, role, username, password;
 	private int id;
-	public User(String firstname, String lastname, String email, String role, String username, String password,
-			int id) {
+	
+	public User(){
 		super();
-		this.firstname = firstname;
-		this.lastname = lastname;
+	}
+	public User(String firstname, String lastname, String email, String role, String username, String password) {
+		super();
+		this.firstName = firstname;
+		this.lastName = lastname;
 		this.email = email;
 		this.role = role;
 		this.username = username;
 		this.password = password;
-		this.id = id;
 	}
-	public String getFirstname() {
-		return firstname;
+
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstname(String firstName) {
+		this.firstName = firstName;
 	}
 	public String getLastname() {
-		return lastname;
+		return lastName;
 	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastname(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getEmail() {
 		return email;

@@ -14,8 +14,12 @@
 	%>
 	</span>
 	<form action="Login" method="post">
-		User: <input type="text" name="username"/><br>
-		Password: <input type="password" name="password"/><br>
+		User: <input type="text" name="username"/>
+		<br>
+		Password: <input type="password" name="password"/>
+		<br>
+		<input type="checkbox" name="rememberMe" value="rememberMe"> Remember Me
+		<br>
 		<input type="submit" value="submit">
 	</form>
 </body>
