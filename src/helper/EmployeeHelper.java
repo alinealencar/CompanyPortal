@@ -10,8 +10,8 @@ public class EmployeeHelper {
 			String result = "";
 			Statement statement = conn.createStatement();
 			String query = "select dept_name from department "
-					+ "join employee on department.dept_id = employee.dept_id "
-					+ "where position='" + position + "'";
+					+ "join employee on department.id = employee.dept_id_fk "
+					+ "where job_position='" + position + "'";
 			ResultSet rs = statement.executeQuery(query);
 			
 			if(rs != null){
