@@ -1,3 +1,18 @@
+/*
+* Project: COMP3095_TechGirls
+* Assignment: Assignment 1
+* Author(s): Aline Neves Alencar,
+* 			 Kie Ogiya,
+* 			 Maria Alyssa Villacete,
+* 			 Princess Ilasin
+* Student Number: 101036808,
+* 				  100984638
+* 				  100923181
+* 				  100879176
+* Date: October 17, 2017.
+* Description: This class provides the the validation of user's input.
+ */
+
 package helper;
 
 import java.sql.Connection;
@@ -12,10 +27,10 @@ public class DatabaseManagement {
 			String query = "select * from " + tableName;
 			ResultSet rs = statement.executeQuery(query);
 			
-			if(rs != null){
+			/*if(rs != null){
 				while(rs.next())
 					rs.next();
-			}
+			}*/
 			return rs;
 		}
 	
@@ -37,7 +52,7 @@ public class DatabaseManagement {
 	
 	public static Boolean insertEmployee(String fName, String lName, String empNo, String email, String hireYear, String position, Connection conn)
 			throws Exception {
-			String query = "insert into employee(firstname, lastname, emp_no, email, hire_year, position) values(?,?,?,?,?,?,?)";
+			String query = "insert into employee(firstname, lastname, emp_no, email, hire_year, position, dept_id_fk) values(?,?,?,?,?,?,?)";
 			
 		    PreparedStatement preparedStmt = conn.prepareStatement(query);
 		    
@@ -46,6 +61,8 @@ public class DatabaseManagement {
 		    preparedStmt.setString (3, empNo);
 		    preparedStmt.setString (4, email);
 		    preparedStmt.setString (5, hireYear);
+		    preparedStmt.setString (6, position);
+		    preparedStmt.setInt(7, EmployeeHelper.getEmployeeDeptID(position));
 		    
 		    int rowsAffected = preparedStmt.executeUpdate();
 		    if (rowsAffected > 0)
