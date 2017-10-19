@@ -2,12 +2,12 @@
 <%@include file="WEB-INF/header.jsp" %>
 
 <body>
-	<span>
+	
 	<% if((String) session.getAttribute("error") != null){
-			out.println((String) session.getAttribute("error"));
+			out.println("<span  class = \"alert alert-danger\" role = \"alert\">" 
+				+ (String) session.getAttribute("error") + "</span>");
 		}
 	%>
-	</span>
 	<form action="Login" method="post">
 		User: <input type="text" name="username"/>
 		<br>
