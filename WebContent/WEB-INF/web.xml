@@ -19,6 +19,7 @@
   <filter-mapping>
   	<filter-name>AuthenticationFilter</filter-name>
   	<url-pattern>/home.jsp</url-pattern>
-  	<dispatcher>REQUEST</dispatcher>
+  	<url-pattern>/dept-entry.jsp</url-pattern>
+  	<url-pattern>/employee-entry.jsp</url-pattern>
   </filter-mapping>
 </web-app>
