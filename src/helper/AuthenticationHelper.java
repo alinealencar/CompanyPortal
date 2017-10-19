@@ -26,7 +26,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import databaseTables.User;
+import dataModel.User;
 
 public class AuthenticationHelper {
 //	public static boolean isValidLogin(String username, String password, Connection conn) 

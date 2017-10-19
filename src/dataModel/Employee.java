@@ -1,4 +1,4 @@
-package databaseTables;
+package dataModel;
 
 public class Employee {
 

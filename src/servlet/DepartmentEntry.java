@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Database.DatabaseAccess;
+import database.DatabaseAccess;
 import helper.DatabaseManagement;
 import helper.ValidateInput;
 

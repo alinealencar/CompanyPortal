@@ -30,8 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dataModel.User;
 import database.DatabaseAccess;
-import databaseTables.User;
 import helper.AuthenticationHelper;
 import helper.DatabaseManagement;
 
@@ -44,31 +44,24 @@ public class Login extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String path = "login.jsp";
+		
 		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
 		try{
 			Connection conn = null;
 			DatabaseAccess.createDatabase();
 			conn = DatabaseAccess.connectDataBase();
-			String path = "";
 			
+			// Check if user has the RememberMe cookies (uuid and user)
 			if(AuthenticationHelper.isRememberCookies(request, conn)){
 				path = "home.jsp";
 			}
-			// If the user does not have a Remember Me activated, redirect them to the log in page
-			else {
-				path = "login.jsp";
-			}
-			
-			response.sendRedirect(path);
-			return;
 		} catch (Exception e){
 			e.printStackTrace();
 		}
 		
-		System.out.println("inside login get" + System.currentTimeMillis());
-
-
-		//doPost(request, response);
+		response.sendRedirect(path);
+		return;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

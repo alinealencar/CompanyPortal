@@ -1,10 +1,2 @@
-/Database/
-/databaseTables/
-/helper/
-/servlet/
-<<<<<<< HEAD
-=======
-/databaseTables/
-/filter/
->>>>>>> 697843b5e29c9b37bf030a030622a7f39fbafd1e
 /database/
+/servlet/
