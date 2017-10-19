@@ -10,7 +10,7 @@
 * 				  100923181
 * 				  100879176
 * Date: October 17, 2017.
-* Description: This class provides the the validation of user's input.
+* Description: This servlet handles the dept-entry.jsp page
  */
 
 package servlet;
@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.DatabaseAccess;
+import helper.CookieUtilities;
 import helper.DatabaseManagement;
 import helper.ValidateInput;
 
@@ -59,28 +60,33 @@ public class DepartmentEntry extends HttpServlet {
 		
 		String deptName = request.getParameter("deptName");
 		String loc = request.getParameter("location");
-		
-		Cookie c1 = new Cookie("deptName", deptName);
-		response.addCookie(c1);
-		Cookie c2 = new Cookie("location", loc);
-		response.addCookie(c2);
 				  
 		if (ValidateInput.isMissing(deptName)) {
 			//session.setAttribute("error", "Please try again.");
 			//request.getRequestDispatcher("/").include(request,response);
-			request.setAttribute("deptNameError", "Invalid department name!");
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/dept-entry.jsp");
-			rd.forward(request, response);
+			//request.setAttribute("deptNameError", "Invalid department name!");
+			//RequestDispatcher rd = getServletContext().getRequestDispatcher("/dept-entry.jsp");
+			//rd.forward(request, response);
+			deptName = "Missing department name!";
 			isMissingValue = true;
 		}
 		
 		if (ValidateInput.isMissing(loc)) {
-			request.setAttribute("deptLocError", "Invalid location!");
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/dept-entry.jsp");
-			rd.forward(request, response);
+			//request.setAttribute("deptLocError", "Invalid location!");
+			//RequestDispatcher rd = getServletContext().getRequestDispatcher("/dept-entry.jsp");
+			//rd.forward(request, response);
+			loc = "Missing department location!";
 			isMissingValue = true;
 		}
-			
+		
+		Cookie c1 = new Cookie("deptName", deptName);
+		//c1.setMaxAge( 60 * 60 * 24 * 7);
+		response.addCookie(c1);
+		Cookie c2 = new Cookie("location", loc);
+		//c2.setMaxAge( 60 * 60 * 24 * 7);
+		response.addCookie(c2);
+	
+		
 		if (!isMissingValue){
 		
 			try {
@@ -98,12 +104,17 @@ public class DepartmentEntry extends HttpServlet {
 				try{
 					// Close the connection
 					conn.close();
+					
 				}
 				catch(SQLException ex){
 				ex.printStackTrace();
 				}
 			}
 		}
+		else
+			response.sendRedirect("dept-entry.jsp");
+			//CookieUtilities.eraseCookie(request, response, c1);
+			//CookieUtilities.eraseCookie(request, response, c2);
 	}
 }
 
