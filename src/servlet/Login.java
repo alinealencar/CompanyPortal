@@ -92,12 +92,13 @@ public class Login extends HttpServlet {
 						+ username + "' and password='" + password + "';" );
 				if(rs != null){
 					if (rs.next()) {
-						aUser.setFirstname(rs.getString(1));
-						aUser.setLastname(rs.getString(2));
-						aUser.setEmail(rs.getString(3));
-						aUser.setRole(rs.getString(4));
-						aUser.setUsername(rs.getString(5));
-						aUser.setPassword(rs.getString(6));
+						aUser.setId(Integer.parseInt(rs.getString(1)));
+						aUser.setFirstname(rs.getString(2));
+						aUser.setLastname(rs.getString(3));
+						aUser.setEmail(rs.getString(4));
+						aUser.setRole(rs.getString(5));
+						aUser.setUsername(rs.getString(6));
+						aUser.setPassword(rs.getString(7));
 						authSuccess = true;
 					}
 				}

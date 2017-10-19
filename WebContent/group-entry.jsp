@@ -1,4 +1,4 @@
-<%@page import="Database.DatabaseAccess"%>
+<%@page import="database.DatabaseAccess"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import ="java.sql.ResultSet" import = "java.sql.Connection" import = "helper.DatabaseManagement"
     import = "helper.CookieUtilities"%>
