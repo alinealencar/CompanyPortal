@@ -46,7 +46,7 @@ public class EmployeeHelper {
 		
 		if (position.contains("Community Manager") || position.contains("Analytics Manager")) 
 			deptID = 1;
-		else if (position.contains("Front End") || position.contains("Back End") || position.contains("Database")) 
+		else if (position.contains("CTO") || position.contains("Front End") || position.contains("Back End") || position.contains("Database") || position.contains("Testing") || position.contains("System Operator")) 
 			deptID = 2;
 		else if (position.contains("Designer") || position.contains("Feature")) 
 			deptID = 3;
