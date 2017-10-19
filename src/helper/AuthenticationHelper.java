@@ -41,43 +41,41 @@ public class AuthenticationHelper {
 //		else return false;
 //	}
 	
-	public static Cookie[] isRememberCookies(HttpServletRequest request){
+	public static boolean isRememberCookies(HttpServletRequest request, Connection conn) throws Exception
+	{
 		Cookie[] cookies = request.getCookies();
-		Cookie[] returnCookies = {};
+		Cookie userIdCookie = null;
+		Cookie tokenCookie = null;
+		
+		boolean isRemember = false;
+		
 		if(cookies != null){
 			for(Cookie aCookie : cookies){
 				if(aCookie.getName().equals("user")){
-					cookies[0] = aCookie;
+					userIdCookie = aCookie;
 				}
 				if(aCookie.getName().equals("uuid")){
-					cookies[1] = aCookie;
+					tokenCookie = aCookie;
 				}
 			}
-			return returnCookies;
+			if(userIdCookie != null && tokenCookie != null)
+				isRemember = logUserRemember(request, conn, userIdCookie, tokenCookie);
 		}
-		else
-			return null;
+
+		return isRemember;
 	}
 	
-	public static boolean logUserRemember(HttpServletRequest request, Connection conn)
+	public static boolean logUserRemember(HttpServletRequest request, Connection conn, Cookie userId, Cookie token)
 			throws Exception {
-		
-		Cookie[] rememberCookies = isRememberCookies(request);
-		
-		if(isRememberCookies(request) != null){
 			Statement statement = conn.createStatement();
-			ResultSet rs = statement.executeQuery("select * from appusers where id='" 
-					+ rememberCookies[0].getValue() + "' and token='" + rememberCookies[1].getValue() + "'" );
+			ResultSet rs = statement.executeQuery("select * from appusers where id=" 
+					+Integer.parseInt(userId.getValue()) + " and token='" + token.getValue() + "'" );
 			if(rs != null){
 				// There is any entry in the appusers table that satisfies the conditions for user and token
-				return(rs.next());
+				return (rs.next());
 			}
 			else
 				return false;
-		}
-		else
-			return false;
-
 	}
 	
 	public static boolean isLoggedIn(HttpSession session){

@@ -17,15 +17,23 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import database.DatabaseAccess;
+import databaseTables.User;
 import helper.AuthenticationHelper;
+import helper.DatabaseManagement;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -41,18 +49,23 @@ public class Login extends HttpServlet {
 			Connection conn = null;
 			DatabaseAccess.createDatabase();
 			conn = DatabaseAccess.connectDataBase();
+			String path = "";
 			
-			if(AuthenticationHelper.logUserRemember(request, conn)){
-				response.sendRedirect("home.jsp");
+			if(AuthenticationHelper.isRememberCookies(request, conn)){
+				path = "home.jsp";
 			}
 			// If the user does not have a Remember Me activated, redirect them to the log in page
 			else {
-				response.sendRedirect("login.jsp");
-				//return;
+				path = "login.jsp";
 			}
+			
+			response.sendRedirect(path);
+			return;
 		} catch (Exception e){
-			System.out.print(e);
+			e.printStackTrace();
 		}
+		
+		System.out.println("inside login get" + System.currentTimeMillis());
 
 
 		//doPost(request, response);
@@ -67,12 +80,82 @@ public class Login extends HttpServlet {
 		password = request.getParameter("password");
 		rememberMe = request.getParameter("rememberMe");
 		
-		request.setAttribute("username", username);
-		request.setAttribute("password", password);
-		request.setAttribute("rememberMe", rememberMe);
-		request.getRequestDispatcher("AuthenticateServlet").include(request,response);
+		Connection conn = null;
+		HttpSession session = request.getSession(true);
 		
+		String redirectTo = "/";
 		
+		if(!username.isEmpty() && !password.isEmpty()){
+			try {
+				DatabaseAccess.createDatabase();
+				conn = DatabaseAccess.connectDataBase();
+				// Read from the users table
+				boolean authSuccess = false;
+				User aUser = new User();
+				
+				//Validate the user/password combination exists in the Users table
+				Statement statement = conn.createStatement();
+				ResultSet rs = statement.executeQuery("select * from appusers where username='" 
+						+ username + "' and password='" + password + "';" );
+				if(rs != null){
+					if (rs.next()) {
+						aUser.setFirstname(rs.getString(1));
+						aUser.setLastname(rs.getString(2));
+						aUser.setEmail(rs.getString(3));
+						aUser.setRole(rs.getString(4));
+						aUser.setUsername(rs.getString(5));
+						aUser.setPassword(rs.getString(6));
+						authSuccess = true;
+					}
+				}
+
+				if(authSuccess){
+					session.setAttribute("user", aUser);
+					//If the user doesn't make any request in 20min, the session will expire
+					session.setMaxInactiveInterval(20*60);
+				
+					//Create 2 cookies to remember the user later
+					if(rememberMe != null) {
+						String uuid =  UUID.randomUUID().toString(); // Unique identifier
+						String userId = Integer.toString(aUser.getId()); // User ID of the authenticated user
+						Cookie token = new Cookie("uuid", uuid);
+						Cookie user = new Cookie("user", userId);
+						
+						token.setMaxAge(365 * 24 * 60 * 60); // one year
+						user.setMaxAge(365 * 24 * 60 * 60); // one year
+						
+						//Write the token in the database
+						DatabaseManagement.insertUserToken(uuid, userId, conn);
+						
+						response.addCookie(token);
+						response.addCookie(user);
+						
+
+					}
+						
+					//Send the user to the home page
+					redirectTo = "home.jsp";
+					
+				}
+				else {
+					session.setAttribute("error", "Invalid username and/or password.");
+				}
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
+			finally {
+				try{
+					// Close the connection
+					conn.close();
+					response.sendRedirect(redirectTo);
+					return;
+				}
+				catch(SQLException ex){
+					ex.printStackTrace();
+				}
+			}
+		}
 	}
 
 }
