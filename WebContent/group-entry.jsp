@@ -1,3 +1,4 @@
+<% session.setAttribute("title", "Group Entry"); %>
 <%@include file="WEB-INF/header.jsp" %>
 
 <% 	Connection conn = DatabaseAccess.connectDataBase();
@@ -14,7 +15,7 @@
 %>
 
 <%@include file="WEB-INF/menu.jsp" %>
-	<h1>GROUP ENTRY</h1>
+	<h1>GROUP ENTRY</h1>I 
 	
 	<form method = "post" action = "GroupEntry">
 		<label>Department: </label>

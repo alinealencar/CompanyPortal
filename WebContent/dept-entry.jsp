@@ -1,6 +1,5 @@
-<jsp:include page="WEB-INF/header.jsp">
-	<jsp:param name="title" value="Department Entry"/>
-</jsp:include>
+<% session.setAttribute("title", "Department Entry"); %>
+<%@include file="WEB-INF/header.jsp" %>
 
 <%	Cookie[] cookies = request.getCookies(); 
 	//String deptName = cookies[0].getValue();

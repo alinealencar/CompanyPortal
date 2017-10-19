@@ -1,6 +1,5 @@
-<jsp:include page="WEB-INF/header.jsp">
-	<jsp:param name="title" value="Login"/>
-</jsp:include>
+<% session.setAttribute("title", "Login"); %>
+<%@include file="WEB-INF/header.jsp" %>
 
 <body>
 	<span>
