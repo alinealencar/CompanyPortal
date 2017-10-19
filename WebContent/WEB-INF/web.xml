@@ -4,6 +4,7 @@
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
+  
   <resource-ref>
     <description>COMP3095</description>
     <res-ref-name>jdbc/COMP3095</res-ref-name>
