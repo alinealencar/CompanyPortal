@@ -13,7 +13,7 @@
 * Description: This class provides the connection and creation of the database.
 *********************************************************************************/
 
-package database;
+package Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

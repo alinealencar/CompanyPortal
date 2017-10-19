@@ -12,10 +12,10 @@ public class DatabaseManagement {
 			String query = "select * from " + tableName;
 			ResultSet rs = statement.executeQuery(query);
 			
-			if(rs != null){
+			/*if(rs != null){
 				while(rs.next())
 					rs.next();
-			}
+			}*/
 			return rs;
 		}
 	
