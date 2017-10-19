@@ -76,7 +76,7 @@ public class Login extends HttpServlet {
 		Connection conn = null;
 		HttpSession session = request.getSession(true);
 		
-		String redirectTo = "/";
+		String redirectTo = "login.jsp";
 		
 		if(!username.isEmpty() && !password.isEmpty()){
 			try {
@@ -149,6 +149,9 @@ public class Login extends HttpServlet {
 					ex.printStackTrace();
 				}
 			}
+		}
+		else {
+			response.sendRedirect(redirectTo);
 		}
 	}
 
