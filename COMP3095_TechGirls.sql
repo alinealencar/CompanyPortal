@@ -10,11 +10,12 @@ CREATE TABLE APPUSERS
 	email varchar(255), 
 	role varchar(20),
 	username varchar(20)	NOT NULL,
-	password varchar(20)	NOT NULL
+	password varchar(20)	NOT NULL,
+	token varchar(36)
 );
 
-INSERT INTO USERS (firstname, lastname, email, role, username, password) VALUES
-(NULL, NULL, 'admin@domain.ca', NULL, 'admin', 'admin');
+INSERT INTO APPUSERS (firstname, lastname, email, role, username, password, token) VALUES
+(NULL, NULL, 'admin@domain.ca', NULL, 'admin', 'admin', NULL);
 
 CREATE TABLE DEPARTMENT
 ( 

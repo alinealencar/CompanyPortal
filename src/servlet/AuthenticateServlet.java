@@ -5,9 +5,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import Database.DatabaseAccess;
 import databaseTables.User;
-import helper.ValidateAuthentication;
+import helper.AuthenticationHelper;
 
 @WebServlet("/AuthenticateServlet")
 public class AuthenticateServlet extends HttpServlet {
@@ -34,43 +36,48 @@ public class AuthenticateServlet extends HttpServlet {
 		Connection conn = null;
 		String username = (String) request.getAttribute("username");
 		String password = (String) request.getAttribute("password");
+		boolean rememberMe = "true".equals((String) request.getAttribute("rememberMe"));
 		
-		// If any of the two parameters are missing, redirect user
-		// back to the login servlet without displaying any error messages
 		if(username.isEmpty() || password.isEmpty()){
-			//return;
 			request.getRequestDispatcher("/").include(request,response);
 		}
-		else{
-		
+		else {
 			try {
 				DatabaseAccess.createDatabase();
 				conn = DatabaseAccess.connectDataBase();
 				// Read from the users table
-//				boolean authSuccess = false;
-//				User aUser;
-//				
+				boolean authSuccess = false;
+				User aUser = new User();
+				
 				//Validate the user/password combination exists in the Users table
-//				Statement statement = conn.createStatement();
-//				ResultSet rs = statement.executeQuery("select * from appusers where username='" 
-//						+ username + "' and password='" + password + "';" );
-//				if(rs != null){
-//					if (rs.next()) {
-//						String fName = rs.getString(1);
-//						String lName = rs.getString(2);
-//						String email = rs.getString(3);
-//						String role = rs.getString(4);
-//						aUser = new User(fName, lName, email, role);
-//					}
-//				}
+				Statement statement = conn.createStatement();
+				ResultSet rs = statement.executeQuery("select * from appusers where username='" 
+						+ username + "' and password='" + password + "';" );
+				if(rs != null){
+					if (rs.next()) {
+						aUser.setFirstname(rs.getString(1));
+						aUser.setLastname(rs.getString(2));
+						aUser.setEmail(rs.getString(3));
+						aUser.setRole(rs.getString(4));
+						aUser.setUsername(rs.getString(5));
+						aUser.setPassword(rs.getString(6));
+						authSuccess = true;
+					}
+				}
 
-				if(ValidateAuthentication.isValidLogin(username, password, conn)){
-				//If the authentication is successful
-//				if(authSuccess){
-//					session.setAttribute("user", aUser);
-					session.setAttribute("user", username);
+				if(authSuccess){
+					session.setAttribute("user", aUser);
+					//If the user doesn't make any request in 20min, the session will expire
+					session.setMaxInactiveInterval(20*60);
+				
+					//Create a cookie to remember the user
+					if(rememberMe) {
+						Cookie c = AuthenticationHelper.rememberMe(aUser);
+						response.addCookie(c);
+					}
+						
 					//Send the user to the home page
-					request.getRequestDispatcher("/WEB-INF/home.jsp").include(request,response);
+					request.getRequestDispatcher("home.jsp").include(request,response);
 					
 				}
 				else {

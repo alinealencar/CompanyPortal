@@ -44,12 +44,17 @@ public class Login extends HttpServlet {
 		// If the form was submitted
 		String username;
 		String password;
+		String rememberMe;
 		username = request.getParameter("username");
 		password = request.getParameter("password");
+		rememberMe = request.getParameter("rememberMe");
 		
 		request.setAttribute("username", username);
 		request.setAttribute("password", password);
+		request.setAttribute("rememberMe", rememberMe);
 		request.getRequestDispatcher("AuthenticateServlet").include(request,response);
+		
+		
 	}
 
 }

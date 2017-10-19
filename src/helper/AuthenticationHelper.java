@@ -19,8 +19,14 @@ package helper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
 
-public class ValidateAuthentication {
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
+
+import databaseTables.User;
+
+public class AuthenticationHelper {
 	public static boolean isValidLogin(String username, String password, Connection conn) 
 		throws Exception {
 		Statement statement = conn.createStatement();
@@ -31,5 +37,15 @@ public class ValidateAuthentication {
 			return(rs.next());
 		}
 		else return false;
+	}
+	
+	public static Cookie rememberMe(User aUser){
+		Cookie c = new Cookie("remember", aUser.getUsername());
+		c.setMaxAge(365 * 24 * 60 * 60); // one year
+		return c;
+	}
+	
+	public static boolean isLoggedIn(HttpSession session){
+		return !(session == null || session.getAttribute("user") == null);
 	}
 }

@@ -4,10 +4,12 @@ public class Department {
 
 	private String deptName;
 	private String deptLoc;
+	private int id;
 	
-	private Department (String deptName, String deptLoc){
+	private Department (String deptName, String deptLoc, int id){
 		this.deptName = deptName;
 		this.deptLoc = deptLoc;
+		this.id = id;
 	}
 
 	public String getDeptName() {
@@ -26,6 +28,11 @@ public class Department {
 		this.deptLoc = deptLoc;
 	}
 	
-	
+	public int getId(){
+		return id;
+	}
+	public void setId(int id){
+		this.id = id;
+	}
 	
 }
