@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS COMP3095;
 CREATE DATABASE IF NOT EXISTS COMP3095;
 USE COMP3095;
 grant all on COMP3095.* to 'admin'@'localhost' identified by 'admin'; 
@@ -32,17 +33,8 @@ CREATE TABLE EMPLOYEE
     	emp_no varchar(255),
     	hire_year varchar(255) NOT NULL,
     	job_position varchar(255) NOT NULL,
-    	dept_id_fk int(11),
+    	dept_id_fk int(11) NOT NULL,
     	FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
-);
-
-CREATE TABLE EMPLOYEE_GROUPS
-(
-	employee_groups_id int(11) AUTO_INCREMENT PRIMARY KEY,
-    	emp_id_fk int(11) NOT NULL,
-    	groups_id_fk int(11) NOT NULL,
-    	FOREIGN KEY (emp_id_fk) REFERENCES EMPLOYEE(emp_id),
-    	FOREIGN KEY (groups_id_fk) REFERENCES GROUPS(groups_id)
 );
 
 CREATE TABLE GROUPS
@@ -60,4 +52,23 @@ CREATE TABLE GROUPS
     	FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
 );
 
+CREATE TABLE EMPLOYEE_GROUPS
+(
+	employee_groups_id int(11) AUTO_INCREMENT PRIMARY KEY,
+    	emp_id_fk int(11) NOT NULL,
+    	groups_id_fk int(11) NOT NULL,
+    	FOREIGN KEY (emp_id_fk) REFERENCES EMPLOYEE(emp_id),
+    	FOREIGN KEY (groups_id_fk) REFERENCES GROUPS(groups_id)
+);
+
+INSERT INTO DEPARTMENT (dept_name, location) VALUES
+('Marketing', 'C110');
+INSERT INTO DEPARTMENT (dept_name, location) VALUES
+('Engineering', 'C220');
+INSERT INTO DEPARTMENT (dept_name, location) VALUES
+('Product', 'C230');
+INSERT INTO DEPARTMENT (dept_name, location) VALUES
+('Sales', 'C310');
+INSERT INTO DEPARTMENT (dept_name, location) VALUES
+('Finance & Admin', 'C330');
 
