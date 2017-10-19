@@ -29,34 +29,35 @@ CREATE TABLE EMPLOYEE
 	emp_id int(11) AUTO_INCREMENT PRIMARY KEY, 
 	firstname varchar(255)	NOT NULL,
 	lastname varchar(255)	NOT NULL,
-    emp_no varchar(255),
-    hire_year varchar(255) NOT NULL,
-    job_position varchar(255) NOT NULL,
-    dept_id_fk int(11),
-    FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
+    	emp_no varchar(255),
+    	hire_year varchar(255) NOT NULL,
+    	job_position varchar(255) NOT NULL,
+    	dept_id_fk int(11),
+    	FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
 );
 
 CREATE TABLE EMPLOYEE_GROUPS
 (
 	employee_groups_id int(11) AUTO_INCREMENT PRIMARY KEY,
-    emp_id_fk int(11) NOT NULL,
-    groups_id_fk int(11) NOT NULL,
-    FOREIGN KEY (emp_id_fk) REFERENCES EMPLOYEE(emp_id),
-    FOREIGN KEY (groups_id_fk) REFERENCES GROUPS(groups_id)
+    	emp_id_fk int(11) NOT NULL,
+    	groups_id_fk int(11) NOT NULL,
+    	FOREIGN KEY (emp_id_fk) REFERENCES EMPLOYEE(emp_id),
+    	FOREIGN KEY (groups_id_fk) REFERENCES GROUPS(groups_id)
 );
 
 CREATE TABLE GROUPS
 ( 
 	groups_id int(11) AUTO_INCREMENT PRIMARY KEY, 
 	dept_name varchar(255)	NOT NULL,
+	group_name varchar(255) NOT NULL,
 	member1 varchar(255)	NOT NULL,
-    member2 varchar(255),
-    member3 varchar(255),
-    member4 varchar(255),
-    member5 varchar(255),
-    member6 varchar(255),
-    dept_id_fk int(11) NOT NULL,
-    FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
+    	member2 varchar(255),
+    	member3 varchar(255),
+    	member4 varchar(255),
+    	member5 varchar(255),
+    	member6 varchar(255),
+    	dept_id_fk int(11) NOT NULL,
+    	FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
 );
 
 
