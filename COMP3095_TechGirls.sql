@@ -32,7 +32,7 @@ CREATE TABLE EMPLOYEE
     emp_no varchar(255),
     hire_year varchar(255) NOT NULL,
     job_position varchar(255) NOT NULL,
-    dept_id_fk int(11) NOT NULL,
+    dept_id_fk int(11),
     FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
 );
 
