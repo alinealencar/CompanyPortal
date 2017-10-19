@@ -16,13 +16,16 @@
 package servlet;
 
 import java.io.IOException;
-
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import database.DatabaseAccess;
+import helper.AuthenticationHelper;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -33,10 +36,25 @@ public class Login extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Show the login form
-		//request.getRequestDispatcher("login.jsp").include(request,response);
-		response.sendRedirect("login.jsp");
-		return;
+		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
+		try{
+			Connection conn = null;
+			DatabaseAccess.createDatabase();
+			conn = DatabaseAccess.connectDataBase();
+			
+			if(AuthenticationHelper.logUserRemember(request, conn)){
+				response.sendRedirect("home.jsp");
+			}
+			// If the user does not have a Remember Me activated, redirect them to the log in page
+			else {
+				response.sendRedirect("login.jsp");
+				//return;
+			}
+		} catch (Exception e){
+			System.out.print(e);
+		}
+
+
 		//doPost(request, response);
 	}
 

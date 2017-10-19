@@ -20,6 +20,21 @@ public class DatabaseManagement {
 		}
 	
 	
+	public static Boolean insertUserToken(String token, String userId, Connection conn)
+		throws Exception {
+		String query="update appusers set token=? where id=?";
+		
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		
+		preparedStmt.setString(1, token);
+		preparedStmt.setInt(2, Integer.parseInt(userId));
+		
+		int rowsAffected = preparedStmt.executeUpdate();
+		
+		return(rowsAffected > 0);
+		
+	}
+	
 	public static Boolean insertEmployee(String fName, String lName, String empNo, String email, String hireYear, String position, Connection conn)
 			throws Exception {
 			String query = "insert into employee(firstname, lastname, emp_no, email, hire_year, position) values(?,?,?,?,?,?,?)";

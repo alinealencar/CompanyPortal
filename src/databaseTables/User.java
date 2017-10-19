@@ -2,7 +2,7 @@ package databaseTables;
 
 public class User {
 
-	private String firstName, lastName, email, role, username, password;
+	private String firstName, lastName, email, role, username, password, uuid;
 	private int id;
 	
 	public User(){
@@ -59,5 +59,11 @@ public class User {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public String getUuid(){
+		return uuid;
+	}
+	public void setUuid(String uuid){
+		this.uuid = uuid;
 	}
 }

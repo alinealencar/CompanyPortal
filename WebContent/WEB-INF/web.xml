@@ -21,5 +21,7 @@
   	<url-pattern>/home.jsp</url-pattern>
   	<url-pattern>/dept-entry.jsp</url-pattern>
   	<url-pattern>/employee-entry.jsp</url-pattern>
+  	<url-pattern>/report.jsp</url-pattern>
+  	<url-pattern>/attendance.jsp</url-pattern>
   </filter-mapping>
 </web-app>

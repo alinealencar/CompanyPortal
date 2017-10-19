@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import database.DatabaseAccess;
 import databaseTables.User;
 import helper.AuthenticationHelper;
+import helper.DatabaseManagement;
 
 @WebServlet("/AuthenticateServlet")
 public class AuthenticateServlet extends HttpServlet {
@@ -36,7 +37,7 @@ public class AuthenticateServlet extends HttpServlet {
 		Connection conn = null;
 		String username = (String) request.getAttribute("username");
 		String password = (String) request.getAttribute("password");
-		boolean rememberMe = "true".equals((String) request.getAttribute("rememberMe"));
+		String rememberMe = (String) request.getAttribute("rememberMe");
 		
 		if(username.isEmpty() || password.isEmpty()){
 			request.getRequestDispatcher("/").include(request,response);
@@ -70,21 +71,36 @@ public class AuthenticateServlet extends HttpServlet {
 					//If the user doesn't make any request in 20min, the session will expire
 					session.setMaxInactiveInterval(20*60);
 				
-					//Create a cookie to remember the user
-					if(rememberMe) {
-						Cookie c = AuthenticationHelper.rememberMe(aUser);
-						response.addCookie(c);
+					//Create 2 cookies to remember the user later
+					if(rememberMe != null) {
+						String uuid =  UUID.randomUUID().toString(); // Unique identifier
+						String userId = Integer.toString(aUser.getId()); // User ID of the authenticated user
+						Cookie token = new Cookie("uuid", uuid);
+						Cookie user = new Cookie("user", userId);
+						
+						token.setMaxAge(365 * 24 * 60 * 60); // one year
+						user.setMaxAge(365 * 24 * 60 * 60); // one year
+						
+						//Write the token in the database
+						DatabaseManagement.insertUserToken(uuid, userId, conn);
+						
+						response.addCookie(token);
+						response.addCookie(user);
+						
+
 					}
 						
 					//Send the user to the home page
-					request.getRequestDispatcher("home.jsp").include(request,response);
+					//request.getRequestDispatcher("home.jsp").include(request,response);
+					response.sendRedirect("home.jsp");
+					return;
 					
 				}
 				else {
 					session.setAttribute("error", "Invalid username and/or password.");
-					//response.sendRedirect("/");
-					//return;
-					request.getRequestDispatcher("/").include(request,response);
+					response.sendRedirect("/");
+					return;
+					//request.getRequestDispatcher("/").include(request,response);
 				}
 			}
 			catch(Exception e){
