@@ -96,10 +96,10 @@ public class EmployeeEntry extends HttpServlet {
 			validFName = true;
 		}else{
 			if(ValidateInput.isMissing(firstName)){			
-				request.getSession().setAttribute("errorFName", "You must Input First Name");
+				request.getSession().setAttribute("errorFName", "You must input a First Name");
 				request.getSession().setAttribute("firstName", "");
 			}else if(!ValidateInput.isAlphabet(firstName)){		
-				request.getSession().setAttribute("errorFName", "First Name must contain only alphabet");
+				request.getSession().setAttribute("errorFName", "First Name must contain letters only");
 				request.getSession().setAttribute("firstName", "");
 			}
 		}
@@ -112,10 +112,10 @@ public class EmployeeEntry extends HttpServlet {
 			validLName = true;
 		}else{
 			if(ValidateInput.isMissing(lastName)){			
-				request.getSession().setAttribute("errorLName", "You must Input Last Name");
+				request.getSession().setAttribute("errorLName", "You must input a Last Name");
 				request.getSession().setAttribute("lastName", "");
 			}else if(!ValidateInput.isAlphabet(lastName)){		
-				request.getSession().setAttribute("errorLName", "Last Name must contain only alphabet");
+				request.getSession().setAttribute("errorLName", "Last Name must contain letters only");
 				request.getSession().setAttribute("lastName", "");
 			}
 		}
@@ -132,7 +132,7 @@ public class EmployeeEntry extends HttpServlet {
 			validEmail = true;
 		}else{
 			if(ValidateInput.isMissing(email)){			
-				request.getSession().setAttribute("errorEmail", "You must Input Email");
+				request.getSession().setAttribute("errorEmail", "You must input an Email");
 				request.getSession().setAttribute("email", "");
 			}else if(!ValidateInput.isValidEmail(email)){		
 				request.getSession().setAttribute("errorEmail", "Invalid email");
@@ -160,7 +160,7 @@ public class EmployeeEntry extends HttpServlet {
 			validJobPos = true;
 		}else{
 			if(jobPosition == ""){			
-			request.getSession().setAttribute("errorPosition", "You must be a valid job position");
+			request.getSession().setAttribute("errorPosition", "You must select a valid job position");
 			}
 		}
 
