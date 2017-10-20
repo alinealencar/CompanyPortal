@@ -54,9 +54,9 @@ public class EmployeeEntry extends HttpServlet {
 		String jobPosition = request.getParameter("jobPosition");
 		
 		//validation
-		
+				response.sendRedirect("employee-entry.jsp");
+				
 		//first name validation (if it is not empty and/or only alphabet)
-		response.sendRedirect("employee-entry.jsp");
 		if(!ValidateInput.isMissing(firstName) && ValidateInput.isAlphabet(firstName)){
 			request.getSession().removeAttribute("errorFName");
 			request.getSession().setAttribute("firstName", firstName);//store valid value to session
@@ -69,7 +69,10 @@ public class EmployeeEntry extends HttpServlet {
 				request.getSession().setAttribute("firstName", "");
 			}
 		}
-			
+		
+		//employee number stays in textbox when user need to modify other value
+		request.getSession().setAttribute("employeeNum", employeeNum);//store value to session
+		
 			
 		//last name validation (if it is not empty and/or only alphabet)		
 		if(!ValidateInput.isMissing(lastName) && ValidateInput.isAlphabet(lastName)){
