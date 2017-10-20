@@ -62,7 +62,7 @@ public class DatabaseManagement {
 		    preparedStmt.setString (4, email);
 		    preparedStmt.setString (5, hireYear);
 		    preparedStmt.setString (6, position);
-		    preparedStmt.setInt(7, EmployeeHelper.getEmployeeDeptID(position));
+		    preparedStmt.setInt(7, DatabaseHelper.getEmployeeDeptID(position));
 		    
 		    int rowsAffected = preparedStmt.executeUpdate();
 		    if (rowsAffected > 0)
@@ -108,7 +108,7 @@ public class DatabaseManagement {
 		    preparedStmt.setString (6, member4);
 		    preparedStmt.setString (7, member5);
 		    preparedStmt.setString (8, member6);
-		    preparedStmt.setInt (9, EmployeeHelper.getDeptId(deptName, conn));
+		    preparedStmt.setInt (9, DatabaseHelper.getDeptId(deptName, conn));
 		    
 		    int rowsAffected = preparedStmt.executeUpdate();
 		    if (rowsAffected > 0)

@@ -105,6 +105,7 @@ public class Login extends HttpServlet {
 				if(authSuccess){
 					session.setAttribute("user", aUser);
 					session.setAttribute("fName", aUser.getFirstName());
+
 					//If the user doesn't make any request in 20min, the session will expire
 					session.setMaxInactiveInterval(20*60);
 				

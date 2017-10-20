@@ -23,7 +23,7 @@
 				<form action="Login" method="post">
 					<div class="form-group">
 						<label for="usernameField">User</label>
-						<input type="text" name="username" class="form-control" id="usernameField" placeholder="Username"/>
+						<input type="text" name="username" class="form-control" id="usernameField" placeholder="Username" autofocus/>
 					</div>
 					<div class="form-group">
 						<label for="passwordField">Password</label>

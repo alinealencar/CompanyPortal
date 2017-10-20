@@ -19,7 +19,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class EmployeeHelper {
+public class DatabaseHelper {
 	/*public static String getDepartment(String position, Connection conn) 
 		throws Exception {
 		String result = "";
