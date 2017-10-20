@@ -10,8 +10,12 @@
 * 					100923181
 * 					100879176
 * Date: October 17, 2017.
+<<<<<<< HEAD
+* Description: This class contains methods to get cookie values and delete cookie
+=======
 * Description: This class provides methods for creating, accessing and deleting
 * 				cookies.
+>>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 *********************************************************************************/
 
 package helper;

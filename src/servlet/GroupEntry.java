@@ -10,10 +10,15 @@
 * 					100923181
 * 					100879176
 * Date: October 17, 2017.
+<<<<<<< HEAD
+* Description: This servlet handles the group-entry.jsp page
+*********************************************************************************/
+=======
 * Description: This servlet handles the creation of a new group.
 *********************************************************************************/
 
 
+>>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 package servlet;
 
 import java.io.IOException;
@@ -80,7 +85,8 @@ public class GroupEntry extends HttpServlet {
 		response.addCookie(deptCookie);
 		response.sendRedirect("group-entry.jsp");*/
 		
-		String deptName = request.getParameter("deptName");
+		//access form values
+		String deptName = request.getParameter("department");
 		String groupName = request.getParameter("groupName");
 		String emp1 = request.getParameter("emp1");
 		String emp2 = request.getParameter("emp2");
@@ -90,29 +96,26 @@ public class GroupEntry extends HttpServlet {
 		String emp6 = request.getParameter("emp6");
 		
 		//add selected employees to arraylist
-		ArrayList<String> empList = new ArrayList<String>();
+		/*ArrayList<String> empList = new ArrayList<String>();
 		empList.add(emp1);
 		empList.add(emp2);
 		empList.add(emp3);
 		empList.add(emp4);
 		empList.add(emp5);
-		empList.add(emp6);
+		empList.add(emp6);*/
 		
 		response.sendRedirect("group-entry.jsp");
 		
 		//check if department name if missing
 		if (ValidateInput.isMissing(deptName)) {
 			request.getSession().setAttribute("errorDepartment", "Please select a department.");
-			//request.getRequestDispatcher("/").include(request,response);
-			request.getSession().setAttribute("deptName", "");
-			//RequestDispatcher rd = getServletContext().getRequestDispatcher("/group-entry.jsp");
-			//rd.forward(request, response);
+			request.getSession().setAttribute("department", "");
 			//deptName = "Missing department name!";
 			isMissingValue = true;
 		}
 		else {
 			request.getSession().removeAttribute("errorDepartment");
-			request.getSession().setAttribute("deptName", deptName);
+			request.getSession().setAttribute("department", deptName);
 		}
 		
 		//check if group name is missing
@@ -133,11 +136,11 @@ public class GroupEntry extends HttpServlet {
 			isMissingValue = true;
 		}
 		//check if there are duplicate employees selected
-		else if (empList.contains(emp2) || empList.contains(emp3) || empList.contains(emp4) || empList.contains(emp5) || empList.contains(emp6)) {
+		/*else if (empList.contains(emp2) || empList.contains(emp3) || empList.contains(emp4) || empList.contains(emp5) || empList.contains(emp6)) {
 			request.getSession().setAttribute("errorEmp1", "Duplicate employee! Please select another employee.");
 			request.getSession().setAttribute("emp1", "");
 			isMissingValue = true;
-		}
+		}*/
 		else {
 			request.getSession().removeAttribute("errorEmp1");
 			request.getSession().setAttribute("emp1", emp1);
@@ -159,19 +162,22 @@ public class GroupEntry extends HttpServlet {
 		response.addCookie(emp5Cookie);
 		Cookie emp6Cookie = new Cookie("emp6", emp6);
 		response.addCookie(emp6Cookie);*/
-	
+		
+		//empList.clear();
+		
 		if (!isMissingValue){
-			
 			try {
 				//DatabaseAccess.createDatabase();
 				conn = DatabaseAccess.connectDataBase();
 			
+				//check if the insertion to the database succeeded 
 				if(DatabaseManagement.insertGroup(deptName, groupName, emp1, emp2, emp3, emp4, emp5, emp6, conn)) 
 					request.getSession().setAttribute("groupInsertSuccess", "The " + groupName + " group was successfully created!");
 				//pw.println("The " + groupName + " group was succesfully created!");
-				//pw.println("\n" + DatabaseManagement.selectFromTable("department", conn));
+				
 			}
 			catch(Exception e){
+				//error message if insertion to the database failed
 				request.getSession().setAttribute("deptInsertError", e + "\nPlease try again.");
 			}
 			finally {
@@ -184,13 +190,12 @@ public class GroupEntry extends HttpServlet {
 				ex.printStackTrace();
 				}
 			}
-		}
-		//else
-			//response.sendRedirect("group-entry.jsp");
-			//CookieUtilities.eraseCookie(request, response, c1);
-			//CookieUtilities.eraseCookie(request, response, c2);
+		}	
 	}
-
-	}
+			//**************************************** Not done yet		
+			/*
+			 * drop down list doesn't stay selected item when there is invalid value
+			 */
+}
 
 

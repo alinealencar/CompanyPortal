@@ -1,17 +1,27 @@
+<<<<<<< HEAD
+/*********************************************************************************
+=======
 /***********************************************************************
+>>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 * Project: COMP3095_TechGirls
 * Assignment: Assignment 1
 * Author(s): Aline Neves Alencar,
-* 			 Kie Ogiya,
-* 			 Maria Alyssa Villacete,
-* 			 Princess Ilasin
+* 				Kie Ogiya,
+* 				Maria Alyssa Villacete,
+* 				Princess Ilasin
 * Student Number: 101036808,
-* 				  100984638
-* 				  100923181
-* 				  100879176
+* 					100984638
+* 					100923181
+* 					100879176
 * Date: October 17, 2017.
+<<<<<<< HEAD
+* Description: This class contains methods to read from and insert into the 
+* 				database
+*********************************************************************************/
+=======
 * Description: This class contains methods to access/manage the database.
 *************************************************************************/
+>>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 
 package helper;
 

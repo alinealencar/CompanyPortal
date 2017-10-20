@@ -1,18 +1,28 @@
+<<<<<<< HEAD
+/*********************************************************************************
+=======
 /***********************************************************************
+>>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 * Project: COMP3095_TechGirls
 * Assignment: Assignment 1
 * Author(s): Aline Neves Alencar,
-* 			 Kie Ogiya,
-* 			 Maria Alyssa Villacete,
-* 			 Princess Ilasin
+* 				Kie Ogiya,
+* 				Maria Alyssa Villacete,
+* 				Princess Ilasin
 * Student Number: 101036808,
-* 				  100984638
-* 				  100923181
-* 				  100879176
+* 					100984638
+* 					100923181
+* 					100879176
 * Date: October 17, 2017.
+<<<<<<< HEAD
+* Description: This class contains methods that help provide and generate values to 
+* 			   be stored in the database
+*********************************************************************************/
+=======
 * Description: This class contains methods that assists in generating 
 * 				values for the database.
 ***********************************************************************/
+>>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 
 package helper;
 
@@ -21,6 +31,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DatabaseHelper {
+<<<<<<< HEAD
+=======
 	/*public static String getDepartment(String position, Connection conn) 
 		throws Exception {
 		String result = "";
@@ -47,6 +59,7 @@ public class DatabaseHelper {
 	 * @param position	String that holds a certain position (role in the company).
 	 * @return int Integer that holds the department ID a certain position is part of.
 	 */
+>>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 	public static int getEmployeeDeptID(String position) {
 		
 		int deptID;

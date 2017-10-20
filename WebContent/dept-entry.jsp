@@ -9,6 +9,7 @@
 --%>
 	
 <%@include file="WEB-INF/menu.jsp" %>
+
 <span>
 	<%	//show success message if database insertion is successful
 		if((String) session.getAttribute("deptInsertSuccess") != null)
@@ -23,25 +24,29 @@
 
 	<h1>DEPARTMENT ENTRY</h1>
 	<form method = "post" action = "DepartmentEntry">
-		Department Name: <input type = "text" name ="deptName" value = "<%if((String) session.getAttribute("deptName") != null) out.println((String) session.getAttribute("deptName"));%>"/>
+		Department Name: <input type = "text" id = "deptName" name ="deptName" value = "<%if((String) session.getAttribute("deptName") != null) out.println((String) session.getAttribute("deptName"));%>"/>
 		<% if((String) session.getAttribute("errorDeptName") != null){
-			out.println((String) session.getAttribute("errorDeptName"));
+			out.println("<div id = errorDeptName>" + (String) session.getAttribute("errorDeptName") + "</div>");
 		   }
-		%>
+		%> 
 		<br>
-		Department Location/Floor: <input type = "text" name = "location" value = "<%if((String) session.getAttribute("location") != null) out.println((String) session.getAttribute("location"));%>"/>
+		Department Location/Floor: <input type = "text" id = "location" name = "location" value = "<%if((String) session.getAttribute("location") != null) out.println((String) session.getAttribute("location"));%>"/>
 		<% if((String) session.getAttribute("errorLoc") != null){
-			out.println((String) session.getAttribute("errorLoc"));
+			out.println("<div id = errorLoc>" + (String) session.getAttribute("errorLoc") + "</div>");
 		   }
-		%>
+		%> 
 		<br>
 		<input type = "submit" value = "Submit" />
-		<input type = "reset" value = "Cancel" />
+		<input type = "submit" value = "Cancel" onclick = "eraseValues()"/>
 	</form>
-	
-	
-	
-   	
 
+<script>
+	function eraseValues() {
+		document.getElementById("deptName").value = "";
+		document.getElementById("location").value = "";	
+		document.getElementById("erroDeptName").value = null;	
+		document.getElementById("errorLoc").value = null;
+	}
+</script>
 
 <%@include file="WEB-INF/footer.jsp" %>
