@@ -11,6 +11,13 @@ public class Department {
 		this.deptLoc = deptLoc;
 		this.id = id;
 	}
+	
+	private Department (String deptName, int id){
+		this.deptName = deptName;
+		this.deptLoc = deptLoc;
+		this.id = id;
+	}
+	
 
 	public String getDeptName() {
 		return deptName;
