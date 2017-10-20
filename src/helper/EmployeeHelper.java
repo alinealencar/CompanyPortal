@@ -10,7 +10,7 @@
 * 				  100923181
 * 				  100879176
 * Date: October 17, 2017.
-* Description: This class provides the the validation of user's input.
+* Description: This class contains methods that assists in generating values for the database
  */
 
 package helper;
@@ -57,6 +57,21 @@ public class EmployeeHelper {
 		
 		return deptID;	
 
+	}
+	
+	public static int getDeptId(String deptName, Connection conn) 
+			throws Exception {
+			int result=0;
+			Statement statement = conn.createStatement();
+			String query = "select id from department "
+					+ "where dept_name='" + deptName + "'";
+			ResultSet rs = statement.executeQuery(query);
+			if(rs != null){
+				if(rs.next()){
+					result = rs.getInt("id");
+					}
+				}
+			return result;
 	}
 	
 	
