@@ -15,7 +15,13 @@
 	ResultSet rsEmp4 = null;
 	ResultSet rsEmp5 = null;
 	ResultSet rsEmp6 = null;
-	rsDept = DatabaseManagement.selectFromTable("department", conn);	
+	rsDept = DatabaseManagement.selectFromTable("department", conn);
+	rsEmp1 = DatabaseManagement.selectFromTable("employee", conn);
+	rsEmp2 = DatabaseManagement.selectFromTable("employee", conn);
+	rsEmp3 = DatabaseManagement.selectFromTable("employee", conn);
+	rsEmp4 = DatabaseManagement.selectFromTable("employee", conn);
+	rsEmp5 = DatabaseManagement.selectFromTable("employee", conn);
+	rsEmp6 = DatabaseManagement.selectFromTable("employee", conn);
 	
 	String selectedDept = CookieUtilities.getCookieValue(request, "deptName", "");
 %>
@@ -35,12 +41,12 @@
 		
 		<%
 			//result set to retrieve employees based on selected department 
-			rsEmp1 = DatabaseManagement.selectEmployees(selectedDept, conn);
+			/*rsEmp1 = DatabaseManagement.selectEmployees(selectedDept, conn);
 			rsEmp2 = DatabaseManagement.selectEmployees(selectedDept, conn);
 			rsEmp3 = DatabaseManagement.selectEmployees(selectedDept, conn);
 			rsEmp4 = DatabaseManagement.selectEmployees(selectedDept, conn);
 			rsEmp5 = DatabaseManagement.selectEmployees(selectedDept, conn);
-			rsEmp6 = DatabaseManagement.selectEmployees(selectedDept, conn);
+			rsEmp6 = DatabaseManagement.selectEmployees(selectedDept, conn);*/
 		%>
 		
 	
