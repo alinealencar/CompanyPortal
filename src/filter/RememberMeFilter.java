@@ -36,13 +36,17 @@ import helper.AuthenticationHelper;
 @WebFilter("/RememberMeFilter")
 public class RememberMeFilter implements Filter {
 
+	@Override
 	public void destroy() {
 	}
 
 	/**
 	 * This method holds the logic of the filter. It checks whether the cookies
-	 * associated with the RememberMe feature exist.
+	 * associated with the RememberMe feature exist, by calling the isRememberCookies
+	 * method from the AuthenticationHelper class.
+	 * @see helper.AuthenticationHelper#isRememberCookies(HttpServletRequest, Connection)
 	 */
+	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
 		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
 		HttpServletRequest request = (HttpServletRequest) req;
@@ -64,6 +68,7 @@ public class RememberMeFilter implements Filter {
 		}
 	}
 
+	@Override
 	public void init(FilterConfig fConfig) throws ServletException {
 		
 	}

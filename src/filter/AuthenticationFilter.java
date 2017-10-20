@@ -1,3 +1,20 @@
+/*********************************************************************************
+* Project: COMP3095_TechGirls
+* Assignment: Assignment 1
+* Author(s): Aline Neves Alencar,
+* 				Kie Ogiya,
+* 				Maria Alyssa Villacete,
+* 				Princess Ilasin
+* Student Number: 101036808,
+* 					100984638
+* 					100923181
+* 					100879176
+* Date: October 17, 2017.
+* Description: This class acts as filter for certain pages. The Authentication filter
+* 				is applied to pages that require a user to be logged in in order to
+* 				be viewed.
+*********************************************************************************/
+
 package filter;
 
 import java.io.IOException;
@@ -23,6 +40,13 @@ public class AuthenticationFilter implements Filter {
 
 	}
 
+	/**
+	 * This method holds the logic of the filter. It checks whether the a user is 
+	 * logged in by their session, using the isLoggedIn method from the AuthenticationHelper
+	 * class.
+	 * 
+	 * @see helper.AuthenticationHelper#isLoggedIn(HttpSession)
+	 */
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
