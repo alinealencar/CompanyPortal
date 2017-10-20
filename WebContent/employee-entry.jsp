@@ -2,12 +2,12 @@
 <%@include file="WEB-INF/header.jsp" %>
 
 <%@include file="WEB-INF/menu.jsp" %>
-	<span>
+<%-- 	<span>
 	<% if((String) session.getAttribute("error") != null){
 			out.println((String) session.getAttribute("error"));
 		}
 	%>
-	</span>
+	</span> --%>
 	<h1>EMPLOYEE ENTRY</h1>
 	<form method = "post" action = "EmployeeEntry">
 		First Name: <input type = "text" name ="firstName" /><br>

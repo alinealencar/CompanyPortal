@@ -1,4 +1,4 @@
-<body>
+<body class="bg-light">
 	<ul class="nav nav-tabs">
 		<li class="nav-item">
 			<a class="nav-link" href ="dept-entry.jsp">Departments</a>
