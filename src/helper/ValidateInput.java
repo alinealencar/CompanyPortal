@@ -1,4 +1,4 @@
-/*
+/*********************************************************************
 * Project: COMP3095_TechGirls
 * Assignment: Assignment 1
 * Author(s): Aline Neves Alencar,
@@ -11,55 +11,28 @@
 * 				  100879176
 * Date: October 17, 2017.
 * Description: This class provides the the validation of user's input.
- */
+***********************************************************************/
 package helper;
 
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-@WebServlet("/ValidateInput")
-public class ValidateInput extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    public ValidateInput() {
-        super();
-    }
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-	
-	//to find if the inputed value exists or not
+public class ValidateInput {
+	/**
+	 * This method validates whether a certain value is either empty or null
+	 * @param data	String that holds the data that will be validated
+	 * @return boolean 	It returns true if the data satisfies the conditions, false otherwise.
+	 */
 	public static boolean isMissing(String data){
-		if(data=="" || data==null){
-			return true;
-		}
-		else{
-			return false;
-		}	
+		return (data.equals("") || data == null);
 	}
 	
-	
-	//check if the inputed value is all alphabet
+	/**
+	 * This method checks if the parameter contains alphabetic characters only.
+	 * @param data	String that holds the data that will be validated.
+	 * @return	boolean It returns true if the parameter is valid, false otherwise.
+	 */
 	public static boolean isAlphabet (String data){
-		/*validate isMissing() first otherwise empty value returns true.
-		 * or enable following code
-		 * 
-		if(!isMissing(data)){
-			return false;
-		}
-		*/
 		char[] chars = data.toCharArray();
 		for (char c : chars) {
 			if(!Character.isLetter(c)) {
@@ -68,39 +41,30 @@ public class ValidateInput extends HttpServlet {
 		}
 	    return true;
 	}
-	//Refeence: https://stackoverflow.com/questions/5238491/check-if-string-contains-only-letters
 	
-	
-	//validate email address
+	/**
+	 * This method checks if the parameter is a valid email address.
+	 * @param email	String that holds the data that will be validated.
+	 * @return	boolean	It returns true if the parameter is a valid email, false otherwise.
+	 */
 	public static boolean isValidEmail(String email){
-		/*validate isMissing() first otherwise empty value returns true.
-		 * or enable following code
-		 * 
-		if(!isMissing(data)){
-			return false;
-		}
-		*/
 		String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-		//reference: https://howtodoinjava.com/regex/java-regex-validate-email-address/
-        
+       
 		Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
-        if (!matcher.matches()) {
-        	return false;
-        }else{
-        	return true;
-        }
+        
+        return (matcher.matches());
 	}
 	
-	
-	//check if the inputed value is valid employee number
-	//employee number is 9 digits
+	/**
+	 * This method checks if the parameter is a valid employee number.
+	 * Valid employee numbers are 9-digits long.
+	 * @param data	String that holds the data that will be validated.
+	 * @return	boolean It returns true if the parameter is a valid employee number,
+	 * 					false otherwise.
+	 */
 	public static boolean isEmployeeNumber(String data){
-		if(data.matches("[0-9]+") && data.length() == 9){
-			return true;
-		}
-		
-		return false;
+		return (data.matches("[0-9]+") && data.length() == 9);
 	}
 
 }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /*********************************************************************************
+=======
+/***********************************************************************
+>>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 * Project: COMP3095_TechGirls
 * Assignment: Assignment 1
 * Author(s): Aline Neves Alencar,
@@ -10,9 +14,15 @@
 * 					100923181
 * 					100879176
 * Date: October 17, 2017.
+<<<<<<< HEAD
 * Description: This class contains methods that help provide and generate values to 
 * 			   be stored in the database
 *********************************************************************************/
+=======
+* Description: This class contains methods that assists in generating 
+* 				values for the database.
+***********************************************************************/
+>>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 
 package helper;
 
@@ -21,6 +31,35 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DatabaseHelper {
+<<<<<<< HEAD
+=======
+	/*public static String getDepartment(String position, Connection conn) 
+		throws Exception {
+		String result = "";
+		Statement statement = conn.createStatement();
+			String query = "select dept_name from department "
+					+ "join employee on department.id = employee.dept_id_fk "
+					+ "where job_position='" + position + "'";
+			ResultSet rs = statement.executeQuery(query);
+			
+			if(rs != null){
+				while(rs.next()){
+					result += rs.getString("dept_name");
+					}
+				}
+				else
+					result += "No data retrieved. Table is empty.";
+				
+				return result;
+		}*/
+
+	/**
+	 * This method returns and integer that represents the department a
+	 * position belongs to.
+	 * @param position	String that holds a certain position (role in the company).
+	 * @return int Integer that holds the department ID a certain position is part of.
+	 */
+>>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 	public static int getEmployeeDeptID(String position) {
 		
 		int deptID;
@@ -40,6 +79,13 @@ public class DatabaseHelper {
 
 	}
 	
+	/**
+	 * This method returns a department ID according to its name.
+	 * @param deptName	String that holds a department name.
+	 * @param conn	Connection object that holds a connection to the database.
+	 * @return	int	Integer that represents a department ID.
+	 * @throws Exception
+	 */
 	public static int getDeptId(String deptName, Connection conn) 
 		throws Exception {
 		int result=0;

@@ -1,8 +1,21 @@
+/*********************************************************************************
+* Project: COMP3095_TechGirls
+* Assignment: Assignment 1
+* Author(s): Aline Neves Alencar,
+* 				Kie Ogiya,
+* 				Maria Alyssa Villacete,
+* 				Princess Ilasin
+* Student Number: 101036808,
+* 					100984638
+* 					100923181
+* 					100879176
+* Date: October 17, 2017.
+* Description: This class reflects the model of the Group table in the database.
+*********************************************************************************/
+
 package dataModel;
 
-public class Group {
-
-	
+public class Group {	
 	private String deptName;
     private String groupName;
     private String member1;
@@ -12,6 +25,7 @@ public class Group {
     private String member5;
     private String member6;
     
+    // Constructors
 	public Group(String deptName, String groupName, String member1, String member2, String member3, String member4,
 			String member5, String member6) {
 		super();
@@ -24,7 +38,8 @@ public class Group {
 		this.member5 = member5;
 		this.member6 = member6;
 	}
-
+	
+	// Properties
 	public String getDeptName() {
 		return deptName;
 	}

@@ -8,12 +8,20 @@
 		}
 	%>
 	</span> --%>
+<div>
 	<h1>EMPLOYEE ENTRY</h1>
-	<form method = "post" action = "EmployeeEntry">
-		First Name: <input type = "text" name ="firstName" /><br>
-		Last Name: <input type = "text" name ="lastName" /><br>
-		Employee #: <input type = "text" name ="employeeNum" /><br>
-		Email: <input type = "text" name ="email" /><br>
+	<form method = "post" action = "EmployeeEntry" id="employeeEntry">
+		First Name: <input id="firstName" type = "text" name ="firstName" value="${firstName }"/><br>
+		<p>${errorFName}</p>
+		
+		Last Name: <input type = "text" name ="lastName" value="${lastName}"/><br>
+		<p>${errorLName}</p>
+		
+		Employee #: <input type = "text" name ="employeeNum" value="${employeeNum}"/><br>
+		
+		Email: <input type = "text" name ="email" value="${email}"/><br>
+		<p>${errorEmail}</p>
+		
 		<select id="hireYear" name = "hireYear">
 			<option value="">Hire Year</option>
   			<option value="2000">2000</option>
@@ -35,6 +43,7 @@
   			<option value="2016">2016</option>
   			<option value="2017">2017</option>
 		</select><br>
+		<p>${errorYear}</p>
 		<select id="jobPosition" name="jobPosition">
 			<option value="">Job Position</option>
   			<option value="Community Manager">Community Manager</option>
@@ -54,9 +63,18 @@
   			<option value="CFO">CFO</option>
   			<option value="Administrator">Administrator</option>
 		</select><br>
+		<p>${errorPosition}</p>
 		
+		<p>Session Values: ${firstName }, ${lastName}, ${employeeNum}, ${email}, ${hireYear}, ${jobPosition}</p>
 		<input type = "submit" value = "Submit" />
-		<input type = "reset" value = "Cancel" />
+		<input type = "reset" value="Cancel" onclick="ClearAll()"/>
 	</form>
+</div>
+<script type="text/javascript">
+function ClearAll(){
+<%request.getSession().setAttribute("firstName", "");%>;
+}
+</script>
 
-<%@include file ="WEB-INF/footer.jsp"%>
+
+<%--@include file ="WEB-INF/footer.jsp"--%>

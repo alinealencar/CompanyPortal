@@ -1,8 +1,7 @@
-<%@page import="dataModel.User"%>
 <body class="bg-light">
-	<ul class="nav nav-tabs">
+	<ul class="nav nav-pills">
 		<li class="nav-item">
-			<a class="nav-link active" href ="home.jsp">Home</a>
+			<a class="nav-link" href ="home.jsp">Home</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href ="dept-entry.jsp">Departments</a>
@@ -20,11 +19,12 @@
 			<a class="nav-link" href ="attendance.jsp">Attendance</a>
 		</li>
 		<li class="nav-item">
-			<span class="nav-link disabled">Welcome, <%String loggedInUser = (String) session.getAttribute("fName"); %>!</span>
+			<span class="nav-link disabled">Welcome, <%=request.getSession().getAttribute("fName") %>!</span>
 		</li>
 		<li class="nav-item">
 			<form action="LogoutServlet">
-				<input type="submit" value="logout" name="Logout">
+				<button type="submit" class="btn btn-primary">Logout</button>
 			</form>
 		</li>
 	</ul>
+	<hr>

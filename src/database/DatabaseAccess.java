@@ -24,7 +24,12 @@ public class DatabaseAccess {
 	private static String database = "COMP3095";
 	
 	private static Connection connect = null;
-	  
+	
+	/**
+	 * This method provides the connection to the database.
+	 * @return Connection	Connection object that holds the connection to the database
+	 * @throws Exception
+	 */
 	public static Connection connectDataBase() throws Exception {
 		try {
 			// This will load the MySQL driver, each DB has its own driver
@@ -38,11 +43,5 @@ public class DatabaseAccess {
 	      throw e;
 	    } 
 	  }
-	
-	public static void createDatabase() throws Exception {
-		
-	}
-	
-	public String getFoo() { return "foo"; }
 }
 

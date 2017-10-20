@@ -33,6 +33,7 @@ import javax.servlet.http.HttpSession;
 import dataModel.User;
 import database.DatabaseAccess;
 import helper.AuthenticationHelper;
+import helper.CookieUtilities;
 import helper.DatabaseManagement;
 
 @WebServlet("/Login")
@@ -43,27 +44,55 @@ public class Login extends HttpServlet {
         super();
     }
     
+    /**
+     * This method is called whenever this servlet receives a GET request.
+     * The method is responsible for checking whether the user is already logged in.
+     * It redirects the logged in user to the home page home.jsp.
+     * If the user is required to log in, it redirects them to the login page login.jsp.
+     * 
+     * The RememberMeFilter is applied to the login.jsp page to test for the RememberMe option.
+     * 
+     * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = "login.jsp";
 		HttpSession session = request.getSession();
+		
+		if(AuthenticationHelper.isLoggedIn(session)){
+			response.sendRedirect("home.jsp");
+		}
 		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
 		try{
 			Connection conn = null;
-			DatabaseAccess.createDatabase();
+			//DatabaseAccess.createDatabase();
 			conn = DatabaseAccess.connectDataBase();
 			
 			// Check if user has the RememberMe cookies (uuid and user)
-			if(AuthenticationHelper.isLoggedIn(session)){
-				path = "home.jsp";
-			}
+			if(AuthenticationHelper.isRememberCookies(request, conn))
+				response.sendRedirect("home.jsp");
+			else
+				response.sendRedirect("login.jsp");
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		
-		response.sendRedirect(path);
-		return;
 	}
 
+	/**
+	 * This method is called whenever this servlet receives a POST request (the form
+	 * in the login.jsp page is submitted).
+	 * This method is responsible for authentication the user to the application,
+	 * according to the information sent in the form present in the login.jsp page.
+	 * 
+	 * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// If the form was submitted
 		String username;
@@ -75,48 +104,31 @@ public class Login extends HttpServlet {
 		
 		Connection conn = null;
 		HttpSession session = request.getSession(true);
-		
+
 		String redirectTo = "login.jsp";
+
 		
 		if(!username.isEmpty() && !password.isEmpty()){
 			try {
-				DatabaseAccess.createDatabase();
+				//DatabaseAccess.createDatabase();
 				conn = DatabaseAccess.connectDataBase();
-				// Read from the users table
-				boolean authSuccess = false;
-				User aUser = new User();
-				
-				//Validate the user/password combination exists in the Users table
-				Statement statement = conn.createStatement();
-				ResultSet rs = statement.executeQuery("select * from appusers where username='" 
-						+ username + "' and password='" + password + "';" );
-				if(rs != null){
-					if (rs.next()) {
-						aUser.setId(Integer.parseInt(rs.getString(1)));
-						aUser.setFirstname(rs.getString(2));
-						aUser.setLastname(rs.getString(3));
-						aUser.setEmail(rs.getString(4));
-						aUser.setRole(rs.getString(5));
-						aUser.setUsername(rs.getString(6));
-						authSuccess = true;
-					}
-				}
 
-				if(authSuccess){
+				User aUser = AuthenticationHelper.isValidUser(conn, username, password);
+
+				if(aUser != null){
 					session.setAttribute("user", aUser);
 					session.setAttribute("fName", aUser.getFirstName());
-					//If the user doesn't make any request in 20min, the session will expire
-					session.setMaxInactiveInterval(20*60);
+
+					//If the user doesn't make any requests in 60min, the session expires
+					session.setMaxInactiveInterval(60*60);
 				
 					//Create 2 cookies to remember the user later
 					if(rememberMe != null) {
 						String uuid =  UUID.randomUUID().toString(); // Unique identifier
 						String userId = Integer.toString(aUser.getId()); // User ID of the authenticated user
-						Cookie token = new Cookie("uuid", uuid);
-						Cookie user = new Cookie("user", userId);
 						
-						token.setMaxAge(365 * 24 * 60 * 60); // one year
-						user.setMaxAge(365 * 24 * 60 * 60); // one year
+						Cookie token = CookieUtilities.createRememberMeCookie("uuid", uuid);
+						Cookie user = CookieUtilities.createRememberMeCookie("user", userId);
 						
 						//Write the token in the database
 						DatabaseManagement.insertUserToken(uuid, userId, conn);
@@ -129,9 +141,8 @@ public class Login extends HttpServlet {
 					redirectTo = "home.jsp";
 					
 				}
-				else {
+				else
 					session.setAttribute("error", "Invalid username and/or password.");
-				}
 			}
 			catch(Exception e){
 				System.out.println(e);
@@ -148,9 +159,8 @@ public class Login extends HttpServlet {
 				}
 			}
 		}
-		else {
+		else
 			response.sendRedirect(redirectTo);
-		}
 	}
 
 }

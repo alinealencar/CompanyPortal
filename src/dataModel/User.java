@@ -1,10 +1,25 @@
+/*********************************************************************************
+* Project: COMP3095_TechGirls
+* Assignment: Assignment 1
+* Author(s): Aline Neves Alencar,
+* 				Kie Ogiya,
+* 				Maria Alyssa Villacete,
+* 				Princess Ilasin
+* Student Number: 101036808,
+* 					100984638
+* 					100923181
+* 					100879176
+* Date: October 17, 2017.
+* Description: This class reflects the model of the Appusers table in the database.
+*********************************************************************************/
+
 package dataModel;
 
 public class User {
-
 	private String firstName, lastName, email, role, username, password, uuid;
 	private int id;
 	
+	// Constructors
 	public User(){
 		super();
 	}
@@ -18,6 +33,7 @@ public class User {
 		this.password = password;
 	}
 
+	// Properties
 	public String getFirstName() {
 		return firstName;
 	}
