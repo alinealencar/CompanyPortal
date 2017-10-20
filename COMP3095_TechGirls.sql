@@ -3,6 +3,7 @@ CREATE DATABASE IF NOT EXISTS COMP3095;
 USE COMP3095;
 grant all on COMP3095.* to 'admin'@'localhost' identified by 'admin'; 
 
+DROP TABLE IF EXISTS APPUSERS;
 CREATE TABLE APPUSERS 
 ( 
 	id int(11) AUTO_INCREMENT PRIMARY KEY, 
@@ -18,6 +19,7 @@ CREATE TABLE APPUSERS
 INSERT INTO APPUSERS (firstname, lastname, email, role, username, password, token) VALUES
 (NULL, NULL, 'admin@domain.ca', NULL, 'admin', 'admin', NULL);
 
+DROP TABLE IF EXISTS DEPARTMENT;
 CREATE TABLE DEPARTMENT
 ( 
 	id int(11) AUTO_INCREMENT PRIMARY KEY, 
@@ -25,11 +27,13 @@ CREATE TABLE DEPARTMENT
 	location varchar(255)	NOT NULL
 );
 
+DROP TABLE IF EXISTS EMPLOYEE;
 CREATE TABLE EMPLOYEE
 ( 
 	emp_id int(11) AUTO_INCREMENT PRIMARY KEY, 
 	firstname varchar(255)	NOT NULL,
 	lastname varchar(255)	NOT NULL,
+	email varchar(255) NOT NULL,
     	emp_no varchar(255),
     	hire_year varchar(255) NOT NULL,
     	job_position varchar(255) NOT NULL,
@@ -37,6 +41,7 @@ CREATE TABLE EMPLOYEE
     	FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
 );
 
+DROP TABLE IF EXISTS GROUPS;
 CREATE TABLE GROUPS
 ( 
 	groups_id int(11) AUTO_INCREMENT PRIMARY KEY, 
@@ -52,6 +57,7 @@ CREATE TABLE GROUPS
     	FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
 );
 
+DROP TABLE IF EXISTS EMPLOYEE_GROUPS;
 CREATE TABLE EMPLOYEE_GROUPS
 (
 	employee_groups_id int(11) AUTO_INCREMENT PRIMARY KEY,
