@@ -1,4 +1,4 @@
-/*
+/***********************************************************************
 * Project: COMP3095_TechGirls
 * Assignment: Assignment 1
 * Author(s): Aline Neves Alencar,
@@ -10,8 +10,9 @@
 * 				  100923181
 * 				  100879176
 * Date: October 17, 2017.
-* Description: This class contains methods that assists in generating values for the database
- */
+* Description: This class contains methods that assists in generating 
+* 				values for the database.
+***********************************************************************/
 
 package helper;
 
@@ -40,6 +41,12 @@ public class DatabaseHelper {
 				return result;
 		}*/
 
+	/**
+	 * This method returns and integer that represents the department a
+	 * position belongs to.
+	 * @param position	String that holds a certain position (role in the company).
+	 * @return int Integer that holds the department ID a certain position is part of.
+	 */
 	public static int getEmployeeDeptID(String position) {
 		
 		int deptID;
@@ -59,6 +66,13 @@ public class DatabaseHelper {
 
 	}
 	
+	/**
+	 * This method returns a department ID according to its name.
+	 * @param deptName	String that holds a department name.
+	 * @param conn	Connection object that holds a connection to the database.
+	 * @return	int	Integer that represents a department ID.
+	 * @throws Exception
+	 */
 	public static int getDeptId(String deptName, Connection conn) 
 		throws Exception {
 		int result=0;

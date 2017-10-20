@@ -29,7 +29,7 @@ public class RememberMeFilter implements Filter {
 		
 		try{
 			Connection conn = null;
-			DatabaseAccess.createDatabase();
+			//DatabaseAccess.createDatabase();
 			conn = DatabaseAccess.connectDataBase();
 			
 			// Check if user has the RememberMe cookies (uuid and user) or if the user iscurrently logged in

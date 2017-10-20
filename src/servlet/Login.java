@@ -67,7 +67,7 @@ public class Login extends HttpServlet {
 		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
 		try{
 			Connection conn = null;
-			DatabaseAccess.createDatabase();
+			//DatabaseAccess.createDatabase();
 			conn = DatabaseAccess.connectDataBase();
 			
 			// Check if user has the RememberMe cookies (uuid and user)
@@ -110,7 +110,7 @@ public class Login extends HttpServlet {
 		
 		if(!username.isEmpty() && !password.isEmpty()){
 			try {
-				DatabaseAccess.createDatabase();
+				//DatabaseAccess.createDatabase();
 				conn = DatabaseAccess.connectDataBase();
 
 				User aUser = AuthenticationHelper.isValidUser(conn, username, password);

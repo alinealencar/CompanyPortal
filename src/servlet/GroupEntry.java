@@ -126,7 +126,7 @@ public class GroupEntry extends HttpServlet {
 		if (!isMissingValue){
 			
 			try {
-				DatabaseAccess.createDatabase();
+				//DatabaseAccess.createDatabase();
 				conn = DatabaseAccess.connectDataBase();
 			
 				if(DatabaseManagement.insertGroup(deptName, groupName, emp1, emp2, emp3, emp4, emp5, emp6, conn)) 

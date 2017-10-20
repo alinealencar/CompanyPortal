@@ -106,7 +106,7 @@ public class DepartmentEntry extends HttpServlet {
 		if (!isMissingValue){
 		
 			try {
-				DatabaseAccess.createDatabase();
+				//DatabaseAccess.createDatabase();
 				conn = DatabaseAccess.connectDataBase();
 			
 				if(DatabaseManagement.insertDepartment(deptName, loc, conn)) 

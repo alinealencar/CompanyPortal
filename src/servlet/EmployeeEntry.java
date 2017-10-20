@@ -151,7 +151,7 @@ public class EmployeeEntry extends HttpServlet {
 				
 		if(validFName && validLName && validEmail && validYear && validJobPos){
 			try {
-				DatabaseAccess.createDatabase();
+				//DatabaseAccess.createDatabase();
 				conn = (Connection) DatabaseAccess.connectDataBase();
 				
 				if(DatabaseManagement.insertEmployee(firstName, lastName, employeeNum, email, hireYear, jobPosition, conn)){
