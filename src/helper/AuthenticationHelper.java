@@ -82,8 +82,6 @@ public class AuthenticationHelper {
 	
 	public static User isValidUser(Connection conn, String username, String password)
 		throws Exception {
-		DatabaseAccess.createDatabase();
-		conn = DatabaseAccess.connectDataBase();
 		User aUser = null;
 		
 		//Validate the user/password combination exists in the Users table
