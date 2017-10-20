@@ -145,7 +145,6 @@ public class EmployeeEntry extends HttpServlet {
 
 		 
 		//Store valid data to database
-		
 		Connection conn = null;
 		HttpSession session = request.getSession(true);
 				

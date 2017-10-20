@@ -31,7 +31,6 @@ public class Department {
 	
 	private Department (String deptName, int id){
 		this.deptName = deptName;
-		this.deptLoc = deptLoc;
 		this.id = id;
 	}
 	
