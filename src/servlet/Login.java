@@ -45,7 +45,7 @@ public class Login extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "login.jsp";
-		
+		HttpSession session = request.getSession();
 		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
 		try{
 			Connection conn = null;
@@ -53,7 +53,7 @@ public class Login extends HttpServlet {
 			conn = DatabaseAccess.connectDataBase();
 			
 			// Check if user has the RememberMe cookies (uuid and user)
-			if(AuthenticationHelper.isRememberCookies(request, conn)){
+			if(AuthenticationHelper.isLoggedIn(session)){
 				path = "home.jsp";
 			}
 		} catch (Exception e){
@@ -123,10 +123,8 @@ public class Login extends HttpServlet {
 						
 						response.addCookie(token);
 						response.addCookie(user);
-						
-
 					}
-						
+					
 					//Send the user to the home page
 					redirectTo = "home.jsp";
 					
