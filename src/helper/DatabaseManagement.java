@@ -52,7 +52,7 @@ public class DatabaseManagement {
 	
 	public static Boolean insertEmployee(String fName, String lName, String empNo, String email, String hireYear, String position, Connection conn)
 			throws Exception {
-			String query = "insert into employee(firstname, lastname, emp_no, email, hire_year, position, dept_id_fk) values(?,?,?,?,?,?,?)";
+			String query = "insert into employee(firstname, lastname, emp_no, email, hire_year, job_position, dept_id_fk) values(?,?,?,?,?,?,?)";
 			
 		    PreparedStatement preparedStmt = conn.prepareStatement(query);
 		    
