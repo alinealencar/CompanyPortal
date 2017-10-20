@@ -156,6 +156,12 @@ public class EmployeeEntry extends HttpServlet {
 				
 				if(DatabaseManagement.insertEmployee(firstName, lastName, employeeNum, email, hireYear, jobPosition, conn)){
 					session.setAttribute("employeeSuccess","Employee " + firstName + lastName + " has been successfully added to the system ") ;
+					
+					//clear all form for successfully added employee
+					request.getSession().setAttribute("firstName", "");
+					request.getSession().setAttribute("lastName", "");
+					request.getSession().setAttribute("employeeNum","");
+					request.getSession().setAttribute("email", "");
 				}
 				else {
 					session.setAttribute("employeeError", "Employee " + firstName + lastName + " has NOT been added to the system ");
@@ -180,13 +186,12 @@ public class EmployeeEntry extends HttpServlet {
 			response.sendRedirect("employee-entry.jsp");
 		}
 		
-		//response.sendRedirect();
 		
 		//**************************************** Not done yet		
 		/*
 		 * drop down list doesn't stay selected item when there is invalid value
 		 * haven't check proper value is stored  --- DONE
-		 * pass data to database
+		 * pass data to database --- DONE
 		 * show successful entry
 		 */
 

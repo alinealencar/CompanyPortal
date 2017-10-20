@@ -10,8 +10,8 @@
 	</span> --%>
 <div>
 	<h1>EMPLOYEE ENTRY</h1>
-	<form method = "post" action = "EmployeeEntry">
-		First Name: <input type = "text" name ="firstName" value="${firstName }"/><br>
+	<form method = "post" action = "EmployeeEntry" id="employeeEntry">
+		First Name: <input id="firstName" type = "text" name ="firstName" value="${firstName }"/><br>
 		<p>${errorFName}</p>
 		
 		Last Name: <input type = "text" name ="lastName" value="${lastName}"/><br>
@@ -67,8 +67,14 @@
 		
 		<p>Session Values: ${firstName }, ${lastName}, ${employeeNum}, ${email}, ${hireYear}, ${jobPosition}</p>
 		<input type = "submit" value = "Submit" />
-		<input type = "reset" value = "Cancel" />
+		<input type = "reset" value="Cancel" onclick="ClearAll()"/>
 	</form>
 </div>
+<script type="text/javascript">
+function ClearAll(){
+<%request.getSession().setAttribute("firstName", "");%>;
+}
+</script>
+
 
 <%--@include file ="WEB-INF/footer.jsp"--%>
