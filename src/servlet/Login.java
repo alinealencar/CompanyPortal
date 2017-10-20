@@ -59,16 +59,11 @@ public class Login extends HttpServlet {
      * @exception	 IOException on input error
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-		String path = "login.jsp";
 		HttpSession session = request.getSession();
 		
 		if(AuthenticationHelper.isLoggedIn(session)){
-			path = "home.jsp";
-=======
-=======
->>>>>>> Stashed changes
+			response.sendRedirect("home.jsp");
+		}
 		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
 		try{
 			Connection conn = null;
@@ -82,7 +77,6 @@ public class Login extends HttpServlet {
 				response.sendRedirect("login.jsp");
 		} catch (Exception e){
 			e.printStackTrace();
->>>>>>> Stashed changes
 		}
 	}
 
@@ -110,45 +104,16 @@ public class Login extends HttpServlet {
 		
 		Connection conn = null;
 		HttpSession session = request.getSession(true);
-		
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 		String redirectTo = "login.jsp";
-=======
-		String redirectTo = "Login";
->>>>>>> Stashed changes
-=======
-		String redirectTo = "Login";
->>>>>>> Stashed changes
+
 		
 		if(!username.isEmpty() && !password.isEmpty()){
 			try {
 				DatabaseAccess.createDatabase();
 				conn = DatabaseAccess.connectDataBase();
-<<<<<<< Updated upstream
+
 				User aUser = AuthenticationHelper.isValidUser(conn, username, password);
-=======
-				// Read from the users table
-				boolean authSuccess = false;
-				User aUser = new User();
-				
-				//Validate the user/password combination exists in the Users table
-				Statement statement = conn.createStatement();
-				ResultSet rs = statement.executeQuery("select * from appusers where username='" 
-						+ username + "' and password='" + password + "';" );
-				if(rs != null){
-					if (rs.next()) {
-						aUser.setId(rs.getInt(1));
-						aUser.setFirstname(rs.getString(2));
-						aUser.setLastname(rs.getString(3));
-						aUser.setEmail(rs.getString(4));
-						aUser.setRole(rs.getString(5));
-						aUser.setUsername(rs.getString(6));
-						aUser.setPassword(rs.getString(7));
-						authSuccess = true;
-					}
-				}
->>>>>>> Stashed changes
 
 				if(aUser != null){
 					session.setAttribute("user", aUser);
