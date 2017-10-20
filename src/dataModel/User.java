@@ -1,10 +1,10 @@
 package dataModel;
 
 public class User {
-
 	private String firstName, lastName, email, role, username, password, uuid;
 	private int id;
 	
+	// Constructors
 	public User(){
 		super();
 	}
@@ -18,6 +18,7 @@ public class User {
 		this.password = password;
 	}
 
+	// Properties
 	public String getFirstName() {
 		return firstName;
 	}
