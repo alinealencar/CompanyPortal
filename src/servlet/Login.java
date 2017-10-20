@@ -44,27 +44,45 @@ public class Login extends HttpServlet {
         super();
     }
     
+    /**
+     * This method is called whenever this servlet receives a GET request.
+     * The method is responsible for checking whether the user is already logged in.
+     * It redirects the logged in user to the home page home.jsp.
+     * If the user is required to log in, it redirects them to the login page login.jsp.
+     * 
+     * The RememberMeFilter is applied to the login.jsp page to test for the RememberMe option.
+     * 
+     * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "login.jsp";
 		HttpSession session = request.getSession();
-		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
-		try{
-			Connection conn = null;
-			DatabaseAccess.createDatabase();
-			conn = DatabaseAccess.connectDataBase();
-			
-			// Check if user has the RememberMe cookies (uuid and user)
-			if(AuthenticationHelper.isLoggedIn(session)){
-				path = "home.jsp";
-			}
-		} catch (Exception e){
-			e.printStackTrace();
+		
+		if(AuthenticationHelper.isLoggedIn(session)){
+			path = "home.jsp";
 		}
 		
 		response.sendRedirect(path);
 		return;
 	}
 
+	/**
+	 * This method is called whenever this servlet receives a POST request (the form
+	 * in the login.jsp page is submitted).
+	 * This method is responsible for authentication the user to the application,
+	 * according to the information sent in the form present in the login.jsp page.
+	 * 
+	 * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// If the form was submitted
 		String username;
@@ -89,8 +107,8 @@ public class Login extends HttpServlet {
 					session.setAttribute("user", aUser);
 					session.setAttribute("fName", aUser.getFirstName());
 
-					//If the user doesn't make any request in 20min, the session will expire
-					session.setMaxInactiveInterval(20*60);
+					//If the user doesn't make any requests in 60min, the session expires
+					session.setMaxInactiveInterval(60*60);
 				
 					//Create 2 cookies to remember the user later
 					if(rememberMe != null) {
@@ -111,9 +129,8 @@ public class Login extends HttpServlet {
 					redirectTo = "home.jsp";
 					
 				}
-				else {
+				else
 					session.setAttribute("error", "Invalid username and/or password.");
-				}
 			}
 			catch(Exception e){
 				System.out.println(e);
@@ -130,9 +147,8 @@ public class Login extends HttpServlet {
 				}
 			}
 		}
-		else {
+		else
 			response.sendRedirect(redirectTo);
-		}
 	}
 
 }
