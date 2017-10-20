@@ -65,6 +65,7 @@
 		</select><br>
 		<p>${errorPosition}</p>
 		
+		<p>Session Values: ${firstName }, ${lastName}, ${employeeNum}, ${email}, ${hireYear}, ${jobPosition}</p>
 		<input type = "submit" value = "Submit" />
 		<input type = "reset" value = "Cancel" />
 	</form>

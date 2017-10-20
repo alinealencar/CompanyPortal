@@ -16,17 +16,22 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.sql.Statement;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mysql.jdbc.Connection;
 
+import dataModel.User;
 import database.DatabaseAccess;
 import helper.DatabaseManagement;
 import helper.ValidateInput;
@@ -44,6 +49,13 @@ public class EmployeeEntry extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//check if valid
+		boolean validFName = false;
+		boolean validLName = false;
+		//boolean validEmpNo = false;
+		boolean validEmail = false;
+		boolean validYear = false;
+		boolean validJobPos = false;
 		
 		//get user input information
 		String firstName = request.getParameter("firstName");
@@ -54,12 +66,13 @@ public class EmployeeEntry extends HttpServlet {
 		String jobPosition = request.getParameter("jobPosition");
 		
 		//validation
-				response.sendRedirect("employee-entry.jsp");
+		//response.sendRedirect("employee-entry.jsp");
 				
 		//first name validation (if it is not empty and/or only alphabet)
 		if(!ValidateInput.isMissing(firstName) && ValidateInput.isAlphabet(firstName)){
 			request.getSession().removeAttribute("errorFName");
 			request.getSession().setAttribute("firstName", firstName);//store valid value to session
+			validFName = true;
 		}else{
 			if(ValidateInput.isMissing(firstName)){			
 				request.getSession().setAttribute("errorFName", "You must Input First Name");
@@ -70,14 +83,12 @@ public class EmployeeEntry extends HttpServlet {
 			}
 		}
 		
-		//employee number stays in textbox when user need to modify other value
-		request.getSession().setAttribute("employeeNum", employeeNum);//store value to session
-		
-			
+					
 		//last name validation (if it is not empty and/or only alphabet)		
 		if(!ValidateInput.isMissing(lastName) && ValidateInput.isAlphabet(lastName)){
 			request.getSession().removeAttribute("errorLName");
 			request.getSession().setAttribute("lastName", lastName);//store valid value to session
+			validLName = true;
 		}else{
 			if(ValidateInput.isMissing(lastName)){			
 				request.getSession().setAttribute("errorLName", "You must Input Last Name");
@@ -86,12 +97,18 @@ public class EmployeeEntry extends HttpServlet {
 				request.getSession().setAttribute("errorLName", "Last Name must contain only alphabet");
 				request.getSession().setAttribute("lastName", "");
 			}
-		}	
+		}
+		
+		
+		//employee number stays in textbox when user need to modify other value
+		request.getSession().setAttribute("employeeNum", employeeNum);//store value to session
+		
 			
 		//email validation (if it is not empty and/or valid email combination)
 		if(!ValidateInput.isMissing(email) && ValidateInput.isValidEmail(email)){
 			request.getSession().removeAttribute("errorEmail");
 			request.getSession().setAttribute("email", email);//store valid value to session
+			validEmail = true;
 		}else{
 			if(ValidateInput.isMissing(email)){			
 				request.getSession().setAttribute("errorEmail", "You must Input Email");
@@ -107,6 +124,7 @@ public class EmployeeEntry extends HttpServlet {
 			request.getSession().removeAttribute("errorYear");
 			//request.getSession().setAttribute("2000", "selected=\"selected\"");//keep selected **********************************
 			request.getSession().setAttribute("hireYear", hireYear);//store valid value to session
+			validYear = true;
 		}else{
 			if(hireYear == ""){			
 				request.getSession().setAttribute("errorYear", "You must select a year");
@@ -118,16 +136,56 @@ public class EmployeeEntry extends HttpServlet {
 			request.getSession().removeAttribute("errorPosition");
 			//request.getSession().setAttribute("2000", "selected=\"selected\"");//keep selected **********************************
 			request.getSession().setAttribute("jobPosition", jobPosition);//store valid value to session
+			validJobPos = true;
 		}else{
 			if(jobPosition == ""){			
 			request.getSession().setAttribute("errorPosition", "You must be a valid job position");
 			}
 		}
 
+		 
+		//Store valid data to database
+		
+		Connection conn = null;
+		HttpSession session = request.getSession(true);
+				
+		if(validFName && validLName && validEmail && validYear && validJobPos){
+			try {
+				DatabaseAccess.createDatabase();
+				conn = (Connection) DatabaseAccess.connectDataBase();
+				
+				if(DatabaseManagement.insertEmployee(firstName, lastName, employeeNum, email, hireYear, jobPosition, conn)){
+					session.setAttribute("employeeSuccess","Employee " + firstName + lastName + " has been successfully added to the system ") ;
+				}
+				else {
+					session.setAttribute("employeeError", "Employee " + firstName + lastName + " has NOT been added to the system ");
+				}
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
+			finally {
+				try{
+					// Close the connection
+					conn.close();
+					response.sendRedirect("employee-entry.jsp");
+					return;
+				}
+				catch(SQLException ex){
+					ex.printStackTrace();
+				}
+			}
+		}
+		else {
+			response.sendRedirect("employee-entry.jsp");
+		}
+		
+		//response.sendRedirect();
+		
 		//**************************************** Not done yet		
 		/*
 		 * drop down list doesn't stay selected item when there is invalid value
-		 * haven't check proper value is stored
+		 * haven't check proper value is stored  --- DONE
 		 * pass data to database
 		 * show successful entry
 		 */
