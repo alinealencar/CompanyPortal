@@ -45,7 +45,7 @@ public class Login extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "login.jsp";
-		
+		HttpSession session = request.getSession();
 		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
 		try{
 			Connection conn = null;
@@ -53,7 +53,7 @@ public class Login extends HttpServlet {
 			conn = DatabaseAccess.connectDataBase();
 			
 			// Check if user has the RememberMe cookies (uuid and user)
-			if(AuthenticationHelper.isRememberCookies(request, conn)){
+			if(AuthenticationHelper.isLoggedIn(session)){
 				path = "home.jsp";
 			}
 		} catch (Exception e){
@@ -76,7 +76,7 @@ public class Login extends HttpServlet {
 		Connection conn = null;
 		HttpSession session = request.getSession(true);
 		
-		String redirectTo = "/";
+		String redirectTo = "login.jsp";
 		
 		if(!username.isEmpty() && !password.isEmpty()){
 			try {
@@ -92,18 +92,19 @@ public class Login extends HttpServlet {
 						+ username + "' and password='" + password + "';" );
 				if(rs != null){
 					if (rs.next()) {
-						aUser.setFirstname(rs.getString(1));
-						aUser.setLastname(rs.getString(2));
-						aUser.setEmail(rs.getString(3));
-						aUser.setRole(rs.getString(4));
-						aUser.setUsername(rs.getString(5));
-						aUser.setPassword(rs.getString(6));
+						aUser.setId(Integer.parseInt(rs.getString(1)));
+						aUser.setFirstname(rs.getString(2));
+						aUser.setLastname(rs.getString(3));
+						aUser.setEmail(rs.getString(4));
+						aUser.setRole(rs.getString(5));
+						aUser.setUsername(rs.getString(6));
 						authSuccess = true;
 					}
 				}
 
 				if(authSuccess){
 					session.setAttribute("user", aUser);
+					session.setAttribute("fName", aUser.getFirstName());
 					//If the user doesn't make any request in 20min, the session will expire
 					session.setMaxInactiveInterval(20*60);
 				
@@ -122,10 +123,8 @@ public class Login extends HttpServlet {
 						
 						response.addCookie(token);
 						response.addCookie(user);
-						
-
 					}
-						
+					
 					//Send the user to the home page
 					redirectTo = "home.jsp";
 					
@@ -148,6 +147,9 @@ public class Login extends HttpServlet {
 					ex.printStackTrace();
 				}
 			}
+		}
+		else {
+			response.sendRedirect(redirectTo);
 		}
 	}
 

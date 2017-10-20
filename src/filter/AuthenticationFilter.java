@@ -37,8 +37,6 @@ public class AuthenticationFilter implements Filter {
 			//Redirect user back to the login page
 			response.sendRedirect(request.getContextPath());
 		}
-		
-		
 	}
 
 	@Override

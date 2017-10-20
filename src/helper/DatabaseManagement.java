@@ -10,7 +10,7 @@
 * 				  100923181
 * 				  100879176
 * Date: October 17, 2017.
-* Description: This class provides the the validation of user's input.
+* Description: This class contains methods to manage the database.
  */
 
 package helper;
@@ -90,8 +90,13 @@ public class DatabaseManagement {
 	
 	public static Boolean insertGroup(String deptName, String groupName, String member1, String member2, String member3, String member4, String member5, String member6, Connection conn)
 			throws Exception {
+			member2 = null;
+			member3 = null;
+			member4 = null;
+			member5 = null;
+			member6 = null;
 			Statement statement = conn.createStatement();
-			String query = "insert into group(dept_name, group_name, member1, member2, member3, member4, member5, member6)  values(?,?,?,?,?,?,?,?)";
+			String query = "insert into groups(dept_name, group_name, member1, member2, member3, member4, member5, member6, dept_id_fk)  values(?,?,?,?,?,?,?,?,?)";
 			
 		    PreparedStatement preparedStmt = conn.prepareStatement(query);
 		    
@@ -103,12 +108,25 @@ public class DatabaseManagement {
 		    preparedStmt.setString (6, member4);
 		    preparedStmt.setString (7, member5);
 		    preparedStmt.setString (8, member6);
+		    preparedStmt.setInt (9, EmployeeHelper.getDeptId(deptName, conn));
 		    
 		    int rowsAffected = preparedStmt.executeUpdate();
 		    if (rowsAffected > 0)
 		    	return true;
 		    else
 		    	return false;
+	}
+	
+	public static ResultSet selectEmployees(String deptName, Connection conn) 
+			throws Exception {
+			String result = "";
+			Statement statement = conn.createStatement();
+			String query = "select firstname, lastname from employee "
+					+ "inner join department on department.id = employee.dept_id_fk "
+					+ "where dept_name='" + deptName + "'";
+			ResultSet rs = statement.executeQuery(query);
+			
+			return rs;
 	}
 	
 }

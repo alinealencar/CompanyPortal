@@ -45,3 +45,4 @@ public class DatabaseAccess {
 	
 	public String getFoo() { return "foo"; }
 }
+

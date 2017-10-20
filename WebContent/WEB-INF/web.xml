@@ -4,6 +4,7 @@
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
+  
   <resource-ref>
     <description>COMP3095</description>
     <res-ref-name>jdbc/COMP3095</res-ref-name>
@@ -12,16 +13,22 @@
   </resource-ref>
   
   <filter>
-  	<filter-name>AuthenticationFilter</filter-name>
-  	<filter-class>filter.AuthenticationFilter</filter-class>
+    <filter-name>AuthenticationFilter</filter-name>
+    <filter-class>filter.AuthenticationFilter</filter-class>
   </filter>
-  
   <filter-mapping>
-  	<filter-name>AuthenticationFilter</filter-name>
-  	<url-pattern>/home.jsp</url-pattern>
-  	<!--url-pattern>/dept-entry.jsp</url-pattern>
-  	<url-pattern>/employee-entry.jsp</url-pattern>
-  	<url-pattern>/report.jsp</url-pattern>
-  	<url-pattern>/attendance.jsp</url-pattern-->
+    <filter-name>AuthenticationFilter</filter-name>
+    <url-pattern>/home.jsp</url-pattern>
+    <url-pattern>/report.jsp</url-pattern>
+    <url-pattern>/attendance.jsp</url-pattern>
+  </filter-mapping>
+  
+    <filter>
+    <filter-name>RememberMeFilter</filter-name>
+    <filter-class>filter.RememberMeFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>RememberMeFilter</filter-name>
+    <url-pattern>/login.jsp</url-pattern>
   </filter-mapping>
 </web-app>
