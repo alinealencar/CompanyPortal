@@ -33,6 +33,7 @@ import javax.servlet.http.HttpSession;
 import dataModel.User;
 import database.DatabaseAccess;
 import helper.AuthenticationHelper;
+import helper.CookieUtilities;
 import helper.DatabaseManagement;
 
 @WebServlet("/Login")
@@ -82,27 +83,9 @@ public class Login extends HttpServlet {
 			try {
 				DatabaseAccess.createDatabase();
 				conn = DatabaseAccess.connectDataBase();
-				// Read from the users table
-				boolean authSuccess = false;
-				User aUser = new User();
-				
-				//Validate the user/password combination exists in the Users table
-				Statement statement = conn.createStatement();
-				ResultSet rs = statement.executeQuery("select * from appusers where username='" 
-						+ username + "' and password='" + password + "';" );
-				if(rs != null){
-					if (rs.next()) {
-						aUser.setId(Integer.parseInt(rs.getString(1)));
-						aUser.setFirstname(rs.getString(2));
-						aUser.setLastname(rs.getString(3));
-						aUser.setEmail(rs.getString(4));
-						aUser.setRole(rs.getString(5));
-						aUser.setUsername(rs.getString(6));
-						authSuccess = true;
-					}
-				}
+				User aUser = AuthenticationHelper.isValidUser(conn, username, password);
 
-				if(authSuccess){
+				if(aUser != null){
 					session.setAttribute("user", aUser);
 					session.setAttribute("fName", aUser.getFirstName());
 
@@ -113,11 +96,9 @@ public class Login extends HttpServlet {
 					if(rememberMe != null) {
 						String uuid =  UUID.randomUUID().toString(); // Unique identifier
 						String userId = Integer.toString(aUser.getId()); // User ID of the authenticated user
-						Cookie token = new Cookie("uuid", uuid);
-						Cookie user = new Cookie("user", userId);
 						
-						token.setMaxAge(365 * 24 * 60 * 60); // one year
-						user.setMaxAge(365 * 24 * 60 * 60); // one year
+						Cookie token = CookieUtilities.createRememberMeCookie("uuid", uuid);
+						Cookie user = CookieUtilities.createRememberMeCookie("user", userId);
 						
 						//Write the token in the database
 						DatabaseManagement.insertUserToken(uuid, userId, conn);
