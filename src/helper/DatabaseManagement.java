@@ -37,14 +37,14 @@ public class DatabaseManagement {
 	
 	public static Boolean insertUserToken(String token, String userId, Connection conn)
 		throws Exception {
-		String query="update appusers set token=? where id=?";
+		
+		String query="update appusers set token='" + token + "' where id=" + Integer.parseInt(userId);
 		
 		PreparedStatement preparedStmt = conn.prepareStatement(query);
 		
-		preparedStmt.setString(1, token);
-		preparedStmt.setInt(2, Integer.parseInt(userId));
-		
 		int rowsAffected = preparedStmt.executeUpdate();
+		
+		System.out.println("Wrote in the db");
 		
 		return(rowsAffected > 0);
 		
