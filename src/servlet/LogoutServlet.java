@@ -46,7 +46,12 @@ public class LogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		if(session != null)
+=======
+		//Invalidate the current session, thus, logging the user out
+		if(session != null) {
+>>>>>>> Stashed changes
 =======
 		//Invalidate the current session, thus, logging the user out
 		if(session != null) {

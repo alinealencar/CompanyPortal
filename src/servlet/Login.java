@@ -60,12 +60,15 @@ public class Login extends HttpServlet {
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		String path = "login.jsp";
 		HttpSession session = request.getSession();
 		
 		if(AuthenticationHelper.isLoggedIn(session)){
 			path = "home.jsp";
 =======
+=======
+>>>>>>> Stashed changes
 		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
 		try{
 			Connection conn = null;
@@ -109,7 +112,11 @@ public class Login extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		String redirectTo = "login.jsp";
+=======
+		String redirectTo = "Login";
+>>>>>>> Stashed changes
 =======
 		String redirectTo = "Login";
 >>>>>>> Stashed changes
