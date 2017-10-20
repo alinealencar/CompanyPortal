@@ -1,4 +1,4 @@
-/*
+/***********************************************************************
 * Project: COMP3095_TechGirls
 * Assignment: Assignment 1
 * Author(s): Aline Neves Alencar,
@@ -10,8 +10,8 @@
 * 				  100923181
 * 				  100879176
 * Date: October 17, 2017.
-* Description: This class contains methods to manage the database.
- */
+* Description: This class contains methods to access/manage the database.
+*************************************************************************/
 
 package helper;
 

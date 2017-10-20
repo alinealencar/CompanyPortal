@@ -23,6 +23,12 @@ public class CookieUtilities {
 	    cookie.setValue("");
 	    return cookie;
 	}
+	
+	public static Cookie createRememberMeCookie(String cookieName, String cookieValue) {
+		Cookie c = new Cookie(cookieName, cookieValue);
+		c.setMaxAge(365 * 24 * 60 * 60); // One year
+		return c;
+	}
 
 }
 
