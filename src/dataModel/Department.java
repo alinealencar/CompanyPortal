@@ -11,10 +11,20 @@ public class Department {
 		this.deptLoc = deptLoc;
 		this.id = id;
 	}
+<<<<<<< HEAD
+	
+	private Department (String deptName, int id){
+		this.deptName = deptName;
+		this.deptLoc = deptLoc;
+		this.id = id;
+	}
+	
+=======
 	private Department (String deptName, String deptLoc){
 		this.deptName = deptName;
 		this.deptLoc = deptLoc;
 	}
+>>>>>>> 995a804f883ce2f2bca40a468a0dec775d6f926b
 
 	public String getDeptName() {
 		return deptName;
