@@ -60,31 +60,47 @@ public class DepartmentEntry extends HttpServlet {
 		
 		String deptName = request.getParameter("deptName");
 		String loc = request.getParameter("location");
-				  
+		
+		response.sendRedirect("dept-entry.jsp");
+		
+		//validate department name
 		if (ValidateInput.isMissing(deptName)) {
 			//session.setAttribute("error", "Please try again.");
 			//request.getRequestDispatcher("/").include(request,response);
 			//request.setAttribute("deptNameError", "Invalid department name!");
 			//RequestDispatcher rd = getServletContext().getRequestDispatcher("/dept-entry.jsp");
 			//rd.forward(request, response);
-			deptName = "Missing department name!";
+			request.getSession().setAttribute("errorDeptName", "Please enter a department name");
+			request.getSession().setAttribute("deptName", "");
+			//deptName = "Missing department name!";
 			isMissingValue = true;
 		}
+		else {
+			request.getSession().removeAttribute("errorDeptName");
+			request.getSession().setAttribute("deptName", deptName);
+		}
 		
+		//validate location
 		if (ValidateInput.isMissing(loc)) {
 			//request.setAttribute("deptLocError", "Invalid location!");
 			//RequestDispatcher rd = getServletContext().getRequestDispatcher("/dept-entry.jsp");
 			//rd.forward(request, response);
-			loc = "Missing department location!";
+			//loc = "Missing department location!";
+			request.getSession().setAttribute("errorLoc", "Please enter a location");
+			request.getSession().setAttribute("location", "");
 			isMissingValue = true;
 		}
+		else {
+			request.getSession().removeAttribute("errorLoc");
+			request.getSession().setAttribute("location", loc);
+		}
 		
-		Cookie c1 = new Cookie("deptName", deptName);
+		//Cookie c1 = new Cookie("deptName", deptName);
 		//c1.setMaxAge( 60 * 60 * 24 * 7);
-		response.addCookie(c1);
-		Cookie c2 = new Cookie("location", loc);
+		//response.addCookie(c1);
+		//Cookie c2 = new Cookie("location", loc);
 		//c2.setMaxAge( 60 * 60 * 24 * 7);
-		response.addCookie(c2);
+		//response.addCookie(c2);
 	
 		
 		if (!isMissingValue){
@@ -94,11 +110,13 @@ public class DepartmentEntry extends HttpServlet {
 				conn = DatabaseAccess.connectDataBase();
 			
 				if(DatabaseManagement.insertDepartment(deptName, loc, conn)) 
-				pw.println("The " + deptName + " department was succesfully created!");
+					request.getSession().setAttribute("deptInsertSuccess", "The " + deptName + " department was successfully created!");
+				//pw.println("The " + deptName + " department was succesfully created!");
 				//pw.println("\n" + DatabaseManagement.selectFromTable("department", conn));
 			}
 			catch(Exception e){
-				System.out.println("Something went wrong.\n" + e + "\nPlease try again.");
+				request.getSession().setAttribute("deptInsertError", e + "\nPlease try again.");
+				//System.out.println("Something went wrong.\n" + e + "\nPlease try again.");
 			}
 			finally {
 				try{
@@ -111,10 +129,10 @@ public class DepartmentEntry extends HttpServlet {
 				}
 			}
 		}
-		else {
+		/*else {
 			response.sendRedirect("dept-entry.jsp");
 			return;
-		}
+		}*/
 			//CookieUtilities.eraseCookie(request, response, c1);
 			//CookieUtilities.eraseCookie(request, response, c2);
 	}

@@ -20,10 +20,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class EmployeeHelper {
-	public static String getDepartment(String position, Connection conn) 
-			throws Exception {
-			String result = "";
-			Statement statement = conn.createStatement();
+	/*public static String getDepartment(String position, Connection conn) 
+		throws Exception {
+		String result = "";
+		Statement statement = conn.createStatement();
 			String query = "select dept_name from department "
 					+ "join employee on department.id = employee.dept_id_fk "
 					+ "where job_position='" + position + "'";
@@ -38,7 +38,7 @@ public class EmployeeHelper {
 					result += "No data retrieved. Table is empty.";
 				
 				return result;
-		}
+		}*/
 
 	public static int getEmployeeDeptID(String position) {
 		
@@ -60,18 +60,18 @@ public class EmployeeHelper {
 	}
 	
 	public static int getDeptId(String deptName, Connection conn) 
-			throws Exception {
-			int result=0;
-			Statement statement = conn.createStatement();
-			String query = "select id from department "
-					+ "where dept_name='" + deptName + "'";
-			ResultSet rs = statement.executeQuery(query);
-			if(rs != null){
-				if(rs.next()){
-					result = rs.getInt("id");
-					}
-				}
-			return result;
+		throws Exception {
+		int result=0;
+		Statement statement = conn.createStatement();
+		String query = "select id from department "
+				+ "where dept_name='" + deptName + "'";
+		ResultSet rs = statement.executeQuery(query);
+		if(rs != null){
+			if(rs.next()){
+				result = rs.getInt("id");
+			 }
+		}
+		return result;
 	}
 	
 	

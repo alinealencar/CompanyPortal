@@ -4,14 +4,12 @@
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
-  
   <resource-ref>
     <description>COMP3095</description>
     <res-ref-name>jdbc/COMP3095</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
-  
   <filter>
     <filter-name>AuthenticationFilter</filter-name>
     <filter-class>filter.AuthenticationFilter</filter-class>
@@ -22,8 +20,7 @@
     <url-pattern>/report.jsp</url-pattern>
     <url-pattern>/attendance.jsp</url-pattern>
   </filter-mapping>
-  
-    <filter>
+  <filter>
     <filter-name>RememberMeFilter</filter-name>
     <filter-class>filter.RememberMeFilter</filter-class>
   </filter>
