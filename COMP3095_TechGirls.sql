@@ -17,7 +17,7 @@ CREATE TABLE APPUSERS
 );
 
 INSERT INTO APPUSERS (firstname, lastname, email, role, username, password, token) VALUES
-(NULL, NULL, 'admin@domain.ca', NULL, 'admin', 'admin', NULL);
+('Jane', 'Smith', 'admin@domain.ca', NULL, 'admin', 'admin', NULL);
 
 DROP TABLE IF EXISTS DEPARTMENT;
 CREATE TABLE DEPARTMENT
