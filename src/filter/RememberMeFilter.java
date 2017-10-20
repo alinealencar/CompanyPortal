@@ -1,3 +1,20 @@
+/*********************************************************************************
+* Project: COMP3095_TechGirls
+* Assignment: Assignment 1
+* Author(s): Aline Neves Alencar,
+* 				Kie Ogiya,
+* 				Maria Alyssa Villacete,
+* 				Princess Ilasin
+* Student Number: 101036808,
+* 					100984638
+* 					100923181
+* 					100879176
+* Date: October 17, 2017.
+* Description: This class acts as filter for certain pages. The RememberMe filter
+* 				is applied to pages responsible for the login.
+*********************************************************************************/
+
+
 package filter;
 
 import java.io.IOException;
@@ -22,6 +39,10 @@ public class RememberMeFilter implements Filter {
 	public void destroy() {
 	}
 
+	/**
+	 * This method holds the logic of the filter. It checks whether the cookies
+	 * associated with the RememberMe feature exist.
+	 */
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
 		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
 		HttpServletRequest request = (HttpServletRequest) req;
