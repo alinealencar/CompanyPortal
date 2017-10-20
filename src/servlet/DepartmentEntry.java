@@ -111,8 +111,10 @@ public class DepartmentEntry extends HttpServlet {
 				}
 			}
 		}
-		else
+		else {
 			response.sendRedirect("dept-entry.jsp");
+			return;
+		}
 			//CookieUtilities.eraseCookie(request, response, c1);
 			//CookieUtilities.eraseCookie(request, response, c2);
 	}

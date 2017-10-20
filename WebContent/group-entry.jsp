@@ -1,7 +1,20 @@
+<<<<<<< HEAD
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" import ="java.sql.ResultSet" import = "java.sql.Connection" import = "helper.DatabaseManagement"
+    import = "helper.CookieUtilities" import="database.*"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Group Entry</title>
+</head>
+ <% Connection conn = DatabaseAccess.connectDataBase();
+=======
 <% session.setAttribute("title", "Group Entry"); %>
 <%@include file="WEB-INF/header.jsp" %>
 
 <% 	Connection conn = DatabaseAccess.connectDataBase();
+>>>>>>> 9895d8ee79264caf56903a582d3657539eb4f290
 	ResultSet rsDept = null; 
 	ResultSet rsEmp1 = null; 
 	ResultSet rsEmp2 = null;
@@ -10,6 +23,12 @@
 	ResultSet rsEmp5 = null;
 	ResultSet rsEmp6 = null;
 	rsDept = DatabaseManagement.selectFromTable("department", conn);
+	rsEmp1 = DatabaseManagement.selectFromTable("employee", conn);
+	rsEmp2 = DatabaseManagement.selectFromTable("employee", conn);
+	rsEmp3 = DatabaseManagement.selectFromTable("employee", conn);
+	rsEmp4 = DatabaseManagement.selectFromTable("employee", conn);
+	rsEmp5 = DatabaseManagement.selectFromTable("employee", conn);
+	rsEmp6 = DatabaseManagement.selectFromTable("employee", conn);
 	
 	String selectedDept = CookieUtilities.getCookieValue(request, "deptName", "");
 %>
@@ -22,19 +41,20 @@
 		<select id = "deptName" name = "deptName" onchange = this.form.submit()>
 			<option value="">Department</option>
 			<%while(rsDept.next()){ %>
-        	<option value="<%=rsDept.getString("dept_name")%>"><%=rsDept.getString("dept_name")%></option><%}%> 
+        	<option value ="<%=rsDept.getString("dept_name")%>" selected = "<%=selectedDept%>"><%=rsDept.getString("dept_name")%></option><%}%> 
 		</select><br>
 	
 		<label>Group Name: </label><input type = "text" name = "groupName" /><br>
 	
 		
 		<%
-			rsEmp1 = DatabaseManagement.selectEmployees(selectedDept, conn);
+			//result set to retrieve employees based on selected department 
+			/*rsEmp1 = DatabaseManagement.selectEmployees(selectedDept, conn);
 			rsEmp2 = DatabaseManagement.selectEmployees(selectedDept, conn);
 			rsEmp3 = DatabaseManagement.selectEmployees(selectedDept, conn);
 			rsEmp4 = DatabaseManagement.selectEmployees(selectedDept, conn);
 			rsEmp5 = DatabaseManagement.selectEmployees(selectedDept, conn);
-			rsEmp6 = DatabaseManagement.selectEmployees(selectedDept, conn);
+			rsEmp6 = DatabaseManagement.selectEmployees(selectedDept, conn);*/
 		%>
 		
 	
