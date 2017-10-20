@@ -1,4 +1,4 @@
-/*
+/*************************************************************
 * Project: COMP3095_TechGirls
 * Assignment: Assignment 1
 * Author(s): Aline Neves Alencar,
@@ -11,7 +11,7 @@
 * 				  100879176
 * Date: October 17, 2017.
 * Description: This servlet handles the dept-entry.jsp page
- */
+***************************************************************/
 
 package servlet;
 
@@ -38,18 +38,36 @@ import helper.ValidateInput;
 public class DepartmentEntry extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
     public DepartmentEntry() {
-        super();
-        
+        super();   
     }
 
-	
+    /**
+     * This method is called whenever this servlet receives a GET request.
+     * It automatically calls the doPost method.
+     * 
+     * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+     * @see #doPost(HttpServletRequest, HttpServletResponse)
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	
 	}
 
+	/**
+	 * This method is called whenever this servlet receives a POST request.
+	 * It is responsible for creating a department and inserting it into the database.
+	 * 
+	 * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//HttpSession session = request.getSession(true);
 		Connection conn = null;

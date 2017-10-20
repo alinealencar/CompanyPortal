@@ -1,3 +1,19 @@
+/*********************************************************************************
+* Project: COMP3095_TechGirls
+* Assignment: Assignment 1
+* Author(s): Aline Neves Alencar,
+* 				Kie Ogiya,
+* 				Maria Alyssa Villacete,
+* 				Princess Ilasin
+* Student Number: 101036808,
+* 					100984638
+* 					100923181
+* 					100879176
+* Date: October 17, 2017.
+* Description: This servlet handles the creation of a new group.
+*********************************************************************************/
+
+
 package servlet;
 
 import java.io.IOException;
@@ -26,11 +42,32 @@ public class GroupEntry extends HttpServlet {
     public GroupEntry() {
         super();
     }
-
+    
+    /**
+     * This method is called whenever this servlet receives a GET request.
+     * It automatically calls the doPost method.
+     * 
+     * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+     * @see #doPost(HttpServletRequest, HttpServletResponse)
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
+	/**
+	 * This method is called whenever this servlet receives a POST request.
+	 * It is responsible for creating a group and inserting it into the database.
+	 * 
+	 * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Connection conn = null;
