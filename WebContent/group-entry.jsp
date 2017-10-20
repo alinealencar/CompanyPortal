@@ -17,6 +17,20 @@
 =======
 <%session.setAttribute("title", "Group Entry"); %>
 >>>>>>> 995a804f883ce2f2bca40a468a0dec775d6f926b
+<script>
+	function checkEmployeeDropDown(){
+		 if(document.getElementById("emp1").value!="")
+		  	document.getElementById("emp2").disabled=false;
+		 if(document.getElementById("emp2").value!="")
+			document.getElementById("emp3").disabled=false;
+		 if(document.getElementById("emp3").value!="")
+			document.getElementById("emp4").disabled=false;
+		 if(document.getElementById("emp4").value!="")
+		   	document.getElementById("emp5").disabled=false;
+		 if(document.getElementById("emp5").value!="")
+			document.getElementById("emp6").disabled=false;
+		}
+</script>
 <% 	
 	//String selectedDept = "";
 	ResultSet rsDept = null; 
@@ -36,8 +50,9 @@
 	rsEmp4 = DatabaseManagement.selectFromTable("employee", conn);
 	rsEmp5 = DatabaseManagement.selectFromTable("employee", conn);
 	rsEmp6 = DatabaseManagement.selectFromTable("employee", conn);*/
-	
-	String selectedDept = CookieUtilities.getCookieValue(request, "deptName", "");
+	//String selectedDept = "";
+	String selectedDept = CookieUtilities.getCookieValue(request, "department", "");
+	//String group = CookieUtilities.getCookieValue(request, "group", "");
 %>
 
 <%@include file="WEB-INF/menu.jsp" %>
@@ -50,34 +65,38 @@
 		if((String) session.getAttribute("groupInsertError") != null)
 		out.println((String) session.getAttribute("groupInsertError"));
 	%>
-	
-	<script>
-		function checkEmployeeDropDown(){
-		  if(document.getElementById("emp1").value!="")
-		  	document.getElementById("emp2").disabled=false;
-		  if(document.getElementById("emp2").value!="")
-			document.getElementById("emp3").disabled=false;
-		  if(document.getElementById("emp3").value!="")
-			document.getElementById("emp4").disabled=false;
-		  if(document.getElementById("emp4").value!="")
-		   	document.getElementById("emp5").disabled=false;
-		  if(document.getElementById("emp5").value!="")
-			document.getElementById("emp6").disabled=false;
-		  //else
-		    //document.getElementById('servername').disabled=true;
-		}
-	</script>
 </span>
 	<h1>GROUP ENTRY</h1>
 	
 		<form method = "post" action = "GroupEntryHelper">
 			<label>Department: </label>
-			<select id = "deptName" name = "deptName" onchange = "this.form.submit()">
-				<option value="">Department</option>
-				<% //populate department drop down list 
-					while(rsDept.next()){ %>
-        		<option value ="<%=rsDept.getString("dept_name")%>" selected = "<%=selectedDept%>"><%=rsDept.getString("dept_name")%></option><%}%> 
-			</select>
+			<select id = "department" name = "department" onChange="this.form.submit()">
+				<option value="" selected>Department</option>
+				
+				<%-- //populate department drop down list 
+					while(rsDept.next()){ --%>
+        		<!-- <option value ="<%--=rsDept.getString("dept_name")%>" selected = "<%=selectedDept%>"><%=rsDept.getString("dept_name")%></option><%}--%> 
+			</select> -->
+			
+			<% if(selectedDept.equals("")){
+				out.print("<option value=\"\" selected>Department</option> ");
+				while(rsDept.next()){
+				out.print("<option value =\"" + rsDept.getString("dept_name") + "\">" + rsDept.getString("dept_name") + "</option>");
+				}
+				}
+				else{
+  					//out.print("<select>");
+ 					while(rsDept.next()){
+    				if(rsDept.getString("dept_name").equals(selectedDept)){
+        			out.print("<option value=\""+rsDept.getString("dept_name")+"\" SELECTED >"+rsDept.getString("dept_name")+"</option>");
+    				}
+    				else{
+        			out.print("<option value=\""+rsDept.getString("dept_name")+"\" >"+rsDept.getString("dept_name")+"</option>");
+   					 }
+  				}
+				}
+  				out.print("</select>");
+			%>
 		
 			<% //show error message if no department is selected
 				if((String) session.getAttribute("errorDepartment") != null){
@@ -86,7 +105,7 @@
 			%>
 			<br>
 	
-			<label>Group Name: </label><input type = "text" name = "groupName" value = "<%if((String) session.getAttribute("groupName") != null) out.println((String) session.getAttribute("groupName"));%>"/>
+			<label>Group Name: </label><input type = "text" id = "groupName" name = "groupName" value = "<%if((String) session.getAttribute("groupName") != null) out.println((String) session.getAttribute("groupName"));%>"/>
 			
 			<% 
 				//show error message if no group name is entered
@@ -163,20 +182,31 @@
 					rsEmp5.getString("lastname")%>"><%=rsEmp5.getString("firstname") + " " + 
         			rsEmp5.getString("lastname")%></option><%}%> 
 			</select>
-	
-			<label>Employee 6:</label>
-			<select id="emp6" name = "emp6" disabled>
+			
+			<label>Employee 5:</label>
+			<select id="emp5" name = "emp5" onchange = "checkEmployeeDropDown()" disabled>
 				<option value="">Employee</option>
-				<%	//populate employee 6 drop down list
-					while(rsEmp6.next()){ %>
-        	<option value="<%=rsEmp6.getString("firstname") + " " + 
-					rsEmp6.getString("lastname")%>"><%=rsEmp6.getString("firstname") + " " + 
-        			rsEmp6.getString("lastname")%></option><%}%> 
+				<%	//populate employee 5 drop down list
+					while(rsEmp5.next()){ %>
+        		<option value="<%=rsEmp5.getString("firstname") + " " + 
+					rsEmp5.getString("lastname")%>"><%=rsEmp5.getString("firstname") + " " + 
+        			rsEmp5.getString("lastname")%></option><%}%> 
 			</select>
+	
+	
 			<br>
 	
 			<input type = "submit" value = "Submit" onclick = "form.action = 'GroupEntry'" />
-			<input type = "reset" value = "Cancel" />
+			<input type = "reset" value = "Cancel" onclick = "eraseValues()"/>
 		</form>
+		
+<script>
+	function eraseValues() {
+		document.getElementById("groupName").value = "";
+		//document.getElementById("location").value = "";	
+		//document.getElementById("erroDeptName").style.visibility = "hidden";	
+		//document.getElementById("errorLoc").style.visibility = "hidden";
+	}
+</script>
 	
 <%@include file="WEB-INF/footer.jsp" %>

@@ -1,17 +1,17 @@
-/*
+/*********************************************************************************
 * Project: COMP3095_TechGirls
 * Assignment: Assignment 1
 * Author(s): Aline Neves Alencar,
-* 			 Kie Ogiya,
-* 			 Maria Alyssa Villacete,
-* 			 Princess Ilasin
+* 				Kie Ogiya,
+* 				Maria Alyssa Villacete,
+* 				Princess Ilasin
 * Student Number: 101036808,
-* 				  100984638
-* 				  100923181
-* 				  100879176
+* 					100984638
+* 					100923181
+* 					100879176
 * Date: October 17, 2017.
 * Description: This servlet handles the dept-entry.jsp page
- */
+*********************************************************************************/
 
 package servlet;
 
@@ -51,11 +51,8 @@ public class DepartmentEntry extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//HttpSession session = request.getSession(true);
 		Connection conn = null;
 		response.setContentType("text/html");
-		
-		PrintWriter pw = response.getWriter();
 		Boolean isMissingValue = false;
 		
 		String deptName = request.getParameter("deptName");
@@ -63,13 +60,8 @@ public class DepartmentEntry extends HttpServlet {
 		
 		response.sendRedirect("dept-entry.jsp");
 		
-		//validate department name
+		//check if department name is missing
 		if (ValidateInput.isMissing(deptName)) {
-			//session.setAttribute("error", "Please try again.");
-			//request.getRequestDispatcher("/").include(request,response);
-			//request.setAttribute("deptNameError", "Invalid department name!");
-			//RequestDispatcher rd = getServletContext().getRequestDispatcher("/dept-entry.jsp");
-			//rd.forward(request, response);
 			request.getSession().setAttribute("errorDeptName", "Please enter a department name");
 			request.getSession().setAttribute("deptName", "");
 			//deptName = "Missing department name!";
@@ -80,11 +72,8 @@ public class DepartmentEntry extends HttpServlet {
 			request.getSession().setAttribute("deptName", deptName);
 		}
 		
-		//validate location
+		//check if department location is missing
 		if (ValidateInput.isMissing(loc)) {
-			//request.setAttribute("deptLocError", "Invalid location!");
-			//RequestDispatcher rd = getServletContext().getRequestDispatcher("/dept-entry.jsp");
-			//rd.forward(request, response);
 			//loc = "Missing department location!";
 			request.getSession().setAttribute("errorLoc", "Please enter a location");
 			request.getSession().setAttribute("location", "");
@@ -102,21 +91,18 @@ public class DepartmentEntry extends HttpServlet {
 		//c2.setMaxAge( 60 * 60 * 24 * 7);
 		//response.addCookie(c2);
 	
-		
 		if (!isMissingValue){
-		
 			try {
 				DatabaseAccess.createDatabase();
 				conn = DatabaseAccess.connectDataBase();
 			
+				//check if insertion to the database succeeded
 				if(DatabaseManagement.insertDepartment(deptName, loc, conn)) 
 					request.getSession().setAttribute("deptInsertSuccess", "The " + deptName + " department was successfully created!");
-				//pw.println("The " + deptName + " department was succesfully created!");
-				//pw.println("\n" + DatabaseManagement.selectFromTable("department", conn));
 			}
 			catch(Exception e){
+				//error message if insert failed
 				request.getSession().setAttribute("deptInsertError", e + "\nPlease try again.");
-				//System.out.println("Something went wrong.\n" + e + "\nPlease try again.");
 			}
 			finally {
 				try{
@@ -129,12 +115,6 @@ public class DepartmentEntry extends HttpServlet {
 				}
 			}
 		}
-		/*else {
-			response.sendRedirect("dept-entry.jsp");
-			return;
-		}*/
-			//CookieUtilities.eraseCookie(request, response, c1);
-			//CookieUtilities.eraseCookie(request, response, c2);
 	}
 }
 
