@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import ="java.sql.ResultSet" import = "java.sql.Connection" import = "helper.DatabaseManagement"
     import = "helper.CookieUtilities" import="database.*"%>
@@ -8,6 +9,12 @@
 <title>Group Entry</title>
 </head>
  <% Connection conn = DatabaseAccess.connectDataBase();
+=======
+<% session.setAttribute("title", "Group Entry"); %>
+<%@include file="WEB-INF/header.jsp" %>
+
+<% 	Connection conn = DatabaseAccess.connectDataBase();
+>>>>>>> 9895d8ee79264caf56903a582d3657539eb4f290
 	ResultSet rsDept = null; 
 	ResultSet rsEmp1 = null; 
 	ResultSet rsEmp2 = null;
@@ -25,8 +32,9 @@
 	
 	String selectedDept = CookieUtilities.getCookieValue(request, "deptName", "");
 %>
-<body>
-	<h1>GROUP ENTRY</h1>
+
+<%@include file="WEB-INF/menu.jsp" %>
+	<h1>GROUP ENTRY</h1>I 
 	
 	<form method = "post" action = "GroupEntry">
 		<label>Department: </label>
@@ -95,5 +103,5 @@
 		<input type = "submit" value = "Submit" />
 		<input type = "reset" value = "Cancel" />
 	</form>
-</body>
-</html>
+	
+<%@include file="WEB-INF/footer.jsp" %>
