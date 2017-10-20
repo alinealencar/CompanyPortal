@@ -32,8 +32,8 @@ public class RememberMeFilter implements Filter {
 			DatabaseAccess.createDatabase();
 			conn = DatabaseAccess.connectDataBase();
 			
-			// Check if user has the RememberMe cookies (uuid and user)
-			if(AuthenticationHelper.isRememberCookies(request, conn)){
+			// Check if user has the RememberMe cookies (uuid and user) or if the user iscurrently logged in
+			if(AuthenticationHelper.isRememberCookies(request, conn) || AuthenticationHelper.isLoggedIn(request.getSession())){
 				response.sendRedirect("home.jsp");
 			}
 			else

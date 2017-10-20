@@ -15,6 +15,15 @@ public class Employee {
 		this.emp_id = emp_id;
 		this.dept_id = dept_id;
 	}
+	
+	public Employee(String firstname, String lastname, int dept_id) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.dept_id = dept_id;
+	}
+
+
 	public String getFirstname() {
 		return firstname;
 	}

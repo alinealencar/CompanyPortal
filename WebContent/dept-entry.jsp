@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,6 +12,8 @@
 %>
 <body>
 =======
+=======
+>>>>>>> 995a804f883ce2f2bca40a468a0dec775d6f926b
 <% session.setAttribute("title", "Department Entry"); %>
 <%@include file="WEB-INF/header.jsp" %>
 
@@ -20,7 +23,6 @@
 	
 <%@include file="WEB-INF/menu.jsp" %>
 
->>>>>>> 9895d8ee79264caf56903a582d3657539eb4f290
 	<h1>DEPARTMENT ENTRY</h1>
 	<form method = "post" action = "DepartmentEntry">
 		Department Name: <input type = "text" name ="deptName" value = "<%=deptName%>" /><br>
@@ -28,13 +30,9 @@
 		<input type = "submit" value = "Submit" />
 		<input type = "reset" value = "Cancel" />
 	</form>
-<<<<<<< HEAD
 <%
 	response.addCookie(CookieUtilities.eraseCookie("deptName"));
 	response.addCookie(CookieUtilities.eraseCookie("location"));
 %>
-</body>
-</html>
-=======
+
 <%@include file="WEB-INF/footer.jsp" %>
->>>>>>> 9895d8ee79264caf56903a582d3657539eb4f290

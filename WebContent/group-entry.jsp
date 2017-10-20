@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -13,6 +14,12 @@
 
 <% 	
 
+=======
+<% session.setAttribute("title", "Group Entry"); %>
+<%@include file="WEB-INF/header.jsp" %>
+
+<% 	Connection conn = DatabaseAccess.connectDataBase();
+>>>>>>> 995a804f883ce2f2bca40a468a0dec775d6f926b
 	ResultSet rsDept = null; 
 	ResultSet rsEmp1 = null; 
 	ResultSet rsEmp2 = null;
