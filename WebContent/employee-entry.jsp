@@ -3,13 +3,22 @@
 <%@include file="WEB-INF/header.jsp" %>
 
 <%@include file="WEB-INF/menu.jsp" %>
-<%-- 	<span>
-	<% if((String) session.getAttribute("error") != null){
-			out.println((String) session.getAttribute("error"));
-		}
-	%>
-	</span> --%>
+
 <div>
+	<div class="text-center">
+		<% if((String) session.getAttribute("employeeInsertSuccess") != null){
+				out.println("<span class = \"alert alert-success\" role = \"alert\">" +
+				(String) session.getAttribute("employeeInsertSuccess") +
+				"</span>");
+			}
+			else if((String) session.getAttribute("employeeInsertFail") != null){
+				out.println("<span class = \"alert alert-danger\" role = \"alert\">" +
+				(String) session.getAttribute("employeeInsertFail") +
+				"</span>");
+			}
+		%>
+	</div>
+	<br>
 	<div class="container">
 		<div class="row">
 			<div class="col col-lg-4">
