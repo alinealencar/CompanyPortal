@@ -19,21 +19,21 @@
 				<form method = "post" action = "EmployeeEntry" id="employeeEntry">
 					<div class="form-group">
 						<label for="firstName">First Name:</label> 
-						<input id="firstName" class="form-control" placeholder="First Name" type ="text" name ="firstName" value="${firstName }"/><br>
+						<input id="firstName" class="form-control" placeholder="First Name" type ="text" name ="firstName" value="${firstName }"/>
 						<p class="text-danger">${errorFName}</p>
 					</div>
 					<div class="form-group">
 						<label for="lastName">Last Name:</label>
-						<input id="lastName" class="form-control" placeholder="Last Name" type="text" name ="lastName" value="${lastName}"/><br>
+						<input id="lastName" class="form-control" placeholder="Last Name" type="text" name ="lastName" value="${lastName}"/>
 						<p class="text-danger">${errorLName}</p>
 					</div>
 					<div class="form-group">
 						<label for="employeeNo">Employee #: 
-						<input id="employeeNo" class="form-control" placeholder="Employee #" type = "text" name ="employeeNum" value="${employeeNum}"/><br>
+						<input id="employeeNo" class="form-control" placeholder="Employee #" type = "text" name ="employeeNum" value="${employeeNum}"/>
 					</div>
 					<div class="form-group">
 						<label for="email">Email:</label>
-						<input id="email" class="form-control" placeholder="example@domain.com" type = "text" name ="email" value="${email}"/><br>
+						<input id="email" class="form-control" placeholder="example@domain.com" type = "text" name ="email" value="${email}"/>
 						<p class="text-danger">${errorEmail}</p>
 					</div>
 					<select id="hireYear" name = "hireYear">
@@ -96,4 +96,4 @@ function ClearAll(){
 </script>
 
 
-<%--@include file ="WEB-INF/footer.jsp"--%>
+<%@include file ="WEB-INF/footer.jsp"%>
