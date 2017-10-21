@@ -14,6 +14,9 @@
 ***********************************************************************/
 package helper;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -65,6 +68,35 @@ public class ValidateInput {
 	 */
 	public static boolean isEmployeeNumber(String data){
 		return (data.matches("[0-9]+") && data.length() == 9);
+	}
+	
+	public static boolean isEmployeeDuplicate(String emp1, String emp2, String emp3, String emp4, String emp5, String emp6) {
+		String[] employeeInput = new String[]{emp2, emp3, emp4, emp5, emp6};
+		String[] testingArray = new String[]{emp1, null, null, null, null, null};
+		int next = 1;
+		for(int i = 0; i < 5; i++){
+			if(employeeInput[i] == null)
+				break;
+			
+			for(int j = 0; j < 6; j ++){
+				if(testingArray[j] == null)
+					break;
+				
+				if(employeeInput[i].equals(testingArray[j])){
+					return true;
+				}
+				else{
+					testingArray[next]=employeeInput[i];
+					next++;
+				}
+			}
+			
+			System.out.println(i + ": " + Arrays.toString(testingArray));
+			System.out.println(i + ": " + Arrays.toString(employeeInput));
+		}
+		
+		return false;
+		
 	}
 
 }

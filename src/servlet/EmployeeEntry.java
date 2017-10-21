@@ -32,7 +32,6 @@ import javax.servlet.http.HttpSession;
 import com.mysql.jdbc.Connection;
 
 import dataModel.Employee;
-import dataModel.User;
 import database.DatabaseAccess;
 import helper.DatabaseManagement;
 import helper.ValidateInput;
@@ -74,7 +73,6 @@ public class EmployeeEntry extends HttpServlet {
 		//check if valid
 		boolean validFName = false;
 		boolean validLName = false;
-		//boolean validEmpNo = false;
 		boolean validEmail = false;
 		boolean validYear = false;
 		boolean validJobPos = false;
@@ -91,9 +89,6 @@ public class EmployeeEntry extends HttpServlet {
 		// Create Employee object
 		Employee anEmployee = new Employee(firstName, lastName, employeeNum, email, hireYear, jobPosition);
 		
-		
-		//validation
-		//response.sendRedirect("employee-entry.jsp");
 				
 		//first name validation (if it is not empty and/or only alphabet)
 		if(!ValidateInput.isMissing(anEmployee.getFirstName()) && ValidateInput.isAlphabet(anEmployee.getFirstName())){
@@ -147,25 +142,23 @@ public class EmployeeEntry extends HttpServlet {
 		}
 		
 		//Hire Year validation (if it is not select index 0)
-		if(anEmployee.getHireYear() != ""){
+		if(anEmployee.getHireYear() != null){
 			session.removeAttribute("errorYear");
-			//request.getSession().setAttribute("2000", "selected=\"selected\"");//keep selected **********************************
 			session.setAttribute("hireYear", anEmployee.getHireYear());//store valid value to session
 			validYear = true;
 		}else{
-			if(anEmployee.getHireYear() == ""){			
+			if(anEmployee.getHireYear() == null){			
 				session.setAttribute("errorYear", "You must select a year");
 			}
 		}
 		
 		//Job Position validation (if it is not select index 0)
-		if(anEmployee.getJobPosition() != ""){
+		if(anEmployee.getJobPosition() != null){
 			session.removeAttribute("errorPosition");
-			//request.getSession().setAttribute("2000", "selected=\"selected\"");//keep selected **********************************
 			session.setAttribute("jobPosition", anEmployee.getJobPosition());//store valid value to session
 			validJobPos = true;
 		}else{
-			if(anEmployee.getJobPosition() == ""){			
+			if(anEmployee.getJobPosition() == null){			
 				session.setAttribute("errorPosition", "You must select a valid job position");
 			}
 		}
@@ -176,7 +169,6 @@ public class EmployeeEntry extends HttpServlet {
 				
 		if(validFName && validLName && validEmail && validYear && validJobPos){
 			try {
-				//DatabaseAccess.createDatabase();
 				conn = (Connection) DatabaseAccess.connectDataBase();
 				
 				if(DatabaseManagement.insertEmployee(anEmployee.getFirstName(), 
@@ -186,16 +178,18 @@ public class EmployeeEntry extends HttpServlet {
 						anEmployee.getHireYear(), 
 						anEmployee.getJobPosition(), 
 						conn)){
-					session.setAttribute("employeeSuccess","Employee " + anEmployee.getFirstName() + " " + anEmployee.getLastName() + " has been successfully added to the system ") ;
+					session.setAttribute("employeeInsertSuccess","Employee " + anEmployee.getFirstName() + " " + anEmployee.getLastName() + " has been successfully added to the system ") ;
 					
-					//clear all form for successfully added employee
+					//clear form
 					session.setAttribute("firstName", "");
 					session.setAttribute("lastName", "");
 					session.setAttribute("employeeNum","");
 					session.setAttribute("email", "");
+					session.setAttribute("hireYear", "");
+					session.setAttribute("jobPosition", "");
 				}
 				else {
-					session.setAttribute("employeeError", "Employee " + anEmployee.getFirstName()  + " " + anEmployee.getLastName() + " has NOT been added to the system ");
+					session.setAttribute("employeeInsertFail", "Employee " + anEmployee.getFirstName()  + " " + anEmployee.getLastName() + " has NOT been added to the system ");
 				}
 			}
 			catch(Exception e){
