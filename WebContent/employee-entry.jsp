@@ -29,7 +29,7 @@
 						<p class="text-danger">${errorLName}</p>
 					</div>
 					<div class="form-group">
-						<label for="employeeNo">Employee #: 
+						<label for="employeeNo">Employee #: </label>
 						<input id="employeeNo" class="form-control" placeholder="Employee #" type = "text" name ="employeeNum" value="${employeeNum}"/>
 					</div>
 					<div class="form-group">
@@ -69,8 +69,25 @@
 					</select><br>
 					<p class="text-danger">${errorYear}</p>
 					<select id="jobPosition" name="jobPosition">
-						<option value="">Job Position</option>
-			  			<option value="Community Manager">Community Manager</option>
+						<%String selectedPosition = (String) session.getAttribute("jobPosition"); %>
+						<option selected disabled>Job Position</option>
+						<%
+							String[] jobPositions = new String[]{"Community Manager", "Analytics Manager", "CTO",
+									"Front End", "Back End", "Database",
+									"Testing", "API", "System Operator", "Designer",
+									"Feature Management", "Introductory Agreements", "Pre-Sales",
+									"Account Management", "CFO", "Administrator"};
+						
+							for(int i = 0; i <jobPositions.length; i++){
+								out.print("<option value=\"" + jobPositions[i] + "\" ");
+				  				if(selectedPosition != null && selectedPosition.equals(jobPositions[i]))
+				  					out.print("selected=\"selected\"");
+				  				out.print(">" + jobPositions[i] + "</option>");
+							}
+						
+						
+						%>
+<!-- 			  			<option value="Community Manager">Community Manager</option>
 			  			<option value="Analytics Manager">Analytics Manager</option>
 			  			<option value="CTO">CTO</option>
 			  			<option value="Front End">Front End</option>
@@ -85,11 +102,11 @@
 			  			<option value="Pre-Sales">Pre-Sales</option>
 			  			<option value="Account Management">Account Management</option>
 			  			<option value="CFO">CFO</option>
-			  			<option value="Administrator">Administrator</option>
+			  			<option value="Administrator">Administrator</option> -->
 					</select><br>
 					<p class="text-danger">${errorPosition}</p>
 					
-					<p>Session Values: ${firstName }, ${lastName}, ${employeeNum}, ${email}, ${hireYear}, ${jobPosition}</p>
+<%-- 					<p>Session Values: ${firstName }, ${lastName}, ${employeeNum}, ${email}, ${hireYear}, ${jobPosition}</p> --%>
 					<input type = "submit" value = "Submit" class="btn btn-primary" />
 					<input type = "reset" value="Clear" onclick="ClearAll()" class="btn btn-secondary"/>
 				</form>
