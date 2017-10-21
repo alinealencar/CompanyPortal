@@ -37,8 +37,17 @@
 						<p class="text-danger">${errorEmail}</p>
 					</div>
 					<select id="hireYear" name = "hireYear">
+					<%String selectedYear = (String) session.getAttribute("hireYear"); %>
 						<option value="">Hire Year</option>
-			  			<option value="2000">2000</option>
+						
+						<%for(int i = 2000; i <= 2017; i++){
+							out.println("<option value=\"" + i + "\" ");
+			  				if(selectedYear != null && selectedYear.equals((Integer.toString(i))))
+			  					out.println("selected=\"selected\"");
+			  				out.println(">" + i + "</option>");
+						} %>
+						
+			  			<%-- <option value="2000">2000</option>
 			  			<option value="2001">2001</option>
 			 			<option value="2002">2002</option>
 			  			<option value="2003">2003</option>
@@ -55,7 +64,7 @@
 			  			<option value="2014">2014</option>
 			  			<option value="2015">2015</option>
 			  			<option value="2016">2016</option>
-			  			<option value="2017">2017</option>
+			  			<option value="2017">2017</option> --%>
 					</select><br>
 					<p class="text-danger">${errorYear}</p>
 					<select id="jobPosition" name="jobPosition">
