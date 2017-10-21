@@ -1,4 +1,6 @@
 <body class="bg-light">
+<div style="margin-top: 1%;" class="container-fluid">
+<div class="row">
 	<ul class="nav nav-pills">
 		<li class="nav-item">
 			<a class="nav-link" href ="home.jsp">Home</a>
@@ -23,8 +25,10 @@
 		</li>
 		<li class="nav-item">
 			<form action="LogoutServlet">
-				<button type="submit" class="btn btn-primary">Logout</button>
+				<button type="submit" class="btn btn-outline-primary">Logout</button>
 			</form>
 		</li>
 	</ul>
+	</div>
+</div>
 	<hr>
