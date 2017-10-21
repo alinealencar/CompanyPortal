@@ -1,12 +1,6 @@
 <% session.setAttribute("title", "Group Entry"); %>
 <%@include file="WEB-INF/header.jsp" %>
-<<<<<<< HEAD
 
-
-
-=======
-<%session.setAttribute("title", "Group Entry"); %>
->>>>>>> 995a804f883ce2f2bca40a468a0dec775d6f926b
 <script>
 	function checkEmployeeDropDown(){
 		 if(document.getElementById("emp1").value!="")
@@ -21,9 +15,7 @@
 			document.getElementById("emp6").disabled=false;
 		}
 </script>
-=======
 <% Connection conn = DatabaseAccess.connectDataBase(); %>
->>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 <% 	
 	//String selectedDept = "";
 	ResultSet rsDept = null; 
