@@ -33,6 +33,7 @@ import database.DatabaseAccess;
 import helper.CookieUtilities;
 import helper.DatabaseManagement;
 import helper.ValidateInput;
+import dataModel.Department;
 
 
 @WebServlet("/DepartmentEntry")
@@ -102,13 +103,6 @@ public class DepartmentEntry extends HttpServlet {
 			request.getSession().removeAttribute("errorLoc");
 			request.getSession().setAttribute("location", loc);
 		}
-		
-		//Cookie c1 = new Cookie("deptName", deptName);
-		//c1.setMaxAge( 60 * 60 * 24 * 7);
-		//response.addCookie(c1);
-		//Cookie c2 = new Cookie("location", loc);
-		//c2.setMaxAge( 60 * 60 * 24 * 7);
-		//response.addCookie(c2);
 	
 		if (!isMissingValue){
 			try {
@@ -116,8 +110,15 @@ public class DepartmentEntry extends HttpServlet {
 				conn = DatabaseAccess.connectDataBase();
 			
 				//check if insertion to the database succeeded
-				if(DatabaseManagement.insertDepartment(deptName, loc, conn)) 
+				if(DatabaseManagement.insertDepartment(deptName, loc, conn)) {
+					Department aDept = new Department(deptName, loc);
 					request.getSession().setAttribute("deptInsertSuccess", "The " + deptName + " department was successfully created!");
+				
+					//clear form
+					request.getSession().setAttribute("deptName", "");
+					request.getSession().setAttribute("location", "");
+					
+				}
 			}
 			catch(Exception e){
 				//error message if insert failed

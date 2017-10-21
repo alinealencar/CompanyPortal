@@ -22,22 +22,10 @@ public class Department {
 	private int id;
 	
 	// Constructors
-	private Department (String deptName, String deptLoc, int id){
+	public Department (String deptName, String deptLoc){
 		this.deptName = deptName;
 		this.deptLoc = deptLoc;
 		this.id = id;
-	}
-
-	
-	private Department (String deptName, int id){
-		this.deptName = deptName;
-		this.id = id;
-	}
-	
-
-	private Department (String deptName, String deptLoc){
-		this.deptName = deptName;
-		this.deptLoc = deptLoc;
 	}
 
 	// Properties

@@ -2,6 +2,7 @@
 <%@include file="WEB-INF/header.jsp" %>
 
 <script>
+	//disable employee dropdowns if nothing is selected in the previous dropdown lists
 	function checkEmployeeDropDown(){
 		 if(document.getElementById("emp1").value!="")
 		  	document.getElementById("emp2").disabled=false;
@@ -14,10 +15,17 @@
 		 if(document.getElementById("emp5").value!="")
 			document.getElementById("emp6").disabled=false;
 		}
+	
+	//function to clear the form when cancel is pressed
+	function eraseValues() {
+		document.getElementById("groupName").value = "";
+		//document.getElementById("location").value = "";	
+		//document.getElementById("erroDeptName").style.visibility = "hidden";	
+		//document.getElementById("errorLoc").style.visibility = "hidden";
+	}
 </script>
-<% Connection conn = DatabaseAccess.connectDataBase(); %>
-<% 	
-	//String selectedDept = "";
+<% Connection conn = DatabaseAccess.connectDataBase(); 
+	
 	ResultSet rsDept = null; 
 	ResultSet rsEmp1 = null; 
 	ResultSet rsEmp2 = null;
@@ -29,15 +37,28 @@
 	//result set to select departments
 	rsDept = DatabaseManagement.selectFromTable("department", conn);
 	
-	/*rsEmp1 = DatabaseManagement.selectFromTable("employee", conn);
-	rsEmp2 = DatabaseManagement.selectFromTable("employee", conn);
-	rsEmp3 = DatabaseManagement.selectFromTable("employee", conn);
-	rsEmp4 = DatabaseManagement.selectFromTable("employee", conn);
-	rsEmp5 = DatabaseManagement.selectFromTable("employee", conn);
-	rsEmp6 = DatabaseManagement.selectFromTable("employee", conn);*/
-	//String selectedDept = "";
+	String selectedEmp1 = null;
+	String selectedEmp2 = null;
+	String selectedEmp3 = null;
+	String selectedEmp4 = null;
+	String selectedEmp5 = null;
+	String selectedEmp6 = null;
+	
 	String selectedDept = CookieUtilities.getCookieValue(request, "department", "");
-	//String group = CookieUtilities.getCookieValue(request, "group", "");
+
+	//store session attributes for employees to variables if they are not null
+	if((String) session.getAttribute("emp1") != null) 
+		selectedEmp1 = (String) session.getAttribute("emp1");
+	if((String) session.getAttribute("emp2") != null) 
+		selectedEmp2 = (String) session.getAttribute("emp2");
+	if((String) session.getAttribute("emp3") != null) 
+		selectedEmp3 = (String) session.getAttribute("emp3");
+	if((String) session.getAttribute("emp4") != null) 
+		selectedEmp4 = (String) session.getAttribute("emp4");
+	if((String) session.getAttribute("emp5") != null) 
+		selectedEmp5 = (String) session.getAttribute("emp5");
+	if((String) session.getAttribute("emp1") != null) 
+		selectedEmp6 = (String) session.getAttribute("emp6");
 %>
 
 <%@include file="WEB-INF/menu.jsp" %>
@@ -46,7 +67,7 @@
 		if((String) session.getAttribute("groupInsertSuccess") != null)
 		out.println((String) session.getAttribute("groupInsertSuccess"));
 	
-		////show error message if database insertion failed
+		//show error message if database insertion failed
 		if((String) session.getAttribute("groupInsertError") != null)
 		out.println((String) session.getAttribute("groupInsertError"));
 	%>
@@ -57,28 +78,25 @@
 			<label>Department: </label>
 			<select id = "department" name = "department" onChange="this.form.submit()">
 				<option value="" selected>Department</option>
-				
-				<%-- //populate department drop down list 
-					while(rsDept.next()){ --%>
-        		<!-- <option value ="<%--=rsDept.getString("dept_name")%>" selected = "<%=selectedDept%>"><%=rsDept.getString("dept_name")%></option><%}--%> 
-			</select> -->
 			
-			<% if(selectedDept.equals("")){
+			<% //check if a department is selcted
+				if(selectedDept.equals("") || selectedDept == null){
 				out.print("<option value=\"\" selected>Department</option> ");
-				while(rsDept.next()){
-				out.print("<option value =\"" + rsDept.getString("dept_name") + "\">" + rsDept.getString("dept_name") + "</option>");
-				}
+					//populate drop down list 
+					while(rsDept.next()){
+						out.print("<option value =\"" + rsDept.getString("dept_name") + "\">" + rsDept.getString("dept_name") + "</option>");
+					}
 				}
 				else{
-  					//out.print("<select>");
+					//populate dropdown and assign selected value to show as a default in the dropdown list
  					while(rsDept.next()){
-    				if(rsDept.getString("dept_name").equals(selectedDept)){
-        			out.print("<option value=\""+rsDept.getString("dept_name")+"\" SELECTED >"+rsDept.getString("dept_name")+"</option>");
-    				}
-    				else{
-        			out.print("<option value=\""+rsDept.getString("dept_name")+"\" >"+rsDept.getString("dept_name")+"</option>");
-   					 }
-  				}
+    					if(rsDept.getString("dept_name").equals(selectedDept)){
+        					out.print("<option value=\""+rsDept.getString("dept_name")+"\" SELECTED >"+rsDept.getString("dept_name")+"</option>");
+    					}
+    					else{
+        					out.print("<option value=\""+rsDept.getString("dept_name")+"\" >"+rsDept.getString("dept_name")+"</option>");
+   					 	}
+  					}
 				}
   				out.print("</select>");
 			%>
@@ -102,6 +120,7 @@
 		
 			<%
 				//selectedDept = request.getParameter("option");
+			
 				//result set to retrieve employees based on selected department 
 				rsEmp1 = DatabaseManagement.selectEmployees(selectedDept, conn);
 				rsEmp2 = DatabaseManagement.selectEmployees(selectedDept, conn);
@@ -110,88 +129,175 @@
 				rsEmp5 = DatabaseManagement.selectEmployees(selectedDept, conn);
 				rsEmp6 = DatabaseManagement.selectEmployees(selectedDept, conn);
 		
-				 //show error message if no employee is selected
-				 if((String) session.getAttribute("errorEmp1") != null){
-					 out.println((String) session.getAttribute("errorEmp1"));
+				 //show error message if no employee is selected or a duplicate employee is selected
+				 if((String) session.getAttribute("errorEmp") != null){
+					 out.println((String) session.getAttribute("errorEmp"));
 		   		}
 			%>
 			<br>
 		
 			<label>Employee 1:</label>
 			<select id="emp1" name = "emp1" onchange = "checkEmployeeDropDown()">
-				<option value="">Employee</option>
-				<%	//populate employee 1 drop down list
-					while(rsEmp1.next()){ %>
-        		<option value="<%=rsEmp1.getString("firstname") + " " + 
-					rsEmp1.getString("lastname")%>"><%=rsEmp1.getString("firstname") + " " 
-        			+ rsEmp1.getString("lastname")%></option><%}%> 
-			</select>
+				<% //check if a department is selected
+					if(selectedDept.equals("")){
+					out.print("<option value=\"\" selected>Employee</option> ");
+				  }
+					//check if an employee selected,
+				 	if(selectedEmp1 != null){
+				 		out.print("<option value=\"\">Employee</option> ");
+				 		//populate dropdown list
+						while(rsEmp1.next()){
+							//populate dropdown and assign selected value to show as a default in the dropdown list
+    						if(selectedEmp1.contains(rsEmp1.getString("firstname")) && selectedEmp1.contains(rsEmp1.getString("lastname"))){
+        							out.print("<option value=\""+ rsEmp1.getString("firstname") + " " + rsEmp1.getString("lastname") +"\" SELECTED >"+rsEmp1.getString("firstname") + " " + rsEmp1.getString("lastname")+"</option>");
+    						}
+    						else{
+        						out.print("<option value=\""+rsEmp1.getString("firstname") + " " + rsEmp1.getString("lastname")+"\" >"+rsEmp1.getString("firstname") + " " + rsEmp1.getString("lastname")+ "</option>");
+   					 		}
+  						}
+				  	}
+					//if no employee is selected, populate dropdown list
+				  	else {
+						out.print("<option value=\"\" selected>Employee</option> ");
+							while(rsEmp1.next()){
+								out.print("<option value =\"" + rsEmp1.getString("firstname") + " " + rsEmp1.getString("lastname") + "\">" + rsEmp1.getString("firstname") + " " + rsEmp1.getString("lastname")+ "</option>");
+						}
+					}
+  				out.print("</select>");
+			%>
 	
 			<label>Employee 2:</label>
 			<select id="emp2" name = "emp2" onchange = "checkEmployeeDropDown()" disabled>
-				<option value="">Employee</option>
-				<%	//populate employee 2 drop down list
-					while(rsEmp2.next()){ %>
-        		<option value="<%=rsEmp2.getString("firstname") + " " + 
-					rsEmp2.getString("lastname")%>"><%=rsEmp2.getString("firstname") + " " + 
-        			rsEmp2.getString("lastname")%></option><%}%> 
-			</select>
+				<% //check if a second employee is selected
+					if(selectedEmp2 != null){
+						out.print("<option value=\"\">Employee</option> ");
+						while(rsEmp2.next()){
+							//populate dropdown and assign selected value to show as a default in the dropdown list
+							if(selectedEmp2.contains(rsEmp2.getString("firstname")) && selectedEmp2.contains(rsEmp2.getString("lastname"))){
+ 				   				out.print("<option value=\""+ rsEmp2.getString("firstname") + " " + rsEmp2.getString("lastname") +"\" SELECTED >"+rsEmp2.getString("firstname") + " " + rsEmp2.getString("lastname")+"</option>");
+    						}
+    						else{
+        							out.print("<option value=\""+rsEmp2.getString("firstname") + " " + rsEmp2.getString("lastname")+"\" >"+rsEmp2.getString("firstname") + " " + rsEmp2.getString("lastname")+ "</option>");
+   					 			}
+  							}
+						}
+				  else {
+						out.print("<option value=\"\" selected>Employee</option> ");
+							while(rsEmp2.next()){
+								out.print("<option value =\"" + rsEmp2.getString("firstname") + " " + rsEmp2.getString("lastname") + "\">" + rsEmp2.getString("firstname") + " " + rsEmp2.getString("lastname")+ "</option>");
+						}
+					
+					}
+  				out.print("</select>");
+			%>
 		
 			<label>Employee 3:</label>
 			<select id="emp3" name = "emp3" onchange = "checkEmployeeDropDown()" disabled>
-				<option value="">Employee</option>
-				<%	//populate employee 3 drop down list
-					while(rsEmp3.next()){ %>
-        		<option value="<%=rsEmp3.getString("firstname") + " " + 
-					rsEmp3.getString("lastname")%>"><%=rsEmp3.getString("firstname") + " " + 
-        			rsEmp3.getString("lastname")%></option><%}%> 
-			</select>
+				<% //check if a third employee is selected
+					if(selectedEmp3 != null){
+						out.print("<option value=\"\">Employee</option> ");
+						while(rsEmp3.next()){
+							//populate dropdown and assign selected value to show as a default in the dropdown list
+							if(selectedEmp3.contains(rsEmp3.getString("firstname")) && selectedEmp3.contains(rsEmp3.getString("lastname"))){
+ 				   				out.print("<option value=\""+ rsEmp3.getString("firstname") + " " + rsEmp3.getString("lastname") +"\" SELECTED >"+rsEmp3.getString("firstname") + " " + rsEmp3.getString("lastname")+"</option>");
+    						}
+    						else{
+        							out.print("<option value=\""+rsEmp3.getString("firstname") + " " + rsEmp3.getString("lastname")+"\" >"+rsEmp3.getString("firstname") + " " + rsEmp3.getString("lastname")+ "</option>");
+   					 			}
+  							}
+						}
+					
+				  else {
+						out.print("<option value=\"\" selected>Employee</option> ");
+							while(rsEmp3.next()){
+								out.print("<option value =\"" + rsEmp3.getString("firstname") + " " + rsEmp3.getString("lastname") + "\">" + rsEmp3.getString("firstname") + " " + rsEmp3.getString("lastname")+ "</option>");
+						}
+					
+					}
+  				out.print("</select>");
+			%>
 			<br>
 	
 			<label>Employee 4:</label>
 			<select id="emp4" name = "emp4" onchange = "checkEmployeeDropDown()" disabled>
-				<option value="">Employee</option>
-				<%	//populate employee 4 drop down list
-					while(rsEmp4.next()){ %>
-        		<option value="<%=rsEmp4.getString("firstname") + " " + 
-					rsEmp4.getString("lastname")%>"><%=rsEmp4.getString("firstname") + " " + 
-        			rsEmp4.getString("lastname")%></option><%}%> 
-			</select>
+				<% //check if a fourth employee is selected
+					if(selectedEmp4 != null){
+						out.print("<option value=\"\">Employee</option> ");
+						while(rsEmp4.next()){
+							//populate dropdown and assign selected value to show as a default in the dropdown list
+							if(selectedEmp4.contains(rsEmp4.getString("firstname")) && selectedEmp4.contains(rsEmp4.getString("lastname"))){
+ 				   				out.print("<option value=\""+ rsEmp4.getString("firstname") + " " + rsEmp4.getString("lastname") +"\" SELECTED >"+rsEmp4.getString("firstname") + " " + rsEmp4.getString("lastname")+"</option>");
+    						}
+    						else{
+        							out.print("<option value=\""+rsEmp4.getString("firstname") + " " + rsEmp4.getString("lastname")+"\" >"+rsEmp4.getString("firstname") + " " + rsEmp4.getString("lastname")+ "</option>");
+   					 			}
+  							}
+						}
+					
+				  else {
+						out.print("<option value=\"\" selected>Employee</option> ");
+							while(rsEmp4.next()){
+								out.print("<option value =\"" + rsEmp4.getString("firstname") + " " + rsEmp4.getString("lastname") + "\">" + rsEmp4.getString("firstname") + " " + rsEmp4.getString("lastname")+ "</option>");
+						}
+					
+					}
+  				out.print("</select>");
+			%>
 	
 			<label>Employee 5:</label>
 			<select id="emp5" name = "emp5" onchange = "checkEmployeeDropDown()" disabled>
-				<option value="">Employee</option>
-				<%	//populate employee 5 drop down list
-					while(rsEmp5.next()){ %>
-        		<option value="<%=rsEmp5.getString("firstname") + " " + 
-					rsEmp5.getString("lastname")%>"><%=rsEmp5.getString("firstname") + " " + 
-        			rsEmp5.getString("lastname")%></option><%}%> 
-			</select>
+				<% //check if a fifth employee is selected
+					if(selectedEmp5 != null){
+						out.print("<option value=\"\">Employee</option> ");
+						while(rsEmp5.next()){
+							//populate dropdown and assign selected value to show as a default in the dropdown list
+							if(selectedEmp5.contains(rsEmp5.getString("firstname")) && selectedEmp5.contains(rsEmp5.getString("lastname"))){
+ 				   				out.print("<option value=\""+ rsEmp5.getString("firstname") + " " + rsEmp5.getString("lastname") +"\" SELECTED >"+rsEmp5.getString("firstname") + " " + rsEmp5.getString("lastname")+"</option>");
+    						}
+    						else{
+        							out.print("<option value=\""+rsEmp5.getString("firstname") + " " + rsEmp5.getString("lastname")+"\" >"+rsEmp5.getString("firstname") + " " + rsEmp5.getString("lastname")+ "</option>");
+   					 			}
+  							}
+						}
+					
+				  else {
+						out.print("<option value=\"\" selected>Employee</option> ");
+							while(rsEmp5.next()){
+								out.print("<option value =\"" + rsEmp5.getString("firstname") + " " + rsEmp5.getString("lastname") + "\">" + rsEmp5.getString("firstname") + " " + rsEmp5.getString("lastname")+ "</option>");
+						}
+					
+					}
+  				out.print("</select>");
+			%>
 			
-			<label>Employee 5:</label>
-			<select id="emp5" name = "emp5" onchange = "checkEmployeeDropDown()" disabled>
-				<option value="">Employee</option>
-				<%	//populate employee 5 drop down list
-					while(rsEmp5.next()){ %>
-        		<option value="<%=rsEmp5.getString("firstname") + " " + 
-					rsEmp5.getString("lastname")%>"><%=rsEmp5.getString("firstname") + " " + 
-        			rsEmp5.getString("lastname")%></option><%}%> 
-			</select>
-	
-	
+			<label>Employee 6:</label>
+			<select id="emp6" name = "emp6" onchange = "checkEmployeeDropDown()" disabled>
+				<% //check if a sixth employee is selected
+					if(selectedEmp6 != null){
+						out.print("<option value=\"\">Employee</option> ");
+						while(rsEmp6.next()){
+							//populate dropdown and assign selected value to show as a default in the dropdown list
+							if(selectedEmp6.contains(rsEmp6.getString("firstname")) && selectedEmp6.contains(rsEmp6.getString("lastname"))){
+ 				   				out.print("<option value=\""+ rsEmp6.getString("firstname") + " " + rsEmp6.getString("lastname") +"\" SELECTED >"+rsEmp6.getString("firstname") + " " + rsEmp6.getString("lastname")+"</option>");
+    						}
+    						else{
+        							out.print("<option value=\""+rsEmp6.getString("firstname") + " " + rsEmp6.getString("lastname")+"\" >"+rsEmp6.getString("firstname") + " " + rsEmp6.getString("lastname")+ "</option>");
+   					 			}
+  							}
+						}
+					
+				  else {
+						out.print("<option value=\"\" selected>Employee</option> ");
+							while(rsEmp6.next()){
+								out.print("<option value =\"" + rsEmp6.getString("firstname") + " " + rsEmp6.getString("lastname") + "\">" + rsEmp6.getString("firstname") + " " + rsEmp6.getString("lastname")+ "</option>");
+						}
+					
+					}
+  				out.print("</select>");
+			%>
 			<br>
-	
 			<input type = "submit" value = "Submit" onclick = "form.action = 'GroupEntry'" />
 			<input type = "reset" value = "Cancel" onclick = "eraseValues()"/>
 		</form>
-		
-<script>
-	function eraseValues() {
-		document.getElementById("groupName").value = "";
-		//document.getElementById("location").value = "";	
-		//document.getElementById("erroDeptName").style.visibility = "hidden";	
-		//document.getElementById("errorLoc").style.visibility = "hidden";
-	}
-</script>
 	
 <%@include file="WEB-INF/footer.jsp" %>

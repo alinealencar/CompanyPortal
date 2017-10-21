@@ -45,15 +45,15 @@
 						%> 
 					</div>
 					<input type = "submit" value = "Submit" class="btn btn-primary"/>
-					<input type = "submit" value = "Clear" onclick = "eraseValues()" class="btn btn-secondary"/>
+					<input type = "reset" value = "Clear" onclick = "eraseValues()" class="btn btn-secondary"/>
 				</form>
 			
 			<script>
 				function eraseValues() {
 					document.getElementById("deptName").value = "";
 					document.getElementById("location").value = "";	
-					document.getElementById("errorDeptName").value = null;	
-					document.getElementById("errorLoc").value = null;
+					document.getElementById("errorDeptName").style.visibility = "hidden";
+					document.getElementById("errorLoc").style.visibility = "hidden";
 				}
 			</script>
 			</div>

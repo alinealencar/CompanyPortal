@@ -15,12 +15,6 @@
 * 			   redirects back to the group-entry.jsp page
 *********************************************************************************/
 
-=======
-* Description: This servlet acts as a first layer for the group-entry.jsp form.
-*********************************************************************************/
-
-
->>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 package servlet;
 
 import java.io.IOException;
@@ -77,8 +71,6 @@ public class GroupEntryHelper extends HttpServlet {
 		String group = request.getParameter("groupName");
 		Cookie deptCookie = new Cookie("department", dept);
 		response.addCookie(deptCookie);
-		Cookie groupCookie = new Cookie("groupName", group);
-		response.addCookie(groupCookie);
 		response.sendRedirect("group-entry.jsp");
 	}
 
