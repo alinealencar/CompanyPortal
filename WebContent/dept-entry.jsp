@@ -44,7 +44,7 @@
 	function eraseValues() {
 		document.getElementById("deptName").value = "";
 		document.getElementById("location").value = "";	
-		document.getElementById("erroDeptName").value = null;	
+		document.getElementById("errorDeptName").value = null;	
 		document.getElementById("errorLoc").value = null;
 	}
 </script>
