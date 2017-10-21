@@ -31,6 +31,7 @@ import javax.servlet.http.HttpSession;
 
 import com.mysql.jdbc.Connection;
 
+import dataModel.Employee;
 import dataModel.User;
 import database.DatabaseAccess;
 import helper.DatabaseManagement;
@@ -77,6 +78,7 @@ public class EmployeeEntry extends HttpServlet {
 		boolean validEmail = false;
 		boolean validYear = false;
 		boolean validJobPos = false;
+		HttpSession session = request.getSession();
 		
 		//get user input information
 		String firstName = request.getParameter("firstName");
@@ -86,105 +88,114 @@ public class EmployeeEntry extends HttpServlet {
 		String hireYear = request.getParameter("hireYear");
 		String jobPosition = request.getParameter("jobPosition");
 		
+		// Create Employee object
+		Employee anEmployee = new Employee(firstName, lastName, employeeNum, email, hireYear, jobPosition);
+		
+		
 		//validation
 		//response.sendRedirect("employee-entry.jsp");
 				
 		//first name validation (if it is not empty and/or only alphabet)
-		if(!ValidateInput.isMissing(firstName) && ValidateInput.isAlphabet(firstName)){
-			request.getSession().removeAttribute("errorFName");
-			request.getSession().setAttribute("firstName", firstName);//store valid value to session
+		if(!ValidateInput.isMissing(anEmployee.getFirstName()) && ValidateInput.isAlphabet(anEmployee.getFirstName())){
+			session.removeAttribute("errorFName");
+			session.setAttribute("firstName", anEmployee.getFirstName());//store valid value to session
 			validFName = true;
 		}else{
-			if(ValidateInput.isMissing(firstName)){			
-				request.getSession().setAttribute("errorFName", "You must input a First Name");
-				request.getSession().setAttribute("firstName", "");
-			}else if(!ValidateInput.isAlphabet(firstName)){		
-				request.getSession().setAttribute("errorFName", "First Name must contain letters only");
-				request.getSession().setAttribute("firstName", "");
+			if(ValidateInput.isMissing(anEmployee.getFirstName())){			
+				session.setAttribute("errorFName", "You must input a First Name");
+				session.setAttribute("firstName", "");
+			}else if(!ValidateInput.isAlphabet(anEmployee.getFirstName())){		
+				session.setAttribute("errorFName", "First Name must contain letters only");
+				session.setAttribute("firstName", "");
 			}
 		}
 		
 					
 		//last name validation (if it is not empty and/or only alphabet)		
-		if(!ValidateInput.isMissing(lastName) && ValidateInput.isAlphabet(lastName)){
-			request.getSession().removeAttribute("errorLName");
-			request.getSession().setAttribute("lastName", lastName);//store valid value to session
+		if(!ValidateInput.isMissing(anEmployee.getLastName()) && ValidateInput.isAlphabet(anEmployee.getLastName())){
+			session.removeAttribute("errorLName");
+			session.setAttribute("lastName", anEmployee.getLastName());//store valid value to session
 			validLName = true;
 		}else{
-			if(ValidateInput.isMissing(lastName)){			
-				request.getSession().setAttribute("errorLName", "You must input a Last Name");
-				request.getSession().setAttribute("lastName", "");
-			}else if(!ValidateInput.isAlphabet(lastName)){		
-				request.getSession().setAttribute("errorLName", "Last Name must contain letters only");
-				request.getSession().setAttribute("lastName", "");
+			if(ValidateInput.isMissing(anEmployee.getLastName())){			
+				session.setAttribute("errorLName", "You must input a Last Name");
+				session.setAttribute("lastName", "");
+			}else if(!ValidateInput.isAlphabet(anEmployee.getLastName())){		
+				session.setAttribute("errorLName", "Last Name must contain letters only");
+				session.setAttribute("lastName", "");
 			}
 		}
 		
 		
 		//employee number stays in textbox when user need to modify other value
-		request.getSession().setAttribute("employeeNum", employeeNum);//store value to session
+		session.setAttribute("employeeNum", anEmployee.getEmpNo());//store value to session
 		
 			
 		//email validation (if it is not empty and/or valid email combination)
-		if(!ValidateInput.isMissing(email) && ValidateInput.isValidEmail(email)){
-			request.getSession().removeAttribute("errorEmail");
-			request.getSession().setAttribute("email", email);//store valid value to session
+		if(!ValidateInput.isMissing(anEmployee.getEmail()) && ValidateInput.isValidEmail(anEmployee.getEmail())){
+			session.removeAttribute("errorEmail");
+			session.setAttribute("email", anEmployee.getEmail());//store valid value to session
 			validEmail = true;
 		}else{
-			if(ValidateInput.isMissing(email)){			
-				request.getSession().setAttribute("errorEmail", "You must input an Email");
-				request.getSession().setAttribute("email", "");
-			}else if(!ValidateInput.isValidEmail(email)){		
-				request.getSession().setAttribute("errorEmail", "Invalid email");
-				request.getSession().setAttribute("email", "");
+			if(ValidateInput.isMissing(anEmployee.getEmail())){			
+				session.setAttribute("errorEmail", "You must input an Email");
+				session.setAttribute("email", "");
+			}else if(!ValidateInput.isValidEmail(anEmployee.getEmail())){		
+				session.setAttribute("errorEmail", "Invalid email");
+				session.setAttribute("email", "");
 			}
 		}
 		
 		//Hire Year validation (if it is not select index 0)
-		if(hireYear != ""){
-			request.getSession().removeAttribute("errorYear");
+		if(anEmployee.getHireYear() != ""){
+			session.removeAttribute("errorYear");
 			//request.getSession().setAttribute("2000", "selected=\"selected\"");//keep selected **********************************
-			request.getSession().setAttribute("hireYear", hireYear);//store valid value to session
+			session.setAttribute("hireYear", anEmployee.getHireYear());//store valid value to session
 			validYear = true;
 		}else{
-			if(hireYear == ""){			
-				request.getSession().setAttribute("errorYear", "You must select a year");
+			if(anEmployee.getHireYear() == ""){			
+				session.setAttribute("errorYear", "You must select a year");
 			}
 		}
 		
 		//Job Position validation (if it is not select index 0)
-		if(jobPosition != ""){
-			request.getSession().removeAttribute("errorPosition");
+		if(anEmployee.getJobPosition() != ""){
+			session.removeAttribute("errorPosition");
 			//request.getSession().setAttribute("2000", "selected=\"selected\"");//keep selected **********************************
-			request.getSession().setAttribute("jobPosition", jobPosition);//store valid value to session
+			session.setAttribute("jobPosition", anEmployee.getJobPosition());//store valid value to session
 			validJobPos = true;
 		}else{
-			if(jobPosition == ""){			
-			request.getSession().setAttribute("errorPosition", "You must select a valid job position");
+			if(anEmployee.getJobPosition() == ""){			
+				session.setAttribute("errorPosition", "You must select a valid job position");
 			}
 		}
 
 		 
 		//Store valid data to database
 		Connection conn = null;
-		HttpSession session = request.getSession(true);
 				
 		if(validFName && validLName && validEmail && validYear && validJobPos){
 			try {
 				//DatabaseAccess.createDatabase();
 				conn = (Connection) DatabaseAccess.connectDataBase();
 				
-				if(DatabaseManagement.insertEmployee(firstName, lastName, employeeNum, email, hireYear, jobPosition, conn)){
-					session.setAttribute("employeeSuccess","Employee " + firstName + lastName + " has been successfully added to the system ") ;
+				if(DatabaseManagement.insertEmployee(anEmployee.getFirstName(), 
+						anEmployee.getLastName(), 
+						anEmployee.getEmpNo(), 
+						anEmployee.getEmail(), 
+						anEmployee.getHireYear(), 
+						anEmployee.getJobPosition(), 
+						conn)){
+					session.setAttribute("employeeSuccess","Employee " + anEmployee.getFirstName() + " " + anEmployee.getLastName() + " has been successfully added to the system ") ;
 					
 					//clear all form for successfully added employee
-					request.getSession().setAttribute("firstName", "");
-					request.getSession().setAttribute("lastName", "");
-					request.getSession().setAttribute("employeeNum","");
-					request.getSession().setAttribute("email", "");
+					session.setAttribute("firstName", "");
+					session.setAttribute("lastName", "");
+					session.setAttribute("employeeNum","");
+					session.setAttribute("email", "");
 				}
 				else {
-					session.setAttribute("employeeError", "Employee " + firstName + lastName + " has NOT been added to the system ");
+					session.setAttribute("employeeError", "Employee " + anEmployee.getFirstName()  + " " + anEmployee.getLastName() + " has NOT been added to the system ");
 				}
 			}
 			catch(Exception e){

@@ -25,7 +25,6 @@ public class Department {
 	public Department (String deptName, String deptLoc){
 		this.deptName = deptName;
 		this.deptLoc = deptLoc;
-		this.id = id;
 	}
 
 	// Properties

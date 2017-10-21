@@ -17,20 +17,16 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.DatabaseAccess;
-import helper.CookieUtilities;
 import helper.DatabaseManagement;
 import helper.ValidateInput;
 import dataModel.Department;
@@ -112,7 +108,7 @@ public class DepartmentEntry extends HttpServlet {
 				//check if insertion to the database succeeded
 				if(DatabaseManagement.insertDepartment(deptName, loc, conn)) {
 					Department aDept = new Department(deptName, loc);
-					request.getSession().setAttribute("deptInsertSuccess", "The " + deptName + " department was successfully created!");
+					request.getSession().setAttribute("deptInsertSuccess", "The " + aDept.getDeptName() + " department was successfully created!");
 				
 					//clear form
 					request.getSession().setAttribute("deptName", "");
