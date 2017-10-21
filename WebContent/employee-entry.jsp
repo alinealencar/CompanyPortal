@@ -1,4 +1,5 @@
 <% session.setAttribute("title", "Employee Entry"); %>
+<%@page import="java.util.Calendar"%>
 <%@include file="WEB-INF/header.jsp" %>
 
 <%@include file="WEB-INF/menu.jsp" %>
@@ -38,13 +39,13 @@
 					</div>
 					<select id="hireYear" name = "hireYear">
 					<%String selectedYear = (String) session.getAttribute("hireYear"); %>
-						<option value="">Hire Year</option>
+						<option selected disabled>Hire Year</option>
 						
-						<%for(int i = 2000; i <= 2017; i++){
-							out.println("<option value=\"" + i + "\" ");
+						<%for(int i = 2000; i <= Calendar.getInstance().get(Calendar.YEAR); i++){
+							out.print("<option value=\"" + i + "\" ");
 			  				if(selectedYear != null && selectedYear.equals((Integer.toString(i))))
-			  					out.println("selected=\"selected\"");
-			  				out.println(">" + i + "</option>");
+			  					out.print("selected=\"selected\"");
+			  				out.print(">" + i + "</option>");
 						} %>
 						
 			  			<%-- <option value="2000">2000</option>
