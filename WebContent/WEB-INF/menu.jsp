@@ -21,7 +21,7 @@
 			<a class="nav-link" href ="attendance.jsp">Attendance</a>
 		</li>
 		<li class="nav-item">
-			<span class="nav-link disabled">Welcome, <%=request.getSession().getAttribute("fName") %>!</span>
+			<span class="nav-link disabled">Signed in as <%=request.getSession().getAttribute("fName") %>.</span>
 		</li>
 		<li class="nav-item">
 			<form action="LogoutServlet">
