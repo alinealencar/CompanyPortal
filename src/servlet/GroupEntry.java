@@ -13,12 +13,7 @@
 <<<<<<< HEAD
 * Description: This servlet handles the group-entry.jsp page
 *********************************************************************************/
-=======
-* Description: This servlet handles the creation of a new group.
-*********************************************************************************/
 
-
->>>>>>> ae8d2e7eee67c19e86d1c3874cf8f1e8359a67a6
 package servlet;
 
 import java.io.IOException;
