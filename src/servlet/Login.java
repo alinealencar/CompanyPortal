@@ -60,6 +60,7 @@ public class Login extends HttpServlet {
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		response.setContentType("text/html");
 		
 		if(AuthenticationHelper.isLoggedIn(session)){
 			response.sendRedirect("home.jsp");

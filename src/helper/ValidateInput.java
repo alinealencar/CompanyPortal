@@ -69,6 +69,7 @@ public class ValidateInput {
 	public static boolean isEmployeeNumber(String data){
 		return (data.matches("[0-9]+") && data.length() == 9);
 	}
+	
 	/**
 	 * This method checks if the user added a same employee twice when creating a group.
 	 * This checking is done by checking if an employee was added to a temporary arraylist. If the

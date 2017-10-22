@@ -175,11 +175,6 @@ public class GroupEntry extends HttpServlet {
 			}
 		}
 	}
-			//**************************************** Not done yet		
-			/*
-			 * Cannot create a Group object
-			 * Check if there are duplicates in the employees selected
-			 */
 }
 
 

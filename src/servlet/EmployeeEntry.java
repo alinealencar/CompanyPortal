@@ -78,6 +78,8 @@ public class EmployeeEntry extends HttpServlet {
 		boolean validJobPos = false;
 		HttpSession session = request.getSession();
 		
+		response.setContentType("text/html");
+		
 		//get user input information
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
@@ -210,15 +212,6 @@ public class EmployeeEntry extends HttpServlet {
 		else {
 			response.sendRedirect("employee-entry.jsp");
 		}
-		
-		
-		//**************************************** Not done yet		
-		/*
-		 * drop down list doesn't stay selected item when there is invalid value
-		 * haven't check proper value is stored  --- DONE
-		 * pass data to database --- DONE
-		 * show successful entry
-		 */
 
 	}//end of doPost()
 
