@@ -137,8 +137,6 @@
 				<br>
 			</div>
 			<%
-				//selectedDept = request.getParameter("option");
-			
 				//result set to retrieve employees based on selected department 
 				rsEmp1 = DatabaseManagement.selectEmployees(selectedDept, conn);
 				rsEmp2 = DatabaseManagement.selectEmployees(selectedDept, conn);
@@ -320,7 +318,7 @@
 			</div>
 			<br>
 			<input type = "submit" value = "Submit" onclick = "form.action = 'GroupEntry'" class="btn btn-primary" />
-			<input type = "reset" value = "Clear" onclick = "eraseValues()" class="btn btn-secondary"/>
+			<input type = "reset" value = "Clear" class="btn btn-secondary"/>
 		</form>
 	</div>
 	<div class="col col-lg-3">

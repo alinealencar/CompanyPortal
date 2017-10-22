@@ -74,10 +74,12 @@ public class DepartmentEntry extends HttpServlet {
 		String deptName = request.getParameter("deptName");
 		String loc = request.getParameter("location");
 		
+		Department aDept = new Department(deptName, loc);
+		
 		response.sendRedirect("dept-entry.jsp");
 		
 		//check if department name is missing
-		if (ValidateInput.isMissing(deptName)) {
+		if (ValidateInput.isMissing(aDept.getDeptName())) {
 			request.getSession().setAttribute("errorDeptName", "Please enter a department name");
 			request.getSession().setAttribute("deptName", "");
 			//deptName = "Missing department name!";
@@ -85,11 +87,11 @@ public class DepartmentEntry extends HttpServlet {
 		}
 		else {
 			request.getSession().removeAttribute("errorDeptName");
-			request.getSession().setAttribute("deptName", deptName);
+			request.getSession().setAttribute("deptName", aDept.getDeptName());
 		}
 		
 		//check if department location is missing
-		if (ValidateInput.isMissing(loc)) {
+		if (ValidateInput.isMissing(aDept.getDeptLoc())) {
 			//loc = "Missing department location!";
 			request.getSession().setAttribute("errorLoc", "Please enter a location");
 			request.getSession().setAttribute("location", "");
@@ -97,7 +99,7 @@ public class DepartmentEntry extends HttpServlet {
 		}
 		else {
 			request.getSession().removeAttribute("errorLoc");
-			request.getSession().setAttribute("location", loc);
+			request.getSession().setAttribute("location", aDept.getDeptLoc());
 		}
 	
 		if (!isMissingValue){
@@ -106,8 +108,7 @@ public class DepartmentEntry extends HttpServlet {
 				conn = DatabaseAccess.connectDataBase();
 			
 				//check if insertion to the database succeeded
-				if(DatabaseManagement.insertDepartment(deptName, loc, conn)) {
-					Department aDept = new Department(deptName, loc);
+				if(DatabaseManagement.insertDepartment(aDept.getDeptName(), aDept.getDeptLoc(), conn)) {
 					request.getSession().setAttribute("deptInsertSuccess", "The " + aDept.getDeptName() + " department was successfully created!");
 				
 					//clear form

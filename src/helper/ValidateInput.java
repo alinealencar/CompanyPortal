@@ -104,5 +104,4 @@ public class ValidateInput {
 		}
 		return false;
 	}
-
 }
