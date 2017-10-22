@@ -70,7 +70,6 @@ public class GroupEntry extends HttpServlet {
      * @exception	 IOException on input error
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
 		Connection conn = null;
 		response.setContentType("text/html");
 		Boolean isNotValid = false;
@@ -90,7 +89,7 @@ public class GroupEntry extends HttpServlet {
 		response.sendRedirect("group-entry.jsp");
 		
 		//check if department name if missing
-		if (ValidateInput.isMissing(deptName)) {
+		if (ValidateInput.isMissing(aGroup.getDeptName())) {
 			request.getSession().setAttribute("errorDepartment", "Please select a department.");
 			request.getSession().setAttribute("department", "");
 			isNotValid = true;
@@ -101,7 +100,7 @@ public class GroupEntry extends HttpServlet {
 		}
 		
 		//check if group name is missing
-		if (ValidateInput.isMissing(groupName)) {
+		if (ValidateInput.isMissing(aGroup.getGroupName())) {
 			request.getSession().setAttribute("errorGroupName", "Please enter a group name.");
 			request.getSession().setAttribute("groupName", "");
 			isNotValid = true;
@@ -112,7 +111,7 @@ public class GroupEntry extends HttpServlet {
 		}
 		
 		//check if no employee is selected
-		if (ValidateInput.isMissing(emp1)) {
+		if (ValidateInput.isMissing(aGroup.getMember1())) {
 			request.getSession().setAttribute("errorEmp", "Please select an employee.");
 			request.getSession().setAttribute("emp1", "");
 			isNotValid = true;
@@ -125,42 +124,16 @@ public class GroupEntry extends HttpServlet {
 		//Check if there's a duplicate employee selected
 		if(ValidateInput.isEmployeeDuplicate(emp1, emp2, emp3, emp4, emp5, emp6)){
 			request.getSession().setAttribute("errorEmp", "You've selected the same employee twice. Please select another employee.");
-			request.getSession().setAttribute("emp2", aGroup.getMember2());
-			request.getSession().setAttribute("emp3", aGroup.getMember3());
-			request.getSession().setAttribute("emp4", aGroup.getMember4());
-			request.getSession().setAttribute("emp5", aGroup.getMember5());
-			request.getSession().setAttribute("emp6", aGroup.getMember6());
+			
 			isNotValid = true;
 		}
 		
-		else {
+		request.getSession().setAttribute("emp2", aGroup.getMember2());
+		request.getSession().setAttribute("emp3", aGroup.getMember3());
+		request.getSession().setAttribute("emp4", aGroup.getMember4());
+		request.getSession().setAttribute("emp5", aGroup.getMember5());
+		request.getSession().setAttribute("emp6", aGroup.getMember6());
 		
-		//check if more than one employee is selected
-		if (emp2 != null) {
-			request.getSession().setAttribute("emp2", aGroup.getMember2());
-			request.getSession().removeAttribute("errorEmp");
-		}
-		
-		if (emp3 != null) {
-			request.getSession().setAttribute("emp3", aGroup.getMember3());
-			request.getSession().removeAttribute("errorEmp");
-		}
-
-		if (emp4 != null) {
-			request.getSession().setAttribute("emp4", aGroup.getMember4());
-			request.getSession().removeAttribute("errorEmp");
-		}
-		
-		if (emp5 != null) {
-			request.getSession().setAttribute("emp5", aGroup.getMember5());
-			request.getSession().removeAttribute("errorEmp");
-		}
-	
-		if (emp6 != null) {
-				request.getSession().setAttribute("emp6", aGroup.getMember6());
-				request.getSession().removeAttribute("errorEmp");
-			}
-		}
 		if (!isNotValid){
 			try {
 				//DatabaseAccess.createDatabase();

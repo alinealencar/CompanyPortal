@@ -36,11 +36,7 @@ public class DatabaseManagement {
 			Statement statement = conn.createStatement();
 			String query = "select * from " + tableName;
 			ResultSet rs = statement.executeQuery(query);
-			
-			/*if(rs != null){
-				while(rs.next())
-					rs.next();
-			}*/
+	
 			return rs;
 		}
 	
@@ -138,40 +134,7 @@ public class DatabaseManagement {
 	 */
 	public static boolean insertGroup(String deptName, String groupName, String member1, String member2, String member3, String member4, String member5, String member6, Connection conn)
 			throws Exception {
-			
-			/*String[] members = new String[]{member2, member3, member4, member5, member6};
-			
-			for(int i = 0; i < members.length; i++){
-				if(members[i].equals("Employee")){
-					members[i] = null;
-				}
-			}*/
-		
-			/*if(member2.equals("Employee"))
-			{
-				member2 = null;
-			}
-			
-			if(member3.equals("Employee"))
-			{
-				member3 = null;
-			}
-			
-			if(member4.equals("Employee"))
-			{
-				member4 = null;
-			}
-			
-			if(member5.equals("Employee"))
-			{
-				member5 = null;
-			}
-			
-			if(member6.equals("Employee"))
-			{
-				member6 = null;
-			}*/
-			
+				
 			String query = "insert into groups(dept_name, group_name, member1, member2, member3, member4, member5, member6, dept_id_fk)  values(?,?,?,?,?,?,?,?,?)";
 			
 				PreparedStatement preparedStmt = conn.prepareStatement(query);

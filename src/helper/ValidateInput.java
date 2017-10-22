@@ -71,7 +71,7 @@ public class ValidateInput {
 	}
 	/**
 	 * This method checks if the user added a same employee twice when creating a group.
-	 * This checking is done by checking if an employee was added to a temporary array. If the
+	 * This checking is done by checking if an employee was added to a temporary arraylist. If the
 	 * employee that will be added to it is already there, it means that employee was added twice.
 	 * @param emp1	String that holds the full name of the first employee
 	 * @param emp2	String that holds the full name of the second employee
@@ -82,30 +82,6 @@ public class ValidateInput {
 	 * @return boolean It returns true if there's a duplicate selection for one employee, false if
 	 * 					each employee was selected once only.
 	 */
-	/*public static boolean isEmployeeDuplicate(String emp1, String emp2, String emp3, String emp4, String emp5, String emp6) {
-		String[] employeeInput = new String[]{emp2, emp3, emp4, emp5, emp6};
-		String[] tempArray = new String[]{emp1, null, null, null, null, null};
-		int next = 1;
-		for(int i = 0; i < 5; i++){
-			if(employeeInput[i] == null) {
-				break;
-			}
-			for(int j = 0; j < 6; j ++){
-				if(tempArray[j] == null) {
-					break;
-				}
-				
-				if(employeeInput[i].equals(tempArray[j]))
-					return true;
-				else {
-					tempArray[next]=employeeInput[i];
-					next++;
-				}
-			}
-		}
-		return false;
-	}*/
-	
 	public static boolean isEmployeeDuplicate(String emp1, String emp2, String emp3, String emp4, String emp5, String emp6) {
 		ArrayList<String> tempList = new ArrayList<String>();
 		ArrayList<String> employeeInput = new ArrayList<String>();

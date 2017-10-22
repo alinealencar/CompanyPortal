@@ -22,6 +22,14 @@
 	String selectedEmp6 = null;
 	
 	String selectedDept = (String) session.getAttribute("department");	
+	
+	//result set to retrieve employees based on selected department
+	rsEmp1 = DatabaseManagement.selectEmployees(selectedDept, conn);
+	rsEmp2 = DatabaseManagement.selectEmployees(selectedDept, conn);
+	rsEmp3 = DatabaseManagement.selectEmployees(selectedDept, conn);
+	rsEmp4 = DatabaseManagement.selectEmployees(selectedDept, conn);
+	rsEmp5 = DatabaseManagement.selectEmployees(selectedDept, conn);
+	rsEmp6 = DatabaseManagement.selectEmployees(selectedDept, conn);
 
 	//store session attributes for employees to variables if they are not null
 	if((String) session.getAttribute("emp1") != null) 
@@ -34,7 +42,7 @@
 		selectedEmp4 = (String) session.getAttribute("emp4");
 	if((String) session.getAttribute("emp5") != null) 
 		selectedEmp5 = (String) session.getAttribute("emp5");
-	if((String) session.getAttribute("emp1") != null) 
+	if((String) session.getAttribute("emp6") != null) 
 		selectedEmp6 = (String) session.getAttribute("emp6");
 %>
 
@@ -96,7 +104,9 @@
 				</select>
 				<% //show error message if no department is selected
 					if((String) session.getAttribute("errorDepartment") != null){
-						out.println((String) session.getAttribute("errorDepartment"));
+						out.println("<span class=\"text-danger\">" +
+								(String) session.getAttribute("errorDepartment") +
+								"</span>");
 			   		}
 				%>
 			</div>
@@ -114,20 +124,12 @@
 				<br>
 			</div>
 			<%
-				//result set to retrieve employees based on selected department 
-				rsEmp1 = DatabaseManagement.selectEmployees(selectedDept, conn);
-				rsEmp2 = DatabaseManagement.selectEmployees(selectedDept, conn);
-				rsEmp3 = DatabaseManagement.selectEmployees(selectedDept, conn);
-				rsEmp4 = DatabaseManagement.selectEmployees(selectedDept, conn);
-				rsEmp5 = DatabaseManagement.selectEmployees(selectedDept, conn);
-				rsEmp6 = DatabaseManagement.selectEmployees(selectedDept, conn);
-		
 				 //show error message if no employee is selected or a duplicate employee is selected
 				 if((String) session.getAttribute("errorEmp") != null){
 					 out.println("<span class=\"text-danger\">" +
 					 (String) session.getAttribute("errorEmp") +
 					"</span>");
-		   		}
+		   		 }
 			%>
 			<div class="form-group">
 				<label>Employee 1:</label>
