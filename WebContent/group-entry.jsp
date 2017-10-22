@@ -50,9 +50,9 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col col-lg-3">
+		<div class="col col-lg-2">
 		</div>
-		<div class="col col-lg-6">
+		<div class="col col-lg-7">
 			<div>
 				<span>
 					<%	//show success message if database insertion is successful
@@ -123,6 +123,7 @@
 				%>
 				<br>
 			</div>
+			
 			<%
 				 //show error message if no employee is selected or a duplicate employee is selected
 				 if((String) session.getAttribute("errorEmp") != null){
