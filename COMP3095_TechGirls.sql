@@ -78,27 +78,27 @@ INSERT INTO DEPARTMENT (dept_name, location) VALUES
 INSERT INTO DEPARTMENT (dept_name, location) VALUES
 ('Finance & Admin', 'C330');
 
-INSERT INTO employee(firstname, lastname, emp_no, hire_year, job_position, dept_id_fk) VALUES
-('Chace', 'Braeden', '1002345', '2015', 'Community Manager', 1);
-INSERT INTO employee(firstname, lastname, emp_no, hire_year, job_position, dept_id_fk) VALUES
-('Chris', 'Martin', '1002346', '2012', 'Analytics Manager', 1);
-INSERT INTO employee(firstname, lastname, emp_no, hire_year, job_position, dept_id_fk) VALUES
-('Beyonce', 'Knowles', '1002347', '2015', 'CTO', 2);
-INSERT INTO employee(firstname, lastname, emp_no, hire_year, job_position, dept_id_fk) VALUES
-('Hayley', 'Williams', '1002348', '2013', 'Front End', 2);
-INSERT INTO employee(firstname, lastname, emp_no, hire_year, job_position, dept_id_fk) VALUES
-('Arya', 'Stark', '1002349', '2014', 'Back End', 2);
-INSERT INTO employee(firstname, lastname, emp_no, hire_year, job_position, dept_id_fk) VALUES
-('Jaime', 'Lannister', '1003344', '2014', 'Designer', 3);
-INSERT INTO employee(firstname, lastname, emp_no, hire_year, job_position, dept_id_fk) VALUES
-('Jon', 'Snow', '1003345', '2012', 'Feature Management', 3);
-INSERT INTO employee(firstname, lastname, emp_no, hire_year, job_position, dept_id_fk) VALUES
-('Daenerys', 'Targaryen', '1003346', '2013', 'Introductory Agreement', 4);
-INSERT INTO employee(firstname, lastname, emp_no, hire_year, job_position, dept_id_fk) VALUES
-('Sansa', 'Bolton', '1003347', '2014', 'Pre-Sales', 4);
-INSERT INTO employee(firstname, lastname, emp_no, hire_year, job_position, dept_id_fk) VALUES
-('Petyr', 'Baelish', '1003348', '2012', 'Account Management', 4);
-INSERT INTO employee(firstname, lastname, emp_no, hire_year, job_position, dept_id_fk) VALUES
-('Sandor', 'Clegane', '1003349', '2013', 'CFO', 5);
-INSERT INTO employee(firstname, lastname, emp_no, hire_year, job_position, dept_id_fk) VALUES
-('Robert', 'Baratheon', '1003456', '2016', 'Admin', 5);
+INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, dept_id_fk) VALUES
+('Chace', 'Braeden', 'cbraeden@gmail.com', '1002345', '2015', 'Community Manager', 1);
+INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, dept_id_fk) VALUES
+('Chris', 'Martin', 'cmartin@gmail.com', '1002346', '2012', 'Analytics Manager', 1);
+INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, dept_id_fk) VALUES
+('Beyonce', 'Knowles', 'bknowles@gmail.com', '1002347', '2015', 'CTO', 2);
+INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, dept_id_fk) VALUES
+('Hayley', 'Williams', 'hwilliams@gmail.com', '1002348', '2013', 'Front End', 2);
+INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, dept_id_fk) VALUES
+('Arya', 'Stark', 'astark@gmail.com', '1002349', '2014', 'Back End', 2);
+INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, dept_id_fk) VALUES
+('Jaime', 'Lannister', 'jlannister@gmail.com', '1003344', '2014', 'Designer', 3);
+INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, dept_id_fk) VALUES
+('Jon', 'Snow', 'jsnow@gmail.com', '1003345', '2012', 'Feature Management', 3);
+INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, dept_id_fk) VALUES
+('Daenerys', 'Targaryen', 'dtargaryen@gmail.com', '1003346', '2013', 'Introductory Agreement', 4);
+INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, dept_id_fk) VALUES
+('Sansa', 'Bolton', 'sbolton@gmail.com', '1003347', '2014', 'Pre-Sales', 4);
+INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, dept_id_fk) VALUES
+('Petyr', 'Baelish', 'pbaelish@gmail.com', '1003348', '2012', 'Account Management', 4);
+INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, dept_id_fk) VALUES
+('Sandor', 'Clegane', 'sclegane@gmail.com', '1003349', '2013', 'CFO', 5);
+INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, dept_id_fk) VALUES
+('Davos', 'Seaworth', 'dseaworth@gmail.com', '1003456', '2016', 'Admin', 5);
