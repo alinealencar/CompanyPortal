@@ -69,8 +69,10 @@ public class GroupEntryHelper extends HttpServlet {
 		response.setContentType("text/html");
 		String dept = request.getParameter("department");
 		String group = request.getParameter("groupName");
-		Cookie deptCookie = new Cookie("department", dept);
-		response.addCookie(deptCookie);
+		request.getSession().setAttribute("department", dept);
+		request.getSession().setAttribute("groupName", group);
+		//Cookie deptCookie = new Cookie("department", dept);
+		//response.addCookie(deptCookie);
 		response.sendRedirect("group-entry.jsp");
 	}
 

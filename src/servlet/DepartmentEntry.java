@@ -69,7 +69,7 @@ public class DepartmentEntry extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection conn = null;
 		response.setContentType("text/html");
-		Boolean isMissingValue = false;
+		Boolean isNotValid = false;
 		
 		String deptName = request.getParameter("deptName");
 		String loc = request.getParameter("location");
@@ -82,8 +82,7 @@ public class DepartmentEntry extends HttpServlet {
 		if (ValidateInput.isMissing(aDept.getDeptName())) {
 			request.getSession().setAttribute("errorDeptName", "Please enter a department name");
 			request.getSession().setAttribute("deptName", "");
-			//deptName = "Missing department name!";
-			isMissingValue = true;
+			isNotValid = true;
 		}
 		else {
 			request.getSession().removeAttribute("errorDeptName");
@@ -92,17 +91,16 @@ public class DepartmentEntry extends HttpServlet {
 		
 		//check if department location is missing
 		if (ValidateInput.isMissing(aDept.getDeptLoc())) {
-			//loc = "Missing department location!";
 			request.getSession().setAttribute("errorLoc", "Please enter a location");
 			request.getSession().setAttribute("location", "");
-			isMissingValue = true;
+			isNotValid = true;
 		}
 		else {
 			request.getSession().removeAttribute("errorLoc");
 			request.getSession().setAttribute("location", aDept.getDeptLoc());
 		}
 	
-		if (!isMissingValue){
+		if (!isNotValid){
 			try {
 				//DatabaseAccess.createDatabase();
 				conn = DatabaseAccess.connectDataBase();

@@ -138,26 +138,54 @@ public class DatabaseManagement {
 	 */
 	public static boolean insertGroup(String deptName, String groupName, String member1, String member2, String member3, String member4, String member5, String member6, Connection conn)
 			throws Exception {
-			member2 = null;
-			member3 = null;
-			member4 = null;
-			member5 = null;
-			member6 = null;
-			Statement statement = conn.createStatement();
+			
+			/*String[] members = new String[]{member2, member3, member4, member5, member6};
+			
+			for(int i = 0; i < members.length; i++){
+				if(members[i].equals("Employee")){
+					members[i] = null;
+				}
+			}*/
+		
+			/*if(member2.equals("Employee"))
+			{
+				member2 = null;
+			}
+			
+			if(member3.equals("Employee"))
+			{
+				member3 = null;
+			}
+			
+			if(member4.equals("Employee"))
+			{
+				member4 = null;
+			}
+			
+			if(member5.equals("Employee"))
+			{
+				member5 = null;
+			}
+			
+			if(member6.equals("Employee"))
+			{
+				member6 = null;
+			}*/
+			
 			String query = "insert into groups(dept_name, group_name, member1, member2, member3, member4, member5, member6, dept_id_fk)  values(?,?,?,?,?,?,?,?,?)";
 			
-		    PreparedStatement preparedStmt = conn.prepareStatement(query);
+				PreparedStatement preparedStmt = conn.prepareStatement(query);
 		    
-		    preparedStmt.setString (1, deptName);
-		    preparedStmt.setString (2, groupName);
-		    preparedStmt.setString (3, member1);
-		    preparedStmt.setString (4, member2);
-		    preparedStmt.setString (5, member3);
-		    preparedStmt.setString (6, member4);
-		    preparedStmt.setString (7, member5);
-		    preparedStmt.setString (8, member6);
-		    preparedStmt.setInt (9, DatabaseHelper.getDeptId(deptName, conn));
-		    
+				preparedStmt.setString (1, deptName);
+				preparedStmt.setString (2, groupName);
+				preparedStmt.setString (3, member1);
+				preparedStmt.setString (4, member2);
+				preparedStmt.setString (5, member3);
+				preparedStmt.setString (6, member4);
+				preparedStmt.setString (7, member5);
+				preparedStmt.setString (8, member6);
+				preparedStmt.setInt (9, DatabaseHelper.getDeptId(deptName, conn));
+			//}
 		    int rowsAffected = preparedStmt.executeUpdate();
 		    if (rowsAffected > 0)
 		    	return true;

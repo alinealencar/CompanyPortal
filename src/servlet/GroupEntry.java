@@ -90,7 +90,7 @@ public class GroupEntry extends HttpServlet {
 		response.sendRedirect("group-entry.jsp");
 		
 		//check if department name if missing
-		if (ValidateInput.isMissing(aGroup.getDeptName())) {
+		if (ValidateInput.isMissing(deptName)) {
 			request.getSession().setAttribute("errorDepartment", "Please select a department.");
 			request.getSession().setAttribute("department", "");
 			isNotValid = true;
@@ -101,7 +101,7 @@ public class GroupEntry extends HttpServlet {
 		}
 		
 		//check if group name is missing
-		if (ValidateInput.isMissing(aGroup.getGroupName())) {
+		if (ValidateInput.isMissing(groupName)) {
 			request.getSession().setAttribute("errorGroupName", "Please enter a group name.");
 			request.getSession().setAttribute("groupName", "");
 			isNotValid = true;
@@ -112,7 +112,7 @@ public class GroupEntry extends HttpServlet {
 		}
 		
 		//check if no employee is selected
-		if (ValidateInput.isMissing(aGroup.getMember1())) {
+		if (ValidateInput.isMissing(emp1)) {
 			request.getSession().setAttribute("errorEmp", "Please select an employee.");
 			request.getSession().setAttribute("emp1", "");
 			isNotValid = true;
@@ -135,7 +135,7 @@ public class GroupEntry extends HttpServlet {
 		
 		else {
 		
-		//check if more one employee is selected
+		//check if more than one employee is selected
 		if (emp2 != null) {
 			request.getSession().setAttribute("emp2", aGroup.getMember2());
 			request.getSession().removeAttribute("errorEmp");

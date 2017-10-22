@@ -82,17 +82,18 @@ public class ValidateInput {
 	 * @return boolean It returns true if there's a duplicate selection for one employee, false if
 	 * 					each employee was selected once only.
 	 */
-	public static boolean isEmployeeDuplicate(String emp1, String emp2, String emp3, String emp4, String emp5, String emp6) {
+	/*public static boolean isEmployeeDuplicate(String emp1, String emp2, String emp3, String emp4, String emp5, String emp6) {
 		String[] employeeInput = new String[]{emp2, emp3, emp4, emp5, emp6};
 		String[] tempArray = new String[]{emp1, null, null, null, null, null};
 		int next = 1;
 		for(int i = 0; i < 5; i++){
-			if(employeeInput[i] == null)
+			if(employeeInput[i] == null) {
 				break;
-			
+			}
 			for(int j = 0; j < 6; j ++){
-				if(tempArray[j] == null)
+				if(tempArray[j] == null) {
 					break;
+				}
 				
 				if(employeeInput[i].equals(tempArray[j]))
 					return true;
@@ -103,5 +104,29 @@ public class ValidateInput {
 			}
 		}
 		return false;
+	}*/
+	
+	public static boolean isEmployeeDuplicate(String emp1, String emp2, String emp3, String emp4, String emp5, String emp6) {
+		ArrayList<String> tempList = new ArrayList<String>();
+		ArrayList<String> employeeInput = new ArrayList<String>();
+		
+		tempList.add(emp1);
+		employeeInput.add(emp2);
+		employeeInput.add(emp3);
+		employeeInput.add(emp4);
+		employeeInput.add(emp5);
+		employeeInput.add(emp6);
+		
+		for(int i = 0; i < employeeInput.size(); i++){
+			if(tempList.contains(employeeInput.get(i)) && !employeeInput.get(i).equals("")) {
+				return true;
+			}
+			else
+				tempList.add(employeeInput.get(i));
+		}
+		return false;
 	}
+
+	
+	
 }

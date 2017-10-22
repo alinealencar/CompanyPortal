@@ -1,12 +1,6 @@
 <% session.setAttribute("title", "Department Entry"); %>
 <%@include file="WEB-INF/header.jsp" %>
 
-<%--	//Cookie[] cookies = request.getCookies(); 
-	//String deptName = cookies[0].getValue();
-	//String loc = cookies[1].getValue(); 
-	
-	
---%>
 	
 <%@include file="WEB-INF/menu.jsp" %>
 	<div class="container">
@@ -15,20 +9,20 @@
 			</div>
 			<div class="col col-lg-6">
 				<div>
-						<%	//show success message if database insertion is successful
-							if((String) session.getAttribute("deptInsertSuccess") != null){
-								out.println("<span  class = \"alert alert-success\" role = \"alert\">" +
-									(String) session.getAttribute("deptInsertSuccess") +
-									"</span>");
-							}
+					<%	//show success message if database insertion is successful
+						if((String) session.getAttribute("deptInsertSuccess") != null){
+							out.println("<span  class = \"alert alert-success\" role = \"alert\">" +
+								(String) session.getAttribute("deptInsertSuccess") +
+								"</span>");
+						}
 
-							////show error message if database insertion failed
-							if((String) session.getAttribute("deptInsertError") != null){
-								out.println("<span  class = \"alert alert-danger\" role = \"alert\">" +
-									(String) session.getAttribute("deptInsertError") +
-										"</span>");
-							}
-						%>
+						//show error message if database insertion failed
+						if((String) session.getAttribute("deptInsertError") != null){
+							out.println("<span  class = \"alert alert-danger\" role = \"alert\">" +
+								(String) session.getAttribute("deptInsertError") +
+									"</span>");
+						}
+					%>
 				</div>
 				<h1 class="text-center">DEPARTMENT ENTRY</h1>
 				<form method = "post" action = "DepartmentEntry">
@@ -49,17 +43,8 @@
 						%> 
 					</div>
 					<input type = "submit" value = "Submit" class="btn btn-primary"/>
-					<input type = "reset" value = "Clear" onclick = "eraseValues()" class="btn btn-secondary"/>
+					<input type = "reset" value = "Clear" class="btn btn-secondary"/>
 				</form>
-			
-			<script>
-				function eraseValues() {
-					document.getElementById("deptName").value = "";
-					document.getElementById("location").value = "";	
-					document.getElementById("errorDeptName").style.visibility = "hidden";
-					document.getElementById("errorLoc").style.visibility = "hidden";
-				}
-			</script>
 			</div>
 			<div class="col col-lg-3">
 			</div>
