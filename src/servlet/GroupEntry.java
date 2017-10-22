@@ -86,13 +86,6 @@ public class GroupEntry extends HttpServlet {
 		String emp5 = request.getParameter("emp5");
 		String emp6 = request.getParameter("emp6");
 		
-		System.out.println(emp1);
-		System.out.println(emp2);
-		System.out.println(emp3);
-		System.out.println(emp4);
-		System.out.println(emp5);
-		System.out.println(emp6);
-		
 		Group aGroup = new Group(deptName, groupName, emp1, emp2, emp3, emp4, emp5, emp6);
 		
 		response.sendRedirect("group-entry.jsp");

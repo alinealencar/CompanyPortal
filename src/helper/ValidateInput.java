@@ -69,34 +69,40 @@ public class ValidateInput {
 	public static boolean isEmployeeNumber(String data){
 		return (data.matches("[0-9]+") && data.length() == 9);
 	}
-	
+	/**
+	 * This method checks if the user added a same employee twice when creating a group.
+	 * This checking is done by checking if an employee was added to a temporary array. If the
+	 * employee that will be added to it is already there, it means that employee was added twice.
+	 * @param emp1	String that holds the full name of the first employee
+	 * @param emp2	String that holds the full name of the second employee
+	 * @param emp3	String that holds the full name of the third employee
+	 * @param emp4	String that holds the full name of the fourth employee
+	 * @param emp5	String that holds the full name of the fifth employee
+	 * @param emp6	String that holds the full name of the sixth employee
+	 * @return boolean It returns true if there's a duplicate selection for one employee, false if
+	 * 					each employee was selected once only.
+	 */
 	public static boolean isEmployeeDuplicate(String emp1, String emp2, String emp3, String emp4, String emp5, String emp6) {
 		String[] employeeInput = new String[]{emp2, emp3, emp4, emp5, emp6};
-		String[] testingArray = new String[]{emp1, null, null, null, null, null};
+		String[] tempArray = new String[]{emp1, null, null, null, null, null};
 		int next = 1;
 		for(int i = 0; i < 5; i++){
 			if(employeeInput[i] == null)
 				break;
 			
 			for(int j = 0; j < 6; j ++){
-				if(testingArray[j] == null)
+				if(tempArray[j] == null)
 					break;
 				
-				if(employeeInput[i].equals(testingArray[j])){
+				if(employeeInput[i].equals(tempArray[j]))
 					return true;
-				}
-				else{
-					testingArray[next]=employeeInput[i];
+				else {
+					tempArray[next]=employeeInput[i];
 					next++;
 				}
 			}
-			
-			System.out.println(i + ": " + Arrays.toString(testingArray));
-			System.out.println(i + ": " + Arrays.toString(employeeInput));
 		}
-		
 		return false;
-		
 	}
 
 }
