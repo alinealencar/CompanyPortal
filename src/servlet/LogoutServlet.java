@@ -50,10 +50,8 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		response.setContentType("text/html");
 		
-		Cookie uuid = new Cookie("uuid", null);
-		Cookie user = new Cookie("user", null);
-		uuid.setMaxAge(0);
-		user.setMaxAge(0);
+		Cookie uuid = CookieUtilities.eraseCookie("uuid");
+		Cookie user = CookieUtilities.eraseCookie("user");
 		response.addCookie(uuid);
 		response.addCookie(user);
 		
