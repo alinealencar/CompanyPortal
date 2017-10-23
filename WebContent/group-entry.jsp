@@ -79,8 +79,6 @@
 			<div class="form-group">
 				<label for="department">Department: </label>
 				<select id = "department" name = "department" onChange="this.form.submit()">
-					<option value="" selected>Department</option>
-			
 					<% //check if a department is selcted
 						if(selectedDept == null){
 						out.print("<option value=\"\" selected>Department</option> ");
