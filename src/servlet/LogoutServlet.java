@@ -19,10 +19,13 @@ package servlet;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import helper.CookieUtilities;
 
 @WebServlet("/LogoutServlet")
 public class LogoutServlet extends HttpServlet {
@@ -47,9 +50,17 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		response.setContentType("text/html");
 		
+		Cookie uuid = new Cookie("uuid", null);
+		Cookie user = new Cookie("user", null);
+		uuid.setMaxAge(0);
+		user.setMaxAge(0);
+		response.addCookie(uuid);
+		response.addCookie(user);
+		
 		if(session != null) {
 			session.invalidate();
 		}
+		
 		response.sendRedirect("Login");
 	}
 

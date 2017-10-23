@@ -47,9 +47,9 @@ public class CookieUtilities {
 	 * @return Cookie	This returns a Cookie object with an empty string value and maxAge of 0 (deleted).
 	 */
 	public static Cookie eraseCookie(String strCookieName) {
-	    Cookie cookie = new Cookie(strCookieName, "");
+	    Cookie cookie = new Cookie(strCookieName, null);
 	    cookie.setMaxAge(0);
-	    cookie.setValue("");
+	    cookie.setValue(null);
 	    return cookie;
 	}
 	

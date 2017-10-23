@@ -64,6 +64,7 @@ public class Login extends HttpServlet {
 		
 		if(AuthenticationHelper.isLoggedIn(session)){
 			response.sendRedirect("home.jsp");
+			return;
 		}
 		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
 		try{
@@ -75,6 +76,8 @@ public class Login extends HttpServlet {
 				response.sendRedirect("home.jsp");
 			else
 				response.sendRedirect("login.jsp");
+			
+			return;
 		} catch (Exception e){
 			e.printStackTrace();
 		}
