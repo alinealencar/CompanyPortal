@@ -165,7 +165,6 @@ public class DatabaseManagement {
 	 */
 	public static ResultSet selectEmployees(String deptName, Connection conn) 
 			throws Exception {
-			String result = "";
 			Statement statement = conn.createStatement();
 			String query = "select firstname, lastname from employee "
 					+ "inner join department on department.id = employee.dept_id_fk "
