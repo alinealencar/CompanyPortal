@@ -137,23 +137,42 @@ public class DatabaseManagement {
 				
 			String query = "insert into groups(dept_name, group_name, member1, member2, member3, member4, member5, member6, dept_id_fk)  values(?,?,?,?,?,?,?,?,?)";
 			
-				PreparedStatement preparedStmt = conn.prepareStatement(query);
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
 		    
-				preparedStmt.setString (1, deptName);
-				preparedStmt.setString (2, groupName);
-				preparedStmt.setString (3, member1);
-				preparedStmt.setString (4, member2);
-				preparedStmt.setString (5, member3);
-				preparedStmt.setString (6, member4);
-				preparedStmt.setString (7, member5);
-				preparedStmt.setString (8, member6);
-				preparedStmt.setInt (9, DatabaseHelper.getDeptId(deptName, conn));
-			//}
+			preparedStmt.setString (1, deptName);
+			preparedStmt.setString (2, groupName);
+			preparedStmt.setString (3, member1);
+			preparedStmt.setString (4, member2);
+			preparedStmt.setString (5, member3);
+			preparedStmt.setString (6, member4);
+			preparedStmt.setString (7, member5);
+			preparedStmt.setString (8, member6);
+			preparedStmt.setInt (9, DatabaseHelper.getDeptId(deptName, conn));
+			
 		    int rowsAffected = preparedStmt.executeUpdate();
 		    if (rowsAffected > 0)
 		    	return true;
 		    else
 		    	return false;
+	}
+	
+	/**
+	 * This inserts the employee and group IDs into the Employee_Groups table of the database.
+	 * @param empId
+	 * @param groupId
+	 * @param conn Connection object that holds a connection to the database.
+	 * @throws Exception
+	 */
+	public static void insertEmployeeGroup(int empId, int groupId, Connection conn) throws Exception { 
+		
+		String query = "insert into employee_groups(emp_id_fk, groups_id_fk) values(?,?)";
+		
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		
+		preparedStmt.setInt(1, empId);
+		preparedStmt.setInt(2, groupId);
+		preparedStmt.executeUpdate();
+		
 	}
 	
 	/**

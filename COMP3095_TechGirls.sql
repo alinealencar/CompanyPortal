@@ -31,11 +31,11 @@ CREATE TABLE EMPLOYEE
 	firstname varchar(255)	NOT NULL,
 	lastname varchar(255)	NOT NULL,
 	email varchar(255) NOT NULL,
-    	emp_no varchar(255),
-    	hire_year varchar(255) NOT NULL,
-    	job_position varchar(255) NOT NULL,
-    	dept_id_fk int(11) NOT NULL,
-    	FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
+    emp_no varchar(255),
+    hire_year varchar(255) NOT NULL,
+    job_position varchar(255) NOT NULL,
+    dept_id_fk int(11) NOT NULL,
+    FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
 );
 
 CREATE TABLE GROUPS
@@ -44,13 +44,13 @@ CREATE TABLE GROUPS
 	dept_name varchar(255)	NOT NULL,
 	group_name varchar(255) NOT NULL,
 	member1 varchar(255)	NOT NULL,
-    	member2 varchar(255),
-    	member3 varchar(255),
-    	member4 varchar(255),
-    	member5 varchar(255),
-    	member6 varchar(255),
-    	dept_id_fk int(11) NOT NULL,
-    	FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
+    member2 varchar(255),
+    member3 varchar(255),
+    member4 varchar(255),
+    member5 varchar(255),
+    member6 varchar(255),
+    dept_id_fk int(11) NOT NULL,
+    FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
 );
 
 CREATE TABLE EMPLOYEE_GROUPS

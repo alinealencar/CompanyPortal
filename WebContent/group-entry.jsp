@@ -1,8 +1,8 @@
 <% session.setAttribute("title", "Group Entry"); %>
 <%@include file="WEB-INF/header.jsp" %>
 
-<% Connection conn = DatabaseAccess.connectDataBase(); 
-	
+<%! Connection conn; 
+	String selectedDept;
 	ResultSet rsDept = null; 
 	ResultSet rsEmp1 = null; 
 	ResultSet rsEmp2 = null;
@@ -10,18 +10,18 @@
 	ResultSet rsEmp4 = null;
 	ResultSet rsEmp5 = null;
 	ResultSet rsEmp6 = null;
-	
-	//result set to select departments
-	rsDept = DatabaseManagement.selectFromTable("department", conn);
-	
 	String selectedEmp1 = null;
 	String selectedEmp2 = null;
 	String selectedEmp3 = null;
 	String selectedEmp4 = null;
 	String selectedEmp5 = null;
-	String selectedEmp6 = null;
+	String selectedEmp6 = null; 
+%>
 	
-	String selectedDept = (String) session.getAttribute("department");	
+<% 	//result set to select departments
+	conn = DatabaseAccess.connectDataBase();
+	rsDept = DatabaseManagement.selectFromTable("department", conn);
+	selectedDept = (String) session.getAttribute("department");	
 	
 	//result set to retrieve employees based on selected department
 	rsEmp1 = DatabaseManagement.selectEmployees(selectedDept, conn);
@@ -80,7 +80,7 @@
 				<label for="department">Department: </label>
 				<select id = "department" name = "department" onChange="this.form.submit()">
 					<% //check if a department is selcted
-						if(selectedDept == null){
+						if(selectedDept == null || selectedDept == ""){
 						out.print("<option value=\"\" selected>Department</option> ");
 							//populate drop down list 
 							while(rsDept.next()){
