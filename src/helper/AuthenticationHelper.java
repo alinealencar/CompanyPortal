@@ -65,6 +65,7 @@ public class AuthenticationHelper {
 				isRemember = logUserRemember(request, conn, userIdCookie, tokenCookie);
 		}
 
+		conn.close();
 		return isRemember;
 	}
 	
@@ -124,6 +125,7 @@ public class AuthenticationHelper {
 			}
 		}
 		
+		conn.close();
 		return aUser;
 	}
 	

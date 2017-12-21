@@ -56,8 +56,9 @@ public class DatabaseHelper {
 	 * @return	int	Integer that represents a department ID.
 	 * @throws Exception
 	 */
-	public static int getDeptId(String deptName, Connection conn) 
+	public static int getDeptId(String deptName) 
 		throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
 		int result=0;
 		Statement statement = conn.createStatement();
 		String query = "select id from department "
@@ -68,6 +69,7 @@ public class DatabaseHelper {
 				result = rs.getInt("id");
 			 }
 		}
+		conn.close();
 		return result;
 	}
 	
@@ -79,20 +81,22 @@ public class DatabaseHelper {
 	 * @return int	Integer that represents a employee ID.
 	 * @throws Exception
 	 */
-	public static int getEmpId(String fname, String lname, Connection conn) 
+	public static int getEmpId(String fname, String lname) 
 			throws Exception {
-			int result=0;
-			Statement statement = conn.createStatement();
-			String query = "select emp_id from employee "
-					+ "where firstname='" + fname + "' and lastname='" + lname + "'";
-			ResultSet rs = statement.executeQuery(query);
-			if(rs != null){
-				if(rs.next()){
-					result = rs.getInt("emp_id");
-				 }
-			}
-			return result;
+		Connection conn = DatabaseAccess.connectDataBase();
+		int result=0;
+		Statement statement = conn.createStatement();
+		String query = "select emp_id from employee "
+				+ "where firstname='" + fname + "' and lastname='" + lname + "'";
+		ResultSet rs = statement.executeQuery(query);
+		if(rs != null){
+			if(rs.next()){
+				result = rs.getInt("emp_id");
+			 }
 		}
+		conn.close();
+		return result;
+	}
 		
 	/**
 	 * This method returns a group ID according to its name.
@@ -101,20 +105,22 @@ public class DatabaseHelper {
 	 * @return int	Integer that represents a group ID.
 	 * @throws Exception
 	 */
-	public static int getGroupId(String groupName, Connection conn) 
+	public static int getGroupId(String groupName) 
 			throws Exception {
-			int result=0;
-			Statement statement = conn.createStatement();
-			String query = "select groups_id from groups "
-					+ "where group_name='" + groupName + "'";
-			ResultSet rs = statement.executeQuery(query);
-			if(rs != null){
-				if(rs.next()){
-					result = rs.getInt("groups_id");
-				 }
-			}
-			return result;
+		Connection conn = DatabaseAccess.connectDataBase();
+		int result=0;
+		Statement statement = conn.createStatement();
+		String query = "select groups_id from groups "
+				+ "where group_name='" + groupName + "'";
+		ResultSet rs = statement.executeQuery(query);
+		if(rs != null){
+			if(rs.next()){
+				result = rs.getInt("groups_id");
+			 }
 		}
+		conn.close();
+		return result;
+	}
 	
 	/**
 	 * This method returns a String array containing the employee's first and last names
