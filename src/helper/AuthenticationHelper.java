@@ -42,8 +42,10 @@ public class AuthenticationHelper {
 	 * @return	boolean	Returns true if the cookies exist, false otherwise
 	 * @throws Exception
 	 */
-	public static boolean isRememberCookies(HttpServletRequest request, Connection conn) throws Exception
+	public static boolean isRememberCookies(HttpServletRequest request) throws Exception
 	{
+		Connection conn = DatabaseAccess.connectDataBase();
+		
 		Cookie[] cookies = request.getCookies();
 		Cookie userIdCookie = null;
 		Cookie tokenCookie = null;
@@ -63,6 +65,7 @@ public class AuthenticationHelper {
 				isRemember = logUserRemember(request, conn, userIdCookie, tokenCookie);
 		}
 
+		conn.close();
 		return isRemember;
 	}
 	
@@ -100,8 +103,10 @@ public class AuthenticationHelper {
 	 * @throws Exception
 	 */
 	
-	public static User isValidUser(Connection conn, String username, String password)
+	public static User isValidUser(String username, String password)
 		throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
+		
 		User aUser = null;
 		
 		//Validate the user/password combination exists in the Users table
@@ -120,6 +125,7 @@ public class AuthenticationHelper {
 			}
 		}
 		
+		conn.close();
 		return aUser;
 	}
 	

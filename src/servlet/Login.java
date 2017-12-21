@@ -66,13 +66,11 @@ public class Login extends HttpServlet {
 			response.sendRedirect("home.jsp");
 			return;
 		}
+		
 		// Check if user chose Remember Me (automatically log the user in and redirect them to the home page)
 		try{
-			Connection conn = null;
-			conn = DatabaseAccess.connectDataBase();
-			
 			// Check if user has the RememberMe cookies (uuid and user)
-			if(AuthenticationHelper.isRememberCookies(request, conn))
+			if(AuthenticationHelper.isRememberCookies(request))
 				response.sendRedirect("home.jsp");
 			else
 				response.sendRedirect("login.jsp");
@@ -105,7 +103,6 @@ public class Login extends HttpServlet {
 		password = request.getParameter("password");
 		rememberMe = request.getParameter("rememberMe");
 		
-		Connection conn = null;
 		HttpSession session = request.getSession(true);
 
 		String redirectTo = "login.jsp";
@@ -113,9 +110,7 @@ public class Login extends HttpServlet {
 		
 		if(!username.isEmpty() && !password.isEmpty()){
 			try {
-				conn = DatabaseAccess.connectDataBase();
-
-				User aUser = AuthenticationHelper.isValidUser(conn, username, password);
+				User aUser = AuthenticationHelper.isValidUser(username, password);
 
 				if(aUser != null){
 					session.setAttribute("user", aUser);
@@ -133,7 +128,7 @@ public class Login extends HttpServlet {
 						Cookie user = CookieUtilities.createRememberMeCookie("user", userId);
 						
 						//Write the token in the database
-						DatabaseManagement.insertUserToken(uuid, userId, conn);
+						DatabaseManagement.insertUserToken(uuid, userId);
 						
 						response.addCookie(token);
 						response.addCookie(user);
@@ -149,17 +144,8 @@ public class Login extends HttpServlet {
 			catch(Exception e){
 				System.out.println(e);
 			}
-			finally {
-				try{
-					// Close the connection
-					conn.close();
-					response.sendRedirect(redirectTo);
-					return;
-				}
-				catch(SQLException ex){
-					ex.printStackTrace();
-				}
-			}
+			response.sendRedirect(redirectTo);
+			return;
 		}
 		else
 			response.sendRedirect(redirectTo);

@@ -167,19 +167,18 @@ public class EmployeeEntry extends HttpServlet {
 
 		 
 		//Store valid data to database
-		Connection conn = null;
+//		Connection conn = null;
 				
 		if(validFName && validLName && validEmail && validYear && validJobPos){
 			try {
-				conn = (Connection) DatabaseAccess.connectDataBase();
+//				conn = (Connection) DatabaseAccess.connectDataBase();
 				
 				if(DatabaseManagement.insertEmployee(anEmployee.getFirstName(), 
 						anEmployee.getLastName(), 
 						anEmployee.getEmpNo(), 
 						anEmployee.getEmail(), 
 						anEmployee.getHireYear(), 
-						anEmployee.getJobPosition(), 
-						conn)){
+						anEmployee.getJobPosition())){
 					session.setAttribute("employeeInsertSuccess","Employee " + anEmployee.getFirstName() + " " + anEmployee.getLastName() + " has been successfully added to the system ") ;
 					
 					//clear form
@@ -197,17 +196,9 @@ public class EmployeeEntry extends HttpServlet {
 			catch(Exception e){
 				System.out.println(e);
 			}
-			finally {
-				try{
-					// Close the connection
-					conn.close();
-					response.sendRedirect("employee-entry.jsp");
-					return;
-				}
-				catch(SQLException ex){
-					ex.printStackTrace();
-				}
-			}
+			
+			response.sendRedirect("employee-entry.jsp");
+			return;
 		}
 		else {
 			response.sendRedirect("employee-entry.jsp");

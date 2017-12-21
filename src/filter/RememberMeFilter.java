@@ -53,11 +53,8 @@ public class RememberMeFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
 		try{
-			Connection conn = null;
-			conn = DatabaseAccess.connectDataBase();
-			
 			// Check if user has the RememberMe cookies (uuid and user) or if the user iscurrently logged in
-			if(AuthenticationHelper.isRememberCookies(request, conn) || AuthenticationHelper.isLoggedIn(request.getSession())){
+			if(AuthenticationHelper.isRememberCookies(request) || AuthenticationHelper.isLoggedIn(request.getSession())){
 				response.sendRedirect("home.jsp");
 			}
 			else

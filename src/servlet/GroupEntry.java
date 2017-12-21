@@ -71,7 +71,7 @@ public class GroupEntry extends HttpServlet {
      * @exception	 IOException on input error
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Connection conn = null;
+//		Connection conn = null;
 		response.setContentType("text/html");
 		Boolean isNotValid = false;
 		String fname;
@@ -143,16 +143,16 @@ public class GroupEntry extends HttpServlet {
 		if (!isNotValid){
 			try {
 				//DatabaseAccess.createDatabase();
-				conn = DatabaseAccess.connectDataBase();
+//				conn = DatabaseAccess.connectDataBase();
 				
 				//check if the insertion to the database succeeded 
-				if(DatabaseManagement.insertGroup(aGroup.getDeptName(), aGroup.getGroupName(), aGroup.getMember1(), aGroup.getMember2(), aGroup.getMember3(), aGroup.getMember4(), aGroup.getMember5(), aGroup.getMember6(), conn)){ 
+				if(DatabaseManagement.insertGroup(aGroup.getDeptName(), aGroup.getGroupName(), aGroup.getMember1(), aGroup.getMember2(), aGroup.getMember3(), aGroup.getMember4(), aGroup.getMember5(), aGroup.getMember6())){ 
 					//split employee's full name
 					names = DatabaseHelper.SplitFullName(aGroup.getMember1());
 					fname = names[0];
 					lname = names[1];
 					//insert data into employee_groups table
-					DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname, conn), DatabaseHelper.getGroupId(groupName,conn), conn);
+					DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname), DatabaseHelper.getGroupId(groupName));
 					
 					//check if there are more employees included in the group
 					if (!ValidateInput.isMissing(emp2)){
@@ -161,7 +161,7 @@ public class GroupEntry extends HttpServlet {
 						fname = names[0];
 						lname = names[1];
 						//insert data into employee_groups table
-						DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname, conn), DatabaseHelper.getGroupId(groupName, conn), conn);
+						DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname), DatabaseHelper.getGroupId(groupName));
 					}
 					
 					if (!ValidateInput.isMissing(emp3)){
@@ -170,7 +170,7 @@ public class GroupEntry extends HttpServlet {
 						fname = names[0];
 						lname = names[1];
 						//insert data into employee_groups table
-						DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname, conn), DatabaseHelper.getGroupId(groupName, conn), conn);
+						DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname), DatabaseHelper.getGroupId(groupName));
 					}
 					
 					if (!ValidateInput.isMissing(emp4)){
@@ -179,7 +179,7 @@ public class GroupEntry extends HttpServlet {
 						fname = names[0];
 						lname = names[1];
 						//insert data into employee_groups table
-						DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname, conn), DatabaseHelper.getGroupId(groupName, conn), conn);
+						DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname), DatabaseHelper.getGroupId(groupName));
 					}
 					
 					if (!ValidateInput.isMissing(emp5)){
@@ -188,7 +188,7 @@ public class GroupEntry extends HttpServlet {
 						fname = names[0];
 						lname = names[1];
 						//insert data into employee_groups table
-						DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname, conn), DatabaseHelper.getGroupId(groupName, conn), conn);
+						DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname), DatabaseHelper.getGroupId(groupName));
 					}
 					
 					if (!ValidateInput.isMissing(emp6)){
@@ -197,7 +197,7 @@ public class GroupEntry extends HttpServlet {
 						fname = names[0];
 						lname = names[1];
 						//insert data into employee_groups table
-						DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname, conn), DatabaseHelper.getGroupId(groupName, conn), conn);
+						DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname), DatabaseHelper.getGroupId(groupName));
 					}
 					
 					request.getSession().setAttribute("groupInsertSuccess", "The " + groupName + " group was successfully created!");
@@ -221,19 +221,8 @@ public class GroupEntry extends HttpServlet {
 				request.getSession().setAttribute("deptInsertError", e + "\nPlease try again.");
 				System.out.print(e);
 			}
-			finally {
-				try{
-					//insert data into employee_groups table
-						//DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname, conn), DatabaseHelper.getGroupId(groupName, conn), conn);
-						conn.close();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
 		}
 	}
-
+}
 
 
