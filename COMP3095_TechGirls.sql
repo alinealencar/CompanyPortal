@@ -108,6 +108,22 @@ CREATE TABLE EMPLOYEE_REPORT
     FOREIGN KEY (report_id_fk) REFERENCES REPORT(report_id)
 );
 
+CREATE TABLE ATTENDANCE
+(
+	attendance_id int(11) AUTO_INCREMENT PRIMARY KEY,
+	attendance_date datetime NOT NULL,
+	present boolean NOT NULL
+);
+
+CREATE TABLE EMPLOYEE_ATTENDANCE
+(
+	employee_attendance_id int(11) AUTO_INCREMENT PRIMARY KEY,
+	emp_id_fk int(11) NOT NULL,
+    attendance_id_fk int(11) NOT NULL,
+    FOREIGN KEY (emp_id_fk) REFERENCES EMPLOYEE(emp_id),
+    FOREIGN KEY (attendance_id_fk) REFERENCES ATTENDANCE(attendance_id)
+);
+
 INSERT INTO DEPARTMENT (dept_name, location) VALUES
 ('Marketing', 'C110');
 INSERT INTO DEPARTMENT (dept_name, location) VALUES
