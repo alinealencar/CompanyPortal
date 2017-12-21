@@ -112,7 +112,9 @@ CREATE TABLE ATTENDANCE
 (
 	attendance_id int(11) AUTO_INCREMENT PRIMARY KEY,
 	attendance_date datetime NOT NULL,
-	present boolean NOT NULL
+	present boolean NOT NULL,
+	dept_id_fk int(11) NOT NULL,
+	FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
 );
 
 CREATE TABLE EMPLOYEE_ATTENDANCE
