@@ -21,6 +21,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import database.DatabaseAccess;
+
 public class DatabaseHelper {
 	/**
 	 * This method returns and integer that represents the department a

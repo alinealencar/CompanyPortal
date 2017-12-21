@@ -19,6 +19,9 @@ package helper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import database.DatabaseAccess;
+
 import java.sql.PreparedStatement;
 
 public class DatabaseManagement {
@@ -50,11 +53,15 @@ public class DatabaseManagement {
 	 * @return	boolean	This returns true if the operation was successful, false otherwise.
 	 * @throws Exception
 	 */
-	public static boolean insertUserToken(String token, String userId, Connection conn)
+	public static boolean insertUserToken(String token, String userId)
 		throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
+		
 		String query="update appusers set token='" + token + "' where id=" + Integer.parseInt(userId);
 		PreparedStatement preparedStmt = conn.prepareStatement(query);
 		int rowsAffected = preparedStmt.executeUpdate();
+		
+		conn.close();
 		
 		return(rowsAffected > 0);
 		
