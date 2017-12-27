@@ -201,7 +201,7 @@ public class DatabaseManagement {
 				+ "inner join department on department.id = employee.dept_id_fk "
 				+ "where dept_name='" + deptName + "'";
 		ResultSet rs = statement.executeQuery(query);
-		conn.close();
+		//conn.close();
 		return rs;
 	}
 	
