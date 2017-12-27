@@ -1,9 +1,11 @@
 <% session.setAttribute("title", "Group Entry"); %>
+<%@page import="java.util.*"%>
+<%@page import="helper.*" %>
 <%@include file="WEB-INF/header.jsp" %>
 
 <%! Connection conn; 
 	String selectedDept;
-	ResultSet rsDept = null; 
+/* 	ResultSet rsDept = null;  */
 	ResultSet rsEmp1 = null; 
 	ResultSet rsEmp2 = null;
 	ResultSet rsEmp3 = null;
@@ -20,16 +22,16 @@
 	
 <% 	//result set to select departments
 	conn = DatabaseAccess.connectDataBase();
-	rsDept = DatabaseManagement.selectFromTable("department", conn);
+/* 	rsDept = DatabaseManagement.selectFromTable("department"); */
 	selectedDept = (String) session.getAttribute("department");	
 	
 	//result set to retrieve employees based on selected department
-	rsEmp1 = DatabaseManagement.selectEmployees(selectedDept, conn);
-	rsEmp2 = DatabaseManagement.selectEmployees(selectedDept, conn);
-	rsEmp3 = DatabaseManagement.selectEmployees(selectedDept, conn);
-	rsEmp4 = DatabaseManagement.selectEmployees(selectedDept, conn);
-	rsEmp5 = DatabaseManagement.selectEmployees(selectedDept, conn);
-	rsEmp6 = DatabaseManagement.selectEmployees(selectedDept, conn);
+	rsEmp1 = DatabaseManagement.selectEmployees(selectedDept);
+	rsEmp2 = DatabaseManagement.selectEmployees(selectedDept);
+	rsEmp3 = DatabaseManagement.selectEmployees(selectedDept);
+	rsEmp4 = DatabaseManagement.selectEmployees(selectedDept);
+	rsEmp5 = DatabaseManagement.selectEmployees(selectedDept);
+	rsEmp6 = DatabaseManagement.selectEmployees(selectedDept);
 
 	//store session attributes for employees to variables if they are not null
 	if((String) session.getAttribute("emp1") != null) 
@@ -56,19 +58,18 @@
 			<div>
 				<span>
 					<%	//show success message if database insertion is successful
-						if((String) session.getAttribute("groupInsertSuccess") != null) {
-							out.println("<span  class = \"alert alert-success\" role = \"alert\">" +
-								(String) session.getAttribute("groupInsertSuccess") +
-								"</span>");
-						}
+						if((String) session.getAttribute("groupInsertSuccess") != null) { %>
+							<span  class = "alert alert-success" role = "alert">
+								<%= session.getAttribute("groupInsertSuccess") %>
+							</span>
+					<% }
 					
 						//show error message if database insertion failed
-						if((String) session.getAttribute("groupInsertError") != null) {
-							out.println("<span  class = \"alert alert-danger\" role = \"alert\">" +
-								(String) session.getAttribute("groupInsertError") +
-									"</span>");
-						}
-					%>
+						if((String) session.getAttribute("groupInsertError") != null) { %>
+							<span  class = "alert alert-danger" role = "alert">
+								<%= session.getAttribute("groupInsertError") %>
+							</span>
+					<% } %>	
 				</span>
 			</div>
 			<br>
@@ -79,24 +80,31 @@
 			<div class="form-group">
 				<label for="department">Department: </label>
 				<select id = "department" name = "department" onChange="this.form.submit()">
-					<% //check if a department is selcted
-						if(selectedDept == null || selectedDept == ""){
-						out.print("<option value=\"\" selected>Department</option> ");
-							//populate drop down list 
-							while(rsDept.next()){
-								out.print("<option value =\"" + rsDept.getString("dept_name") + "\">" + rsDept.getString("dept_name") + "</option>");
+					<% 
+						//Get the list of departments from the database
+						String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
+						
+						//check if a department is selected
+						if(session.getAttribute("department") == null || session.getAttribute("department").equals("")){ %>
+							<option value="" selected>Department</option>
+							
+						<% //Populate drop down list
+							for(int i = 0; i < deptList.length; i++) {
+								out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
 							}
 						}
 						else{
-							//populate dropdown and assign selected value to show as a default in the dropdown list
-		 					while(rsDept.next()){
-		    					if(rsDept.getString("dept_name").equals(selectedDept)){
-		        					out.print("<option value=\""+rsDept.getString("dept_name")+"\" SELECTED >"+rsDept.getString("dept_name")+"</option>");
-		    					}
-		    					else{
-		        					out.print("<option value=\""+rsDept.getString("dept_name")+"\" >"+rsDept.getString("dept_name")+"</option>");
-		   					 	}
-		  					}
+							%>
+							<option value="">Department</option>
+							<%							//Populate drop down list
+							for(int i = 0; i < deptList.length; i++) {
+								if(session.getAttribute("department").equals(deptList[i]))
+									out.print("<option value =\"" + deptList[i] + "\"selected>" + deptList[i] + "</option>");
+								else
+									out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
+							}
+							
+							session.setAttribute("department", null); //clear cache
 						}
 					%>
 				</select>
@@ -108,7 +116,7 @@
 			   		}
 				%>
 			</div>
-			<div class="form-group">
+<%-- 			<div class="form-group">
 				<label for="groupName">Group Name: </label>
 				<input class="form-control" placeholder="Group Name" type = "text" id = "groupName" name = "groupName" value = "<%if((String) session.getAttribute("groupName") != null) out.println((String) session.getAttribute("groupName"));%>"/>
 				<% 
@@ -294,7 +302,7 @@
 				%>
 				</select>
 			</div>
-			<br>
+			 --%><br>
 			<input type = "submit" value = "Submit" onclick = "form.action = 'GroupEntry'" class="btn btn-primary" />
 			<input type = "reset" value = "Clear" class="btn btn-secondary"/>
 		</form>

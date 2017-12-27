@@ -19,6 +19,9 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +30,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import helper.DatabaseManagement;
+import helper.HelperUtilities;
 
 
 @WebServlet("/GroupEntryHelper")
@@ -69,6 +75,33 @@ public class GroupEntryHelper extends HttpServlet {
 		response.setContentType("text/html");
 		String dept = request.getParameter("department");
 		String group = request.getParameter("groupName");
+		
+		String selectedDept;
+		
+	    //result set to select departments
+		try {
+			ResultSet rsDept = DatabaseManagement.selectFromTable("department");
+	
+			selectedDept = (String) request.getSession().getAttribute("department");	
+		
+			//result set to retrieve employees based on selected department
+			ResultSet rsEmp1 = DatabaseManagement.selectEmployees(selectedDept);
+			ResultSet rsEmp2 = DatabaseManagement.selectEmployees(selectedDept);
+			ResultSet rsEmp3 = DatabaseManagement.selectEmployees(selectedDept);
+			ResultSet rsEmp4 = DatabaseManagement.selectEmployees(selectedDept);
+			ResultSet rsEmp5 = DatabaseManagement.selectEmployees(selectedDept);
+			ResultSet rsEmp6 = DatabaseManagement.selectEmployees(selectedDept);
+			
+			//String[] deptList = HelperUtilities.getStringFromResultSet(rsDept, "dept_name");
+			
+			//request.getSession().setAttribute("deptList", deptList);
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		request.getSession().setAttribute("department", dept);
 		request.getSession().setAttribute("groupName", group);
 		response.sendRedirect("group-entry.jsp");

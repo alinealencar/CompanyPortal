@@ -34,12 +34,15 @@ public class DatabaseManagement {
 	 * 						about all rows returned from the select statement.
 	 * @throws Exception
 	 */
-	public static ResultSet selectFromTable(String tableName, Connection conn)
+	public static ResultSet selectFromTable(String tableName)
 			throws Exception {
-			Statement statement = conn.createStatement();
-			String query = "select * from " + tableName;
-			ResultSet rs = statement.executeQuery(query);
+		Connection conn = DatabaseAccess.connectDataBase();
+		Statement statement = conn.createStatement();
+		String query = "select * from " + tableName;
+		ResultSet rs = statement.executeQuery(query);
 	
+		//conn.close();
+		
 			return rs;
 		}
 	
@@ -190,15 +193,16 @@ public class DatabaseManagement {
 	 * @return	ResultSet This object holds all rows in the result of the select statement.
 	 * @throws Exception
 	 */
-	public static ResultSet selectEmployees(String deptName, Connection conn) 
+	public static ResultSet selectEmployees(String deptName) 
 			throws Exception {
-			Statement statement = conn.createStatement();
-			String query = "select firstname, lastname from employee "
-					+ "inner join department on department.id = employee.dept_id_fk "
-					+ "where dept_name='" + deptName + "'";
-			ResultSet rs = statement.executeQuery(query);
-			
-			return rs;
+		Connection conn = DatabaseAccess.connectDataBase();
+		Statement statement = conn.createStatement();
+		String query = "select firstname, lastname from employee "
+				+ "inner join department on department.id = employee.dept_id_fk "
+				+ "where dept_name='" + deptName + "'";
+		ResultSet rs = statement.executeQuery(query);
+		conn.close();
+		return rs;
 	}
 	
 }
