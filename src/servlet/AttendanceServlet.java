@@ -40,7 +40,7 @@ public class AttendanceServlet extends HttpServlet {
 		
 		Attendance attend = new Attendance();
 
-		try{
+		/*try{
 			conn = DatabaseAccess.connectDataBase();
 			rsDept = DatabaseManagement.selectFromTable("department", conn);
 			//String deptName = request.getParameter("department");
@@ -62,7 +62,7 @@ public class AttendanceServlet extends HttpServlet {
 			
 		}catch(Exception e){
 			
-		}
+		}*/
 		//access form values
 			
 		
