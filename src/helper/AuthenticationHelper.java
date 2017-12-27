@@ -82,7 +82,7 @@ public class AuthenticationHelper {
 	public static boolean logUserRemember(HttpServletRequest request, Connection conn, Cookie userId, Cookie token)
 			throws Exception {
 			Statement statement = conn.createStatement();
-			ResultSet rs = statement.executeQuery("select * from appusers where id=" 
+			ResultSet rs = statement.executeQuery("select * from employee where emp_id=" 
 					+Integer.parseInt(userId.getValue()) + " and token='" + token.getValue() + "'" );
 			if(rs != null){
 				// There is any entry in the appusers table that satisfies the conditions for user and token
@@ -111,7 +111,7 @@ public class AuthenticationHelper {
 		
 		//Validate the user/password combination exists in the Users table
 		Statement statement = conn.createStatement();
-		ResultSet rs = statement.executeQuery("select * from appusers where username='" 
+		ResultSet rs = statement.executeQuery("select * from employee where username='" 
 				+ username + "' and password='" + password + "';" );
 		if(rs != null){
 			if (rs.next()) {
