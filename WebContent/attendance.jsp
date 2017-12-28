@@ -2,16 +2,33 @@
 <%@include file="WEB-INF/header.jsp" %>
 <%@include file="WEB-INF/menu.jsp" %>
 
-<h1 class="text-center">ATTENDANCE</h1>
-<br>
-<div>
-	<span class="${(groupInsertSuccess != null) ? 'alert alert-success':''}" role="alert">${groupInsertSuccess}</span>
-	<span class="${(groupInsertError != null) ? 'alert alert-danger':''}" role="alert">${groupInsertError}</span>
-</div>
-<div class="form-group">
-	<form method = "post" action = "AttendanceHelperServlet">
-		<label for="department">Department: </label>
-			<select id = "department" name = "department">
+<div class="container">
+<div class="row">
+	<div class="col col-lg-2">
+		</div>
+		<div class="col col-lg-7">
+	<div>
+		<%	//show success message if database insertion is successful
+						if((String) session.getAttribute("attendanceInsertSuccess") != null){
+							out.println("<span  class = \"alert alert-success\" role = \"alert\">" +
+								(String) session.getAttribute("attendanceInsertSuccess") +
+								"</span>");
+						}
+
+						//show error message if database insertion failed
+						if((String) session.getAttribute("attendanceInsertError") != null){
+							out.println("<div  class = \"alert alert-danger\" role = \"alert\">" +
+								(String) session.getAttribute("attendanceInsertError") +
+									"</div>");
+						}
+					%>
+	</div>
+		<h1 class="text-center">ATTENDANCE</h1>
+		<br>
+		<div class="form-group">
+			<form method = "post" action = "AttendanceHelperServlet">
+				<label for="department">Department: </label>
+				<select id = "department" name = "department">
 					<% 
 						//Get the list of departments from the database
 						String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
@@ -39,20 +56,20 @@
 							//session.setAttribute("department", null); //clear cache
 						}
 					%>
-				</select>
-				<% //show error message if no department is selected
-					if((String) session.getAttribute("errorDepartment") != null){
+					</select>
+					<% //show error message if no department is selected
+						if((String) session.getAttribute("errorDepartment") != null){
 						out.println("<span class=\"text-danger\">" +
 								(String) session.getAttribute("errorDepartment") +
 								"</span>");
 			   		}
 				%>
 		<br>
-		<input type = "submit" value = "Submit" class="btn btn-primary"/>
-		<input type = "reset" value = "Cancel" class="btn btn-secondary"/><br>
-	</form>
-</div>
-<div class="form-group">
+			<input type = "submit" value = "Submit" class="btn btn-primary"/>
+			<input type = "reset" value = "Cancel" class="btn btn-secondary"/><br>
+		</form>
+	</div>
+	<div class="form-group">
 	<form method = "post" action = "AttendanceServlet">
 		<label for="date">Date: </label>
 		<input type = "date" name="attendanceDate">
@@ -90,6 +107,10 @@
 		<input type = "submit" value = "Enter" class="btn btn-primary"/>
 	</form>
 </div>
-		
+</div>
+	<div class="col col-lg-3">
+	</div>
+</div>
+</div>
 
 <%@include file="WEB-INF/footer.jsp" %>

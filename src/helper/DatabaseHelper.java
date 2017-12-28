@@ -139,8 +139,8 @@ public class DatabaseHelper {
 		Connection conn = DatabaseAccess.connectDataBase();
 		int result=0;
 		Statement statement = conn.createStatement();
-		String query = "select attendance_id from attendance a inner join department d on  a.dept_id_fk = d.id"
-				+ "where dept_name='" + deptName + "' and attendance_date='" + attendanceDate + "'";
+		String query = "select attendance.attendance_id from attendance inner join department on attendance.dept_id_fk = department.id"
+				+ "where department.dept_name='" + deptName + "' and attendance.attendance_date='" + attendanceDate + "'";
 		ResultSet rs = statement.executeQuery(query);
 		if(rs != null){
 			if(rs.next()){

@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import helper.ValidateInput;
 
+
 @WebServlet("/AttendanceHelperServlet")
 public class AttendanceHelperServlet extends HttpServlet {
+	
+	public static String dept;
 	private static final long serialVersionUID = 1L;
        
   
@@ -30,7 +33,7 @@ public class AttendanceHelperServlet extends HttpServlet {
 		response.setContentType("text/html");
 		boolean isNotValid = false;
 		
-		String dept = request.getParameter("department");
+		dept = request.getParameter("department");
 		//request.getSession().setAttribute("department", dept);
 		response.sendRedirect("attendance.jsp");
 		

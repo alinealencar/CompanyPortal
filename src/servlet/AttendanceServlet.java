@@ -39,6 +39,7 @@ public class AttendanceServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Connection conn;
 		response.setContentType("text/html");
 		Boolean isNotValid = false;
 		//Date attendanceDateSql;
@@ -46,15 +47,17 @@ public class AttendanceServlet extends HttpServlet {
 		boolean present;
 		String deptName;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-	
-		//access form values
-		deptName = request.getParameter("department");
+		
 		/*try {
 			attendanceDate = dateFormat.parse(request.getParameter("attendanceDate"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		attendanceDateSql = new java.sql.Date(attendanceDate.getTime()); */
+		deptName = AttendanceHelperServlet.dept;
+		
+		//access form values
+		//deptName = request.getParameter("department");
 		attendanceDate = request.getParameter("attendanceDate");
 		present = Boolean.valueOf(request.getParameter("present"));
 		
@@ -83,6 +86,7 @@ public class AttendanceServlet extends HttpServlet {
 				//check if insertion to the database succeeded
 				if(DatabaseManagement.insertAttendance(anAttendance.getAttendanceDate(), anAttendance.isPresent(), anAttendance.getDeptName())) {
 					request.getSession().setAttribute("attendanceInsertSuccess", "The attendance for the " + anAttendance.getDeptName() + " department was successfully marked!");
+					
 					String[] employeeIdList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees(anAttendance.getDeptName()), "emp_id");
 					
 					for(int i=0; i<employeeIdList.length; i++){
@@ -93,6 +97,8 @@ public class AttendanceServlet extends HttpServlet {
 					//request.getSession().setAttribute("location", "");
 					
 				}
+				else
+					request.getSession().setAttribute("attendanceInsertError", "ERROR! The marking of attendance failed");
 			}
 			catch(Exception e){
 				//error message if insert failed

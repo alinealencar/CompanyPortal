@@ -209,13 +209,14 @@ public class DatabaseManagement {
 	public static boolean insertAttendance(String attendanceDate, boolean present, String deptName)
 			throws Exception {
 			Connection conn = DatabaseAccess.connectDataBase();
-			String query = "insert into attendance(attendance_date, present, dept_id_fk) values(?,?,?)";
+			String query = "insert into attendance(attendance_date, present, dept_name, dept_id_fk) values(?,?,?,?)";
 			
 		    PreparedStatement preparedStmt = conn.prepareStatement(query);
 		    
 		    preparedStmt.setString (1, attendanceDate);
 		    preparedStmt.setBoolean (2, present);
-		    preparedStmt.setInt (3, DatabaseHelper.getDeptId(deptName));
+		    preparedStmt.setString (3, deptName);
+		    preparedStmt.setInt (4, DatabaseHelper.getDeptId(deptName));
 		    
 		    int rowsAffected = preparedStmt.executeUpdate();
 		    if (rowsAffected > 0)
