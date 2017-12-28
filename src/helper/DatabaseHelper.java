@@ -18,6 +18,7 @@
 package helper;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -132,6 +133,24 @@ public class DatabaseHelper {
         
         return names;
 	}
+	
+	public static int getAttendanceId(String deptName, String attendanceDate) 
+			throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
+		int result=0;
+		Statement statement = conn.createStatement();
+		String query = "select attendance_id from attendance a inner join department d on  a.dept_id_fk = d.id"
+				+ "where dept_name='" + deptName + "' and attendance_date='" + attendanceDate + "'";
+		ResultSet rs = statement.executeQuery(query);
+		if(rs != null){
+			if(rs.next()){
+				result = rs.getInt("attendance_id");
+			 }
+		}
+		conn.close();
+		return result;
+	}
+	
 	
 	
 }				

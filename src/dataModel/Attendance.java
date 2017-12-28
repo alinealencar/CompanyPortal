@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class Attendance implements Serializable{
 	private String attendanceDate;
 	private boolean present;
-	private int id;
 	private String deptName;
 	private ArrayList<String> deptNames = new ArrayList<String>();
 	
@@ -14,11 +13,10 @@ public class Attendance implements Serializable{
 		
 	}
 	
-	public Attendance(String attendanceDate, boolean present, int id, String deptName) {
+	public Attendance(String attendanceDate, boolean present, String deptName) {
 		super();
 		this.attendanceDate = attendanceDate;
 		this.present = present;
-		this.id = id;
 		this.deptName = deptName;
 	}
 
@@ -38,14 +36,6 @@ public class Attendance implements Serializable{
 		this.present = present;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getDeptName() {
 		return deptName;
 	}
@@ -54,13 +44,6 @@ public class Attendance implements Serializable{
 		this.deptName = deptName;
 	}
 
-	public ArrayList<String> getDeptNames() {
-		return deptNames;
-	}
-
-	public void setDeptNames(ArrayList<String> deptNames) {
-		this.deptNames = deptNames;
-	}
 	
 	
 	

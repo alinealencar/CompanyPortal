@@ -4,6 +4,10 @@
 
 <h1 class="text-center">ATTENDANCE</h1>
 <br>
+<div>
+	<span class="${(groupInsertSuccess != null) ? 'alert alert-success':''}" role="alert">${groupInsertSuccess}</span>
+	<span class="${(groupInsertError != null) ? 'alert alert-danger':''}" role="alert">${groupInsertError}</span>
+</div>
 <div class="form-group">
 	<form method = "post" action = "AttendanceHelperServlet">
 		<label for="department">Department: </label>
@@ -36,6 +40,13 @@
 						}
 					%>
 				</select>
+				<% //show error message if no department is selected
+					if((String) session.getAttribute("errorDepartment") != null){
+						out.println("<span class=\"text-danger\">" +
+								(String) session.getAttribute("errorDepartment") +
+								"</span>");
+			   		}
+				%>
 		<br>
 		<input type = "submit" value = "Submit" class="btn btn-primary"/>
 		<input type = "reset" value = "Cancel" class="btn btn-secondary"/><br>
@@ -44,7 +55,15 @@
 <div class="form-group">
 	<form method = "post" action = "AttendanceServlet">
 		<label for="date">Date: </label>
-		<input type = "date" name="attendanceDate"><br>
+		<input type = "date" name="attendanceDate">
+		<% //show error message if no department is selected
+					if((String) session.getAttribute("errorAttendanceDate") != null){
+						out.println("<span class=\"text-danger\">" +
+								(String) session.getAttribute("errorAttendanceDate") +
+								"</span>");
+			   		}
+				%>
+		<br>
 		<%	
 			String[] employeeFNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "firstname");
  			String[] employeeLNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "lastname");

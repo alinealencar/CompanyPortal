@@ -19,6 +19,7 @@ package helper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Date;
 
 import database.DatabaseAccess;
 
@@ -205,5 +206,37 @@ public class DatabaseManagement {
 		return rs;
 	}
 	
+	public static boolean insertAttendance(String attendanceDate, boolean present, String deptName)
+			throws Exception {
+			Connection conn = DatabaseAccess.connectDataBase();
+			String query = "insert into attendance(attendance_date, present, dept_id_fk) values(?,?,?)";
+			
+		    PreparedStatement preparedStmt = conn.prepareStatement(query);
+		    
+		    preparedStmt.setString (1, attendanceDate);
+		    preparedStmt.setBoolean (2, present);
+		    preparedStmt.setInt (3, DatabaseHelper.getDeptId(deptName));
+		    
+		    int rowsAffected = preparedStmt.executeUpdate();
+		    if (rowsAffected > 0)
+		    	return true;
+		    else
+		    	return false;
+		    
+	}
+	
+	public static void insertEmployeeAttendance(int empId, int attendanceId) throws Exception { 
+		Connection conn = DatabaseAccess.connectDataBase();
+		
+		String query = "insert into employee_attendance(emp_id_fk, attendance_id_fk) values(?,?)";
+		
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		
+		preparedStmt.setInt(1, empId);
+		preparedStmt.setInt(2, attendanceId);
+		preparedStmt.executeUpdate();
+		
+		conn.close();
+	}
 }
 
