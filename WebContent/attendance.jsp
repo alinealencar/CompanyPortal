@@ -5,9 +5,9 @@
 <h1 class="text-center">ATTENDANCE</h1>
 <br>
 <div class="form-group">
-	<form method = "post">
+	<form method = "post" action = "AttendanceHelperServlet">
 		<label for="department">Department: </label>
-			<select id = "department" name = "department" onChange="this.form.submit()">
+			<select id = "department" name = "department">
 					<% 
 						//Get the list of departments from the database
 						String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
@@ -32,7 +32,7 @@
 									out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
 							}
 							
-							session.setAttribute("department", null); //clear cache
+							//session.setAttribute("department", null); //clear cache
 						}
 					%>
 				</select>
@@ -42,9 +42,32 @@
 	</form>
 </div>
 <div class="form-group">
-	<form method = "post">
-		<label for="department">Date: </label>
-		<input type = "date" name="attendanceDate">
+	<form method = "post" action = "AttendanceServlet">
+		<label for="date">Date: </label>
+		<input type = "date" name="attendanceDate"><br>
+		<%	
+			String[] employeeFNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "firstname");
+ 			String[] employeeLNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "lastname");
+ 			String[] employeeNoList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "emp_no");
+			//create table
+		%>
+			<table border="1">
+				<tr>
+					<th><center>Employee Last Name</center></th>
+					<th><center>Employee First Name</center></th>
+					<th><center>Employee Number</center></th>
+					<th><center>Present</center></th>
+				</tr>
+		<% 	if(session.getAttribute("department") != null ){
+			for(int i = 0; i < employeeFNameList.length; i++) { %>
+			<tr>
+					<td><center><%=employeeFNameList[i]%></center></td>
+					<td><center><%=employeeLNameList[i]%></center></td>
+					<td><center><%=employeeNoList[i]%></center></td>
+					<td><center><input type="checkbox" name="present" value="true"></center></td>
+			</tr>
+		<%}}%>
+		</table><br>
 		<input type = "submit" value = "Enter" class="btn btn-primary"/>
 	</form>
 </div>

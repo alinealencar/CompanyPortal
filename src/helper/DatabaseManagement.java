@@ -197,7 +197,7 @@ public class DatabaseManagement {
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
 		Statement statement = conn.createStatement();
-		String query = "select firstname, lastname from employee "
+		String query = "select * from employee "
 				+ "inner join department on department.id = employee.dept_id_fk "
 				+ "where dept_name='" + deptName + "'";
 		ResultSet rs = statement.executeQuery(query);

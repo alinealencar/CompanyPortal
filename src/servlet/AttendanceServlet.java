@@ -32,13 +32,8 @@ public class AttendanceServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Connection conn;
-		response.setContentType("text/html");
-		Boolean isNotValid = false;
-		ArrayList<String> deptNames = new ArrayList<String>();
-		ResultSet rsDept = null; 
 		
-		Attendance attend = new Attendance();
+		
 
 		/*try{
 			conn = DatabaseAccess.connectDataBase();

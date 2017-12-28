@@ -79,7 +79,7 @@ public class GroupEntryHelper extends HttpServlet {
 		String selectedDept;
 		
 	    //result set to select departments
-		try {
+		/*try {
 			ResultSet rsDept = DatabaseManagement.selectFromTable("department");
 	
 			selectedDept = (String) request.getSession().getAttribute("department");	
@@ -100,7 +100,7 @@ public class GroupEntryHelper extends HttpServlet {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		request.getSession().setAttribute("department", dept);
 		request.getSession().setAttribute("groupName", group);
