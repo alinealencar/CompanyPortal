@@ -11,7 +11,7 @@ public class ReportTemplate {
 	//Criteria for each section
 	private String s1Criteria1, s1Criteria2, s1Criteria3, s1Criteria4, s1Criteria5;
 	private String s2Criteria1, s2Criteria2, s2Criteria3;
-	private String s3Criteria1, s3Criteria2, s3Criteria13;
+	private String s3Criteria1, s3Criteria2, s3Criteria3;
 	
 	//Maximum for each criteria
 	private int s1Crit1Max, s1Crit2Max, s1Crit3Max, s1Crit4Max, s1Crit5Max;
@@ -153,12 +153,12 @@ public class ReportTemplate {
 		this.s3Criteria2 = s3Criteria2;
 	}
 
-	public String getS3Criteria13() {
-		return s3Criteria13;
+	public String getS3Criteria3() {
+		return s3Criteria3;
 	}
 
-	public void setS3Criteria13(String s3Criteria13) {
-		this.s3Criteria13 = s3Criteria13;
+	public void setS3Criteria13(String s3Criteria3) {
+		this.s3Criteria3 = s3Criteria3;
 	}
 
 	public int getS1Crit1Max() {
@@ -264,7 +264,7 @@ public class ReportTemplate {
 				+ ", s1Criteria1=" + s1Criteria1 + ", s1Criteria2=" + s1Criteria2 + ", s1Criteria3=" + s1Criteria3
 				+ ", s1Criteria4=" + s1Criteria4 + ", s1Criteria5=" + s1Criteria5 + ", s2Criteria1=" + s2Criteria1
 				+ ", s2Criteria2=" + s2Criteria2 + ", s2Criteria3=" + s2Criteria3 + ", s3Criteria1=" + s3Criteria1
-				+ ", s3Criteria2=" + s3Criteria2 + ", s3Criteria13=" + s3Criteria13 + ", s1Crit1Max=" + s1Crit1Max
+				+ ", s3Criteria2=" + s3Criteria2 + ", s3Criteria3=" + s3Criteria3 + ", s1Crit1Max=" + s1Crit1Max
 				+ ", s1Crit2Max=" + s1Crit2Max + ", s1Crit3Max=" + s1Crit3Max + ", s1Crit4Max=" + s1Crit4Max
 				+ ", s1Crit5Max=" + s1Crit5Max + ", s2Crit1Max=" + s2Crit1Max + ", s2Crit2Max=" + s2Crit2Max
 				+ ", s2Crit3Max=" + s2Crit3Max + ", s3Crit1Max=" + s3Crit1Max + ", s3Crit2Max=" + s3Crit2Max

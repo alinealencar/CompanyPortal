@@ -19,6 +19,9 @@ package helper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import dataModel.ReportTemplate;
+
 import java.sql.Date;
 
 import database.DatabaseAccess;
@@ -252,6 +255,58 @@ public class DatabaseManagement {
 		preparedStmt.executeUpdate();
 		
 		conn.close();
+	}
+	
+	public static boolean insertReportTemplate(ReportTemplate reportTemplate, String deptName) throws Exception{
+		Connection conn = DatabaseAccess.connectDataBase();
+		
+		String query = "insert into report_template(template_name, template_date, "
+				+ "section1, s1_criteria1, s1_criteria2, s1_criteria3, s1_criteria4, s1_criteria5,"
+				+ "s1_c1_maximum, s1_c2_maximum, s1_c3_maximum, s1_c4_maximum, s1_c5_maximum,"
+				+ "section2, s2_criteria1, s2_criteria2, s2_criteria3,"
+				+ "s2_c1_maximum, s2_c2_maximum, s2_c3_maximum,"
+				+ "section3, s3_criteria1, s3_criteria2, s3_criteria3,"
+				+ "s3_c1_maximum, s3_c2_maximum, s3_c3_maximum,"
+				+ "dept_id_fk) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
+				+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		
+		preparedStmt.setString(1, reportTemplate.getTemplateName());
+		preparedStmt.setDate(2, reportTemplate.getTemplateDate());
+		//Section 1
+		preparedStmt.setString(3, reportTemplate.getSection1());
+		preparedStmt.setString(4,  reportTemplate.getS1Criteria1());
+		preparedStmt.setString(5, reportTemplate.getS1Criteria2());
+		preparedStmt.setString(6, reportTemplate.getS1Criteria3());
+		preparedStmt.setString(7, reportTemplate.getS1Criteria4());
+		preparedStmt.setString(8, reportTemplate.getS1Criteria5());
+		preparedStmt.setInt(9, reportTemplate.getS1Crit1Max());
+		preparedStmt.setInt(10, reportTemplate.getS1Crit2Max());
+		preparedStmt.setInt(11, reportTemplate.getS1Crit3Max());
+		preparedStmt.setInt(12, reportTemplate.getS1Crit4Max());
+		preparedStmt.setInt(13, reportTemplate.getS1Crit5Max());
+		//Section 2
+		preparedStmt.setString(14, reportTemplate.getSection2());
+		preparedStmt.setString(15,  reportTemplate.getS2Criteria1());
+		preparedStmt.setString(16, reportTemplate.getS2Criteria2());
+		preparedStmt.setString(17, reportTemplate.getS2Criteria3());
+		preparedStmt.setInt(18, reportTemplate.getS2Crit1Max());
+		preparedStmt.setInt(19, reportTemplate.getS2Crit2Max());
+		preparedStmt.setInt(20, reportTemplate.getS2Crit3Max());
+		//Section 3
+		preparedStmt.setString(21, reportTemplate.getSection3());
+		preparedStmt.setString(22,  reportTemplate.getS3Criteria1());
+		preparedStmt.setString(23, reportTemplate.getS3Criteria2());
+		preparedStmt.setString(24, reportTemplate.getS3Criteria3());
+		preparedStmt.setInt(25, reportTemplate.getS3Crit1Max());
+		preparedStmt.setInt(26, reportTemplate.getS3Crit2Max());
+		preparedStmt.setInt(27, reportTemplate.getS3Crit3Max());
+
+		preparedStmt.setInt (28, DatabaseHelper.getDeptId(deptName));
+		
+		int rowsAffected = preparedStmt.executeUpdate();
+		return (rowsAffected > 0);
 	}
 	
 	public static void updatePresentEmployees(int empId) throws Exception { 

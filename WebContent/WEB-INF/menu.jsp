@@ -14,8 +14,14 @@
 		<li class="nav-item">
 			<a class="nav-link" href ="group-entry.jsp">Group</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" href ="report.jsp">Reports</a>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href ="employee-report.jsp">Enter Employee Report</a>
+				<a class="dropdown-item" href ="group-report.jsp">Enter Group Report</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href ="create-report.jsp">Create Report Template</a>
+			</div>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href ="attendance.jsp">Attendance</a>
