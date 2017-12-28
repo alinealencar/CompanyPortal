@@ -124,6 +124,29 @@ public class DatabaseHelper {
 	}
 	
 	/**
+	 * This method returns an attendance ID according to the department name and attendance date.
+	 * @param deptName	String that holds a department name.
+	 * @return int	Integer that represents an attendance ID.
+	 * @throws Exception
+	 */
+	public static int getAttendanceId(String deptName, String attendanceDate) 
+			throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
+		int result=0;
+		Statement statement = conn.createStatement();
+		String query = "select attendance_id from attendance "
+				+ "where dept_name='" + deptName + "' and attendance_date='" + attendanceDate + "'";
+		ResultSet rs = statement.executeQuery(query);
+		if(rs != null){
+			if(rs.next()){
+				result = rs.getInt("attendance_id");
+			 }
+		}
+		conn.close();
+		return result;
+	}
+	
+	/**
 	 * This method returns a String array containing the employee's first and last names
 	 * @param fullname	String that holds an employee's full name.
 	 * @return String[] array that contains the first and last names
@@ -134,21 +157,19 @@ public class DatabaseHelper {
         return names;
 	}
 	
-	public static int getAttendanceId(String deptName, String attendanceDate) 
-			throws Exception {
+	public static boolean isDuplicate(String deptName, String date) 
+		throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
-		int result=0;
 		Statement statement = conn.createStatement();
-		String query = "select attendance.attendance_id from attendance inner join department on attendance.dept_id_fk = department.id"
-				+ "where department.dept_name='" + deptName + "' and attendance.attendance_date='" + attendanceDate + "'";
+		String query = "select COUNT(*) from attendance "
+				+ "where dept_name='" + deptName + "' and attendance_date='" + date + "'";
 		ResultSet rs = statement.executeQuery(query);
-		if(rs != null){
-			if(rs.next()){
-				result = rs.getInt("attendance_id");
-			 }
-		}
-		conn.close();
-		return result;
+		if(rs.next())
+			rs.getInt(1);
+		if(rs.getInt(1) > 0)
+			return true;
+		else
+			return false;
 	}
 	
 	

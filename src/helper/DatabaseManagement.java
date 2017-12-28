@@ -206,17 +206,24 @@ public class DatabaseManagement {
 		return rs;
 	}
 	
-	public static boolean insertAttendance(String attendanceDate, boolean present, String deptName)
+	/**
+	 * This inserts the attendance into the Attendance table of the database.
+	 * @param attendanceDate - date of the attendance marking
+	 * @param present - if the employee is present on the date of the attendance marking
+	 * @param deptName - department name
+	 * @throws Exception
+	 */
+	public static boolean insertAttendance(String attendanceDate, String deptName)
 			throws Exception {
 			Connection conn = DatabaseAccess.connectDataBase();
-			String query = "insert into attendance(attendance_date, present, dept_name, dept_id_fk) values(?,?,?,?)";
+			String query = "insert into attendance(attendance_date, dept_name, dept_id_fk) values(?,?,?)";
 			
 		    PreparedStatement preparedStmt = conn.prepareStatement(query);
 		    
 		    preparedStmt.setString (1, attendanceDate);
-		    preparedStmt.setBoolean (2, present);
-		    preparedStmt.setString (3, deptName);
-		    preparedStmt.setInt (4, DatabaseHelper.getDeptId(deptName));
+		    //preparedStmt.setBoolean (2, present);
+		    preparedStmt.setString (2, deptName);
+		    preparedStmt.setInt (3, DatabaseHelper.getDeptId(deptName));
 		    
 		    int rowsAffected = preparedStmt.executeUpdate();
 		    if (rowsAffected > 0)
@@ -226,6 +233,12 @@ public class DatabaseManagement {
 		    
 	}
 	
+	/**
+	 * This inserts the employee and attendance IDs into the Employee_Attendance table of the database.
+	 * @param empId
+	 * @param attendanceId
+	 * @throws Exception
+	 */
 	public static void insertEmployeeAttendance(int empId, int attendanceId) throws Exception { 
 		Connection conn = DatabaseAccess.connectDataBase();
 		
@@ -233,8 +246,21 @@ public class DatabaseManagement {
 		
 		PreparedStatement preparedStmt = conn.prepareStatement(query);
 		
+		//preparedStmt.setBoolean(1, present);
 		preparedStmt.setInt(1, empId);
 		preparedStmt.setInt(2, attendanceId);
+		preparedStmt.executeUpdate();
+		
+		conn.close();
+	}
+	
+	public static void updatePresentEmployees(int empId) throws Exception { 
+		Connection conn = DatabaseAccess.connectDataBase();
+		boolean present = true;
+		
+		String query = "update employee_attendance set present = " + 1 + " where emp_id_fk = " + empId;
+		
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
 		preparedStmt.executeUpdate();
 		
 		conn.close();

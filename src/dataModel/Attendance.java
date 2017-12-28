@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Attendance implements Serializable{
 	private String attendanceDate;
-	private boolean present;
+	//private boolean present;
 	private String deptName;
 	private ArrayList<String> deptNames = new ArrayList<String>();
 	
@@ -13,10 +13,10 @@ public class Attendance implements Serializable{
 		
 	}
 	
-	public Attendance(String attendanceDate, boolean present, String deptName) {
+	public Attendance(String attendanceDate, String deptName) {
 		super();
 		this.attendanceDate = attendanceDate;
-		this.present = present;
+		//this.present = present;
 		this.deptName = deptName;
 	}
 
@@ -26,14 +26,6 @@ public class Attendance implements Serializable{
 
 	public void setAttendanceDate(String attendanceDate) {
 		this.attendanceDate = attendanceDate;
-	}
-
-	public boolean isPresent() {
-		return present;
-	}
-
-	public void setPresent(boolean present) {
-		this.present = present;
 	}
 
 	public String getDeptName() {

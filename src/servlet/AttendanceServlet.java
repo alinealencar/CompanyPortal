@@ -46,7 +46,8 @@ public class AttendanceServlet extends HttpServlet {
 		String attendanceDate;
 		boolean present;
 		String deptName;
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+		String[] employeeList;
+		//SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
 		
 		/*try {
 			attendanceDate = dateFormat.parse(request.getParameter("attendanceDate"));
@@ -59,10 +60,10 @@ public class AttendanceServlet extends HttpServlet {
 		//access form values
 		//deptName = request.getParameter("department");
 		attendanceDate = request.getParameter("attendanceDate");
-		present = Boolean.valueOf(request.getParameter("present"));
+		String[] selectedEmployeeIds = request.getParameterValues("present");
 		
 		//create an attendance object
-		Attendance anAttendance = new Attendance(attendanceDate, present, deptName);
+		Attendance anAttendance = new Attendance(attendanceDate, deptName);
 		
 		//redirect to attendance.jsp
 		response.sendRedirect("attendance.jsp");
@@ -83,23 +84,40 @@ public class AttendanceServlet extends HttpServlet {
 				//DatabaseAccess.createDatabase();
 				//conn = DatabaseAccess.connectDataBase();
 			
-				//check if insertion to the database succeeded
-				if(DatabaseManagement.insertAttendance(anAttendance.getAttendanceDate(), anAttendance.isPresent(), anAttendance.getDeptName())) {
-					request.getSession().setAttribute("attendanceInsertSuccess", "The attendance for the " + anAttendance.getDeptName() + " department was successfully marked!");
+				//check if there is a duplicate entry in the database (same department and same date)
+				if(!DatabaseHelper.isDuplicate(anAttendance.getDeptName(),anAttendance.getAttendanceDate()))
+				{
+					//check if insertion to the database succeeded
+					if(DatabaseManagement.insertAttendance(anAttendance.getAttendanceDate(), anAttendance.getDeptName())) {
+						request.getSession().setAttribute("attendanceInsertSuccess", "The attendance for the " + anAttendance.getDeptName() + " department was successfully marked!");
 					
-					String[] employeeIdList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees(anAttendance.getDeptName()), "emp_id");
-					
-					for(int i=0; i<employeeIdList.length; i++){
-						DatabaseManagement.insertEmployeeAttendance(Integer.parseInt(employeeIdList[i]), DatabaseHelper.getAttendanceId(deptName, attendanceDate));
-					}
+						String[] employeeIdList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees(anAttendance.getDeptName()), "emp_id");
+							
+						//loop through all the employees to get their attendance
+						for(int i=0; i<employeeIdList.length; i++){
+							//if (request.getParameter("present") != null)
+								//present = true;
+							//else
+								//present = false;
+							//insert values into the database*/
+							DatabaseManagement.insertEmployeeAttendance(Integer.parseInt(employeeIdList[i]), DatabaseHelper.getAttendanceId(deptName, attendanceDate));
+						//}
+						}
+						//loop through the selected employees array
+						for(int j=0; j < selectedEmployeeIds.length; j++){
+							DatabaseManagement.updatePresentEmployees(Integer.parseInt(selectedEmployeeIds[j]));
+						}
 					//clear form
 					//request.getSession().setAttribute("deptName", "");
 					//request.getSession().setAttribute("location", "");
-					
-				}
-				else
+					}	
+					else
 					request.getSession().setAttribute("attendanceInsertError", "ERROR! The marking of attendance failed");
+					}
+				else
+					request.getSession().setAttribute("attendanceInsertError", "ERROR! The attendance is already marked for the " + anAttendance.getDeptName() + " department on the selected date");
 			}
+				
 			catch(Exception e){
 				//error message if insert failed
 				request.getSession().setAttribute("attendanceInsertError", e + "\nPlease try again.");

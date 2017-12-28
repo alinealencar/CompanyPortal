@@ -85,6 +85,7 @@
 			String[] employeeFNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "firstname");
  			String[] employeeLNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "lastname");
  			String[] employeeNoList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "emp_no");
+ 			String[] employeeIdList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "emp_id");
 			//create table
 		%>
 			<table border="1">
@@ -100,7 +101,7 @@
 					<td><center><%=employeeFNameList[i]%></center></td>
 					<td><center><%=employeeLNameList[i]%></center></td>
 					<td><center><%=employeeNoList[i]%></center></td>
-					<td><center><input type="checkbox" name="present" value="true"></center></td>
+					<td><center><input type="checkbox" name="present" value="<%=employeeIdList[i]%>"></center></td>
 			</tr>
 		<%}}%>
 		</table><br>
