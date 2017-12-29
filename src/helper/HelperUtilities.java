@@ -15,4 +15,14 @@ public class HelperUtilities {
 		String[] strList = new String[resultList.size()];
 		return resultList.toArray(strList);
 	}
+	
+	static public String[] getFullNameFromResultSet(ResultSet rs, String firstName, String lastName) throws SQLException{
+		List<String> resultList = new ArrayList<String>();
+
+		while(rs.next())
+			resultList.add(rs.getString(firstName) + " " + rs.getString(lastName));
+		
+		String[] strList = new String[resultList.size()];
+		return resultList.toArray(strList);
+	}
 }

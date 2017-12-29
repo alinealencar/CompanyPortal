@@ -17,7 +17,7 @@
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
 			<div class="dropdown-menu">
-				<a class="dropdown-item" href ="report-entry.jsp">Enter Report</a>
+				<a class="dropdown-item" href ="enter-report.jsp">Enter Report</a>
 				<a class="dropdown-item" href ="create-report.jsp">Create Report Template</a>
 			</div>
 		</li>
