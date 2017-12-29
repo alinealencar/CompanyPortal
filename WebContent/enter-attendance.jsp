@@ -17,7 +17,7 @@
 		<h1 class="text-center">ATTENDANCE</h1>
 		<br>
 		<div class="form-group">
-			<form method = "post" action = "AttendanceHelperServlet" name = "attendance-dept" onsubmit="return validateDepartment()" novalidate>
+			<form method = "post" action = "EnterAttendanceHelper" name = "attendance-dept" onsubmit="return validateDepartment()" novalidate>
 				<label for="department">Department: </label>
 				<select id = "department" name = "department" id = "department">
 					<% 

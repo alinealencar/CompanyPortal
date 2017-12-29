@@ -10,14 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import helper.ValidateInput;
 
 
-@WebServlet("/AttendanceHelperServlet")
-public class AttendanceHelperServlet extends HttpServlet {
+@WebServlet("/EnterAttendanceHelper")
+public class EnterAttendanceHelper extends HttpServlet {
 	
-	public static String dept;
+	protected static String dept;
 	private static final long serialVersionUID = 1L;
        
-  
-    public AttendanceHelperServlet() {
+    public EnterAttendanceHelper() {
         super();
         
     }

@@ -41,14 +41,15 @@ public class EnterAttendance extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		String deptName;
-		deptName = AttendanceHelperServlet.dept;
+		deptName = EnterAttendanceHelper.dept;
 		Attendance anAttendance = new Attendance();
 		
 		//access form values
 		//deptName = request.getParameter("department");
-		anAttendance.setAttendanceDate(request.getParameter("attendanceDate"));
-		anAttendance.setDeptName(deptName);
-		String[] selectedEmployeeIds = request.getParameterValues("present");
+		if(!ValidateInput.isMissing(request.getParameter("attendanceDate"))){
+			anAttendance.setAttendanceDate(request.getParameter("attendanceDate"));
+			anAttendance.setDeptName(deptName);
+			String[] selectedEmployeeIds = request.getParameterValues("present");
 		
 		response.sendRedirect("enter-attendance.jsp");
 		
@@ -87,7 +88,7 @@ public class EnterAttendance extends HttpServlet {
 					}	
 					else
 					request.getSession().setAttribute("attendanceInsertError", "ERROR! The marking of attendance failed");
-					}
+				}
 				else
 					request.getSession().setAttribute("attendanceInsertError", "ERROR! The attendance is already marked for the " + anAttendance.getDeptName() + " department on the selected date");
 			}
@@ -99,5 +100,6 @@ public class EnterAttendance extends HttpServlet {
 		
 	
 
+}
 }
 }
