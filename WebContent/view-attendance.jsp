@@ -34,16 +34,18 @@
 			</div>
 		<br>
 		</form>
-		<table border=1>
-			<tr>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Employee Number</th>
-			<% //Get the list of departments from the database
-				String[] dateList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectAttendanceByDept((String) session.getAttribute("department")), "attendance_date");
-				for (int i = 0; i < dateList.length; i++){
-			%>
-				<th><%=dateList[i]%></th>
-			<%} %>
-			</tr>
-		</table>
+		<div class="row align-items-center justify-content-center">
+			<table border=1>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Employee Number</th>
+					<% //Get the list of departments from the database
+					String[] dateList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectAttendanceByDept((String) session.getAttribute("department")), "attendance_date");
+					for (int i = 0; i < dateList.length; i++){
+				%>
+					<th><%=dateList[i]%></th>
+				<%} %>
+				</tr>
+			</table>
+		</div>
