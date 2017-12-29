@@ -24,11 +24,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 
-@WebServlet("/AttendanceServlet")
-public class AttendanceServlet extends HttpServlet {
+@WebServlet("/EnterAttendance")
+public class EnterAttendance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public AttendanceServlet() {
+    public EnterAttendance() {
         super();
     }
 
@@ -39,13 +39,8 @@ public class AttendanceServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Connection conn;
 		response.setContentType("text/html");
-		Boolean isNotValid = false;
-		String attendanceDate;
-		boolean present;
 		String deptName;
-		String[] employeeList;
 		deptName = AttendanceHelperServlet.dept;
 		Attendance anAttendance = new Attendance();
 		
@@ -55,8 +50,7 @@ public class AttendanceServlet extends HttpServlet {
 		anAttendance.setDeptName(deptName);
 		String[] selectedEmployeeIds = request.getParameterValues("present");
 		
-		//redirect to attendance.jsp
-		response.sendRedirect("attendance.jsp");
+		response.sendRedirect("enter-attendance.jsp");
 		
 		//check if date is missing
 		/*if (ValidateInput.isMissing(anAttendance.getAttendanceDate()) || anAttendance.getAttendanceDate().equals("yyyy-mm-dd")) {

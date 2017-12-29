@@ -35,7 +35,7 @@ public class AttendanceHelperServlet extends HttpServlet {
 		
 		dept = request.getParameter("department");
 		request.getSession().setAttribute("department", dept);
-		response.sendRedirect("attendance.jsp");
+		response.sendRedirect("enter-attendance.jsp");
 		return;
 		
 		//check if department name if missing

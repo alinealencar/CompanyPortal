@@ -10,8 +10,8 @@
 		<div class="col col-lg-7">
 	<div>
 		<div>
-				<span class="${(attendanceInsertSuccess != null) ? 'alert alert-success':''}" role="alert">${attendanceInsertSuccess}</span>
-				<span class="${(attendanceInsertError != null) ? 'alert alert-danger':''}" role="alert">${attendanceInsertError}</span>
+				<div class="${(attendanceInsertSuccess != null) ? 'alert alert-success':''}" role="alert">${attendanceInsertSuccess}</div>
+				<div class="${(attendanceInsertError != null) ? 'alert alert-danger':''}" role="alert">${attendanceInsertError}</div>
 			</div>
 	</div>
 		<h1 class="text-center">ATTENDANCE</h1>
@@ -48,7 +48,7 @@
 		</form>
 	</div><br>
 	<div class="form-group">
-	<form method = "post" action = "AttendanceServlet" name = "attendance-date" onsubmit="return validateDate()" novalidate>
+	<form method = "post" action = "EnterAttendance" name = "attendance-date" onsubmit="return validateDate()" novalidate>
 		<label for="date">Date: </label>
 		<input type = "date" name="attendanceDate" id = "attendanceDate">
 		<span class="error" id="errorAttendanceDate">Please enter a date.</span>
