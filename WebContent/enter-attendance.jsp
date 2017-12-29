@@ -1,8 +1,7 @@
-<% session.setAttribute("title", "Attendance"); %>
+<% session.setAttribute("title", "Enter Attendance"); %>
 <%@include file="WEB-INF/header.jsp" %>
 <%@include file="WEB-INF/menu.jsp" %>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <div class="container">
 <div class="row">
 	<div class="col col-lg-2">
