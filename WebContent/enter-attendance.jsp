@@ -18,8 +18,9 @@
 		<br>
 		<div class="form-group">
 			<form method = "post" action = "EnterAttendanceHelper" name = "attendance-dept" onsubmit="return validateDepartment()" novalidate>
-				<label for="department">Department: </label>
-				<select id = "department" name = "department" id = "department">
+				<div class="row align-items-center justify-content-center">
+					<label for="department">Department:&nbsp;</label>
+					<select id = "department" name = "department" id = "department">
 					<% 
 						//Get the list of departments from the database
 						String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
@@ -41,16 +42,22 @@
 								out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
 						} }%>
 					</select>
+					</div>
 					<span class="error" id="errorDepartment">Please select a department.</span>
-					<br><br>
-					<input type = "submit" value = "Submit" class="btn btn-primary"/>
-			<input type = "reset" value = "Cancel" class="btn btn-secondary"/><br>
+					<br>
+			<div class="row align-items-center justify-content-center">
+				<input type = "submit" value = "Submit" class="btn btn-primary"/>
+				&nbsp;
+				<input type = "reset" value = "Cancel" class="btn btn-secondary"/><br>
+			</div>
 		</form>
 	</div><br>
 	<div class="form-group">
 	<form method = "post" action = "EnterAttendance" name = "attendance-date" onsubmit="return validateDate()" novalidate>
-		<label for="date">Date: </label>
-		<input type = "date" name="attendanceDate" id = "attendanceDate">
+		<div class="row align-items-center justify-content-center">
+			<label for="date">Date: &nbsp;</label>
+			<input type = "date" name="attendanceDate" id = "attendanceDate">
+		</div>
 		<span class="error" id="errorAttendanceDate">Please enter a date.</span>
 		<br>
 		<br>
@@ -61,6 +68,7 @@
  			String[] employeeIdList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "emp_id");
 			//create table
 		%>
+		<div class="row align-items-center justify-content-center">
 			<table border="1">
 				<tr>
 					<th><center>Employee Last Name</center></th>
@@ -77,8 +85,12 @@
 					<td><center><input type="checkbox" name="present" value="<%=employeeIdList[i]%>"></center></td>
 			</tr>
 		<%}}%>
-		</table><br>
-		<input type = "submit" value = "Enter" class="btn btn-primary"/>
+		</table>
+		</div>
+		<br>
+		<div class="row align-items-center justify-content-center">
+			<input type = "submit" value = "Enter" class="btn btn-primary"/>
+		</div>
 	</form>
 </div>
 </div>

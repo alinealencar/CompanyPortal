@@ -36,17 +36,6 @@ public class EnterAttendanceHelper extends HttpServlet {
 		request.getSession().setAttribute("department", dept);
 		response.sendRedirect("enter-attendance.jsp");
 		return;
-		
-		//check if department name if missing
-		/*if (ValidateInput.isMissing(dept)) {
-			request.getSession().setAttribute("errorDepartment", "Please select a department.");
-			request.getSession().setAttribute("department", "");
-			isNotValid = true;
-		}
-		else {
-			request.getSession().removeAttribute("errorDepartment");
-			request.getSession().setAttribute("department", dept);
-		}*/
 	}
 
 }
