@@ -111,8 +111,8 @@ CREATE TABLE EMPLOYEE_REPORT
 CREATE TABLE ATTENDANCE
 (
 	attendance_id int(11) AUTO_INCREMENT PRIMARY KEY,
-	attendance_date datetime NOT NULL,
-	dept_name VARCHAR(20),
+	attendance_date date NOT NULL,
+	dept_name VARCHAR(20) NOT NULL,
 	dept_id_fk int(11) NOT NULL,
 	FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
 );

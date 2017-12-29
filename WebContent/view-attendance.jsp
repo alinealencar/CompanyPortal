@@ -7,7 +7,7 @@
 	<div class="col col-lg-2">
 	</div>
 	<div class="col col-lg-7">
-		<h1 class="text-center">ATTENDANCE</h1>
+		<h1 class="text-center">VIEW ATTENDANCE</h1>
 		<br>
 		<div class="form-group">
 			<form method = "post" action = "ViewAttendance" name = "attendance-dept" onsubmit="return validateDepartment()" novalidate>
@@ -23,7 +23,9 @@
 						out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");%>
 					</select>
 					</div>
-					<span class="error" id="errorDepartment">Please select a department.</span>
+					<div class="row align-items-center justify-content-center">
+						<div class="error" id="errorDepartment">Please select a department.</div>
+					</div>
 					<br>
 			<div class="row align-items-center justify-content-center">
 				<input type = "submit" value = "Submit" class="btn btn-primary"/>

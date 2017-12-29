@@ -13,7 +13,7 @@
 				<div class="${(attendanceInsertError != null) ? 'alert alert-danger':''}" role="alert">${attendanceInsertError}</div>
 			</div>
 	</div>
-		<h1 class="text-center">ATTENDANCE</h1>
+		<h1 class="text-center">ENTER ATTENDANCE</h1>
 		<br>
 		<div class="form-group">
 			<form method = "post" action = "EnterAttendanceHelper" name = "attendance-dept" onsubmit="return validateDepartment()" novalidate>
@@ -42,7 +42,9 @@
 						} }%>
 					</select>
 					</div>
-					<span class="error" id="errorDepartment">Please select a department.</span>
+					<div class="row align-items-center justify-content-center">
+						<div class="error" id="errorDepartment">Please select a department.</div>
+					</div>
 					<br>
 			<div class="row align-items-center justify-content-center">
 				<input type = "submit" value = "Submit" class="btn btn-primary"/>
@@ -57,7 +59,9 @@
 			<label for="date">Date: &nbsp;</label>
 			<input type = "date" name="attendanceDate" id = "attendanceDate">
 		</div>
-		<span class="error" id="errorAttendanceDate">Please enter a date.</span>
+		<div class="row align-items-center justify-content-center">
+			<div class="error" id="errorAttendanceDate">Please enter a date.</div>
+		</div>
 		<br>
 		<br>
 		<%	
