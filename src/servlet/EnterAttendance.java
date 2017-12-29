@@ -24,11 +24,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 
-@WebServlet("/AttendanceServlet")
-public class AttendanceServlet extends HttpServlet {
+@WebServlet("/EnterAttendance")
+public class EnterAttendance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public AttendanceServlet() {
+    public EnterAttendance() {
         super();
     }
 
@@ -39,37 +39,22 @@ public class AttendanceServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Connection conn;
 		response.setContentType("text/html");
-		Boolean isNotValid = false;
-		//Date attendanceDateSql;
-		String attendanceDate;
-		boolean present;
 		String deptName;
-		String[] employeeList;
-		//SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-		
-		/*try {
-			attendanceDate = dateFormat.parse(request.getParameter("attendanceDate"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		attendanceDateSql = new java.sql.Date(attendanceDate.getTime()); */
-		deptName = AttendanceHelperServlet.dept;
+		deptName = EnterAttendanceHelper.dept;
+		Attendance anAttendance = new Attendance();
 		
 		//access form values
 		//deptName = request.getParameter("department");
-		attendanceDate = request.getParameter("attendanceDate");
-		String[] selectedEmployeeIds = request.getParameterValues("present");
+		if(!ValidateInput.isMissing(request.getParameter("attendanceDate"))){
+			anAttendance.setAttendanceDate(request.getParameter("attendanceDate"));
+			anAttendance.setDeptName(deptName);
+			String[] selectedEmployeeIds = request.getParameterValues("present");
 		
-		//create an attendance object
-		Attendance anAttendance = new Attendance(attendanceDate, deptName);
-		
-		//redirect to attendance.jsp
-		response.sendRedirect("attendance.jsp");
+		response.sendRedirect("enter-attendance.jsp");
 		
 		//check if date is missing
-		if (ValidateInput.isMissing(anAttendance.getAttendanceDate()) || anAttendance.getAttendanceDate().equals("yyyy-mm-dd")) {
+		/*if (ValidateInput.isMissing(anAttendance.getAttendanceDate()) || anAttendance.getAttendanceDate().equals("yyyy-mm-dd")) {
 			request.getSession().setAttribute("errorAttendanceDate", "Please enter a date.");
 			request.getSession().setAttribute("attendanceDate", "");
 			isNotValid = true;
@@ -77,13 +62,10 @@ public class AttendanceServlet extends HttpServlet {
 		else {
 			request.getSession().removeAttribute("errorAttendanceDate");
 			request.getSession().setAttribute("attendanceDate", anAttendance.getAttendanceDate());
-		}
+		}*/
 		
-		if (!isNotValid){
+		//if (!isNotValid){
 			try {
-				//DatabaseAccess.createDatabase();
-				//conn = DatabaseAccess.connectDataBase();
-			
 				//check if there is a duplicate entry in the database (same department and same date)
 				if(!DatabaseHelper.isDuplicate(anAttendance.getDeptName(),anAttendance.getAttendanceDate()))
 				{
@@ -95,25 +77,18 @@ public class AttendanceServlet extends HttpServlet {
 							
 						//loop through all the employees to get their attendance
 						for(int i=0; i<employeeIdList.length; i++){
-							//if (request.getParameter("present") != null)
-								//present = true;
-							//else
-								//present = false;
-							//insert values into the database*/
-							DatabaseManagement.insertEmployeeAttendance(Integer.parseInt(employeeIdList[i]), DatabaseHelper.getAttendanceId(deptName, attendanceDate));
+							//insert values into the database
+							DatabaseManagement.insertEmployeeAttendance(Integer.parseInt(employeeIdList[i]), DatabaseHelper.getAttendanceId(anAttendance.getDeptName(), anAttendance.getAttendanceDate()));
 						//}
 						}
 						//loop through the selected employees array
 						for(int j=0; j < selectedEmployeeIds.length; j++){
 							DatabaseManagement.updatePresentEmployees(Integer.parseInt(selectedEmployeeIds[j]));
 						}
-					//clear form
-					//request.getSession().setAttribute("deptName", "");
-					//request.getSession().setAttribute("location", "");
 					}	
 					else
 					request.getSession().setAttribute("attendanceInsertError", "ERROR! The marking of attendance failed");
-					}
+				}
 				else
 					request.getSession().setAttribute("attendanceInsertError", "ERROR! The attendance is already marked for the " + anAttendance.getDeptName() + " department on the selected date");
 			}
@@ -123,7 +98,8 @@ public class AttendanceServlet extends HttpServlet {
 				request.getSession().setAttribute("attendanceInsertError", e + "\nPlease try again.");
 			}
 		
-	}
+	
 
+}
 }
 }

@@ -10,14 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import helper.ValidateInput;
 
 
-@WebServlet("/AttendanceHelperServlet")
-public class AttendanceHelperServlet extends HttpServlet {
+@WebServlet("/EnterAttendanceHelper")
+public class EnterAttendanceHelper extends HttpServlet {
 	
-	public static String dept;
+	protected static String dept;
 	private static final long serialVersionUID = 1L;
        
-  
-    public AttendanceHelperServlet() {
+    public EnterAttendanceHelper() {
         super();
         
     }
@@ -34,19 +33,9 @@ public class AttendanceHelperServlet extends HttpServlet {
 		boolean isNotValid = false;
 		
 		dept = request.getParameter("department");
-		//request.getSession().setAttribute("department", dept);
-		response.sendRedirect("attendance.jsp");
-		
-		//check if department name if missing
-		if (ValidateInput.isMissing(dept)) {
-			request.getSession().setAttribute("errorDepartment", "Please select a department.");
-			request.getSession().setAttribute("department", "");
-			isNotValid = true;
-		}
-		else {
-			request.getSession().removeAttribute("errorDepartment");
-			request.getSession().setAttribute("department", dept);
-		}
+		request.getSession().setAttribute("department", dept);
+		response.sendRedirect("enter-attendance.jsp");
+		return;
 	}
 
 }

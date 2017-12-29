@@ -21,8 +21,12 @@
 				<a class="dropdown-item" href ="create-report.jsp">Create Report Template</a>
 			</div>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" href ="attendance.jsp">Attendance</a>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Attendance</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href ="enter-attendance.jsp">Enter Attendance</a>
+				<a class="dropdown-item" href ="view-attendance.jsp">View Attendance</a>
+			</div>
 		</li>
 		<li class="nav-item">
 			<span class="nav-link disabled">Signed in as <%=request.getSession().getAttribute("fName") %>.</span>

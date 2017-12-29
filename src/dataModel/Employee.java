@@ -30,6 +30,10 @@ public class Employee {
 		this.jobPosition = jobPosition;
 	}
 
+	public Employee() {
+		// TODO Auto-generated constructor stub
+	}
+
 	// Properties
 	public String getFirstName() {
 		return firstName;

@@ -82,3 +82,29 @@ function isCriteriaEntered(criteriaName){
 function isEmpty(data){
 	return (data == null || data == "")
 }
+
+function validateDepartment(){
+	var form = document.forms["attendance-dept"];
+	var validForm = true;
+	$(".error").hide();
+	
+	if(isEmpty(form["department"].value)){
+		$("#errorDepartment").show();
+		validForm = false;
+	}
+	
+	return validForm;
+}
+	
+function validateDate(){
+	var form = document.forms["attendance-date"];
+	var validForm = true;
+	$(".error").hide();
+	
+	if(isEmpty(form["attendanceDate"].value)){
+		$("#errorAttendanceDate").show();
+		validForm = false;
+	}
+	
+	return validForm;
+}
