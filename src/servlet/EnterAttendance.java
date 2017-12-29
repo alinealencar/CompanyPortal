@@ -45,27 +45,14 @@ public class EnterAttendance extends HttpServlet {
 		Attendance anAttendance = new Attendance();
 		
 		//access form values
-		//deptName = request.getParameter("department");
-		if(!ValidateInput.isMissing(request.getParameter("attendanceDate"))){
-			anAttendance.setAttendanceDate(request.getParameter("attendanceDate"));
-			anAttendance.setDeptName(deptName);
-			String[] selectedEmployeeIds = request.getParameterValues("present");
+		//anAttendance.setAttendanceDate(request.getParameter("attendanceDate"));
+		anAttendance.setAttendanceDate(java.sql.Date.valueOf(request.getParameter("attendanceDate")));
+		anAttendance.setDeptName(deptName);
+		String[] selectedEmployeeIds = request.getParameterValues("present");
 		
 		response.sendRedirect("enter-attendance.jsp");
-		
-		//check if date is missing
-		/*if (ValidateInput.isMissing(anAttendance.getAttendanceDate()) || anAttendance.getAttendanceDate().equals("yyyy-mm-dd")) {
-			request.getSession().setAttribute("errorAttendanceDate", "Please enter a date.");
-			request.getSession().setAttribute("attendanceDate", "");
-			isNotValid = true;
-		}
-		else {
-			request.getSession().removeAttribute("errorAttendanceDate");
-			request.getSession().setAttribute("attendanceDate", anAttendance.getAttendanceDate());
-		}*/
-		
-		//if (!isNotValid){
-			try {
+	
+		try {
 				//check if there is a duplicate entry in the database (same department and same date)
 				if(!DatabaseHelper.isDuplicate(anAttendance.getDeptName(),anAttendance.getAttendanceDate()))
 				{
@@ -102,4 +89,4 @@ public class EnterAttendance extends HttpServlet {
 
 }
 }
-}
+

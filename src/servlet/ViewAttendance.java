@@ -7,34 +7,39 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import helper.ValidateInput;
-
-
-@WebServlet("/EnterAttendanceHelper")
-public class EnterAttendanceHelper extends HttpServlet {
-	
-	protected static String dept;
+/**
+ * Servlet implementation class ViewAttendance
+ */
+@WebServlet("/ViewAttendance")
+public class ViewAttendance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public EnterAttendanceHelper() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ViewAttendance() {
         super();
-        
+        // TODO Auto-generated constructor stub
     }
 
-	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		doPost(request, response);
 	}
 
-	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		
-		dept = request.getParameter("department");
+		String dept = request.getParameter("department");
 		request.getSession().setAttribute("department", dept);
-		response.sendRedirect("enter-attendance.jsp");
+		response.sendRedirect("view-attendance.jsp");
 		return;
 	}
+	
 
 }

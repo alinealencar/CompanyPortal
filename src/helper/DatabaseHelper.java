@@ -129,7 +129,7 @@ public class DatabaseHelper {
 	 * @return int	Integer that represents an attendance ID.
 	 * @throws Exception
 	 */
-	public static int getAttendanceId(String deptName, String attendanceDate) 
+	public static int getAttendanceId(String deptName, Date attendanceDate) 
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
 		int result=0;
@@ -157,7 +157,7 @@ public class DatabaseHelper {
         return names;
 	}
 	
-	public static boolean isDuplicate(String deptName, String date) 
+	public static boolean isDuplicate(String deptName, Date date) 
 		throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
 		Statement statement = conn.createStatement();

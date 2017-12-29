@@ -17,12 +17,11 @@
 package helper;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 import dataModel.ReportTemplate;
-
-import java.sql.Date;
 
 import database.DatabaseAccess;
 
@@ -193,7 +192,6 @@ public class DatabaseManagement {
 	/**
 	 * This method gets all the employees from a specific department.
 	 * @param deptName	String that holds the department name.
-	 * @param conn	Connection object that holds a connection to the database.
 	 * @return	ResultSet This object holds all rows in the result of the select statement.
 	 * @throws Exception
 	 */
@@ -216,14 +214,14 @@ public class DatabaseManagement {
 	 * @param deptName - department name
 	 * @throws Exception
 	 */
-	public static boolean insertAttendance(String attendanceDate, String deptName)
+	public static boolean insertAttendance(Date attendanceDate, String deptName)
 			throws Exception {
 			Connection conn = DatabaseAccess.connectDataBase();
 			String query = "insert into attendance(attendance_date, dept_name, dept_id_fk) values(?,?,?)";
 			
 		    PreparedStatement preparedStmt = conn.prepareStatement(query);
 		    
-		    preparedStmt.setString (1, attendanceDate);
+		    preparedStmt.setDate (1, attendanceDate);
 		    //preparedStmt.setBoolean (2, present);
 		    preparedStmt.setString (2, deptName);
 		    preparedStmt.setInt (3, DatabaseHelper.getDeptId(deptName));
@@ -310,7 +308,6 @@ public class DatabaseManagement {
 	
 	public static void updatePresentEmployees(int empId) throws Exception { 
 		Connection conn = DatabaseAccess.connectDataBase();
-		boolean present = true;
 		
 		String query = "update employee_attendance set present = " + 1 + " where emp_id_fk = " + empId;
 		
@@ -319,5 +316,23 @@ public class DatabaseManagement {
 		
 		conn.close();
 	}
+	
+	/**
+	 * This method gets all the attendance dates from a specific department.
+	 * @param deptName	String that holds the department name.
+	 * @return	ResultSet This object holds all rows in the result of the select statement.
+	 * @throws Exception
+	 */
+	public static ResultSet selectAttendanceByDept(String deptName) 
+			throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
+		Statement statement = conn.createStatement();
+		String query = "select * from attendance "
+				+ "where dept_name='" + deptName + "'";
+		ResultSet rs = statement.executeQuery(query);
+
+		return rs;
+	}
+	
 }
 
