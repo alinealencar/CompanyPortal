@@ -257,7 +257,7 @@ public class DatabaseManagement {
 		conn.close();
 	}
 	
-	public static boolean insertReportTemplate(ReportTemplate reportTemplate, String deptName) throws Exception{
+	public static boolean insertReportTemplate(ReportTemplate reportTemplate) throws Exception{
 		Connection conn = DatabaseAccess.connectDataBase();
 		
 		String query = "insert into report_template(template_name, template_date, "
@@ -274,6 +274,7 @@ public class DatabaseManagement {
 		
 		preparedStmt.setString(1, reportTemplate.getTemplateName());
 		preparedStmt.setDate(2, reportTemplate.getTemplateDate());
+		preparedStmt.setInt (28, reportTemplate.getDeptId());
 		//Section 1
 		preparedStmt.setString(3, reportTemplate.getSection1());
 		preparedStmt.setString(4,  reportTemplate.getS1Criteria1());
@@ -302,8 +303,6 @@ public class DatabaseManagement {
 		preparedStmt.setInt(25, reportTemplate.getS3Crit1Max());
 		preparedStmt.setInt(26, reportTemplate.getS3Crit2Max());
 		preparedStmt.setInt(27, reportTemplate.getS3Crit3Max());
-
-		preparedStmt.setInt (28, DatabaseHelper.getDeptId(deptName));
 		
 		int rowsAffected = preparedStmt.executeUpdate();
 		return (rowsAffected > 0);

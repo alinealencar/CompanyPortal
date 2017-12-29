@@ -157,7 +157,7 @@ public class ReportTemplate {
 		return s3Criteria3;
 	}
 
-	public void setS3Criteria13(String s3Criteria3) {
+	public void setS3Criteria3(String s3Criteria3) {
 		this.s3Criteria3 = s3Criteria3;
 	}
 

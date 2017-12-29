@@ -4,14 +4,23 @@
 <%@include file="WEB-INF/header.jsp" %>
 <%@include file="WEB-INF/menu.jsp" %>
 <div class="container form-group">
-	<h1 class="text-center">CREATE REPORT TEMPLATE</h1>
+	
+		<div class="row align-items-center justify-content-center">
+			<span class="${(templateInsertSuccess != null) ? 'alert alert-success':''}" role="alert">${templateInsertSuccess}</span>
+			<span class="${(templateInsertFail != null) ? 'alert alert-danger':''}" role="alert">${templateInsertFail}</span>
+		</div>
+		<br>
+	<div class="row align-items-center justify-content-center">
+		<h1 class="text-center">CREATE REPORT TEMPLATE</h1>
+	</div>
 	<form action="CreateReportTemplate" method="get" name="create-template" onsubmit="return validateCreateTemplate()" novalidate>
 		<label>1. Details</label>
 		<div class="row align-items-center justify-content-center">
 			<br>
 			<label>Report Template:&nbsp;</label><input type="text" name="templateName" id="templateName">
 			&nbsp;&nbsp;&nbsp;
-			<label>Date:&nbsp;</label><input id="templateDate" name = "templateDate" disabled>
+			<label>Date:&nbsp;</label><input class="templateDate" name = "templateDate" disabled>
+			<input class="templateDate" name = "templateDate" type="hidden">
 		</div>
 		<div class="row align-items-center justify-content-center">
 			<div class="error" id="errorTemplateName">Please enter a report name.</div>
@@ -161,9 +170,11 @@
   	var day = date.getDate().toString();
   	day = day.length > 1 ? day : '0' + day;
   
-  	var formattedDate = month + '/' + day + '/' + date.getFullYear();
+  	var formattedDate = date.getFullYear() + '-' + month + '-' + day;
   	
-  	document.getElementById('templateDate').value = formattedDate;
+  	//Add the formatted date to both the disabled text field and the hidden one (value of disabled text field is not submitted)
+  	document.getElementsByClassName('templateDate')[0].value = formattedDate;
+  	document.getElementsByClassName('templateDate')[1].value = formattedDate;
   	
   	//Populate the dropdowns for maximum with numbers from 1 to 5
   	var maxDropdown = document.getElementsByClassName("maximum"); 
