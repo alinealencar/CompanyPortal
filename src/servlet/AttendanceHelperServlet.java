@@ -34,11 +34,12 @@ public class AttendanceHelperServlet extends HttpServlet {
 		boolean isNotValid = false;
 		
 		dept = request.getParameter("department");
-		//request.getSession().setAttribute("department", dept);
+		request.getSession().setAttribute("department", dept);
 		response.sendRedirect("attendance.jsp");
+		return;
 		
 		//check if department name if missing
-		if (ValidateInput.isMissing(dept)) {
+		/*if (ValidateInput.isMissing(dept)) {
 			request.getSession().setAttribute("errorDepartment", "Please select a department.");
 			request.getSession().setAttribute("department", "");
 			isNotValid = true;
@@ -46,7 +47,7 @@ public class AttendanceHelperServlet extends HttpServlet {
 		else {
 			request.getSession().removeAttribute("errorDepartment");
 			request.getSession().setAttribute("department", dept);
-		}
+		}*/
 	}
 
 }
