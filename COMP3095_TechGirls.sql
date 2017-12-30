@@ -105,8 +105,8 @@ CREATE TABLE REPORT
 	s3_c2_evaluation int(1),
 	s3_c3_evaluation int(1),
 	comment3 varchar(255) NOT NULL,
-	groups_id_fk int(11) NOT NULL,
-	FOREIGN KEY (groups_id_fk) REFERENCES GROUPS(groups_id)
+--	groups_id_fk int(11) NOT NULL,
+--	FOREIGN KEY (groups_id_fk) REFERENCES GROUPS(groups_id)
 );
 
 CREATE TABLE EMPLOYEE_REPORT
@@ -116,6 +116,15 @@ CREATE TABLE EMPLOYEE_REPORT
     report_id_fk int(11) NOT NULL,
     FOREIGN KEY (emp_id_fk) REFERENCES EMPLOYEE(emp_id),
     FOREIGN KEY (report_id_fk) REFERENCES REPORT(report_id)
+);
+
+CREATE TABLE GROUP_REPORT
+(
+	group_report_id int(11) AUTO_INCREMENT PRIMARY KEY,
+	group_id_fk int(11) NOT NULL,
+	report_id_fk int(11) NOT NULL,
+	FOREIGN KEY (group_id_fk) REFERENCES GROUPS(groups_id),
+	FOREIGN KEY (report_id_fk) REFERENCES REPORT(report_id)
 );
 
 CREATE TABLE ATTENDANCE
