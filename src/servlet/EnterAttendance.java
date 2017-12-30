@@ -43,12 +43,13 @@ public class EnterAttendance extends HttpServlet {
 		String deptName;
 		deptName = EnterAttendanceHelper.dept;
 		Attendance anAttendance = new Attendance();
+		String[] selectedEmployeeIds = new String[50];
 		
 		//access form values
-		//anAttendance.setAttendanceDate(request.getParameter("attendanceDate"));
 		anAttendance.setAttendanceDate(java.sql.Date.valueOf(request.getParameter("attendanceDate")));
 		anAttendance.setDeptName(deptName);
-		String[] selectedEmployeeIds = request.getParameterValues("present");
+		
+		selectedEmployeeIds = request.getParameterValues("present");
 		
 		response.sendRedirect("enter-attendance.jsp");
 	
@@ -58,7 +59,6 @@ public class EnterAttendance extends HttpServlet {
 				{
 					//check if insertion to the database succeeded
 					if(DatabaseManagement.insertAttendance(anAttendance.getAttendanceDate(), anAttendance.getDeptName())) {
-						request.getSession().setAttribute("attendanceInsertSuccess", "The attendance for the " + anAttendance.getDeptName() + " department was successfully marked!");
 					
 						String[] employeeIdList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees(anAttendance.getDeptName()), "emp_id");
 							
@@ -68,16 +68,21 @@ public class EnterAttendance extends HttpServlet {
 							DatabaseManagement.insertEmployeeAttendance(Integer.parseInt(employeeIdList[i]), DatabaseHelper.getAttendanceId(anAttendance.getDeptName(), anAttendance.getAttendanceDate()));
 						//}
 						}
+						
 						//loop through the selected employees array
-						for(int j=0; j < selectedEmployeeIds.length; j++){
-							DatabaseManagement.updatePresentEmployees(Integer.parseInt(selectedEmployeeIds[j]));
+						if(selectedEmployeeIds != null){
+							for(int j=0; j < selectedEmployeeIds.length; j++){
+								DatabaseManagement.updatePresentEmployees(Integer.parseInt(selectedEmployeeIds[j]));
+							}	
 						}
 					}	
 					else
-					request.getSession().setAttribute("attendanceInsertError", "ERROR! The marking of attendance failed");
+						request.getSession().setAttribute("attendanceInsertError", "ERROR! The marking of attendance failed");
+				
+					request.getSession().setAttribute("attendanceInsertSuccess", "The attendance for the " + anAttendance.getDeptName() + " department was successfully marked!");
 				}
 				else
-					request.getSession().setAttribute("attendanceInsertError", "ERROR! The attendance is already marked for the " + anAttendance.getDeptName() + " department on the selected date");
+					request.getSession().setAttribute("attendanceInsertError", "The attendance is already marked for the " + anAttendance.getDeptName() + " department on the selected date.");
 			}
 				
 			catch(Exception e){

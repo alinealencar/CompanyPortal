@@ -21,25 +21,25 @@
 					<label for="department">Department:&nbsp;</label>
 					<select id = "department" name = "department" id = "department">
 					<% 
-						//Get the list of departments from the database
-						String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
+					//Get the list of departments from the database
+					String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
 						
-						//check if a department is selected
-						if(session.getAttribute("department") == null || session.getAttribute("department").equals("")){ %>
-							<option value="" selected>Department</option>
-							<% 
+					//check if a department is selected
+					if(session.getAttribute("department") == null || session.getAttribute("department").equals("")){ %>
+						<option value="" selected>Department</option>
+						<% 
 						//Populate drop down list
 						for(int i = 0; i < deptList.length; i++)
 							out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
 						}
-						else{
-						
+					else{
 						for(int i = 0; i < deptList.length; i++) {
 							if(session.getAttribute("department").equals(deptList[i]))
 								out.print("<option value =\"" + deptList[i] + "\"selected>" + deptList[i] + "</option>");
 							else
 								out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
-						} }%>
+						} 
+					}%>
 					</select>
 					</div>
 					<div class="row align-items-center justify-content-center">
