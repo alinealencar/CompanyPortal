@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import dataModel.Report;
 import dataModel.ReportTemplate;
 
 import database.DatabaseAccess;
@@ -308,13 +309,57 @@ public class DatabaseManagement {
 		return (rowsAffected > 0);
 	}
 	
+	public static Report selectReportById(String reportId) throws Exception{
+		Connection conn = DatabaseAccess.connectDataBase();
+		Report report = new Report();
+		String query = "select * from report where report_id = " + Integer.parseInt(reportId);
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		ResultSet rs = preparedStmt.executeQuery(query);
+		
+		if(rs.next()){
+			report.setReportId(rs.getInt(1));
+			report.setReportTitle(rs.getString(2));
+			report.setReportDate(rs.getDate(3));
+			report.setReportType(rs.getString(4));
+			report.setS1Crit1(rs.getInt(5));
+			report.setS1Crit2(rs.getInt(6));
+			report.setS1Crit3(rs.getInt(7));
+			report.setS1Crit4(rs.getInt(8));
+			report.setS1Crit5(rs.getInt(9));
+			report.setComment1(rs.getString(10));
+			report.setS2Crit1(rs.getInt(11));
+			report.setS2Crit2(rs.getInt(12));
+			report.setS2Crit3(rs.getInt(13));
+			report.setComment2(rs.getString(14));
+			report.setS3Crit1(rs.getInt(15));
+			report.setS3Crit2(rs.getInt(16));
+			report.setS3Crit3(rs.getInt(17));
+			report.setComment3(rs.getString(18));
+			report.setTemplateId(rs.getInt(19));
+		}
+		return report;
+	}
+	
+	public static ReportTemplate selectReportTemplateById(String templateId) throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
+		ReportTemplate template = new ReportTemplate();
+		
+		String query = "select * from report_template where template_id = " + Integer.parseInt(templateId);
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		ResultSet rs = preparedStmt.executeQuery(query);
+		
+		template = (DatabaseHelper.getReportTemplates(rs)).get(0);
+		
+		return template;
+	}
+	
 	/**
 	 * This method retrieves all report templates associated to a department, provided a department name.
 	 * @param deptName
 	 * @return
 	 * @throws Exception
 	 */
-	public static ResultSet selectReportTemplateByDepartment(String deptName) throws Exception{
+	public static ResultSet selectReportTemplateByDepartment(String deptName) throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
 		
 		String query = "select * from report_template where dept_id_fk = " + DatabaseHelper.getDeptId(deptName);
