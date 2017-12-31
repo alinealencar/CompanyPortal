@@ -5,18 +5,12 @@
 <div class="container">
 <div class="row">
 	<div class="col col-lg-2">
-		</div>
-		<div class="col col-lg-7">
-	<div>
-		<div>
-				<div class="${(attendanceInsertSuccess != null) ? 'alert alert-success':''}" role="alert">${attendanceInsertSuccess}</div>
-				<div class="${(attendanceInsertError != null) ? 'alert alert-danger':''}" role="alert">${attendanceInsertError}</div>
-			</div>
 	</div>
-		<h1 class="text-center">ATTENDANCE</h1>
+	<div class="col col-lg-7">
+		<h1 class="text-center">VIEW ATTENDANCE</h1>
 		<br>
 		<div class="form-group">
-			<form method = "post" action = "EnterAttendanceHelper" name = "attendance-dept" onsubmit="return validateDepartment()" novalidate>
+			<form method = "post" action = "ViewAttendance" name = "attendance-dept" onsubmit="return validateDepartment()" novalidate>
 				<div class="row align-items-center justify-content-center">
 					<label for="department">Department:&nbsp;</label>
 					<select id = "department" name = "department" id = "department">
@@ -29,11 +23,29 @@
 						out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");%>
 					</select>
 					</div>
-					<span class="error" id="errorDepartment">Please select a department.</span>
+					<div class="row align-items-center justify-content-center">
+						<div class="error" id="errorDepartment">Please select a department.</div>
+					</div>
 					<br>
 			<div class="row align-items-center justify-content-center">
 				<input type = "submit" value = "Submit" class="btn btn-primary"/>
 				&nbsp;
 				<input type = "reset" value = "Cancel" class="btn btn-secondary"/><br>
 			</div>
+		<br>
 		</form>
+		<div class="row align-items-center justify-content-center">
+			<table border=1>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Employee Number</th>
+					<% //Get the list of departments from the database
+					String[] dateList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectAttendanceByDept((String) session.getAttribute("department")), "attendance_date");
+					for (int i = 0; i < dateList.length; i++){
+				%>
+					<th><%=dateList[i]%></th>
+				<%} %>
+				</tr>
+			</table>
+		</div>

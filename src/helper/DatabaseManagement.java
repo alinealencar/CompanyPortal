@@ -17,12 +17,12 @@
 package helper;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import dataModel.ReportTemplate;
-
-import java.sql.Date;
 
 import database.DatabaseAccess;
 
@@ -33,7 +33,6 @@ public class DatabaseManagement {
 	/**
 	 * This class provides the ability to get all rows from a specific table.
 	 * @param tableName	String that holds the table name.
-	 * @param conn	Connection object that represents a connection to the database.
 	 * @return ResultSet This returns an object of ResultSet type, that holds information
 	 * 						about all rows returned from the select statement.
 	 * @throws Exception
@@ -47,8 +46,8 @@ public class DatabaseManagement {
 	
 		//conn.close();
 		
-			return rs;
-		}
+		return rs;
+	}
 	
 	/**
 	 * This method inserts a unique token in the token column of the appusers table
@@ -56,7 +55,6 @@ public class DatabaseManagement {
 	 * way to implement the RememberMe feature.
 	 * @param token	String that holds a unique series of characters.
 	 * @param userId	String that holds the id of the user that wants to be remembered.
-	 * @param conn	Connection object that holds a connection to the database.
 	 * @return	boolean	This returns true if the operation was successful, false otherwise.
 	 * @throws Exception
 	 */
@@ -82,7 +80,6 @@ public class DatabaseManagement {
 	 * @param email
 	 * @param hireYear
 	 * @param position
-	 * @param conn
 	 * @return boolean	It returns true if the insert operation was successful, false otherwise.
 	 * @throws Exception
 	 */
@@ -112,7 +109,6 @@ public class DatabaseManagement {
 	 * This method inserts info about a department into the Department table of the database.
 	 * @param deptName
 	 * @param location
-	 * @param conn	Connection object that holds a connection to the database.
 	 * @return	boolean It returns true if the insert operation was successful, false otherwise.
 	 * @throws Exception
 	 */
@@ -143,7 +139,6 @@ public class DatabaseManagement {
 	 * @param member4
 	 * @param member5
 	 * @param member6
-	 * @param conn Connection object that holds a connection to the database.
 	 * @return boolean It returns true if the insert operation was successful, false otherwise.
 	 * @throws Exception
 	 */
@@ -173,7 +168,6 @@ public class DatabaseManagement {
 	 * This inserts the employee and group IDs into the Employee_Groups table of the database.
 	 * @param empId
 	 * @param groupId
-	 * @param conn Connection object that holds a connection to the database.
 	 * @throws Exception
 	 */
 	public static void insertEmployeeGroup(int empId, int groupId) throws Exception { 
@@ -193,7 +187,6 @@ public class DatabaseManagement {
 	/**
 	 * This method gets all the employees from a specific department.
 	 * @param deptName	String that holds the department name.
-	 * @param conn	Connection object that holds a connection to the database.
 	 * @return	ResultSet This object holds all rows in the result of the select statement.
 	 * @throws Exception
 	 */
@@ -216,14 +209,14 @@ public class DatabaseManagement {
 	 * @param deptName - department name
 	 * @throws Exception
 	 */
-	public static boolean insertAttendance(String attendanceDate, String deptName)
+	public static boolean insertAttendance(Date attendanceDate, String deptName)
 			throws Exception {
 			Connection conn = DatabaseAccess.connectDataBase();
 			String query = "insert into attendance(attendance_date, dept_name, dept_id_fk) values(?,?,?)";
 			
 		    PreparedStatement preparedStmt = conn.prepareStatement(query);
 		    
-		    preparedStmt.setString (1, attendanceDate);
+		    preparedStmt.setDate (1, attendanceDate);
 		    //preparedStmt.setBoolean (2, present);
 		    preparedStmt.setString (2, deptName);
 		    preparedStmt.setInt (3, DatabaseHelper.getDeptId(deptName));
@@ -257,6 +250,13 @@ public class DatabaseManagement {
 		conn.close();
 	}
 	
+	/**
+	 * This method inserts a report template into the database.
+	 * 
+	 * @param reportTemplate
+	 * @return
+	 * @throws Exception
+	 */
 	public static boolean insertReportTemplate(ReportTemplate reportTemplate) throws Exception{
 		Connection conn = DatabaseAccess.connectDataBase();
 		
@@ -308,9 +308,47 @@ public class DatabaseManagement {
 		return (rowsAffected > 0);
 	}
 	
+	/**
+	 * This method retrieves all report templates associated to a department, provided a department name.
+	 * @param deptName
+	 * @return
+	 * @throws Exception
+	 */
+	public static ResultSet selectReportTemplateByDepartment(String deptName) throws Exception{
+		Connection conn = DatabaseAccess.connectDataBase();
+		
+		String query = "select * from report_template where dept_id_fk = " + DatabaseHelper.getDeptId(deptName);
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		ResultSet rs = preparedStmt.executeQuery(query);
+		
+		return rs;
+	}
+	
+	/**
+	 * This method retrieves all reports associated to a specific template.
+	 * 
+	 * @param templateId
+	 * @return
+	 * @throws Exception
+	 */
+	public static ResultSet selectReportByTemplate(String templateId) throws Exception{
+		Connection conn = DatabaseAccess.connectDataBase();
+		
+		String query = "select * from report where template_id_fk = " + Integer.parseInt(templateId);
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		ResultSet rs = preparedStmt.executeQuery(query);
+		
+		return rs;
+	}
+	
+	/**
+	 * This method updates the attendance status of an employee, provided the employee id.
+	 * 
+	 * @param empId
+	 * @throws Exception
+	 */
 	public static void updatePresentEmployees(int empId) throws Exception { 
 		Connection conn = DatabaseAccess.connectDataBase();
-		boolean present = true;
 		
 		String query = "update employee_attendance set present = " + 1 + " where emp_id_fk = " + empId;
 		
@@ -319,5 +357,23 @@ public class DatabaseManagement {
 		
 		conn.close();
 	}
+	
+	/**
+	 * This method gets all the attendance dates from a specific department.
+	 * @param deptName	String that holds the department name.
+	 * @return	ResultSet This object holds all rows in the result of the select statement.
+	 * @throws Exception
+	 */
+	public static ResultSet selectAttendanceByDept(String deptName) 
+			throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
+		Statement statement = conn.createStatement();
+		String query = "select * from attendance "
+				+ "where dept_name='" + deptName + "'";
+		ResultSet rs = statement.executeQuery(query);
+
+		return rs;
+	}
+	
 }
 

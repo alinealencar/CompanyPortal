@@ -91,12 +91,24 @@ CREATE TABLE REPORT
 	report_title varchar(255) NOT NULL,
 	report_date datetime NOT NULL,
 	report_type varchar(10) NOT NULL,
+	s1_c1_evaluation int(1) NOT NULL,
+	s1_c2_evaluation int(1),
+	s1_c3_evaluation int(1),
+	s1_c4_evaluation int(1),
+	s1_c5_evaluation int(1),
 	comment1 varchar(255) NOT NULL,
+	s2_c1_evaluation int(1) NOT NULL,
+	s2_c2_evaluation int(1),
+	s2_c3_evaluation int(1),
 	comment2 varchar(255) NOT NULL,
+	s3_c1_evaluation int(1) NOT NULL,
+	s3_c2_evaluation int(1),
+	s3_c3_evaluation int(1),
 	comment3 varchar(255) NOT NULL,
-	total int(2) NOT NULL,
-	groups_id_fk int(11) NOT NULL,
-	FOREIGN KEY (groups_id_fk) REFERENCES GROUPS(groups_id)
+	template_id_fk int(11) NOT NULL,
+	FOREIGN KEY (template_id_fk) REFERENCES REPORT_TEMPLATE(template_id)
+--	groups_id_fk int(11) NOT NULL,
+--	FOREIGN KEY (groups_id_fk) REFERENCES GROUPS(groups_id)
 );
 
 CREATE TABLE EMPLOYEE_REPORT
@@ -108,11 +120,20 @@ CREATE TABLE EMPLOYEE_REPORT
     FOREIGN KEY (report_id_fk) REFERENCES REPORT(report_id)
 );
 
+CREATE TABLE GROUP_REPORT
+(
+	group_report_id int(11) AUTO_INCREMENT PRIMARY KEY,
+	group_id_fk int(11) NOT NULL,
+	report_id_fk int(11) NOT NULL,
+	FOREIGN KEY (group_id_fk) REFERENCES GROUPS(groups_id),
+	FOREIGN KEY (report_id_fk) REFERENCES REPORT(report_id)
+);
+
 CREATE TABLE ATTENDANCE
 (
 	attendance_id int(11) AUTO_INCREMENT PRIMARY KEY,
-	attendance_date datetime NOT NULL,
-	dept_name VARCHAR(20),
+	attendance_date date NOT NULL,
+	dept_name VARCHAR(20) NOT NULL,
 	dept_id_fk int(11) NOT NULL,
 	FOREIGN KEY (dept_id_fk) REFERENCES DEPARTMENT(id)
 );

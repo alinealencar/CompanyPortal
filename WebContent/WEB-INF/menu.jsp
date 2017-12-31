@@ -19,6 +19,8 @@
 			<div class="dropdown-menu">
 				<a class="dropdown-item" href ="enter-report.jsp">Enter Report</a>
 				<a class="dropdown-item" href ="create-report.jsp">Create Report Template</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href ="view-report.jsp">View Report</a>
 			</div>
 		</li>
 		<li class="nav-item dropdown">

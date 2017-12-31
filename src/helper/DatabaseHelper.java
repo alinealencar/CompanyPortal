@@ -20,8 +20,13 @@ package helper;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import dataModel.Report;
+import dataModel.ReportTemplate;
 import database.DatabaseAccess;
 
 public class DatabaseHelper {
@@ -129,7 +134,7 @@ public class DatabaseHelper {
 	 * @return int	Integer that represents an attendance ID.
 	 * @throws Exception
 	 */
-	public static int getAttendanceId(String deptName, String attendanceDate) 
+	public static int getAttendanceId(String deptName, Date attendanceDate) 
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
 		int result=0;
@@ -157,7 +162,7 @@ public class DatabaseHelper {
         return names;
 	}
 	
-	public static boolean isDuplicate(String deptName, String date) 
+	public static boolean isDuplicate(String deptName, Date date) 
 		throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
 		Statement statement = conn.createStatement();
@@ -172,8 +177,78 @@ public class DatabaseHelper {
 			return false;
 	}
 	
+	public static List<ReportTemplate> getReportTemplates(ResultSet rs) throws SQLException{
+		List<ReportTemplate> reportTemplates = new ArrayList<ReportTemplate>();
+		
+		while(rs.next()){
+			ReportTemplate template = new ReportTemplate();
+			template.setTemplateId(rs.getInt(1));
+			template.setTemplateName(rs.getString(2));
+			template.setTemplateDate(rs.getDate(3));
+			template.setSection1(rs.getString(4));
+			template.setS1Criteria1(rs.getString(5));
+			template.setS1Criteria2(rs.getString(6));
+			template.setS1Criteria3(rs.getString(7));
+			template.setS1Criteria4(rs.getString(8));
+			template.setS1Criteria5(rs.getString(9));
+			template.setS1Crit1Max(rs.getInt(10));
+			template.setS1Crit2Max(rs.getInt(11));
+			template.setS1Crit3Max(rs.getInt(12));
+			template.setS1Crit4Max(rs.getInt(13));
+			template.setS1Crit5Max(rs.getInt(14));
+			template.setSection2(rs.getString(15));
+			template.setS2Criteria1(rs.getString(16));
+			template.setS2Criteria2(rs.getString(17));
+			template.setS2Criteria3(rs.getString(18));
+			template.setS2Crit1Max(rs.getInt(19));
+			template.setS2Crit2Max(rs.getInt(20));
+			template.setS2Crit3Max(rs.getInt(21));
+			template.setSection3(rs.getString(22));
+			template.setS3Criteria1(rs.getString(23));
+			template.setS3Criteria2(rs.getString(24));
+			template.setS3Criteria3(rs.getString(25));
+			template.setS3Crit1Max(rs.getInt(26));
+			template.setS3Crit2Max(rs.getInt(27));
+			template.setS3Crit3Max(rs.getInt(28));
+			template.setDeptId(rs.getInt(29));
+			
+			reportTemplates.add(template);
+		}
+		
+		return reportTemplates;
+	}
 	
-	
+	public static List<Report> getReports(ResultSet rs) throws SQLException{
+		List<Report> reports = new ArrayList<Report>();
+		
+		while(rs.next()){
+			Report report = new Report();
+			report.setReportId(rs.getInt(1));
+			report.setReportTitle(rs.getString(2));
+			report.setReportDate(rs.getDate(3));
+			report.setReportType(rs.getString(4));
+			report.setS1Crit1(rs.getInt(5));
+			report.setS1Crit2(rs.getInt(6));
+			report.setS1Crit3(rs.getInt(7));
+			report.setS1Crit4(rs.getInt(8));
+			report.setS1Crit5(rs.getInt(9));
+			report.setComment1(rs.getString(10));
+			report.setS2Crit1(rs.getInt(11));
+			report.setS2Crit2(rs.getInt(12));
+			report.setS2Crit3(rs.getInt(13));
+			report.setComment2(rs.getString(14));
+			report.setS3Crit1(rs.getInt(15));
+			report.setS3Crit2(rs.getInt(16));
+			report.setS3Crit3(rs.getInt(17));
+			report.setComment3(rs.getString(18));
+			report.setTemplateId(rs.getInt(19));
+			
+			reports.add(report);
+		}
+		
+		return reports;
+		
+	}
 }				
 
 

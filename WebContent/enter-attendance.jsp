@@ -13,7 +13,7 @@
 				<div class="${(attendanceInsertError != null) ? 'alert alert-danger':''}" role="alert">${attendanceInsertError}</div>
 			</div>
 	</div>
-		<h1 class="text-center">ATTENDANCE</h1>
+		<h1 class="text-center">ENTER ATTENDANCE</h1>
 		<br>
 		<div class="form-group">
 			<form method = "post" action = "EnterAttendanceHelper" name = "attendance-dept" onsubmit="return validateDepartment()" novalidate>
@@ -21,28 +21,30 @@
 					<label for="department">Department:&nbsp;</label>
 					<select id = "department" name = "department" id = "department">
 					<% 
-						//Get the list of departments from the database
-						String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
+					//Get the list of departments from the database
+					String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
 						
-						//check if a department is selected
-						if(session.getAttribute("department") == null || session.getAttribute("department").equals("")){ %>
-							<option value="" selected>Department</option>
-							<% 
+					//check if a department is selected
+					if(session.getAttribute("department") == null || session.getAttribute("department").equals("")){ %>
+						<option value="" selected>Department</option>
+						<% 
 						//Populate drop down list
 						for(int i = 0; i < deptList.length; i++)
 							out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
 						}
-						else{
-						
+					else{
 						for(int i = 0; i < deptList.length; i++) {
 							if(session.getAttribute("department").equals(deptList[i]))
 								out.print("<option value =\"" + deptList[i] + "\"selected>" + deptList[i] + "</option>");
 							else
 								out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
-						} }%>
+						} 
+					}%>
 					</select>
 					</div>
-					<span class="error" id="errorDepartment">Please select a department.</span>
+					<div class="row align-items-center justify-content-center">
+						<div class="error" id="errorDepartment">Please select a department.</div>
+					</div>
 					<br>
 			<div class="row align-items-center justify-content-center">
 				<input type = "submit" value = "Submit" class="btn btn-primary"/>
@@ -57,7 +59,9 @@
 			<label for="date">Date: &nbsp;</label>
 			<input type = "date" name="attendanceDate" id = "attendanceDate">
 		</div>
-		<span class="error" id="errorAttendanceDate">Please enter a date.</span>
+		<div class="row align-items-center justify-content-center">
+			<div class="error" id="errorAttendanceDate">Please enter a date.</div>
+		</div>
 		<br>
 		<br>
 		<%	
