@@ -105,6 +105,8 @@ CREATE TABLE REPORT
 	s3_c2_evaluation int(1),
 	s3_c3_evaluation int(1),
 	comment3 varchar(255) NOT NULL,
+	template_id_fk int(11) NOT NULL,
+	FOREIGN KEY (template_id_fk) REFERENCES REPORT_TEMPLATE(template_id)
 --	groups_id_fk int(11) NOT NULL,
 --	FOREIGN KEY (groups_id_fk) REFERENCES GROUPS(groups_id)
 );

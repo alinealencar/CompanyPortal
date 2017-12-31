@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +35,7 @@ public class CreateReportTemplate extends HttpServlet {
      * @see #doPost(HttpServletRequest, HttpServletResponse)
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		//HttpSession session = request.getSession();
 		ReportTemplate rt = new ReportTemplate();
 		try{
 			//Set ReportTemplate attributes with the input from the form
@@ -77,17 +78,18 @@ public class CreateReportTemplate extends HttpServlet {
 			
 			//Insert ReportTemplate into the database
         	if(DatabaseManagement.insertReportTemplate(rt))
-        		session.setAttribute("templateInsertSuccess", "Template " + rt.getTemplateName() + " has been successfully added to the system.");
+        		request.setAttribute("templateInsertSuccess", "Template " + rt.getTemplateName() + " has been successfully added to the system.");
         	else
-        		session.setAttribute("templateInsertFail", "Template " + rt.getTemplateName() + " has NOT been added to the system.");
+        		request.setAttribute("templateInsertFail", "Template " + rt.getTemplateName() + " has NOT been added to the system.");
         }
         catch(Exception e){
-        	session.setAttribute("templateInsertFail", "Template " + rt.getTemplateName() + " has NOT been added to the system.");
+        	request.setAttribute("templateInsertFail", "Template " + rt.getTemplateName() + " has NOT been added to the system.");
 			e.printStackTrace();
 		}
         
-        response.sendRedirect("create-report.jsp");
-		return;
+        RequestDispatcher dispatcher = request.getRequestDispatcher("create-report.jsp");
+        dispatcher.forward(request, response);
+        
     }
 
 	/**
