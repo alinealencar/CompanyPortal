@@ -18,15 +18,21 @@
 		<div class="row align-items-center justify-content-center">
 			<br>
 			<label>Report Template:&nbsp;</label>
-			<select name="templateName" id="templateName">
+			<select name="templateName" id="templateName" onchange="this.form.submit()">
+			<%String selectedTemplate = (String) session.getAttribute("template"); %>
 			<% 
-				//Get the list of departments from the database
+				//Get the list of templateName from the database
 				String[] templateList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("report_template"), "template_name");%>
 				<option value="" selected>Template Name</option>
-				<% 
+			<% 
 				//Populate drop down list
-				for(int i = 0; i < templateList.length; i++)
-					out.print("<option value =\"" + templateList[i] + "\">" + templateList[i] + "</option>");%>
+			for(int i = 0; i < templateList.length; i++){
+			out.print("<option value =\"" + templateList[i] + "\">" + templateList[i] + "</option>");
+			if(selectedTemplate != null && selectedTemplate.equals(templateList[i])){
+				out.print("<option value =\"" + templateList[i] + "\" selected=\"selected\"");
+			  	out.print(">" + templateList[i] + "</option>");
+			}
+			}%>
 			</select>
 			&nbsp;&nbsp;&nbsp;
 			<label>Report Title:&nbsp;</label>
@@ -39,6 +45,7 @@
 		</div>
 		<div class="row align-items-center justify-content-center">
 			<label for="department">Department:&nbsp;</label>
+			
 			<select id = "department" name = "department">
 				<% 
 				//Get the list of departments from the database
@@ -49,6 +56,7 @@
 				for(int i = 0; i < deptList.length; i++)
 					out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");%>
 			</select>
+			
 			<br>
 		</div>
 		<div class="row align-items-center justify-content-center">
@@ -215,3 +223,5 @@
     $( "#datepicker" ).datepicker();
   } );
   </script>
+  
+<%@include file="WEB-INF/footer.jsp" %>
