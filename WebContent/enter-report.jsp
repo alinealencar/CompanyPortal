@@ -12,33 +12,6 @@
 		<label>1. Details</label>
 		<div class="row align-items-center justify-content-center">
 			<br>
-			<label>Report Template:&nbsp;</label>
-			<select name="templateName" id="templateName" onchange="this.form.submit()">
-			<%String selectedTemplate = (String) session.getAttribute("template"); %>
-			<% 
-				//Get the list of templateName from the database
-				String[] templateList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("report_template"), "template_name");%>
-				<option value="" selected>Template Name</option>
-			<% 
-				//Populate drop down list
-			for(int i = 0; i < templateList.length; i++){
-				out.print("<option value =\"" + templateList[i] + "\">" + templateList[i] + "</option>");
-				if(selectedTemplate != null && selectedTemplate.equals(templateList[i])){
-					out.print("<option value =\"" + templateList[i] + "\" selected=\"selected\"");
-			  		out.print(">" + templateList[i] + "</option>");
-				}
-			}%>
-			</select>
-			&nbsp;&nbsp;&nbsp;
-			<label>Report Title:&nbsp;</label>
-			<input type="text" name="reportTitle" id="reportTitle">			
-			&nbsp;&nbsp;&nbsp;
-			<label>Date:&nbsp;</label><input type="text" id="datepicker">
-		</div>
-		<div class="row align-items-center justify-content-center">
-			<div class="error" id="errorTemplateName">Please enter a report name.</div>
-		</div>
-		<div class="row align-items-center justify-content-center">
 			<label for="department">Department:&nbsp;</label>
 			
 			<select id = "department" name = "department" onchange="this.form.submit()">
@@ -57,9 +30,35 @@
 					}
 				}%>
 			</select>
-			
-			<br>
+			&nbsp;&nbsp;&nbsp;
+			<label>Report Template:&nbsp;</label>
+			<select name="templateName" id="templateName" onchange="this.form.submit()">
+			<%String selectedTemplate = (String) session.getAttribute("template"); %>
+			<% 
+				//Get the list of templateName from the database
+				String[] templateList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("report_template"), "template_name");%>
+				<option value="" selected>Template Name</option>
+			<% 
+				//Populate drop down list
+			for(int i = 0; i < templateList.length; i++){
+				out.print("<option value =\"" + templateList[i] + "\">" + templateList[i] + "</option>");
+				if(selectedTemplate != null && selectedTemplate.equals(templateList[i])){
+					out.print("<option value =\"" + templateList[i] + "\" selected=\"selected\"");
+			  		out.print(">" + templateList[i] + "</option>");
+				}
+			}%>
+			</select>
 		</div>
+		<div class="row align-items-center justify-content-center">
+			<label>Report Title:&nbsp;</label>
+			<input type="text" name="reportTitle" id="reportTitle">			
+			&nbsp;&nbsp;&nbsp;
+			<label>Date:&nbsp;</label><input type="text" id="datepicker">
+		</div>
+		<div class="row align-items-center justify-content-center">
+			<div class="error" id="errorTemplateName">Please enter a report name.</div>
+		</div>
+		
 		<div class="row align-items-center justify-content-center">
 			<div class="error" id="errorDepartment">Please enter a department.</div>
 		</div>
