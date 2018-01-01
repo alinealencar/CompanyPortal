@@ -45,11 +45,27 @@
 					for (int i = 0; i < dateList.length; i++){
 				%>
 					<th><%=dateList[i]%></th>
-				<%} %>
+				<%	}
+					String[] empFNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "firstname");
+					String[] empLNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "lastname");	
+					String[] empNoList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "emp_no");		
+					String[] empIdList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "emp_id");	
+					for (int i = 0; i < empIdList.length; i++){%>
 				</tr>
+				<tr>
+					<td><%=empFNameList[i]%></td>
+					<td><%=empLNameList[i]%></td>
+					<td><%=empNoList[i]%></td>
+					<%String[] attendanceList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectPresentEmployees(Integer.parseInt(empIdList[i])), "present");		
+						if(attendanceList != null){
+							for (int j = 0; j < attendanceList.length; j++){
+								if(attendanceList[j] != null){
+					%>
+					<td><input type="checkbox" name="present" checked></td>
+					<% 		}
+							else{
+					%>
+					<td><input type="checkbox" name="present"></td>
+				<% }}}} %>
 			</table>
 		</div>
-	</div>
-</div>
-</div>
-</div>

@@ -72,7 +72,7 @@ public class EnterAttendance extends HttpServlet {
 						//loop through the selected employees array
 						if(selectedEmployeeIds != null){
 							for(int j=0; j < selectedEmployeeIds.length; j++){
-								DatabaseManagement.updatePresentEmployees(Integer.parseInt(selectedEmployeeIds[j]));
+								DatabaseManagement.updatePresentEmployees(Integer.parseInt(selectedEmployeeIds[j]), DatabaseHelper.getAttendanceId(anAttendance.getDeptName(), anAttendance.getAttendanceDate()));
 							}	
 						}
 					}	

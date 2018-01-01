@@ -6,9 +6,7 @@ import java.util.ArrayList;
 
 public class Attendance implements Serializable{
 	private Date attendanceDate;
-	//private boolean present;
 	private String deptName;
-	private ArrayList<String> deptNames = new ArrayList<String>();
 	
 	public Attendance() {
 		

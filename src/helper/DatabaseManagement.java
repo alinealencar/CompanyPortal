@@ -308,7 +308,7 @@ public class DatabaseManagement {
 		int rowsAffected = preparedStmt.executeUpdate();
 		return (rowsAffected > 0);
 	}
-	
+
 	public static Report selectReportById(String reportId) throws Exception{
 		Connection conn = DatabaseAccess.connectDataBase();
 		Report report = new Report();
@@ -402,9 +402,9 @@ public class DatabaseManagement {
 		
 		conn.close();
 	}
-	
+
 	/**
-	 * This method gets all the attendance dates from a specific department.
+	 * This method gets all the values from the attendance table for a specific department.
 	 * @param deptName	String that holds the department name.
 	 * @return	ResultSet This object holds all rows in the result of the select statement.
 	 * @throws Exception
@@ -420,5 +420,32 @@ public class DatabaseManagement {
 		return rs;
 	}
 	
+	/**
+	 * This method gets all the values from the attendance table for a specific department.
+	 * @param deptName	String that holds the department name.
+	 * @return	ResultSet This object holds all rows in the result of the select statement.
+	 * @throws Exception
+	 */
+	public static ResultSet selectPresentEmployees(int empId) 
+			throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
+		Statement statement = conn.createStatement();
+		String query = "select * from employee_attendance "
+				+ "where emp_id_fk='" + empId + "'";
+		ResultSet rs = statement.executeQuery(query);
+
+		return rs;
+	}
+
+	public static void updatePresentEmployees(int empId, int attendanceId) throws Exception { 
+		Connection conn = DatabaseAccess.connectDataBase();
+		
+		String query = "update employee_attendance set present = " + 1 + " where emp_id_fk = " + empId + " and attendance_id_fk = " + attendanceId;
+		
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		preparedStmt.executeUpdate();
+		
+		conn.close();
+	}
 }
 

@@ -25,6 +25,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import dataModel.Attendance;
+import dataModel.Employee;
 import dataModel.Report;
 import dataModel.ReportTemplate;
 import database.DatabaseAccess;
@@ -249,7 +251,33 @@ public class DatabaseHelper {
 		return reports;
 		
 	}
-}				
+	
+	public static List<Attendance> getAttendance(ResultSet rs) throws SQLException{
+		List<Attendance> attendanceList = new ArrayList<Attendance>();
+		Attendance attendance = new Attendance();
+		while(rs.next()){
+			attendance.setAttendanceDate(rs.getDate(1));
+			attendance.setDeptName(rs.getString(2));
+			
+			attendanceList.add(attendance);
+		}
+		return attendanceList;
+	}	
+	
+	public static List<Employee> getEmployees(ResultSet rs) throws SQLException{
+		List<Employee> employees = new ArrayList<Employee>();
+		Employee employee = new Employee();
+		while(rs.next()){
+			employee.setFirstName(rs.getString(1));
+			employee.setLastName(rs.getString(2));
+			employee.setEmail(rs.getString(3));
+			employee.setEmpNo(rs.getString(4));
+			employee.setHireYear(rs.getString(5));
+			employee.setJobPosition(rs.getString(6));
+		}
+		return employees;
+	}	
+}
 
 
 

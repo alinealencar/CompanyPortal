@@ -25,6 +25,7 @@ public class ViewAttendance extends HttpServlet {
 		
 		String dept = request.getParameter("department");
 		request.getSession().setAttribute("department", dept);
+		
 		response.sendRedirect("view-attendance.jsp");
 		return;
 	}
