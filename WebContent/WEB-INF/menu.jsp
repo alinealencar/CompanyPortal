@@ -5,14 +5,26 @@
 		<li class="nav-item">
 			<a class="nav-link" href ="home.jsp">Home</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" href ="dept-entry.jsp">Departments</a>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Departments</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href ="dept-entry.jsp">Enter Department</a>
+				<a class="dropdown-item" href ="view-department.jsp">View Department</a>
+			</div>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" href ="employee-entry.jsp">Employees</a>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Employees</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href ="employee-entry.jsp">Enter Employees</a>
+				<a class="dropdown-item" href ="view-employees.jsp">View Employees</a>
+			</div>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" href ="group-entry.jsp">Group</a>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Group</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href ="group-entry.jsp">Enter Group</a>
+				<a class="dropdown-item" href ="view-group.jsp">View Group</a>
+			</div>
 		</li>
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
