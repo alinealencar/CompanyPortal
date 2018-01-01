@@ -1,6 +1,7 @@
 <% session.setAttribute("title", "Enter Report"); %>
 <%@page import="java.util.*"%>
 <%@page import="helper.*" %>
+<%@page import="dataModel.ReportTemplate" %>
 <%@include file="WEB-INF/header.jsp" %>
 <%@include file="WEB-INF/menu.jsp" %>
 <div class="container form-group">
@@ -15,38 +16,34 @@
 			<label for="department">Department:&nbsp;</label>
 			
 			<select id = "department" name = "department" onchange="this.form.submit()">
-				<%String selectedDepartment = (String) session.getAttribute("department"); %>
 				<% 
 				//Get the list of departments from the database
 				String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");%>
-				<option value="" selected>Department</option>
+				<option value="${(department == null) ? 'selected' : ''}">Select a Department</option>
 				<% 
 				//Populate drop down list
-				for(int i = 0; i < deptList.length; i++){
-					out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
-					if(selectedDepartment != null && selectedDepartment.equals(deptList[i])){
-						out.print("<option value =\"" + deptList[i] + "\" selected=\"selected\"");
-					  	out.print(">" + deptList[i] + "</option>");
-					}
-				}%>
+				for(int i = 0; i < deptList.length; i++){%>
+					<option value ="<%=deptList[i]%>" 
+						<%if(request.getAttribute("department")!= null &&
+							request.getAttribute("department").equals(deptList[i])){
+							out.println("selected");}%>
+					><%=deptList[i]%></option>
+				<%} %>
 			</select>
 			&nbsp;&nbsp;&nbsp;
 			<label>Report Template:&nbsp;</label>
-			<select name="templateName" id="templateName" onchange="this.form.submit()">
-			<%String selectedTemplate = (String) session.getAttribute("template"); %>
-			<% 
-				//Get the list of templateName from the database
-				String[] templateList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("report_template"), "template_name");%>
-				<option value="" selected>Template Name</option>
-			<% 
-				//Populate drop down list
-			for(int i = 0; i < templateList.length; i++){
-				out.print("<option value =\"" + templateList[i] + "\">" + templateList[i] + "</option>");
-				if(selectedTemplate != null && selectedTemplate.equals(templateList[i])){
-					out.print("<option value =\"" + templateList[i] + "\" selected=\"selected\"");
-			  		out.print(">" + templateList[i] + "</option>");
-				}
-			}%>
+			<select name="reportTemplate" id="reportTemplate" onchange="this.form.submit()">
+			<option value="" selected>Select a Template Name</option>
+			<% if(request.getAttribute("reportTemplates") != null){
+					List<ReportTemplate> resultTemplates = (List<ReportTemplate>) request.getAttribute("reportTemplates");
+					for(int i = 0; i < resultTemplates.size(); i++){ %>
+					<option value="<%=resultTemplates.get(i).getTemplateId() %>"
+					<%if(request.getAttribute("templateId")!= null 
+							&& Integer.parseInt((String) request.getAttribute("templateId")) == resultTemplates.get(i).getTemplateId()) {
+							out.println("selected");}%>
+					><%=resultTemplates.get(i).getTemplateName() %></option>
+			<% }} %>
+<!--  -->			
 			</select>
 		</div>
 		<div class="row align-items-center justify-content-center">
