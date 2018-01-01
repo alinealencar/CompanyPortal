@@ -18,8 +18,9 @@ public class EnterReport extends HttpServlet {
 
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//when template name is selected the selected template stay in combobox
 		HttpSession session = request.getSession();
+		//when template name is selected the selected template stay in combobox
+		
 		String template = request.getParameter("templateName");
 		if(template != null){
 			session.removeAttribute("errorTemplate");
@@ -30,6 +31,18 @@ public class EnterReport extends HttpServlet {
 			}
 		}
 		System.out.println(template);
+		
+		//when department name is selected the selected template stay in combobox
+		String department = request.getParameter("department");
+		if(department != null){
+			session.removeAttribute("errorDepartment");
+			session.setAttribute("department", department);
+		}else{
+			if(department == null){
+				session.setAttribute("errorDepartment", "You must select a department");
+			}
+		}
+		System.out.println(department);
 
 		response.sendRedirect("enter-report.jsp");
 	}
