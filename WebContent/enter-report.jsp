@@ -41,15 +41,17 @@
 		<div class="row align-items-center justify-content-center">
 			<label for="department">Department:&nbsp;</label>
 			
-			<select id = "department" name = "department">
+			<select id = "department" name = "department" onchange="this.form.submit()">
+			
 				<% 
 				//Get the list of departments from the database
 				String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");%>
 				<option value="" selected>Department</option>
 				<% 
 				//Populate drop down list
-				for(int i = 0; i < deptList.length; i++)
-					out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");%>
+				for(int i = 0; i < deptList.length; i++){
+					out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
+				}%>
 			</select>
 			
 			<br>
@@ -73,8 +75,9 @@
 				<option value="" selected>Group</option>
 				<% 
 				//Populate drop down list
-				for(int i = 0; i < groupList.length; i++)
-					out.print("<option value =\"" + groupList[i] + "\">" + groupList[i] + "</option>");%>
+				for(int i = 0; i < groupList.length; i++){
+					out.print("<option value =\"" + groupList[i] + "\">" + groupList[i] + "</option>");
+				}%>
 			</select>
 			&nbsp;&nbsp;&nbsp;
 			<select id = "employee" name = "employee">
@@ -82,21 +85,22 @@
 				//Get the list of departments from the database
 				String[] employeeList = HelperUtilities.getFullNameFromResultSet(DatabaseManagement.selectFromTable("employee"), "firstname", "lastname");%>
 				<option value="" selected>Employee</option>
-				<% 
+				<%
 				//Populate drop down list
 				for(int i = 0; i < employeeList.length; i++)
-					out.print("<option value =\"" + employeeList[i] + "\">" + employeeList[i] + "</option>");%>
+					out.print("<option value =\"" + employeeList[i] + "\">" + employeeList[i] + "</option>");
+				%>
 			</select>
 			<br>
 		</div>	
-<!--  -->
+<!-- section 1  -->
 		<hr>
   		<div class="row">
-    		<div class="col">
-     	 		<label for="section1">2. Section 1 </label><input id = "section1" type = "text" name="section1">
+    		<div class="col-2">
+     	 		<input id = "section1" type = "text" name="section1" size="12">
     			<div class="error" id="errorSection1">Please enter a title for Section 1.</div>
     		</div>
-    		<div class="col-6 text-center">
+    		<div class="col-4 text-center">
       			<label>Criteria 1:&nbsp;</label><input type = "text" name="s1c1">
       			<div class="error" id="errorS1c1">Please enter a criteria.</div><br>
       			<label>Criteria 2:&nbsp;</label><input type = "text" name="s1c2"><br>
@@ -104,7 +108,7 @@
       			<label>Criteria 4:&nbsp;</label><input type = "text" name="s1c4"><br>
       			<label>Criteria 5:&nbsp;</label><input type = "text" name="s1c5"><br>
     		</div>
-    		<div class="col">
+    		<div class="col-2">
       			<label for="s1c1m">Maximum: </label>
       				<select name="s1c1m" class="maximum">
       					<option value = "" selected>-</option>
@@ -135,20 +139,24 @@
       				</select>
       				<div class="error" id="errors1c5m">Please choose a maximum value.</div>
     		</div>
+    		<div class="col-4">
+    			<textarea rows="8" cols="30"></textarea>
+    		</div>
   		</div>
   		<hr>
+<!-- section 2  -->
   		<div class="row">
-    		<div class="col">
-				<label for="section2">3. Section 2 </label><input id = "section2" type = "text" name="section2">
+    		<div class="col-2">
+				<input id = "section2" type = "text" name="section2" size="12">
     			<div class="error" id="errorSection2">Please enter a title for Section 2.</div>
     		</div>
-    		<div class="col-6 text-center">
+    		<div class="col-4 text-center">
     			<label>Criteria 1:&nbsp;</label><input type = "text" name="s2c1">
     			<div class="error" id="errorS2c1">Please enter a criteria.</div><br>
       			<label>Criteria 2:&nbsp;</label><input type = "text" name="s2c2"><br>
       			<label>Criteria 3:&nbsp;</label><input type = "text" name="s2c3"><br>
     		</div>
-    		<div class="col">
+    		<div class="col-2">
 				<label for="s2c1m">Maximum: </label>
       				<select name="s2c1m" class="maximum">
       					<option value = "" selected>-</option>
@@ -167,20 +175,24 @@
       				</select>
       				<div class="error" id="errors2c3m">Please choose a maximum value.</div>
     		</div>
+    		<div class="col-4">
+    			<textarea rows="8" cols="30"></textarea>
+    		</div>
   		</div>
   		<hr>
+<!-- section 3  -->
   		<div class="row">
-    		<div class="col">
-				<label for="section3">4. Section 3 </label><input id = "section3" type = "text" name="section3">
+    		<div class="col-2">
+				<input id = "section3" type = "text" name="section3" size="12">
     			<div class="error" id="errorSection3">Please enter a title for Section 3.</div>
     		</div>
-    		<div class="col-6 text-center">
+    		<div class="col-4 text-center">
     			<label>Criteria 1:&nbsp;</label><input type = "text" name="s3c1">
     			<div class="error" id="errorS3c1">Please enter a criteria.</div><br>
       			<label>Criteria 2:&nbsp;</label><input type = "text" name="s3c2"><br>
       			<label>Criteria 3:&nbsp;</label><input type = "text" name="s3c3"><br>
     		</div>
-    		<div class="col">
+    		<div class="col-2">
     			<label for="s3c1m">Maximum: </label>
       				<select name="s3c1m" class="maximum">
       					<option value = "" selected>-</option>
@@ -199,8 +211,16 @@
       				</select>
       				<div class="error" id="errors3c3m">Please choose a maximum value.</div>
     		</div>
+    		<div class="col-4">
+    			<textarea rows="8" cols="30"></textarea>
+    		</div>
   		</div>
   		<hr>
+<!-- total / buttons -->
+		<div class="row">
+			<div class="col-9"></div>
+			<div class="col-3">TOTAL&nbsp;&nbsp;<input id="total" type="text" name="total" size="2" disabled> / 50</div>
+		</div>
 		<div class="row align-items-center justify-content-center">
 			<input type="submit" value="Create" class="btn btn-primary">
 			&nbsp;
