@@ -186,3 +186,10 @@ INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position
 INSERT INTO employee(firstname, lastname, email, emp_no, hire_year, job_position, role, username, password, token, dept_id_fk) VALUES
 ('Davos', 'Seaworth', 'dseaworth@gmail.com', '1003456', '2016', 'Admin', NULL, NULL, NULL, NULL, 5);
 
+--INSERT INTO report(report_title, report_date, report_type, s1_c1_evaluation, s1_c2_evaluation, comment1, s2_c1_evaluation, 
+--comment2, s3_c1_evaluation, comment3, template_id_fk) VALUES ('Report da Beyonca', '2017-12-31 00:00:00', 'e', 3, 2, 'comentario 1', 
+--3, 'comentario 2', 3, 'comentario 3', 1);
+--
+--INSERT INTO employee_report(emp_id_fk, report_id_fk) VALUES (4, 1);
+
+

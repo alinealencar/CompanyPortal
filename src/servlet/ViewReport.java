@@ -55,9 +55,13 @@ public class ViewReport extends HttpServlet {
 					
 					String reportId = request.getParameter("report");
 					//If report is selected
-					if(!ValidateInput.isMissing(request.getParameter("reportName"))){
-						request.setAttribute("reportId", reportId);
+					if(!ValidateInput.isMissing(reportId)){
+						Report selectedReport = DatabaseManagement.selectReportById(reportId);
+						ReportTemplate selectedTemplate = DatabaseManagement.selectReportTemplateById(templateId);
 						
+						//Send report and template objects to the request scope
+						request.setAttribute("selectedReport", selectedReport);
+						request.setAttribute("selectedTemplate", selectedTemplate);
 					}
 				}
 			}
