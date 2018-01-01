@@ -22,11 +22,11 @@
 			<% 
 				//Populate drop down list
 			for(int i = 0; i < templateList.length; i++){
-			out.print("<option value =\"" + templateList[i] + "\">" + templateList[i] + "</option>");
-			if(selectedTemplate != null && selectedTemplate.equals(templateList[i])){
-				out.print("<option value =\"" + templateList[i] + "\" selected=\"selected\"");
-			  	out.print(">" + templateList[i] + "</option>");
-			}
+				out.print("<option value =\"" + templateList[i] + "\">" + templateList[i] + "</option>");
+				if(selectedTemplate != null && selectedTemplate.equals(templateList[i])){
+					out.print("<option value =\"" + templateList[i] + "\" selected=\"selected\"");
+			  		out.print(">" + templateList[i] + "</option>");
+				}
 			}%>
 			</select>
 			&nbsp;&nbsp;&nbsp;
@@ -42,7 +42,7 @@
 			<label for="department">Department:&nbsp;</label>
 			
 			<select id = "department" name = "department" onchange="this.form.submit()">
-			
+				<%String selectedDepartment = (String) session.getAttribute("department"); %>
 				<% 
 				//Get the list of departments from the database
 				String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");%>
@@ -51,6 +51,10 @@
 				//Populate drop down list
 				for(int i = 0; i < deptList.length; i++){
 					out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
+					if(selectedDepartment != null && selectedDepartment.equals(deptList[i])){
+						out.print("<option value =\"" + deptList[i] + "\" selected=\"selected\"");
+					  	out.print(">" + deptList[i] + "</option>");
+					}
 				}%>
 			</select>
 			
