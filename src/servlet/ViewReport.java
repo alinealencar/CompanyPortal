@@ -36,9 +36,9 @@ public class ViewReport extends HttpServlet {
 				
 				List<ReportTemplate> templates = DatabaseHelper.getReportTemplates(templatesResult);
 				
-				//Add all report templates to the request scope
-				request.setAttribute("reportTemplates", templates);
-				
+//				//Add all report templates to the request scope
+//				request.setAttribute("reportTemplates", templates);
+//				
 				//Add selected template to the request scope
 				request.setAttribute("templateId", Integer.parseInt(templateId));
 				
@@ -52,19 +52,20 @@ public class ViewReport extends HttpServlet {
 				ResultSet reportsResult = DatabaseManagement.selectReportByTemplate(templateId);
 				List<Report> reports = DatabaseHelper.getReports(reportsResult);
 				request.setAttribute("reports", reports);
-					
-				String reportId = request.getParameter("report");
-				
-				Report selectedReport = DatabaseManagement.selectReportById(reportId);
 				
 				String reportFor = null;
+				Report selectedReport = null;
+				if(!ValidateInput.isMissing(request.getParameter("report"))){
+					String reportId = request.getParameter("report");
 				
-				reportFor = DatabaseHelper.getReportFor(selectedReport);
-						
+					selectedReport = DatabaseManagement.selectReportById(reportId);
+
+//					reportFor = DatabaseHelper.getReportFor(selectedReport);
+				}		
 				//Send report and template objects to the request scope
 				request.setAttribute("selectedReport", selectedReport);
 				request.setAttribute("selectedTemplate", selectedTemplate);
-				request.setAttribute("reportFor", reportFor);
+//				request.setAttribute("reportFor", reportFor);
 			}
 		}
 		catch(Exception e){

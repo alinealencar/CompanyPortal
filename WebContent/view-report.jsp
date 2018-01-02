@@ -7,7 +7,7 @@
 <%@include file="WEB-INF/header.jsp" %>
 <%@include file="WEB-INF/menu.jsp" %>
 <script>
-$(function(){
+/* $(function(){
 	$(document).ready(function(){
 		//If a report is selected, show the view report area
 		var report = document.getElementById("report").value;
@@ -15,7 +15,7 @@ $(function(){
 			$("#reportView").show();
 		}
 	})
-});
+}); */
 </script>
 <div class="container form-group viewReport">
 <div class="container">
@@ -56,13 +56,13 @@ $(function(){
 		</select>
 	</div>
 	<div class="col col-lg-4 viewReportDropdown">
-		<select id = "report" class="viewReportDropdown" name="report">
-			<option value="" selected>Select a Report</option>
+		<select id="report" class="viewReportDropdown" name="report">
+			<option value="" ${(selectedReport == null) ? 'selected' :  ''}>Select a Report</option>
 			
 			<% if(request.getAttribute("reports") != null){
 					List<Report> resultReports = (List<Report>) request.getAttribute("reports");
 					for(int i = 0; i < resultReports.size(); i++){ %>
-					<option value="<%=resultReports.get(i).getReportId() %>"
+					<option value="<%=resultReports.get(i).getReportId() %>" 
 					<%if(request.getAttribute("selectedReport")!= null 
 							&& (((Report) request.getAttribute("selectedReport")).getReportId()) == resultReports.get(i).getReportId()) {
 							out.println("selected");}%>
@@ -81,7 +81,7 @@ $(function(){
 	</div>
 </div>
 <form action="EditReport" method="post" id="editReportForm">
-<div id="reportView"  class="container" style="display:none;">
+<div id="reportView"  class="container" ${(selectedReport == null) ? 'style="display:none;"' : ''}>
 <hr>
 	<div class="row">
 		<span>1. Details:</span>
@@ -106,10 +106,10 @@ $(function(){
 					<td><strong>Department</strong></td>
 					<td>${deptName}</td>
 				</tr>
-				<tr>
+<%-- 				<tr>
 					<td><strong>Report for:</strong></td>
 					<td>${reportFor}</td>
-				</tr>
+				</tr> --%>
 			</table>
 		</div>
 	</div>
