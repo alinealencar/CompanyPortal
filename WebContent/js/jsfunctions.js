@@ -1,3 +1,5 @@
+//Create Template functions 
+
 function validateCreateTemplate(){
 	var form = document.forms["create-template"];
 	var validForm = true;
@@ -108,3 +110,17 @@ function validateDate(){
 	
 	return validForm;
 }
+
+//View Report
+function enableEdit(){
+	$(".editable").prop("disabled", false);
+	$("#updateReport").show();
+	$("#editReport").hide();
+}
+
+function disableEdit(){
+	$(".editable").prop("disabled", true);
+	$("#editReport").show();
+	$("#updateReport").hide();
+}
+

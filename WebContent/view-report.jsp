@@ -59,10 +59,11 @@
 			<% }} %>
 		</select>
 		<br>
-		<input type="submit" value="View" class="btn btn-primary"> <input type="reset" value = "Cancel" class="btn btn-secondary">
+		<input type="submit" value="View" class="btn btn-primary" onclick="clickView()"><input type="button" value = "Cancel" class="btn btn-secondary" onclick="clickCancel()">
 	</form>
 </div>
 <hr>
+<form action="EditReport" method="post">
 <div id="reportView">
 	<span>1. Details:</span>
 	<br>
@@ -92,7 +93,7 @@
 			<td>${selectedTemplate.s1Criteria1}</td>
 			<td>Evaluation: </td>
 			<td>
-				<select id="s1c1" name = "s1c1">
+				<select id="s1c1" class="editable" name = "s1c1" disabled>
 					<c:forEach var = "i" begin = "0" end = "${selectedTemplate.s1Crit1Max}">
          				<option value="${i}" ${(i eq selectedReport.s1Crit1) ? 'selected' : ''}>${i}</option>
       				</c:forEach>
@@ -103,7 +104,7 @@
 			<td>${selectedTemplate.s1Criteria2}</td>
 			<td>Evaluation: </td>
 			<td>
-				<select id="s1c2" name = "s1c2">
+				<select id="s1c2" class="editable" name = "s1c2" disabled>
 					<c:forEach var = "i" begin = "0" end = "${selectedTemplate.s1Crit2Max}">
          				<option value="${i}" ${(i eq selectedReport.s1Crit2) ? 'selected' : ''}>${i}</option>
       				</c:forEach>
@@ -114,7 +115,7 @@
 			<td>${selectedTemplate.s1Criteria3}</td>
 			<td>Evaluation: </td>
 			<td>
-				<select id="s1c3" name = "s1c3">
+				<select id="s1c3" class="editable" name = "s1c3" disabled>
 					<c:forEach var = "i" begin = "0" end = "${selectedTemplate.s1Crit3Max}">
          				<option value="${i}" ${(i eq selectedReport.s1Crit3) ? 'selected' : ''}>${i}</option>
       				</c:forEach>
@@ -125,7 +126,7 @@
 			<td>${selectedTemplate.s1Criteria4}</td>
 			<td>Evaluation: </td>
 			<td>
-				<select id="s1c3" name = "s1c4">
+				<select id="s1c3" class="editable" name = "s1c4" disabled>
 					<c:forEach var = "i" begin = "0" end = "${selectedTemplate.s1Crit4Max}">
          				<option value="${i}" ${(i eq selectedReport.s1Crit4) ? 'selected' : ''}>${i}</option>
       				</c:forEach>
@@ -136,7 +137,7 @@
 			<td>${selectedTemplate.s1Criteria5}</td>
 			<td>Evaluation: </td>
 			<td>
-				<select id="s1c3" name = "s1c3">
+				<select id="s1c5" class="editable" name = "s1c5" disabled>
 					<c:forEach var = "i" begin = "0" end = "${selectedTemplate.s1Crit5Max}">
          				<option value="${i}" ${(i eq selectedReport.s1Crit5) ? 'selected' : ''}>${i}</option>
       				</c:forEach>
@@ -144,6 +145,7 @@
 			</td>
 		</tr>
 	</table>
+	<textarea rows="4" cols="50" class="editable" name="comment1" disabled>${selectedReport.comment1}</textarea>
 	<hr>
 	<span>3. ${selectedTemplate.section2}:</span>
 	<br>
@@ -152,7 +154,7 @@
 			<td>${selectedTemplate.s2Criteria1}</td>
 			<td>Evaluation: </td>
 			<td>
-				<select id="s2c1" name = "s2c1">
+				<select id="s2c1" class="editable" name = "s2c1" disabled>
 					<c:forEach var = "i" begin = "0" end = "${selectedTemplate.s2Crit1Max}">
          				<option value="${i}" ${(i eq selectedReport.s2Crit1) ? 'selected' : ''}>${i}</option>
       				</c:forEach>
@@ -163,7 +165,7 @@
 			<td>${selectedTemplate.s2Criteria2}</td>
 			<td>Evaluation: </td>
 			<td>
-				<select id="s2c2" name = "s2c2">
+				<select id="s2c2" class="editable" name = "s2c2" disabled>
 					<c:forEach var = "i" begin = "0" end = "${selectedTemplate.s2Crit2Max}">
          				<option value="${i}" ${(i eq selectedReport.s2Crit2) ? 'selected' : ''}>${i}</option>
       				</c:forEach>
@@ -174,7 +176,7 @@
 			<td>${selectedTemplate.s2Criteria3}</td>
 			<td>Evaluation: </td>
 			<td>
-				<select id="s2c3" name = "s2c3">
+				<select id="s2c3" class="editable" name = "s2c3" disabled>
 					<c:forEach var = "i" begin = "0" end = "${selectedTemplate.s2Crit3Max}">
          				<option value="${i}" ${(i eq selectedReport.s2Crit3) ? 'selected' : ''}>${i}</option>
       				</c:forEach>
@@ -182,6 +184,7 @@
 			</td>
 		</tr>
 	</table>
+	<textarea rows="4" cols="50" class="editable" name="comment2" disabled>${selectedReport.comment2}</textarea>
 	<hr>
 	<span>4. ${selectedTemplate.section3}:</span>
 	<br>
@@ -190,7 +193,7 @@
 			<td>${selectedTemplate.s3Criteria1}</td>
 			<td>Evaluation: </td>
 			<td>
-				<select id="s3c1" name = "s3c1">
+				<select id="s3c1" class="editable" name = "s3c1" disabled>
 					<c:forEach var = "i" begin = "0" end = "${selectedTemplate.s3Crit1Max}">
          				<option value="${i}" ${(i eq selectedReport.s3Crit1) ? 'selected' : ''}>${i}</option>
       				</c:forEach>
@@ -201,7 +204,7 @@
 			<td>${selectedTemplate.s3Criteria2}</td>
 			<td>Evaluation: </td>
 			<td>
-				<select id="s3c2" name = "s3c2">
+				<select id="s3c2" class="editable" name = "s3c2" disabled>
 					<c:forEach var = "i" begin = "0" end = "${selectedTemplate.s3Crit2Max}">
          				<option value="${i}" ${(i eq selectedReport.s3Crit2) ? 'selected' : ''}>${i}</option>
       				</c:forEach>
@@ -212,7 +215,7 @@
 			<td>${selectedTemplate.s3Criteria3}</td>
 			<td>Evaluation: </td>
 			<td>
-				<select id="s3c3" name = "s3c3">
+				<select id="s3c3" class="editable" name = "s3c3" disabled>
 					<c:forEach var = "i" begin = "0" end = "${selectedTemplate.s3Crit3Max}">
          				<option value="${i}" ${(i eq selectedReport.s3Crit3) ? 'selected' : ''}>${i}</option>
       				</c:forEach>
@@ -220,6 +223,11 @@
 			</td>
 		</tr>
 	</table>
+	<textarea rows="4" cols="50" name="comment3" class="editable" disabled>${selectedReport.comment3}</textarea>
+	<input type="hidden" value="${selectedReport.reportId}" name="reportId">
+	<input type="submit" value="Save"  id="updateReport" style="display:none;"/>
+	<button type="button" id="editReport" onclick="enableEdit()">Edit</button>
+	<button type="button" onclick="disableEdit()">Cancel</button>
 </div>
-
+</form>
 <%@include file="WEB-INF/footer.jsp" %>

@@ -436,6 +436,33 @@ public class DatabaseManagement {
 
 		return rs;
 	}
+	
+	public static boolean updateReport(Report report) throws Exception{
+		Connection conn = DatabaseAccess.connectDataBase();
+		
+		String query = "update report set "+
+				"s1_c1_evaluation =" + report.getS1Crit1() +
+				", s1_c2_evaluation =" + report.getS1Crit2() +
+				", s1_c3_evaluation =" + report.getS1Crit3() +
+				", s1_c4_evaluation =" + report.getS1Crit4() +
+				", s1_c5_evaluation =" + report.getS1Crit5() +
+				", comment1 = '" + report.getComment1() + "'" +
+				", s2_c1_evaluation =" + report.getS2Crit1() +
+				", s2_c2_evaluation =" + report.getS2Crit2() +
+				", s2_c3_evaluation =" + report.getS2Crit3() +
+				", comment2 = '" + report.getComment2() + "'" +
+				", s3_c1_evaluation =" + report.getS3Crit1() +
+				", s3_c2_evaluation =" + report.getS3Crit2() +
+				", s3_c3_evaluation =" + report.getS3Crit3() +
+				", comment3 = '" + report.getComment3() + "'" +
+				"where report_id = " + report.getReportId();
+		
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		
+		int rowsAffected = preparedStmt.executeUpdate();
+	    return rowsAffected > 0;
+		
+	}
 
 	public static void updatePresentEmployees(int empId, int attendanceId) throws Exception { 
 		Connection conn = DatabaseAccess.connectDataBase();
