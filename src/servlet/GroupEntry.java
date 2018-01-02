@@ -98,7 +98,7 @@ public class GroupEntry extends HttpServlet {
 		aGroup.setMember5(emp5);
 		aGroup.setMember6(emp6);
 		
-		response.sendRedirect("group-entry.jsp");
+//		response.sendRedirect("group-entry.jsp");
 		
 		//check if department name if missing
 		if (ValidateInput.isMissing(aGroup.getDeptName())) {
@@ -208,7 +208,7 @@ public class GroupEntry extends HttpServlet {
 						DatabaseManagement.insertEmployeeGroup(DatabaseHelper.getEmpId(fname, lname), DatabaseHelper.getGroupId(groupName));
 					}
 					
-					request.getSession().setAttribute("groupInsertSuccess", "The " + groupName + " group was successfully created!");
+					request.setAttribute("groupInsertSuccess", "The " + groupName + " group was successfully created!");
 		
 					//clear form after successful submission
 					request.getSession().setAttribute("department", null);
@@ -221,14 +221,17 @@ public class GroupEntry extends HttpServlet {
 					request.getSession().setAttribute("emp6", null);
 				}
 				else
-					request.getSession().setAttribute("deptInsertError", "ERROR! The group creation failed.");
+					request.setAttribute("deptInsertError", "ERROR! The group creation failed.");
 					
 			}
 			catch(Exception e){
 				//error message if insertion to the database failed
-				request.getSession().setAttribute("deptInsertError", e + "\nPlease try again.");
+				request.setAttribute("deptInsertError", e + "\nPlease try again.");
 				System.out.print(e);
 			}
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("group-entry.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 }
