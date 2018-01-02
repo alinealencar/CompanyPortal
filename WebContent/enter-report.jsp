@@ -119,7 +119,7 @@
     		</div>
     	
     		<div class="col-2">
-      			<label for="s1c1m">Maximum: </label>
+      			<label for="s1c1m">Evaluation: </label>
       				<select name="s1c1m" class="maximum">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit1Max(); i++)
@@ -128,7 +128,7 @@
       				<div class="error" id="errors1c1m">Please choose a value.</div>
       				<br>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria2())) {%>
-      			<label for="s1c2m">Maximum: </label>
+      			<label for="s1c2m">Evaluation: </label>
       				<select name="s1c2m" class="maximum">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit2Max(); i++)
@@ -138,7 +138,7 @@
       				<br>
       			<%} %>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria3())) {%>
-      			<label for="s1c3m">Maximum: </label>
+      			<label for="s1c3m">Evaluation: </label>
       				<select name="s1c3m" class="maximum">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit3Max(); i++)
@@ -148,7 +148,7 @@
       				<br>
       			<%} %>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria4())) {%>
-      			<label for="s1c4m">Maximum: </label>
+      			<label for="s1c4m">Evaluation: </label>
       				<select name="s1c4m" class="maximum">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit4Max(); i++)
@@ -158,7 +158,7 @@
       				<br>
       			<%} %>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria5())) {%>
-      			<label for="s1c5m">Maximum: </label>
+      			<label for="s1c5m">Evaluation: </label>
       				<select name="s1c5m" class="maximum">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit5Max(); i++)
@@ -171,39 +171,51 @@
     		<div class="col-4">
     			<textarea rows="8" cols="30"></textarea>
     		</div>
-   		<%} %>
+
   		</div>
   		<hr>
 <!-- section 2  -->
   		<div class="row">
     		<div class="col-2">
-				<input id = "section2" type = "text" name="section2" size="12">
-    			<div class="error" id="errorSection2">Please enter a title for Section 2.</div>
+				<input id = "section2" type = "text" name="section2" size="12" value='3. <%= rt.getSection2()%>' disabled/>
     		</div>
     		<div class="col-4 text-center">
-    			<label>Criteria 1:&nbsp;</label><input type = "text" name="s2c1">
-    			<div class="error" id="errorS2c1">Please enter a criteria.</div><br>
-      			<label>Criteria 2:&nbsp;</label><input type = "text" name="s2c2"><br>
-      			<label>Criteria 3:&nbsp;</label><input type = "text" name="s2c3"><br>
+    			<label>Criteria 1:&nbsp;</label><input type = "text" name="s2c1" value='<%= rt.getS2Criteria1()%>' disabled/>
+    			<%if(!ValidateInput.isMissing(rt.getS2Criteria2())) {%>
+      			<label>Criteria 2:&nbsp;</label><input type = "text" name="s2c2" value='<%= rt.getS2Criteria2()%>' disabled/><br>
+      			<%} %>
+      			<%if(!ValidateInput.isMissing(rt.getS2Criteria3())) {%>
+      			<label>Criteria 3:&nbsp;</label><input type = "text" name="s2c3" value='<%= rt.getS2Criteria3()%>' disabled/><br>
+      			<%} %>
     		</div>
     		<div class="col-2">
-				<label for="s2c1m">Maximum: </label>
+				<label for="s2c1m">Evaluation: </label>
       				<select name="s2c1m" class="maximum">
       					<option value = "" selected>-</option>
+      					<%for(int i = 1; i <= rt.getS2Crit1Max(); i++)
+      						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
       				<div class="error" id="errors2c1m">Please choose a maximum value.</div>
       				<br>
-      			<label for="s2c2m">Maximum: </label>
+      			<%if(!ValidateInput.isMissing(rt.getS2Criteria2())) {%>
+      			<label for="s2c2m">Evaluation: </label>
       				<select name="s2c2m" class="maximum">
       					<option value = "" selected>-</option>
+      					<%for(int i = 1; i <= rt.getS2Crit2Max(); i++)
+      						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
       				<div class="error" id="errors2c2m">Please choose a maximum value.</div>
       				<br>
-      			<label for="s2c3m">Maximum: </label>
+      			<%} %>
+      			<%if(!ValidateInput.isMissing(rt.getS2Criteria3())) {%>
+      			<label for="s2c3m">Evaluation: </label>
       				<select name="s2c3m" class="maximum">
       					<option value = "" selected>-</option>
+      					<%for(int i = 1; i <= rt.getS2Crit3Max(); i++)
+      						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
       				<div class="error" id="errors2c3m">Please choose a maximum value.</div>
+      			<%} %>
     		</div>
     		<div class="col-4">
     			<textarea rows="8" cols="30"></textarea>
@@ -213,29 +225,30 @@
 <!-- section 3  -->
   		<div class="row">
     		<div class="col-2">
-				<input id = "section3" type = "text" name="section3" size="12">
-    			<div class="error" id="errorSection3">Please enter a title for Section 3.</div>
+				<input id = "section3" type = "text" name="section3" size="12" value='4. <%= rt.getSection3()%>' disabled/>
     		</div>
     		<div class="col-4 text-center">
-    			<label>Criteria 1:&nbsp;</label><input type = "text" name="s3c1">
-    			<div class="error" id="errorS3c1">Please enter a criteria.</div><br>
-      			<label>Criteria 2:&nbsp;</label><input type = "text" name="s3c2"><br>
-      			<label>Criteria 3:&nbsp;</label><input type = "text" name="s3c3"><br>
+    			<label>Criteria 1:&nbsp;</label><input type = "text" name="s3c1" value='<%= rt.getS3Criteria1()%>' disabled/>
+    			
+      			<label>Criteria 2:&nbsp;</label><input type = "text" name="s3c2" value='<%= rt.getS3Criteria2()%>' disabled/><br>
+
+      			<label>Criteria 3:&nbsp;</label><input type = "text" name="s3c3" value='<%= rt.getS3Criteria3()%>' disabled/><br>
+
     		</div>
     		<div class="col-2">
-    			<label for="s3c1m">Maximum: </label>
+    			<label for="s3c1m">Evaluation: </label>
       				<select name="s3c1m" class="maximum">
       					<option value = "" selected>-</option>
       				</select>
       				<div class="error" id="errors3c1m">Please choose a maximum value.</div>
       				<br>
-      			<label for="s3c2m">Maximum: </label>
+      			<label for="s3c2m">Evaluation: </label>
       				<select name="s3c2m" class="maximum">
       					<option value = "" selected>-</option>
       				</select>
       				<div class="error" id="errors3c2m">Please choose a maximum value.</div>
       				<br>
-      			<label for="s3c3m">Maximum: </label>
+      			<label for="s3c3m">Evaluation: </label>
       				<select name="s3c3m" class="maximum">
       					<option value = "" selected>-</option>
       				</select>
@@ -256,6 +269,9 @@
 			&nbsp;
 			<input type="reset" value="Clear" class="btn btn-secondary">
 		</div>
+		
+	<%} %><!-- end of if(rt != null) -->
+		
 	</form>
 </div>
 
