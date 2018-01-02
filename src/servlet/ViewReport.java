@@ -30,19 +30,11 @@ public class ViewReport extends HttpServlet {
 			//If template is selected
 			if(!ValidateInput.isMissing(request.getParameter("reportTemplate"))){
 				String templateId = request.getParameter("reportTemplate");
-				
-				//Get all templates attached to the selected department
-				ResultSet templatesResult = DatabaseManagement.selectFromTable("report_template");
-				
-				List<ReportTemplate> templates = DatabaseHelper.getReportTemplates(templatesResult);
-				
-//				//Add all report templates to the request scope
-//				request.setAttribute("reportTemplates", templates);
-//				
+
 				//Add selected template to the request scope
 				request.setAttribute("templateId", Integer.parseInt(templateId));
 				
-				//Get department associated with a template
+				//Get department associated with the template
 				ReportTemplate selectedTemplate = DatabaseManagement.selectReportTemplateById(templateId);
 
 				//Add department associated to the selected template to the request scope
