@@ -56,10 +56,15 @@ public class ViewReport extends HttpServlet {
 				String reportId = request.getParameter("report");
 				
 				Report selectedReport = DatabaseManagement.selectReportById(reportId);
+				
+				String reportFor = null;
+				
+				reportFor = DatabaseHelper.getReportFor(selectedReport);
 						
 				//Send report and template objects to the request scope
 				request.setAttribute("selectedReport", selectedReport);
-				request.setAttribute("selectedTemplate", selectedTemplate);	
+				request.setAttribute("selectedTemplate", selectedTemplate);
+				request.setAttribute("reportFor", reportFor);
 			}
 		}
 		catch(Exception e){

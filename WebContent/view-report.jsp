@@ -106,6 +106,10 @@ $(function(){
 					<td><strong>Department</strong></td>
 					<td>${deptName}</td>
 				</tr>
+				<tr>
+					<td><strong>Report for:</strong></td>
+					<td>${reportFor}</td>
+				</tr>
 			</table>
 		</div>
 	</div>
