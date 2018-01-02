@@ -276,7 +276,25 @@ public class DatabaseHelper {
 			employee.setJobPosition(rs.getString(6));
 		}
 		return employees;
-	}	
+	}
+	
+	public static String getDeptNameById(int deptId) throws Exception{
+		String deptName = null;
+		
+		Connection conn = DatabaseAccess.connectDataBase();
+		Statement statement = conn.createStatement();
+		String query = "select dept_name from department "
+				+ "where id=" + deptId;
+		ResultSet rs = statement.executeQuery(query);
+		if(rs != null){
+			if(rs.next()){
+				deptName = rs.getString("dept_name");
+			 }
+		}
+		conn.close();
+		
+		return deptName;
+	}
 }
 
 

@@ -125,4 +125,24 @@ function disableEdit(){
 	$("#updateReport").hide();
 }
 
+function clickView(){
+	//Validate all 3 dropdowns are populated
+	if(!isEmpty(document.getElementById("reportTemplate").value) &&
+			!isEmpty(document.getElementById("report").value)){
+		document.getElementById("viewReportForm").submit();
+	}
+	else{
+		//Show error messages
+		console.log("invalid");
+	}
+	//Show the report
+	$("#reportView").show();
+}
+
+function clickCancelView(){
+	document.getElementById("reportTemplate").value = "";
+	document.getElementById("department").value = "";
+	document.getElementById("report").value = "";
+	$("#report").prop("disabled", true);
+}
 

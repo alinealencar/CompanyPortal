@@ -27,43 +27,39 @@ public class ViewReport extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		try{
-			//If department is selected
-			if(!ValidateInput.isMissing(request.getParameter("department"))){
-				String deptName = request.getParameter("department");
+			//If template is selected
+			if(!ValidateInput.isMissing(request.getParameter("reportTemplate"))){
+				String templateId = request.getParameter("reportTemplate");
 				
-				request.setAttribute("department", deptName);
 				//Get all templates attached to the selected department
-				ResultSet templatesResult = DatabaseManagement.selectReportTemplateByDepartment(deptName);
+				ResultSet templatesResult = DatabaseManagement.selectFromTable("report_template");
 				
 				List<ReportTemplate> templates = DatabaseHelper.getReportTemplates(templatesResult);
 				
-				//Add all report templates for a certain department to the request scope
+				//Add all report templates to the request scope
 				request.setAttribute("reportTemplates", templates);
 				
-				String templateId = request.getParameter("reportTemplate");
+				//Add selected template to the request scope
+				request.setAttribute("templateId", Integer.parseInt(templateId));
 				
-				//If template is selected
-				if(!ValidateInput.isMissing(templateId)){
-					//Add the selected templateId to the request scope
-					request.setAttribute("templateId", templateId);
-					//Get all report names for the selected template
-					ResultSet reportsResult = DatabaseManagement.selectReportByTemplate(templateId);
+				//Get department associated with a template
+				ReportTemplate selectedTemplate = DatabaseManagement.selectReportTemplateById(templateId);
+
+				//Add department associated to the selected template to the request scope
+				request.setAttribute("deptName", DatabaseHelper.getDeptNameById(selectedTemplate.getDeptId()));
+				
+				//Get all report names for the selected template
+				ResultSet reportsResult = DatabaseManagement.selectReportByTemplate(templateId);
+				List<Report> reports = DatabaseHelper.getReports(reportsResult);
+				request.setAttribute("reports", reports);
 					
-					List<Report> reports = DatabaseHelper.getReports(reportsResult);
-					
-					request.setAttribute("reports", reports);
-					
-					String reportId = request.getParameter("report");
-					//If report is selected
-					if(!ValidateInput.isMissing(reportId)){
-						Report selectedReport = DatabaseManagement.selectReportById(reportId);
-						ReportTemplate selectedTemplate = DatabaseManagement.selectReportTemplateById(templateId);
+				String reportId = request.getParameter("report");
+				
+				Report selectedReport = DatabaseManagement.selectReportById(reportId);
 						
-						//Send report and template objects to the request scope
-						request.setAttribute("selectedReport", selectedReport);
-						request.setAttribute("selectedTemplate", selectedTemplate);
-					}
-				}
+				//Send report and template objects to the request scope
+				request.setAttribute("selectedReport", selectedReport);
+				request.setAttribute("selectedTemplate", selectedTemplate);	
 			}
 		}
 		catch(Exception e){

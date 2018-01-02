@@ -7,7 +7,7 @@
 <%@include file="WEB-INF/header.jsp" %>
 <%@include file="WEB-INF/menu.jsp" %>
 <script>
-$(function(){
+/* $(function(){
 	$(document).ready(function(){
 		//If a department is selected, enable the report template dropdown
 		var department = $("#department").find(":selected").text();
@@ -21,48 +21,38 @@ $(function(){
 			$("#report").prop("disabled", false);
 		}
 	})
-});
+}); */
 </script>
 <div class="container form-group">
 	<div class="row align-items-center justify-content-center">
 		<h1 class="text-center">VIEW REPORT</h1>
 	</div>
 	<div class="row align-items-center justify-content-center">
-	<form action="ViewReport" method="post">
-		<select id = "department" name = "department" onChange="this.form.submit()">
-				<% 
-				//Get the list of departments from the database
-				String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
-				%>
-				
-				<option value="${(department == null) ? 'selected': ''}">Select a Department</option>
-				
-				<%
-				//Populate drop down list
-				for(int i = 0; i < deptList.length; i++){%>
-					<option value ="<%=deptList[i] %>" 
-						<%if(request.getAttribute("department")!= null 
-								&& request.getAttribute("department").equals(deptList[i])) {
-							out.println("selected");}%>
-					><%=deptList[i] %></option>
-				<% } %>
-		</select>
-		<br>
-		<select id = "reportTemplate" name="reportTemplate" onChange="this.form.submit()" disabled>
-			<option value="" selected>Select a Report Template</option>
+	<form action="ViewReport" method="post" id="viewReportForm">
+		<select id = "reportTemplate" name="reportTemplate" onChange="this.form.submit()">
+			<% 
+			//Get the list of reportTemplates from the database
+			List<ReportTemplate> allTemplates = DatabaseHelper.getReportTemplates(DatabaseManagement.selectFromTable("report_template")); %>
+			<option value="" ${(templateId == null) ? 'selected' : ''}>Select a Report Template</option>
 			
-			<% if(request.getAttribute("reportTemplates") != null){
-					List<ReportTemplate> resultTemplates = (List<ReportTemplate>) request.getAttribute("reportTemplates");
-					for(int i = 0; i < resultTemplates.size(); i++){ %>
-					<option value="<%=resultTemplates.get(i).getTemplateId() %>"
-					<%if(request.getAttribute("templateId")!= null 
-							&& Integer.parseInt((String) request.getAttribute("templateId")) == resultTemplates.get(i).getTemplateId()) {
-							out.println("selected");}%>
-					><%=resultTemplates.get(i).getTemplateName() %></option>
-			<% }} %>
+			<% //Populate drop down list
+				for(int i = 0; i < allTemplates.size(); i++){%>
+					<option value ="<%=allTemplates.get(i).getTemplateId()%>"
+						<%if(request.getAttribute("templateId") != null 
+								&& (int) request.getAttribute("templateId") == allTemplates.get(i).getTemplateId()){%>
+							selected
+						<%}%>
+					><%=allTemplates.get(i).getTemplateName()%></option>
+				
+				<%}%>
 		</select>
 		<br>
-		<select id = "report" name="report" disabled>
+		<select id = "department" name = "department" onChange="this.form.submit()" disabled>
+				<option value="${(deptName == null) ? 'selected': ''}">Select a Department</option>
+				<option value = "${deptName} }" ${(deptName != null) ? 'selected': ''}>${deptName}</option>
+		</select>
+		<br>
+		<select id = "report" name="report">
 			<option value="" selected>Select a Report</option>
 			
 			<% if(request.getAttribute("reports") != null){
@@ -76,7 +66,7 @@ $(function(){
 			<% }} %>
 		</select>
 		<br><br>
-		<input type="submit" value="View" class="btn btn-primary" onclick="clickView()"><input type="button" value = "Cancel" class="btn btn-secondary" onclick="clickCancel()">
+		<button type="button" class="btn btn-primary" onclick="clickView()">View</button><input type="button" value = "Cancel" class="btn btn-secondary" onclick="clickCancelView()">
 	</form>
 	</div>
 <hr>
@@ -99,7 +89,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Department</td>
-			<td>${department}</td>
+			<td>${deptName}</td>
 		</tr>
 	</table>
 	<hr>
