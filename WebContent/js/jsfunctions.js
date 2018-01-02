@@ -119,8 +119,10 @@ function enableEdit(){
 }
 
 function disableEdit(){
+	document.getElementById("editReportForm").reset();
 	$(".editable").prop("disabled", true);
 	$("#editReport").show();
 	$("#updateReport").hide();
 }
+
 

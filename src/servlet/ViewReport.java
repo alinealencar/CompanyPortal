@@ -25,12 +25,12 @@ public class ViewReport extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String deptName = request.getParameter("department");
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		try{
 			//If department is selected
-			if(!ValidateInput.isMissing(deptName)){
+			if(!ValidateInput.isMissing(request.getParameter("department"))){
+				String deptName = request.getParameter("department");
+				
 				request.setAttribute("department", deptName);
 				//Get all templates attached to the selected department
 				ResultSet templatesResult = DatabaseManagement.selectReportTemplateByDepartment(deptName);

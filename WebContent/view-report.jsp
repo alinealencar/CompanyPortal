@@ -6,11 +6,28 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@include file="WEB-INF/header.jsp" %>
 <%@include file="WEB-INF/menu.jsp" %>
-
+<script>
+$(function(){
+	$(document).ready(function(){
+		//If a department is selected, enable the report template dropdown
+		var department = $("#department").find(":selected").text();
+		if(department != "Select a Department"){
+			$("#reportTemplate").prop("disabled", false);
+		}
+		
+		//If a template is selected, enable the report template dropdown
+		var template = $("#reportTemplate").find(":selected").text();
+		if(template != "Select a Report Template"){
+			$("#report").prop("disabled", false);
+		}
+	})
+});
+</script>
 <div class="container form-group">
 	<div class="row align-items-center justify-content-center">
 		<h1 class="text-center">VIEW REPORT</h1>
 	</div>
+	<div class="row align-items-center justify-content-center">
 	<form action="ViewReport" method="post">
 		<select id = "department" name = "department" onChange="this.form.submit()">
 				<% 
@@ -31,7 +48,7 @@
 				<% } %>
 		</select>
 		<br>
-		<select id = "reportTemplate" name="reportTemplate" onChange="this.form.submit()">
+		<select id = "reportTemplate" name="reportTemplate" onChange="this.form.submit()" disabled>
 			<option value="" selected>Select a Report Template</option>
 			
 			<% if(request.getAttribute("reportTemplates") != null){
@@ -45,7 +62,7 @@
 			<% }} %>
 		</select>
 		<br>
-		<select id = "report" name="report">
+		<select id = "report" name="report" disabled>
 			<option value="" selected>Select a Report</option>
 			
 			<% if(request.getAttribute("reports") != null){
@@ -58,16 +75,16 @@
 					><%=resultReports.get(i).getReportTitle() %></option>
 			<% }} %>
 		</select>
-		<br>
+		<br><br>
 		<input type="submit" value="View" class="btn btn-primary" onclick="clickView()"><input type="button" value = "Cancel" class="btn btn-secondary" onclick="clickCancel()">
 	</form>
-</div>
+	</div>
 <hr>
-<form action="EditReport" method="post">
+<form action="EditReport" method="post" id="editReportForm">
 <div id="reportView">
 	<span>1. Details:</span>
 	<br>
-	<table>
+	<table class="table table-bordered">
 		<tr>
 			<td>Report</td>
 			<td>${selectedTemplate.templateName}</td>
@@ -225,9 +242,11 @@
 	</table>
 	<textarea rows="4" cols="50" name="comment3" class="editable" disabled>${selectedReport.comment3}</textarea>
 	<input type="hidden" value="${selectedReport.reportId}" name="reportId">
+	<hr>
 	<input type="submit" value="Save"  id="updateReport" style="display:none;"/>
 	<button type="button" id="editReport" onclick="enableEdit()">Edit</button>
 	<button type="button" onclick="disableEdit()">Cancel</button>
 </div>
 </form>
+</div>
 <%@include file="WEB-INF/footer.jsp" %>
