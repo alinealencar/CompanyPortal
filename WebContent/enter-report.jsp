@@ -14,7 +14,6 @@
 		<div class="row align-items-center justify-content-center">
 			<br>
 			<label for="department">Department:&nbsp;</label>
-			
 			<select id = "department" name = "department" onchange="this.form.submit()">
 				<% 
 				//Get the list of departments from the database
@@ -32,7 +31,7 @@
 			</select>
 			&nbsp;&nbsp;&nbsp;
 			<label>Report Template:&nbsp;</label>
-			<select name="reportTemplate" id="reportTemplate" onchange="this.form.submit()">
+			<select name="reportTemplate" id="reportTemplate" onchange="this.form.submit()" >
 			<option value="" selected>Select a Template Name</option>
 			<% if(request.getAttribute("reportTemplates") != null){
 					List<ReportTemplate> resultTemplates = (List<ReportTemplate>) request.getAttribute("reportTemplates");
@@ -63,16 +62,16 @@
 		<br>
 			<label>Report Type:&nbsp;</label>
 			<ul class="list-unstyled">
-				<li><input type="radio" name="reportType" value="Group">Group</li>
-				<li><input type="radio" name="reportType" value="Employee">Employee</li>
+				<li><input type="radio"  class="reportType" name="reportType" value="Group">Group</li>
+				<li><input type="radio" class="reportType" name="reportType" value="Employee">Employee</li>
 			</ul>
 		</div>
 		<div class="row align-items-center justify-content-center">
-			<select id = "group" name = "group">
+			<select id = "group" name = "group" disabled="true">
 				<% 
 				//Get the list of departments from the database
 				String[] groupList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("groups"), "group_name");%>
-				<option value="" selected>Group</option>
+				<option value="" selected = "selected">Group</option>
 				<% 
 				//Populate drop down list
 				for(int i = 0; i < groupList.length; i++){
@@ -80,11 +79,11 @@
 				}%>
 			</select>
 			&nbsp;&nbsp;&nbsp;
-			<select id = "employee" name = "employee">
+			<select id = "employee" name = "employee" disabled="true">
 				<% 
 				//Get the list of departments from the database
 				String[] employeeList = HelperUtilities.getFullNameFromResultSet(DatabaseManagement.selectFromTable("employee"), "firstname", "lastname");%>
-				<option value="" selected>Employee</option>
+				<option value=""  selected = "selected">Employee</option>
 				<%
 				//Populate drop down list
 				for(int i = 0; i < employeeList.length; i++)
@@ -229,8 +228,9 @@
 	</form>
 </div>
 
-<!-- for datepicker -->
+<!-- scripts -->
 
+<!-- for datepicker -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
@@ -238,5 +238,34 @@
     $( "#datepicker" ).datepicker();
   } );
   </script>
+  
+<!-- for disable combo box depend on radio button -->
+<script>
+$(document).ready(function(){
+    $('input[name="reportType"]').click(function() {
+       if($('input[name="reportType"]').is(':checked')) { 
+           var radioValue = $("input[name='reportType']:checked").val();
+            if(radioValue == "Group"){
+               $( "#group" ).prop( "disabled", false );
+               $(".reportType").on("click", function () {
+	               $('#employee option').prop('selected', function() {
+	       	        return this.defaultSelected;
+	       	   		});
+               });
+               $( "#employee" ).prop( "disabled", true );
+            } else {
+            	$(".reportType").on("click", function () {
+	            	$('#group option').prop('selected', function() {
+	           	        return this.defaultSelected;
+	           	   	}); 
+            	});
+               $( "#group" ).prop( "disabled", true );
+               $( "#employee" ).prop( "disabled", false );
+            }
+       }
+    });
+});
+
+</script>
   
 <%@include file="WEB-INF/footer.jsp" %>
