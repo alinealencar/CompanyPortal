@@ -4,6 +4,7 @@
 <%@page import="dataModel.ReportTemplate" %>
 <%@include file="WEB-INF/header.jsp" %>
 <%@include file="WEB-INF/menu.jsp" %>
+
 <div class="container form-group">
 		<br>
 	<div class="row align-items-center justify-content-center">
@@ -49,7 +50,7 @@
 			<label>Report Title:&nbsp;</label>
 			<input type="text" name="reportTitle" id="reportTitle">			
 			&nbsp;&nbsp;&nbsp;
-			<label>Date:&nbsp;</label><input type="text" id="datepicker">
+			<label>Date:&nbsp;</label><input type="text" name="date" id="datepicker">
 		</div>
 		<div class="row align-items-center justify-content-center">
 			<div class="error" id="errorTemplateName">Please enter a report name.</div>
@@ -93,54 +94,84 @@
 			<br>
 		</div>	
 <!-- section 1  -->
+		<% ReportTemplate rt = (ReportTemplate) request.getAttribute("selectedTemplate"); %>
+		<%if(rt != null){ %>
 		<hr>
   		<div class="row">
-    		<div class="col-2">
-     	 		<input id = "section1" type = "text" name="section1" size="12">
-    			<div class="error" id="errorSection1">Please enter a title for Section 1.</div>
+    		<div class="col-2">   		   
+     	 		<input id = "section1" type = "text" name="section1" size="12" value='2. <%= rt.getSection1()%>' disabled/>    			
     		</div>
+    		
     		<div class="col-4 text-center">
-      			<label>Criteria 1:&nbsp;</label><input type = "text" name="s1c1">
-      			<div class="error" id="errorS1c1">Please enter a criteria.</div><br>
-      			<label>Criteria 2:&nbsp;</label><input type = "text" name="s1c2"><br>
-      			<label>Criteria 3:&nbsp;</label><input type = "text" name="s1c3"><br>
-      			<label>Criteria 4:&nbsp;</label><input type = "text" name="s1c4"><br>
-      			<label>Criteria 5:&nbsp;</label><input type = "text" name="s1c5"><br>
+      			<label>Criteria 1:&nbsp;</label><input type = "text" name="s1c1" value='<%= rt.getS1Criteria1()%>' disabled/>
+      			<%if(!ValidateInput.isMissing(rt.getS1Criteria2())) {%>
+      			<label>Criteria 2:&nbsp;</label><input type = "text" name="s1c2" value='<%= rt.getS1Criteria2()%>' disabled/><br>
+      			<%} %>
+      			<%if(!ValidateInput.isMissing(rt.getS1Criteria3())) {%>
+      			<label>Criteria 3:&nbsp;</label><input type = "text" name="s1c3" value='<%= rt.getS1Criteria3()%>' disabled/><br>
+      			<%} %>
+      			<%if(!ValidateInput.isMissing(rt.getS1Criteria4())) {%>
+      			<label>Criteria 4:&nbsp;</label><input type = "text" name="s1c4" value='<%= rt.getS1Criteria4()%>' disabled/><br>
+      			<%} %>
+      			<%if(!ValidateInput.isMissing(rt.getS1Criteria5())) {%>
+      			<label>Criteria 5:&nbsp;</label><input type = "text" name="s1c5" value='<%= rt.getS1Criteria5()%>' disabled/><br>
+    			<%} %>
     		</div>
+    	
     		<div class="col-2">
       			<label for="s1c1m">Maximum: </label>
       				<select name="s1c1m" class="maximum">
       					<option value = "" selected>-</option>
+      					<%for(int i = 1; i <= rt.getS1Crit1Max(); i++)
+      						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors1c1m">Please choose a maximum value.</div>
+      				<div class="error" id="errors1c1m">Please choose a value.</div>
       				<br>
+      			<%if(!ValidateInput.isMissing(rt.getS1Criteria2())) {%>
       			<label for="s1c2m">Maximum: </label>
       				<select name="s1c2m" class="maximum">
       					<option value = "" selected>-</option>
+      					<%for(int i = 1; i <= rt.getS1Crit2Max(); i++)
+      						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors1c2m">Please choose a maximum value.</div>
+      				<div class="error" id="errors1c2m">Please choose a value.</div>
       				<br>
+      			<%} %>
+      			<%if(!ValidateInput.isMissing(rt.getS1Criteria3())) {%>
       			<label for="s1c3m">Maximum: </label>
       				<select name="s1c3m" class="maximum">
       					<option value = "" selected>-</option>
+      					<%for(int i = 1; i <= rt.getS1Crit3Max(); i++)
+      						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors1c3m">Please choose a maximum value.</div>
+      				<div class="error" id="errors1c3m">Please choose a value.</div>
       				<br>
+      			<%} %>
+      			<%if(!ValidateInput.isMissing(rt.getS1Criteria4())) {%>
       			<label for="s1c4m">Maximum: </label>
       				<select name="s1c4m" class="maximum">
       					<option value = "" selected>-</option>
+      					<%for(int i = 1; i <= rt.getS1Crit4Max(); i++)
+      						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors1c4m">Please choose a maximum value..</div>
+      				<div class="error" id="errors1c4m">Please choose a  value..</div>
       				<br>
+      			<%} %>
+      			<%if(!ValidateInput.isMissing(rt.getS1Criteria5())) {%>
       			<label for="s1c5m">Maximum: </label>
       				<select name="s1c5m" class="maximum">
       					<option value = "" selected>-</option>
+      					<%for(int i = 1; i <= rt.getS1Crit5Max(); i++)
+      						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors1c5m">Please choose a maximum value.</div>
+      				<div class="error" id="errors1c5m">Please choose a value.</div>
+				<%} %>
     		</div>
+
     		<div class="col-4">
     			<textarea rows="8" cols="30"></textarea>
     		</div>
+   		<%} %>
   		</div>
   		<hr>
 <!-- section 2  -->

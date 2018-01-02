@@ -30,6 +30,11 @@ public class EnterReport extends HttpServlet {
 
 		String department = request.getParameter("department");
 		String templateId = request.getParameter("reportTemplate");
+		String reportTitle = request.getParameter("reportTitle");
+		String date = request.getParameter("date");
+		
+		String group = request.getParameter("group");
+		String employee = request.getParameter("employee");
 
 		
 		//when department is selected, related template name is generated in combobox		
@@ -45,35 +50,45 @@ public class EnterReport extends HttpServlet {
 				//Add all report templates for a certain department to the request scope
 				request.setAttribute("reportTemplates", templates);
 				
-//				String templateId = request.getParameter("reportTemplate");
-				
 				//If template is selected
 				if(!ValidateInput.isMissing(templateId)){
 					//Add the selected templateId to the request scope
 					request.setAttribute("templateId", templateId);
+					
+					//get selected template
+					ReportTemplate selectedTemplate = DatabaseManagement.selectReportTemplateById(templateId);
+
+					//Send report and template objects to the request scope
+					request.setAttribute("selectedTemplate", selectedTemplate);
+					
+					
 					//Get all report names for the selected template
-					ResultSet reportsResult = DatabaseManagement.selectReportByTemplate(templateId);
-					
-					List<Report> reports = DatabaseHelper.getReports(reportsResult);
-					
-					request.setAttribute("reports", reports);
-					
-					String reportId = request.getParameter("report");
-					//If report is selected
-					if(!ValidateInput.isMissing(reportId)){
-						Report selectedReport = DatabaseManagement.selectReportById(reportId);
-						ReportTemplate selectedTemplate = DatabaseManagement.selectReportTemplateById(templateId);
-						
-						//Send report and template objects to the request scope
-						request.setAttribute("selectedReport", selectedReport);
-						request.setAttribute("selectedTemplate", selectedTemplate);
-					}
+//					ResultSet reportsResult = DatabaseManagement.selectReportByTemplate(templateId);
+//					
+//					List<Report> reports = DatabaseHelper.getReports(reportsResult);
+//					
+//					request.setAttribute("reports", reports);
+//					
+//					String reportId = request.getParameter("report");
+//					//If report is selected
+//					if(!ValidateInput.isMissing(reportId)){
+//						Report selectedReport = DatabaseManagement.selectReportById(reportId);
+//						ReportTemplate selectedTemplate = DatabaseManagement.selectReportTemplateById(templateId);
+//						
+//						//Send report and template objects to the request scope
+//						request.setAttribute("selectedReport", selectedReport);
+//						request.setAttribute("selectedTemplate", selectedTemplate);
+//					}
 				}
 			}
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		
+
+		
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("enter-report.jsp");
 		dispatcher.forward(request, response);
 	}
