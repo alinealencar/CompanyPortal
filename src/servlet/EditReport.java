@@ -22,21 +22,30 @@ public class EditReport extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
+			System.out.println("submeteu pra editar");
 			Report updatedReport = new Report();
 			updatedReport.setReportId(Integer.parseInt(request.getParameter("reportId")));
 			updatedReport.setS1Crit1(Integer.parseInt(request.getParameter("s1c1")));
-			updatedReport.setS1Crit2(Integer.parseInt(request.getParameter("s1c2")));
-			updatedReport.setS1Crit3(Integer.parseInt(request.getParameter("s1c3")));
-			updatedReport.setS1Crit4(Integer.parseInt(request.getParameter("s1c4")));
-			updatedReport.setS1Crit5(Integer.parseInt(request.getParameter("s1c5")));
+			if(request.getParameter("s1c2") != null)
+				updatedReport.setS1Crit2(Integer.parseInt(request.getParameter("s1c2")));
+			if(request.getParameter("s1c3") != null)
+				updatedReport.setS1Crit3(Integer.parseInt(request.getParameter("s1c3")));
+			if(request.getParameter("s1c4") != null)
+				updatedReport.setS1Crit4(Integer.parseInt(request.getParameter("s1c4")));
+			if(request.getParameter("s1c5") != null)
+				updatedReport.setS1Crit5(Integer.parseInt(request.getParameter("s1c5")));
 			updatedReport.setComment1(request.getParameter("comment1"));
 			updatedReport.setS2Crit1(Integer.parseInt(request.getParameter("s2c1")));
-			updatedReport.setS2Crit2(Integer.parseInt(request.getParameter("s2c2")));
-			updatedReport.setS2Crit3(Integer.parseInt(request.getParameter("s2c3")));
+			if(request.getParameter("s2c2") != null)
+				updatedReport.setS2Crit2(Integer.parseInt(request.getParameter("s2c2")));
+			if(request.getParameter("s2c3") != null)
+				updatedReport.setS2Crit3(Integer.parseInt(request.getParameter("s2c3")));
 			updatedReport.setComment2(request.getParameter("comment2"));
 			updatedReport.setS3Crit1(Integer.parseInt(request.getParameter("s3c1")));
-			updatedReport.setS3Crit2(Integer.parseInt(request.getParameter("s3c2")));
-			updatedReport.setS3Crit3(Integer.parseInt(request.getParameter("s3c3")));
+			if(request.getParameter("s3c2") != null)
+				updatedReport.setS3Crit2(Integer.parseInt(request.getParameter("s3c2")));
+			if(request.getParameter("s3c3") != null)
+				updatedReport.setS3Crit3(Integer.parseInt(request.getParameter("s3c3")));
 			updatedReport.setComment3(request.getParameter("comment3"));
 			
 			//Update report in the database

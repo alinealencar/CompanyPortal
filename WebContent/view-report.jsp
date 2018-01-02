@@ -20,6 +20,11 @@ $(function(){
 <div class="container form-group viewReport">
 <div class="container">
 	<div class="row align-items-center justify-content-center">
+		<span class="${(updateReportSuccess != null) ? 'alert alert-success':''}" role="alert">${updateReportSuccess}</span>
+		<span class="${(updateReportError != null) ? 'alert alert-danger':''}" role="alert">${updateReportError}</span>
+	</div>
+	<br>
+	<div class="row align-items-center justify-content-center">
 		<h1 class="text-center">VIEW REPORT</h1>
 	</div>
 	<br><br>
@@ -75,9 +80,9 @@ $(function(){
 		<button type="button" class="btn btn-primary" onclick="clickView()">View</button>&nbsp;&nbsp;<input type="button" value = "Cancel" class="btn btn-secondary" onclick="clickCancelView()">
 	</div>
 </div>
-<hr>
 <form action="EditReport" method="post" id="editReportForm">
 <div id="reportView"  class="container" style="display:none;">
+<hr>
 	<div class="row">
 		<span>1. Details:</span>
 	</div>
