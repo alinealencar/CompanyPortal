@@ -119,52 +119,52 @@
     		</div>
     	
     		<div class="col-2">
-      			<label for="s1c1m">Evaluation: </label>
-      				<select name="s1c1m" class="maximum">
+      			<label for="s1c1e">Evaluation: </label>
+      				<select name="s1c1e" class="evaluation" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit1Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors1c1m">Please choose a value.</div>
+      				<div class="error" id="errors1c1e">Please choose a value.</div>
       				<br>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria2())) {%>
-      			<label for="s1c2m">Evaluation: </label>
-      				<select name="s1c2m" class="maximum">
+      			<label for="s1c2e">Evaluation: </label>
+      				<select name="s1c2e" class="evaluation" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit2Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors1c2m">Please choose a value.</div>
+      				<div class="error" id="errors1c2e">Please choose a value.</div>
       				<br>
       			<%} %>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria3())) {%>
-      			<label for="s1c3m">Evaluation: </label>
-      				<select name="s1c3m" class="maximum">
+      			<label for="s1c3e">Evaluation: </label>
+      				<select name="s1c3e" class="evaluation" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit3Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors1c3m">Please choose a value.</div>
+      				<div class="error" id="errors1c3e">Please choose a value.</div>
       				<br>
       			<%} %>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria4())) {%>
-      			<label for="s1c4m">Evaluation: </label>
-      				<select name="s1c4m" class="maximum">
+      			<label for="s1c4e">Evaluation: </label>
+      				<select name="s1c4e" class="evaluation" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit4Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors1c4m">Please choose a  value..</div>
+      				<div class="error" id="errors1c4e">Please choose a  value..</div>
       				<br>
       			<%} %>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria5())) {%>
-      			<label for="s1c5m">Evaluation: </label>
-      				<select name="s1c5m" class="maximum">
+      			<label for="s1c5e">Evaluation: </label>
+      				<select name="s1c5e" class="evaluation" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit5Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors1c5m">Please choose a value.</div>
+      				<div class="error" id="errors1c5e">Please choose a value.</div>
 				<%} %>
     		</div>
 
@@ -189,32 +189,32 @@
       			<%} %>
     		</div>
     		<div class="col-2">
-				<label for="s2c1m">Evaluation: </label>
-      				<select name="s2c1m" class="maximum">
+				<label for="s2c1e">Evaluation: </label>
+      				<select name="s2c1e" class="evaluation" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS2Crit1Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors2c1m">Please choose a maximum value.</div>
+      				<div class="error" id="errors2c1e">Please choose a maximum value.</div>
       				<br>
       			<%if(!ValidateInput.isMissing(rt.getS2Criteria2())) {%>
-      			<label for="s2c2m">Evaluation: </label>
-      				<select name="s2c2m" class="maximum">
+      			<label for="s2c2e">Evaluation: </label>
+      				<select name="s2c2e" class="evaluation" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS2Crit2Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors2c2m">Please choose a maximum value.</div>
+      				<div class="error" id="errors2c2e">Please choose a maximum value.</div>
       				<br>
       			<%} %>
       			<%if(!ValidateInput.isMissing(rt.getS2Criteria3())) {%>
-      			<label for="s2c3m">Evaluation: </label>
-      				<select name="s2c3m" class="maximum">
+      			<label for="s2c3e">Evaluation: </label>
+      				<select name="s2c3e" class="evaluation" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS2Crit3Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors2c3m">Please choose a maximum value.</div>
+      				<div class="error" id="errors2c3e">Please choose a maximum value.</div>
       			<%} %>
     		</div>
     		<div class="col-4">
@@ -237,32 +237,32 @@
 
     		</div>
     		<div class="col-2">
-    			<label for="s3c1m">Evaluation: </label>
-      				<select name="s3c1m" class="maximum">
+    			<label for="s3c1e">Evaluation: </label>
+      				<select name="s3c1e" class="evaluation" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS3Crit1Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors3c1m">Please choose a value.</div>
+      				<div class="error" id="errors3c1e">Please choose a value.</div>
       				<br>
       			<%if(!ValidateInput.isMissing(rt.getS3Criteria2())) {%>
-      			<label for="s3c2m">Evaluation: </label>
-      				<select name="s3c2m" class="maximum">
+      			<label for="s3c2e">Evaluation: </label>
+      				<select name="s3c2e" class="evaluation" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS3Crit2Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors3c2m">Please choose a value.</div>
+      				<div class="error" id="errors3c2e">Please choose a value.</div>
       				<br>
       			<%} %>
       			<!-- ****************************************************when set validation, doesn't work properly -->
-      			<label for="s3c3m">Evaluation: </label>
-      				<select name="s3c3m" class="maximum">
+      			<label for="s3c3e">Evaluation: </label>
+      				<select name="s3c3e" class="evaluation" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS3Crit3Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors3c3m">Please choose a value.</div>
+      				<div class="error" id="errors3c3e">Please choose a value.</div>
 
     		</div>
     		<div class="col-4">
@@ -333,7 +333,76 @@ $(document).ready(function(){
        }
     });
 });
+</script>
 
+<!-- to calculate current evaluate sum -->
+<script>
+function evaluationTotal()
+{
+    var s1c1 = document.querySelector('select[name="s1c1e"]');
+    var s1c2 = document.querySelector('select[name="s1c2e"]');
+    var s1c3 = document.querySelector('select[name="s1c3e"]');
+    var s1c4 = document.querySelector('select[name="s1c4e"]');
+    var s1c5 = document.querySelector('select[name="s1c5e"]');
+    
+    var s2c1 = document.querySelector('select[name="s2c1e"]');
+    var s2c2 = document.querySelector('select[name="s2c2e"]');
+    var s2c3 = document.querySelector('select[name="s2c3e"]');
+    
+    var s3c1 = document.querySelector('select[name="s3c1e"]');
+    var s3c2 = document.querySelector('select[name="s3c2e"]');
+    var s3c3 = document.querySelector('select[name="s3c3e"]');
+
+    if (s1c1 && s1c1.value && s1c1.value != "")
+        s1c1 = parseInt(s1c1.value);
+    else
+        s1c1 = 0;
+    if (s1c2 && s1c2.value && s1c2.value != "")
+        s1c2 = parseInt(s1c2.value);
+    else
+        s1c2 = 0;
+    if (s1c3 && s1c3.value && s1c3.value != "")
+        s1c3 = parseInt(s1c3.value);
+    else
+        s1c3 = 0;
+    if (s1c4 && s1c4.value && s1c4.value != "")
+        s1c4 = parseInt(s1c4.value);
+    else
+        s1c4 = 0;
+    if (s1c5 && s1c5.value && s1c5.value != "")
+        s1c5 = parseInt(s1c5.value);
+    else
+        s1c5 = 0;
+    if (s2c1 && s2c1.value && s2c1.value != "")
+        s2c1 = parseInt(s2c1.value);
+    else
+        s2c1 = 0;
+    if (s2c2 && s2c2.value && s2c2.value != "")
+        s2c2 = parseInt(s2c2.value);
+    else
+        s2c2 = 0;
+    if (s2c3 && s2c3.value && s2c3.value != "")
+        s2c3 = parseInt(s2c3.value);
+    else
+        s2c3 = 0;
+    if (s3c1 && s3c1.value && s3c1.value != "")
+        s3c1 = parseInt(s3c1.value);
+    else
+        s3c1 = 0;
+    if (s3c2 && s3c2.value && s3c2.value != "")
+        s3c2 = parseInt(s3c2.value);
+    else
+        s3c2 = 0;
+    if (s3c3 && s3c3.value && s3c3.value != "")
+        s3c3 = parseInt(s3c3.value);
+    else
+        s3c3 = 0;
+
+      document.getElementById("total").value = parseInt(s1c1) + parseInt(s1c2) + parseInt(s1c3) + parseInt(s1c4) + parseInt(s1c5) +
+      											parseInt(s2c1) + parseInt(s2c2) + parseInt(s2c3) +
+      											parseInt(s3c1) + parseInt(s3c2) + parseInt(s3c3);
+
+}
 </script>
   
 <%@include file="WEB-INF/footer.jsp" %>
