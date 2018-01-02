@@ -37,7 +37,7 @@
 		<br>
 		</form>
 		<div class="row align-items-center justify-content-center">
-			<table border=1>
+			<table class="table table-striped text-center">
 				<%	
 			String[] employeeDepartment = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "dept_name");
  			String[] employeeGroupName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "group_name");

@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,9 +34,9 @@ public class EnterAttendanceHelper extends HttpServlet {
 		response.setContentType("text/html");
 		
 		dept = request.getParameter("department");
-		request.getSession().setAttribute("department", dept);
-		response.sendRedirect("enter-attendance.jsp");
-		return;
+		request.setAttribute("department", dept);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("enter-attendance.jsp");
+        dispatcher.forward(request, response);
 	}
 
 }

@@ -35,7 +35,7 @@
 		<br>
 		</form>
 		<div class="row align-items-center justify-content-center">
-			<table border=1>
+			<table class="table table-striped text-center">
 				<%	
 			String[] employeeFNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "firstname");
  			String[] employeeLNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "lastname");
@@ -46,7 +46,7 @@
 			//create table
 		%>
 		<div class="row align-items-center justify-content-center">
-			<table border="1">
+			<table class="table table-striped text-center">
 				<tr>
 					<th><center>Last Name</center></th>
 					<th><center>First Name</center></th>

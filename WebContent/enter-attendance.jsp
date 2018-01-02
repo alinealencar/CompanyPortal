@@ -25,7 +25,7 @@
 					String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
 						
 					//check if a department is selected
-					if(session.getAttribute("department") == null || session.getAttribute("department").equals("")){ %>
+					if(request.getAttribute("department") == null || request.getAttribute("department").equals("")){ %>
 						<option value="" selected>Department</option>
 						<% 
 						//Populate drop down list
@@ -34,7 +34,7 @@
 						}
 					else{
 						for(int i = 0; i < deptList.length; i++) {
-							if(session.getAttribute("department").equals(deptList[i]))
+							if(request.getAttribute("department").equals(deptList[i]))
 								out.print("<option value =\"" + deptList[i] + "\"selected>" + deptList[i] + "</option>");
 							else
 								out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
@@ -65,27 +65,27 @@
 		<br>
 		<br>
 		<%	
-			String[] employeeFNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "firstname");
- 			String[] employeeLNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "lastname");
- 			String[] employeeNoList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "emp_no");
- 			String[] employeeIdList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "emp_id");
+			String[] employeeFNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "firstname");
+ 			String[] employeeLNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "lastname");
+ 			String[] employeeNoList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "emp_no");
+ 			String[] employeeIdList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "emp_id");
 			//create table
 		%>
 		<div class="row align-items-center justify-content-center">
-			<table border="1">
+			<table class="table table-striped text-center">
 				<tr>
-					<th><center>Employee Last Name</center></th>
-					<th><center>Employee First Name</center></th>
-					<th><center>Employee Number</center></th>
-					<th><center>Present</center></th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Employee Number</th>
+					<th>Present</th>
 				</tr>
-		<% 	if(session.getAttribute("department") != null ){
+		<% 	if(request.getAttribute("department") != null ){
 			for(int i = 0; i < employeeFNameList.length; i++) { %>
 			<tr>
-					<td><center><%=employeeFNameList[i]%></center></td>
-					<td><center><%=employeeLNameList[i]%></center></td>
-					<td><center><%=employeeNoList[i]%></center></td>
-					<td><center><input type="checkbox" name="present" value="<%=employeeIdList[i]%>"></center></td>
+					<td><%=employeeFNameList[i]%></td>
+					<td><%=employeeLNameList[i]%></td>
+					<td><%=employeeNoList[i]%></td>
+					<td><input type="checkbox" name="present" value="<%=employeeIdList[i]%>"></td>
 			</tr>
 		<%}}%>
 		</table>

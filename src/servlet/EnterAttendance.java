@@ -51,7 +51,7 @@ public class EnterAttendance extends HttpServlet {
 		
 		selectedEmployeeIds = request.getParameterValues("present");
 		
-		response.sendRedirect("enter-attendance.jsp");
+		//response.sendRedirect("enter-attendance.jsp");
 	
 		try {
 				//check if there is a duplicate entry in the database (same department and same date)
@@ -77,20 +77,21 @@ public class EnterAttendance extends HttpServlet {
 						}
 					}	
 					else
-						request.getSession().setAttribute("attendanceInsertError", "ERROR! The marking of attendance failed");
+						request.setAttribute("attendanceInsertError", "ERROR! The marking of attendance failed");
 				
-					request.getSession().setAttribute("attendanceInsertSuccess", "The attendance for the " + anAttendance.getDeptName() + " department was successfully marked!");
+					request.setAttribute("attendanceInsertSuccess", "The attendance for the " + anAttendance.getDeptName() + " department was successfully marked!");
 				}
 				else
-					request.getSession().setAttribute("attendanceInsertError", "The attendance is already marked for the " + anAttendance.getDeptName() + " department on the selected date.");
+					request.setAttribute("attendanceInsertError", "The attendance is already marked for the " + anAttendance.getDeptName() + " department on the selected date.");
 			}
 				
 			catch(Exception e){
 				//error message if insert failed
-				request.getSession().setAttribute("attendanceInsertError", e + "\nPlease try again.");
+				request.setAttribute("attendanceInsertError", e + "\nPlease try again.");
 			}
 		
-	
+		RequestDispatcher dispatcher = request.getRequestDispatcher("enter-attendance.jsp");
+        dispatcher.forward(request, response);
 
 }
 }

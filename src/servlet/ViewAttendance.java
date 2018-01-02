@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,10 +26,13 @@ public class ViewAttendance extends HttpServlet {
 		response.setContentType("text/html");
 		
 		String dept = request.getParameter("department");
-		request.getSession().setAttribute("department", dept);
+		request.setAttribute("deptViewAttendance", dept);
 		
-		response.sendRedirect("view-attendance.jsp");
-		return;
+		//response.sendRedirect("view-attendance.jsp");
+		//return;
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("view-attendance.jsp");
+        dispatcher.forward(request, response);
 	}
 	
 

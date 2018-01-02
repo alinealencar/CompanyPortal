@@ -17,7 +17,7 @@
 		<br>
 		</form>
 		<div class="row align-items-center justify-content-center">
-			<table border=1>
+			<table class="table table-striped text-center">
 				<%	
 			String[] departmentName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
 			String[] departmentLoc = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "location");
@@ -25,7 +25,7 @@
 			//create table
 		%>
 		<div class="row align-items-center justify-content-center">
-			<table border="1">
+			<table class="table table-striped text-center">
 				<tr>
 					<th><center>Department Name</center></th>
 					<th><center>Department Location</center></th>
