@@ -51,8 +51,8 @@
 	</div>
 	<div class="col-12 col-lg-4 viewReportDropdown">
 		<select id = "department" class="viewReportDropdown" name = "department" onChange="this.form.submit()" disabled>
-				<option value="${(deptName == null) ? 'selected': ''}">Select a Department</option>
-				<option value = "${deptName} }" ${(deptName != null) ? 'selected': ''}>${deptName}</option>
+				<option value="" ${(deptName == null) ? 'selected': ''}>Department</option>
+				<option value = "${deptName}" ${(deptName != null) ? 'selected': ''}>${deptName}</option>
 		</select>
 	</div>
 	<div class="col col-lg-4 viewReportDropdown">
