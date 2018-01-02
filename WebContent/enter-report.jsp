@@ -229,9 +229,10 @@
     		</div>
     		<div class="col-4 text-center">
     			<label>Criteria 1:&nbsp;</label><input type = "text" name="s3c1" value='<%= rt.getS3Criteria1()%>' disabled/>
-    			
+    			<%if(!ValidateInput.isMissing(rt.getS3Criteria2())) {%>
       			<label>Criteria 2:&nbsp;</label><input type = "text" name="s3c2" value='<%= rt.getS3Criteria2()%>' disabled/><br>
-
+				<%} %>
+				<!-- ****************************************************when set validation, doesn't work properly -->
       			<label>Criteria 3:&nbsp;</label><input type = "text" name="s3c3" value='<%= rt.getS3Criteria3()%>' disabled/><br>
 
     		</div>
@@ -239,20 +240,30 @@
     			<label for="s3c1m">Evaluation: </label>
       				<select name="s3c1m" class="maximum">
       					<option value = "" selected>-</option>
+      					<%for(int i = 1; i <= rt.getS3Crit1Max(); i++)
+      						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors3c1m">Please choose a maximum value.</div>
+      				<div class="error" id="errors3c1m">Please choose a value.</div>
       				<br>
+      			<%if(!ValidateInput.isMissing(rt.getS3Criteria2())) {%>
       			<label for="s3c2m">Evaluation: </label>
       				<select name="s3c2m" class="maximum">
       					<option value = "" selected>-</option>
+      					<%for(int i = 1; i <= rt.getS3Crit2Max(); i++)
+      						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors3c2m">Please choose a maximum value.</div>
+      				<div class="error" id="errors3c2m">Please choose a value.</div>
       				<br>
+      			<%} %>
+      			<!-- ****************************************************when set validation, doesn't work properly -->
       			<label for="s3c3m">Evaluation: </label>
       				<select name="s3c3m" class="maximum">
       					<option value = "" selected>-</option>
+      					<%for(int i = 1; i <= rt.getS3Crit3Max(); i++)
+      						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
-      				<div class="error" id="errors3c3m">Please choose a maximum value.</div>
+      				<div class="error" id="errors3c3m">Please choose a value.</div>
+
     		</div>
     		<div class="col-4">
     			<textarea rows="8" cols="30"></textarea>
@@ -262,7 +273,7 @@
 <!-- total / buttons -->
 		<div class="row">
 			<div class="col-9"></div>
-			<div class="col-3">TOTAL&nbsp;&nbsp;<input id="total" type="text" name="total" size="2" disabled> / 50</div>
+			<div class="col-3">TOTAL&nbsp;&nbsp;<input id="total" type="text" name="total" size="2" disabled> / <%= request.getAttribute("totalMax") %></div>
 		</div>
 		<div class="row align-items-center justify-content-center">
 			<input type="submit" value="Create" class="btn btn-primary">

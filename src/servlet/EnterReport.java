@@ -57,9 +57,18 @@ public class EnterReport extends HttpServlet {
 					
 					//get selected template
 					ReportTemplate selectedTemplate = DatabaseManagement.selectReportTemplateById(templateId);
+					
+					//calculate Total max value
+					ReportTemplate st = selectedTemplate;
+					int totalMax = st.getS1Crit1Max() + st.getS1Crit2Max() + st.getS1Crit3Max() + st.getS1Crit4Max() + st.getS1Crit5Max() +
+									st.getS2Crit1Max() + st.getS2Crit2Max() + st.getS2Crit3Max() +
+									st.getS3Crit1Max() + st.getS3Crit2Max() + st.getS3Crit3Max();
 
 					//Send report and template objects to the request scope
 					request.setAttribute("selectedTemplate", selectedTemplate);
+					
+					//Send totalMax value to the request scope
+					request.setAttribute("totalMax", totalMax);
 					
 					
 					//Get all report names for the selected template
