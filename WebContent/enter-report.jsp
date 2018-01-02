@@ -276,9 +276,9 @@
 			<div class="col-3">TOTAL&nbsp;&nbsp;<input id="total" type="text" name="total" size="2" disabled> / <%= request.getAttribute("totalMax") %></div>
 		</div>
 		<div class="row align-items-center justify-content-center">
-			<input type="submit" value="Create" class="btn btn-primary">
+			<input type="submit" value="Enter" class="btn btn-primary">
 			&nbsp;
-			<input type="reset" value="Clear" class="btn btn-secondary">
+			<input type="reset" value="Cancel" class="btn btn-secondary">
 		</div>
 		
 	<%} %><!-- end of if(rt != null) -->
