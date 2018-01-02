@@ -62,7 +62,7 @@
 		<br>
 			<label>Report Type:&nbsp;</label>
 			<ul class="list-unstyled">
-				<li><input type="radio"  class="reportType" name="reportType" value="Group">Group</li>
+				<li><input type="radio"  class="reportType" name="reportType" value="Group" >Group</li>
 				<li><input type="radio" class="reportType" name="reportType" value="Employee">Employee</li>
 			</ul>
 		</div>
@@ -244,6 +244,16 @@
 $(document).ready(function(){
     $('input[name="reportType"]').click(function() {
        if($('input[name="reportType"]').is(':checked')) { 
+    	   $(".reportType").on("click", function () {
+               $('#employee option').prop('selected', function() {
+       	        return this.defaultSelected;
+       	   		});
+           });
+    	   $(".reportType").on("click", function () {
+           	$('#group option').prop('selected', function() {
+          	        return this.defaultSelected;
+          	   	}); 
+       	});
            var radioValue = $("input[name='reportType']:checked").val();
             if(radioValue == "Group"){
                $( "#group" ).prop( "disabled", false );

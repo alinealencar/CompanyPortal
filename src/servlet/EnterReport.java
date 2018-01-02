@@ -29,6 +29,7 @@ public class EnterReport extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String department = request.getParameter("department");
+		String templateId = request.getParameter("reportTemplate");
 
 		
 		//when department is selected, related template name is generated in combobox		
@@ -44,7 +45,7 @@ public class EnterReport extends HttpServlet {
 				//Add all report templates for a certain department to the request scope
 				request.setAttribute("reportTemplates", templates);
 				
-				String templateId = request.getParameter("reportTemplate");
+//				String templateId = request.getParameter("reportTemplate");
 				
 				//If template is selected
 				if(!ValidateInput.isMissing(templateId)){
@@ -77,8 +78,6 @@ public class EnterReport extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-//		response.sendRedirect("enter-report.jsp");
-//}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
