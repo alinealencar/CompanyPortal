@@ -129,14 +129,15 @@ function clickView(){
 	//Validate all 3 dropdowns are populated
 	if(!isEmpty(document.getElementById("reportTemplate").value) &&
 			!isEmpty(document.getElementById("report").value)){
+		//Submit form
+		$("#reportView").show();
 		document.getElementById("viewReportForm").submit();
 	}
 	else{
-		//Show error messages
-		console.log("invalid");
+		//Show error message
+		$("#reportView").hide();
+		$("#viewReportError").show();
 	}
-	//Show the report
-	$("#reportView").show();
 }
 
 function clickCancelView(){
@@ -144,5 +145,7 @@ function clickCancelView(){
 	document.getElementById("department").value = "";
 	document.getElementById("report").value = "";
 	$("#report").prop("disabled", true);
+	$("#viewReportError").hide();
+	$("#reportView").hide();
 }
 

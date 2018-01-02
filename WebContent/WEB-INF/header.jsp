@@ -24,5 +24,16 @@
  	font-size: 14px;
  	font-style: italic;
  }
+ .editReport td{
+ 	width: 100%;
+ 	padding-right: 10%;
+ 	padding-bottom: 2%;
+ }
+ .viewReport{
+ 	max-width: 70%;
+ }
+ .viewReportDropdown{
+ 	width: 250px;
+ }
  </style>
 </head>
