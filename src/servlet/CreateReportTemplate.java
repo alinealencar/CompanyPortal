@@ -53,8 +53,8 @@ public class CreateReportTemplate extends HttpServlet {
 			rt.setS2Criteria2(request.getParameter("s2c2"));
 			rt.setS2Criteria3(request.getParameter("s2c3"));
 			rt.setS3Criteria1(request.getParameter("s3c1"));
-			rt.setS3Criteria2(request.getParameter("s3c3"));
-			rt.setS3Criteria3(request.getParameter("s3c4"));
+			rt.setS3Criteria2(request.getParameter("s3c2"));
+			rt.setS3Criteria3(request.getParameter("s3c3"));
 			rt.setS1Crit1Max(Integer.parseInt(request.getParameter("s1c1m")));
 			if (!ValidateInput.isMissing(request.getParameter("s1c2m")))
 				rt.setS1Crit2Max(Integer.parseInt(request.getParameter("s1c2m")));
