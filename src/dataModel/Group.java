@@ -15,7 +15,8 @@
 
 package dataModel;
 
-public class Group {	
+public class Group {
+	private int groupId;
 	private String deptName;
     private String groupName;
     private String member1;
@@ -24,12 +25,21 @@ public class Group {
     private String member4;
     private String member5;
     private String member6;
+    private int departmentId;
     
-    // Constructor
+	// Constructor
 	public Group() {
 	}
 	
 	// Properties
+	public int getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
+	}
+	
 	public String getDeptName() {
 		return deptName;
 	}
@@ -93,4 +103,13 @@ public class Group {
 	public void setMember6(String member6) {
 		this.member6 = member6;
 	}
+	
+	public int getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(int departmentId) {
+		this.departmentId = departmentId;
+	}
+
 }

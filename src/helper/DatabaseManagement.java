@@ -566,8 +566,18 @@ Connection conn = DatabaseAccess.connectDataBase();
 		Statement statement = conn.createStatement();
 		String query = "select * from groups where dept_name = '" + "'";
 		ResultSet rs = statement.executeQuery(query);
-	
+		
 		//conn.close();
+		
+		return rs;
+	}
+	
+	public static ResultSet selectGroupByDepartment(String deptName)
+			throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
+		String query = "select * from groups where dept_id_fk = " + DatabaseHelper.getDeptId(deptName);
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		ResultSet rs = preparedStmt.executeQuery(query);
 		
 		return rs;
 	}
