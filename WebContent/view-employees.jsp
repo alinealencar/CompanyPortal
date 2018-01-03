@@ -7,7 +7,7 @@
 	<div class="col col-lg-2">
 	</div>
 	<div class="col col-lg-7">
-		<h1 class="text-center">VIEW EMPLOYEES</h1>
+		<h1 class="text-center">EMPLOYEE LISTING</h1>
 		<br>
 		<div class="form-group">
 			<form method = "post" action = "ViewEmployee" name = "attendance-dept" onsubmit="return validateDepartment()" novalidate>
@@ -20,6 +20,7 @@
 					//check if a department is selected
 					%>	
 					<option value="" ${(department == null) ? 'selected' : ''}>Department</option>
+					<option value = "${department}" ${(department != null) ? 'selected': ''}>${department}</option>
 			
 					<% //Populate drop down list
 					for(int i = 0; i < deptList.length; i++){%>
@@ -45,7 +46,7 @@
 		<br>
 		</form>
 		<div class="row align-items-center justify-content-center">
-			<table class="table table-striped text-center"">
+			<table class="table table-striped text-center">
 				<tr>
 					<th>Last Name</th>
 					<th>First Name</th>
@@ -77,6 +78,9 @@
 			</table>
 		</div>
 		<br>
+		<div class="row align-items-center justify-content-center">
+			<input type = "submit" value = "Home" class="btn btn-primary" onClick="window.location='home.jsp';"/>
+		</div>
 	</div>
 </div>
 </div>

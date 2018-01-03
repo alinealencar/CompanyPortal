@@ -7,7 +7,7 @@
 	<div class="col col-lg-2">
 	</div>
 	<div class="col col-lg-7">
-		<h1 class="text-center">VIEW DEPARTMENT</h1>
+		<h1 class="text-center">VIEW DEPARTMENTS</h1>
 		<br>
 		<div class="row align-items-center justify-content-center">
 			<table class="table table-striped text-center">
@@ -32,5 +32,8 @@
 	</div>
 </div>
 </div>
+<div class="row align-items-center justify-content-center">
+			<input type = "submit" value = "Home" class="btn btn-primary" onClick="window.location='home.jsp';"/>
+		</div>
 <%@include file="WEB-INF/footer.jsp" %>
 		

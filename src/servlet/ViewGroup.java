@@ -22,8 +22,8 @@ public class ViewGroup extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 		
-		String dept = request.getParameter("department");
-		request.getSession().setAttribute("department", dept);
+		String dept = request.getParameter("group");
+		request.getSession().setAttribute("group", dept);
 		response.sendRedirect("view-group.jsp");
 		return;
 	}

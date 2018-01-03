@@ -45,7 +45,7 @@
 		<br>
 		</form>
 		<div class="row align-items-center justify-content-center">
-			<table class="table table-striped text-center"">
+			<table class="table table-striped text-center">
 				<tr>
 					<th>First Name</th>
 					<th>Last Name</th>
