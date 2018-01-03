@@ -78,30 +78,6 @@ public class GroupEntryHelper extends HttpServlet {
 		
 		String selectedDept;
 		
-	    //result set to select departments
-		/*try {
-			ResultSet rsDept = DatabaseManagement.selectFromTable("department");
-	
-			selectedDept = (String) request.getSession().getAttribute("department");	
-		
-			//result set to retrieve employees based on selected department
-			ResultSet rsEmp1 = DatabaseManagement.selectEmployees(selectedDept);
-			ResultSet rsEmp2 = DatabaseManagement.selectEmployees(selectedDept);
-			ResultSet rsEmp3 = DatabaseManagement.selectEmployees(selectedDept);
-			ResultSet rsEmp4 = DatabaseManagement.selectEmployees(selectedDept);
-			ResultSet rsEmp5 = DatabaseManagement.selectEmployees(selectedDept);
-			ResultSet rsEmp6 = DatabaseManagement.selectEmployees(selectedDept);
-			
-			//String[] deptList = HelperUtilities.getStringFromResultSet(rsDept, "dept_name");
-			
-			//request.getSession().setAttribute("deptList", deptList);
-			
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
 		request.getSession().setAttribute("department", dept);
 		request.getSession().setAttribute("groupName", group);
 		response.sendRedirect("group-entry.jsp");

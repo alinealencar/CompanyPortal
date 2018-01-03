@@ -15,18 +15,18 @@
 				
 					<div>
 					<select id = "department" name = "department" id = "department" onChange="this.form.submit()">
-					<% 
+						<% 
 					//Get the list of departments from the database
 					String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
 					//check if a department is selected
 					%>	
-					<option value="" ${(department == null) ? 'selected' : ''}>Department</option>
+					<option value="" ${(deptViewAttendance == null) ? 'selected' : ''}>Department</option>
 			
 					<% //Populate drop down list
 					for(int i = 0; i < deptList.length; i++){%>
 						<option value ="<%=deptList[i]%>"
-							<%if(request.getAttribute("group") != null 
-								&& request.getAttribute("group").equals(deptList[i])){%>
+							<%if(request.getAttribute("dept") != null 
+								&& request.getAttribute("dept").equals(deptList[i])){%>
 							selected
 						<%}%>
 						><%=deptList[i]%></option>
@@ -36,24 +36,14 @@
 					</div>
 					&nbsp;
 					<div>
-					<select id = "group" name = "group" id = "group" onChange="this.form.submit()" >
+					<select id = "group" name = "group" id = "group">
 					<% 
 					//Get the list of groups from the database
-					String[] groupList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("groups"), "group_name");
-					//check if a group is selected
+					String[] groupList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectGroupByDept((String) request.getAttribute("dept")), "group_name");
+					for(int i = 0; i < groupList.length; i++) {
 					%>	
-					<option value="" ${(department == null) ? 'selected' : ''}>Group</option>
-			
-					<% //Populate drop down list
-					for(int i = 0; i < groupList.length; i++){%>
-						<option value ="<%=groupList[i]%>"
-							<%if(request.getAttribute("group") != null 
-								&& request.getAttribute("group").equals(groupList[i])){%>
-							selected
-						<%}%>
-						><%=groupList[i]%></option>
-				
-					<%}%>
+					<option value = "<%=groupList[i]%>"><%=groupList[i]%></option>
+					<%} %>
 					</select>
 					</div>
 					<br>

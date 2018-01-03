@@ -27,7 +27,6 @@ import java.util.List;
 
 import dataModel.Attendance;
 import dataModel.Employee;
-import dataModel.EmployeeAttendance;
 import dataModel.Group;
 import dataModel.Report;
 import dataModel.ReportTemplate;
@@ -283,16 +282,26 @@ public class DatabaseHelper {
 		return employees;
 	}
 	
-	public static List<EmployeeAttendance> getPresentEmployees(ResultSet rs) throws SQLException{
-		List<EmployeeAttendance> presentList = new ArrayList<EmployeeAttendance>();
-		while(rs.next()){
-			EmployeeAttendance ea = new EmployeeAttendance();
-			ea.setPresent(rs.getBoolean(4));
+	public static List<Employee> getPresentEmployees(ResultSet rs1) throws Exception{
+		List<Employee> employees = new ArrayList<Employee>();
+		List<Integer> presentList = new ArrayList<Integer>();
+		while(rs1.next()){
+			Employee employee = new Employee();
+			employee.setEmpId(rs1.getInt(1));
+			employee.setFirstName(rs1.getString(2));
+			employee.setLastName(rs1.getString(3));
+			employee.setEmpNo(rs1.getString(4));
 			
-			presentList.add(ea);
+			ResultSet rs2 = DatabaseManagement.selectPresentEmployees(rs1.getInt(1));
+			while(rs2.next())
+				presentList.add(rs2.getInt(5));
+			
+			employee.setPresent(presentList);
+			employees.add(employee);
 		}
-		return presentList;
-	}	
+		return employees;
+	}
+	
 	
 	public static String getDeptNameById(int deptId) throws Exception{
 		String deptName = null;

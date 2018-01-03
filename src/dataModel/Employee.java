@@ -16,10 +16,12 @@
 package dataModel;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Employee implements Serializable{
 	private String firstName, lastName, empNo, email, hireYear, jobPosition;
 	private int empId, deptId;
+	private List<Integer> present;
 	
 	// Constructors
 	public Employee(String firstName, String lastName, String empNo, String email, String hireYear, String jobPosition) {
@@ -100,5 +102,14 @@ public class Employee implements Serializable{
 	public void setDeptId(int deptId) {
 		this.deptId = deptId;
 	}
+
+	public List<Integer> getPresent() {
+		return present;
+	}
+
+	public void setPresent(List<Integer> present) {
+		this.present = present;
+	}
+
 	
 }

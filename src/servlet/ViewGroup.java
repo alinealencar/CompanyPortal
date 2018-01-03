@@ -1,11 +1,15 @@
 package servlet;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import helper.ValidateInput;
 
 @WebServlet("/ViewGroup")
 public class ViewGroup extends HttpServlet {
@@ -22,10 +26,16 @@ public class ViewGroup extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 		
-		String dept = request.getParameter("group");
-		request.getSession().setAttribute("group", dept);
-		response.sendRedirect("view-group.jsp");
-		return;
+		String dept = request.getParameter("department");
+		
+		if(!ValidateInput.isMissing(dept)){
+			request.setAttribute("dept", dept);
+			request.setAttribute("group", request.getParameter("group"));
+			
+		}
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("view-group.jsp");
+        dispatcher.forward(request, response);
 	}
 
 }
