@@ -14,7 +14,7 @@
 				<div class="row align-items-center justify-content-center">
 				
 					<div>
-					<select id = "department" name = "department" id = "department" onChange="this.form.submit()">
+					<select id = "department" name = "department" id = "department">
 					<% 
 					//Get the list of departments from the database
 					String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
@@ -36,13 +36,16 @@
 					</div>
 					&nbsp;
 					<div>
-					<select id = "group" name = "group" id = "group" onChange="this.form.submit()" >
+					<select id = "group" name = "group" id = "group">
+					
 					<% 
 					//Get the list of groups from the database
 					String[] groupList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("groups"), "group_name");
 					//check if a group is selected
 					%>	
-					<option value="" ${(department == null) ? 'selected' : ''}>Group</option>
+					<option value="" ${(group == null) ? 'selected' : ''}>Group</option>
+					<option value = "${group}" ${(groups != null) ? 'selected': ''}>${deptName}</option>
+			
 			
 					<% //Populate drop down list
 					for(int i = 0; i < groupList.length; i++){%>

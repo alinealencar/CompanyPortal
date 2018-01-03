@@ -31,7 +31,7 @@
 	<form action="ViewReport" method="post" id="viewReportForm">
 	<div class="row justify-content-md-center">
 	<div class="col col-lg-4">
-		<select id = "reportTemplate" class="viewReportDropdown" name="reportTemplate" onChange="this.form.submit()">
+		<select id = "reportTemplate" class="viewReportDropdown" name="reportTemplate">
 			<% 
 			//Get the list of reportTemplates from the database
 			List<ReportTemplate> allTemplates = DatabaseHelper.getReportTemplates(DatabaseManagement.selectFromTable("report_template")); %>
@@ -50,7 +50,7 @@
 		</select>
 	</div>
 	<div class="col-12 col-lg-4 viewReportDropdown">
-		<select id = "department" class="viewReportDropdown" name = "department" onChange="this.form.submit()" disabled>
+		<select id = "department" class="viewReportDropdown" name = "department" disabled>
 				<option value="" ${(deptName == null) ? 'selected': ''}>Department</option>
 				<option value = "${deptName}" ${(deptName != null) ? 'selected': ''}>${deptName}</option>
 		</select>

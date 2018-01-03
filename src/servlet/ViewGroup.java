@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,19 +15,21 @@ public class ViewGroup extends HttpServlet {
 	
     public ViewGroup() {
         super();
-        // TODO Auto-generated constructor stub
     }
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		response.setContentType("text/html");
 		
-		String dept = request.getParameter("group");
-		request.getSession().setAttribute("group", dept);
-		response.sendRedirect("view-group.jsp");
-		return;
+		String group = request.getParameter("group");
+		request.setAttribute("group", group);
+		String department = request.getParameter("department");
+		request.setAttribute("department", department);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("view-group.jsp");
+        dispatcher.forward(request, response);
 	}
 
 }
