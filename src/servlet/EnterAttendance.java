@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataModel.Attendance;
+import dataModel.Employee;
 import database.DatabaseAccess;
 import helper.DatabaseHelper;
 import helper.DatabaseManagement;
@@ -22,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 
 @WebServlet("/EnterAttendance")
@@ -40,11 +42,11 @@ public class EnterAttendance extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
-		String deptName;
-		deptName = EnterAttendanceHelper.dept;
+		String deptName = EnterAttendanceHelper.dept;
 		Attendance anAttendance = new Attendance();
 		String[] selectedEmployeeIds = new String[50];
 		
+		if(!ValidateInput.isMissing(deptName)){
 		//access form values
 		anAttendance.setAttendanceDate(java.sql.Date.valueOf(request.getParameter("attendanceDate")));
 		anAttendance.setDeptName(deptName);
@@ -89,7 +91,9 @@ public class EnterAttendance extends HttpServlet {
 				//error message if insert failed
 				request.setAttribute("attendanceInsertError", e + "\nPlease try again.");
 			}
-		
+		}
+		else
+			request.setAttribute("attendanceInsertError", "Please select a department.");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("enter-attendance.jsp");
         dispatcher.forward(request, response);
 

@@ -119,7 +119,7 @@ public class DepartmentEntry extends HttpServlet {
 					}
 				}
 				else
-					request.setAttribute("deptInsertError",aDept.getDeptName() + " department already exists. Please enter a different department name");
+					request.setAttribute("deptInsertError",aDept.getDeptName() + " department already exists. Please enter a different department name.");
 			}
 			catch(Exception e){
 				//error message if insert failed
