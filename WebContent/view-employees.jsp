@@ -10,7 +10,7 @@
 		<h1 class="text-center">VIEW EMPLOYEES</h1>
 		<br>
 		<div class="form-group">
-			<form method = "post" action = "ViewEmployees" name = "employees" onsubmit="return validateDepartment()" novalidate>
+			<form method = "post" action = "ViewEmployee" name = "attendance-dept" onsubmit="return validateDepartment()" novalidate>
 				<div class="row align-items-center justify-content-center">
 					<label for="department">Department:&nbsp;</label>
 					<select id = "department" name = "department" id = "department">
@@ -53,27 +53,33 @@
 					<th>Hire Year</th>
 					<th>Email</th>
 					<th>Job Position</th>
-					<%{%>
-					<%}
-					//get employee information 
-					String[] empId = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "emp_id");
-					String[] emplLastName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "lastname");
-					String[] empFirstName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "firstname");	
+					<%
+					//get employee information
+					String[] employeeId = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "emp_id");
+					String[] empLName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "lastname");	
+					String[] empFName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "firstname");
 					String[] empNo = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "emp_no");		
 					String[] empHireYear = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "hire_year");	
 					String[] empEmail = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "email");
-					String[] empPosition = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "job_position");
-					for (int i = 0; i < empId.length; i++){%>
+					String[] empJobPosition = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "job_position");
+					
+					for (int i = 0; i < employeeId.length; i++){%>
 					</tr>
 					<tr>
-						<td><%=emplLastName[i]%></td>
-						<td><%=empFirstName[i]%></td>
+						<td><%=empLName[i]%></td>
+						<td><%=empFName[i]%></td>
 						<td><%=empNo[i]%></td>
 						<td><%=empHireYear[i]%></td>
 						<td><%=empEmail[i]%></td>
-						<td><%=empPosition[i]%></td>
-					<%}%>		
+						<td><%=empJobPosition[i]%></td>
+						
+					<%}%>
 			</table>
 		</div>
 		<br>
+	</div>
+</div>
+</div>
+</div>
+
 		

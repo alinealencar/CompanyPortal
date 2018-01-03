@@ -20,12 +20,12 @@ public class ViewDepartment extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		
 		String dept = request.getParameter("department");
 		request.setAttribute("department", dept);
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-department.jsp");
         dispatcher.forward(request, response);
 	}

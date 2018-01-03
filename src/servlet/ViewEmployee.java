@@ -16,16 +16,16 @@ public class ViewEmployee extends HttpServlet {
     public ViewEmployee() {
         super();
     }
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-		
+		response.setContentType("text/html");
+	
 		String dept = request.getParameter("department");
 		request.setAttribute("department", dept);
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-employees.jsp");
         dispatcher.forward(request, response);
 	}

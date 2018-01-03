@@ -10,7 +10,7 @@
 		<h1 class="text-center">VIEW DEPARTMENT</h1>
 		<br>
 		<div class="row align-items-center justify-content-center">
-			<table class="table table-striped text-center"">
+			<table class="table table-striped text-center">
 				<tr>
 					<th>Department Name</th>
 					<th>Department Location</th>
@@ -29,4 +29,8 @@
 			</table>
 		</div>
 		<br>
+	</div>
+</div>
+</div>
+<%@include file="WEB-INF/footer.jsp" %>
 		
