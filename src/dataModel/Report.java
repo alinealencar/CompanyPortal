@@ -189,14 +189,6 @@ public class Report {
 				+ s1Crit3 + ", s1Crit4=" + s1Crit4 + ", s1Crit5=" + s1Crit5 + ", s2Crit1=" + s2Crit1 + ", s2Crit2="
 				+ s2Crit2 + ", s2Crit3=" + s2Crit3 + ", s3Crit1=" + s3Crit1 + ", s3Crit2=" + s3Crit2 + ", s3Crit3="
 				+ s3Crit3 + ", comment1=" + comment1 + ", comment2=" + comment2 + ", comment3=" + comment3
-				+ ", templateId=" + templateId + ", getReportId()=" + getReportId() + ", getReportTitle()="
-				+ getReportTitle() + ", getReportDate()=" + getReportDate() + ", getReportType()=" + getReportType()
-				+ ", getS1Crit1()=" + getS1Crit1() + ", getS1Crit2()=" + getS1Crit2() + ", getS1Crit3()=" + getS1Crit3()
-				+ ", getS1Crit4()=" + getS1Crit4() + ", getS1Crit5()=" + getS1Crit5() + ", getS2Crit1()=" + getS2Crit1()
-				+ ", getS2Crit2()=" + getS2Crit2() + ", getS2Crit3()=" + getS2Crit3() + ", getS3Crit1()=" + getS3Crit1()
-				+ ", getS3Crit2()=" + getS3Crit2() + ", getS3Crit3()=" + getS3Crit3() + ", getComment1()="
-				+ getComment1() + ", getComment2()=" + getComment2() + ", getComment3()=" + getComment3()
-				+ ", getTemplateId()=" + getTemplateId() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+				+ ", templateId=" + templateId+ "]";
 	}	
 }
