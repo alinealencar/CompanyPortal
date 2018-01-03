@@ -1,7 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -31,8 +34,8 @@ public class EnterReport extends HttpServlet {
 		String department = request.getParameter("department");
 		String templateId = request.getParameter("reportTemplate");
 		String reportTitle = request.getParameter("reportTitle");
-		String date = request.getParameter("date");
-		
+		String dateInput = request.getParameter("date");
+		String date = null;
 		String group = request.getParameter("group");
 		String employee = request.getParameter("employee");
 
@@ -95,36 +98,67 @@ public class EnterReport extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		//change ReportDate format
+		SimpleDateFormat formatterIn = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat formatterOut = new SimpleDateFormat("yyyy-MM-dd");
+		try{
+			//change string(user input) to Date
+			Date strToDate = new Date((formatterIn.parse(dateInput)).getTime());
+
+			//change date format with slash and change order
+			date = formatterOut.format(strToDate);
+		}catch (ParseException e) {
+            e.printStackTrace();
+        }
+		
+		
 		Report report = new Report();
 		try{
+			System.out.println("title 1 " + reportTitle);
+			System.out.println("Date " + request.getParameter("date"));
+			System.out.println("Parse Date " + date);
+			System.out.println("title request " + request.getParameter("reportTitle"));
+			System.out.println("Start");
 			//Set ReportTemplate attributes with the input from the form
 			report.setReportTitle(request.getParameter("reportTitle"));
-			report.setReportDate(java.sql.Date.valueOf(request.getParameter("date")));
+			report.setReportDate(java.sql.Date.valueOf(date));
 			report.setReportType(request.getParameter("reportType"));
 			report.setS1Crit1(Integer.parseInt(request.getParameter("s1c1e")));
-			report.setS1Crit2(Integer.parseInt(request.getParameter("s1c2e")));
-			report.setS1Crit3(Integer.parseInt(request.getParameter("s1c3e")));
-			report.setS1Crit4(Integer.parseInt(request.getParameter("s1c4e")));
-			report.setS1Crit5(Integer.parseInt(request.getParameter("s1c5e")));
+			System.out.println("title 2 " + reportTitle);
+			if (!ValidateInput.isMissing(request.getParameter("s1c2e")))
+				report.setS1Crit2(Integer.parseInt(request.getParameter("s1c2e")));
+			if (!ValidateInput.isMissing(request.getParameter("s1c3e")))
+				report.setS1Crit3(Integer.parseInt(request.getParameter("s1c3e")));
+			if (!ValidateInput.isMissing(request.getParameter("s1c4e")))
+				report.setS1Crit4(Integer.parseInt(request.getParameter("s1c4e")));
+			if (!ValidateInput.isMissing(request.getParameter("s1c5e")))
+				report.setS1Crit5(Integer.parseInt(request.getParameter("s1c5e")));
 			report.setComment1(request.getParameter("comment1"));
 			report.setS2Crit1(Integer.parseInt(request.getParameter("s2c1e")));
-			report.setS2Crit2(Integer.parseInt(request.getParameter("s2c2e")));
-			report.setS2Crit3(Integer.parseInt(request.getParameter("s2c3e")));
+			if (!ValidateInput.isMissing(request.getParameter("s2c2e")))
+				report.setS2Crit2(Integer.parseInt(request.getParameter("s2c2e")));
+			if (!ValidateInput.isMissing(request.getParameter("s2c3e")))
+				report.setS2Crit3(Integer.parseInt(request.getParameter("s2c3e")));
 			report.setComment2(request.getParameter("comment2"));
 			report.setS3Crit1(Integer.parseInt(request.getParameter("s3c1e")));
-			report.setS3Crit2(Integer.parseInt(request.getParameter("s3c2e")));
-			report.setS3Crit3(Integer.parseInt(request.getParameter("s3c3e")));
+			if (!ValidateInput.isMissing(request.getParameter("s3c2e")))
+				report.setS3Crit2(Integer.parseInt(request.getParameter("s3c2e")));
+			if (!ValidateInput.isMissing(request.getParameter("s3c3e")))
+				report.setS3Crit3(Integer.parseInt(request.getParameter("s3c3e")));
 			report.setComment3(request.getParameter("comment3"));
 			report.setTemplateId(Integer.parseInt(request.getParameter("reportTemplate")));
+			System.out.println("title 2 " + reportTitle);
+			System.out.println("Title 3 object " + report.toString());
+
 			
 			//Insert ReportTemplate into the database
         	if(DatabaseManagement.insertReport(report))
         		request.setAttribute("reportInsertSuccess", "Report " + report.getReportTitle() + " has been successfully added to the system.");
         	else
-        		request.setAttribute("reportInsertFail", "Report " + report.getReportTitle() + " has NOT been added to the system.");
+        		request.setAttribute("reportInsertFail", "Report " + report.getReportTitle() + " has NOT been added to the system. DB");
         }
         catch(Exception e){
-        	request.setAttribute("reportInsertFail", "Report " + report.getReportTitle() + " has NOT been added to the system.");
+        	request.setAttribute("reportInsertFail", "Report " + report.getReportTitle() + " has NOT been added to the system. EX");
 			e.printStackTrace();
 		}
 		

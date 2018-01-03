@@ -6,6 +6,10 @@
 <%@include file="WEB-INF/menu.jsp" %>
 
 <div class="container form-group">
+	<div class="row align-items-center justify-content-center">
+		<span class="${(reportInsertSuccess != null) ? 'alert alert-success':''}" role="alert">${reportInsertSuccess}</span>
+		<span class="${(reportInsertFail != null) ? 'alert alert-danger':''}" role="alert">${reportInsertFail}</span>
+	</div>
 		<br>
 	<div class="row align-items-center justify-content-center">
 		<h1 class="text-center">Enter Report</h1>

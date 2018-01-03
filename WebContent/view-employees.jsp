@@ -20,7 +20,6 @@
 					//check if a department is selected
 					%>	
 					<option value="" ${(department == null) ? 'selected' : ''}>Department</option>
-					<option value = "${department}" ${(department != null) ? 'selected': ''}>${department}</option>
 			
 					<% //Populate drop down list
 					for(int i = 0; i < deptList.length; i++){%>

@@ -149,3 +149,32 @@ function clickCancelView(){
 	$("#reportView").hide();
 }
 
+function updateTotal(){
+	var totalReport = 0;
+	
+	if(!isNaN(parseInt(document.getElementById("s1c1").value)))
+		totalReport += parseInt(document.getElementById("s1c1").value);
+	if(!isNaN(parseInt(document.getElementById("s1c2").value)))
+		totalReport += parseInt(document.getElementById("s1c2").value);
+	if(!isNaN(parseInt(document.getElementById("s1c3").value)))
+		totalReport += parseInt(document.getElementById("s1c3").value);
+	if(!isNaN(parseInt(document.getElementById("s1c4").value)))
+		totalReport += parseInt(document.getElementById("s1c4").value);
+	if(!isNaN(parseInt(document.getElementById("s1c5").value)))
+		totalReport += parseInt(document.getElementById("s1c5").value);
+	if(!isNaN(parseInt(document.getElementById("s2c1").value)))
+		totalReport += parseInt(document.getElementById("s2c1").value);
+	if(!isNaN(parseInt(document.getElementById("s2c2").value)))
+		totalReport += parseInt(document.getElementById("s2c2").value);
+	if(!isNaN(parseInt(document.getElementById("s2c3").value)))
+		totalReport += parseInt(document.getElementById("s2c3").value);
+	if(!isNaN(parseInt(document.getElementById("s3c1").value)))
+		totalReport += parseInt(document.getElementById("s3c1").value);
+	if(!isNaN(parseInt(document.getElementById("s3c2").value)))
+		totalReport += parseInt(document.getElementById("s3c2").value);
+	if(!isNaN(parseInt(document.getElementById("s3c3").value)))
+		totalReport += parseInt(document.getElementById("s3c3").value);
+
+	document.getElementById("totalReport").value = String(totalReport);
+}
+

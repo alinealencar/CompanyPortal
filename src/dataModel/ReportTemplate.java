@@ -256,6 +256,12 @@ public class ReportTemplate {
 	public void setDeptId(int deptId) {
 		this.deptId = deptId;
 	}
+	
+	public int getTotal(){
+		return s1Crit1Max + s1Crit2Max + s1Crit3Max + s1Crit4Max + s1Crit5Max +
+				s2Crit1Max + s2Crit2Max + s2Crit3Max +
+				s3Crit1Max + s3Crit2Max + s3Crit3Max;
+	}
 
 	@Override
 	public String toString() {
