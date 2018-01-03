@@ -14,19 +14,24 @@
 				<div class="row align-items-center justify-content-center">
 				
 					<div>
+<<<<<<< HEAD
+					<select id = "department" name = "department" id = "department" onChange="this.form.submit()">
+						<% 
+=======
 					<select id = "department" name = "department" id = "department">
 					<% 
+>>>>>>> 84c502b37c82e5a21145617cce1d3eb321856970
 					//Get the list of departments from the database
 					String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
 					//check if a department is selected
 					%>	
-					<option value="" ${(department == null) ? 'selected' : ''}>Department</option>
+					<option value="" ${(deptViewAttendance == null) ? 'selected' : ''}>Department</option>
 			
 					<% //Populate drop down list
 					for(int i = 0; i < deptList.length; i++){%>
 						<option value ="<%=deptList[i]%>"
-							<%if(request.getAttribute("group") != null 
-								&& request.getAttribute("group").equals(deptList[i])){%>
+							<%if(request.getAttribute("dept") != null 
+								&& request.getAttribute("dept").equals(deptList[i])){%>
 							selected
 						<%}%>
 						><%=deptList[i]%></option>
@@ -37,12 +42,19 @@
 					&nbsp;
 					<div>
 					<select id = "group" name = "group" id = "group">
+<<<<<<< HEAD
+=======
 					
+>>>>>>> 84c502b37c82e5a21145617cce1d3eb321856970
 					<% 
 					//Get the list of groups from the database
-					String[] groupList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("groups"), "group_name");
-					//check if a group is selected
+					String[] groupList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectGroupByDept((String) request.getAttribute("dept")), "group_name");
+					for(int i = 0; i < groupList.length; i++) {
 					%>	
+<<<<<<< HEAD
+					<option value = "<%=groupList[i]%>"><%=groupList[i]%></option>
+					<%} %>
+=======
 					<option value="" ${(group == null) ? 'selected' : ''}>Group</option>
 					<option value = "${group}" ${(groups != null) ? 'selected': ''}>${deptName}</option>
 			
@@ -57,6 +69,7 @@
 						><%=groupList[i]%></option>
 				
 					<%}%>
+>>>>>>> 84c502b37c82e5a21145617cce1d3eb321856970
 					</select>
 					</div>
 					<br>

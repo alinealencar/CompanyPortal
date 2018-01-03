@@ -428,14 +428,13 @@ public class DatabaseManagement {
 	 * @return	ResultSet This object holds all rows in the result of the select statement.
 	 * @throws Exception
 	 */
-	public static ResultSet selectPresentEmployees(int deptId) 
+	public static ResultSet selectPresentEmployees(int empId) 
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
 		Statement statement = conn.createStatement();
-		String query = "select * from employee_attendance "
-				+ "where dept_id_fk='" + deptId + "'";
+		String query = "select * from employee_attendance where emp_id_fk = " + empId;
 		ResultSet rs = statement.executeQuery(query);
-
+		//conn.close();
 		return rs;
 	}
 	
@@ -559,6 +558,18 @@ Connection conn = DatabaseAccess.connectDataBase();
 		
 		int rowsAffected = preparedStmt.executeUpdate();
 		return (rowsAffected > 0);
+	}
+	
+	public static ResultSet selectGroupByDept(String deptName)
+			throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
+		Statement statement = conn.createStatement();
+		String query = "select * from groups where dept_name = '" + "'";
+		ResultSet rs = statement.executeQuery(query);
+	
+		//conn.close();
+		
+		return rs;
 	}
 }
 
