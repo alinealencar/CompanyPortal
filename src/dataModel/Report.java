@@ -189,6 +189,6 @@ public class Report {
 				+ s1Crit3 + ", s1Crit4=" + s1Crit4 + ", s1Crit5=" + s1Crit5 + ", s2Crit1=" + s2Crit1 + ", s2Crit2="
 				+ s2Crit2 + ", s2Crit3=" + s2Crit3 + ", s3Crit1=" + s3Crit1 + ", s3Crit2=" + s3Crit2 + ", s3Crit3="
 				+ s3Crit3 + ", comment1=" + comment1 + ", comment2=" + comment2 + ", comment3=" + comment3
-				+ ", templateId=" + templateId+ "]";
+				+ ", templateId=" + templateId + "]";
 	}	
 }
