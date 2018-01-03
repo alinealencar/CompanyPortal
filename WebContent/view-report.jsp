@@ -279,7 +279,7 @@
 	<br>
 	<input type="hidden" value="${selectedReport.reportId}" name="reportId">
 	<div class="row align-items-center float-right">
-		<span>Total: <u>${selectedReport.total}</u> / ${selectedTemplate.total}</span>
+		<span>Total: <span id="totalReport">${selectedReport.total}</span> / ${selectedTemplate.total}</span>
 	</div>
 	<br>
 	<hr>

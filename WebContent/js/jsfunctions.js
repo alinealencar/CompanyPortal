@@ -175,6 +175,6 @@ function updateTotal(){
 	if(!isNaN(parseInt(document.getElementById("s3c3").value)))
 		totalReport += parseInt(document.getElementById("s3c3").value);
 
-	document.getElementById("totalReport").value = String(totalReport);
+	document.getElementById("totalReport").textContent = String(totalReport);
 }
 
