@@ -27,7 +27,7 @@ public class ValidateInput {
 	 * @return boolean 	It returns true if the data satisfies the conditions, false otherwise.
 	 */
 	public static boolean isMissing(String data){
-		return (data.trim().equals("") || data == null);
+		return (data == null || data.trim().equals(""));
 	}
 	
 	/**
