@@ -9,8 +9,8 @@
 			</div>
 			<div class="col col-lg-6">
 				<div>
-					<span class="${(deptInsertSuccess != null) ? 'alert alert-success':''}" role="alert">${deptInsertSuccess}</span>
-					<span class="${(deptInsertError != null) ? 'alert alert-danger':''}" role="alert">${deptInsertError}</span>
+					<div class="${(deptInsertSuccess != null) ? 'alert alert-success':''}" role="alert">${deptInsertSuccess}</div>
+					<div class="${(deptInsertError != null) ? 'alert alert-danger':''}" role="alert">${deptInsertError}</div>
 				</div>
 				<br>
 				<h1 class="text-center">DEPARTMENT ENTRY</h1>

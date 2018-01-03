@@ -55,7 +55,7 @@ public class EnterAttendance extends HttpServlet {
 	
 		try {
 				//check if there is a duplicate entry in the database (same department and same date)
-				if(!DatabaseHelper.isDuplicate(anAttendance.getDeptName(),anAttendance.getAttendanceDate()))
+				if(!DatabaseHelper.isDuplicateAttendance(anAttendance.getDeptName(),anAttendance.getAttendanceDate()))
 				{
 					//check if insertion to the database succeeded
 					if(DatabaseManagement.insertAttendance(anAttendance.getAttendanceDate(), anAttendance.getDeptName())) {
