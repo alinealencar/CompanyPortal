@@ -1,6 +1,7 @@
 <% session.setAttribute("title", "Enter Attendance"); %>
 <%@include file="WEB-INF/header.jsp" %>
 <%@include file="WEB-INF/menu.jsp" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <div class="container">
 <div class="row">
@@ -62,13 +63,6 @@
 		</div>
 		<br>
 		<br>
-		<%	
-			String[] employeeFNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "firstname");
- 			String[] employeeLNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "lastname");
- 			String[] employeeNoList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "emp_no");
- 			String[] employeeIdList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "emp_id");
-			//create table
-		%>
 		<div class="row align-items-center justify-content-center">
 			<table class="table table-striped text-center">
 				<tr>
@@ -77,15 +71,15 @@
 					<th>Employee Number</th>
 					<th>Present</th>
 				</tr>
-		<% 	if(request.getAttribute("department") != null ){
-			for(int i = 0; i < employeeFNameList.length; i++) { %>
-			<tr>
-					<td><%=employeeFNameList[i]%></td>
-					<td><%=employeeLNameList[i]%></td>
-					<td><%=employeeNoList[i]%></td>
-					<td><input type="checkbox" name="present" value="<%=employeeIdList[i]%>"></td>
-			</tr>
-		<%}}%>
+			<c:forEach items = "${employeesByDept}" var="e">
+				<tr>
+					<td>${e.firstName}</td>
+					<td>${e.lastName}</td>
+					<td>${e.empNo}</td>
+					<td><input type="checkbox" name="present" value="${e.empId}"></td>
+				</tr>
+			</c:forEach>
+		<%//}}%>
 		</table>
 		</div>
 		<br>

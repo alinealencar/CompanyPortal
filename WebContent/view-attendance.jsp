@@ -1,6 +1,7 @@
 <% session.setAttribute("title", "View Attendance"); %>
 <%@include file="WEB-INF/header.jsp" %>
 <%@include file="WEB-INF/menu.jsp" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <div class="container">
 <div class="row">
@@ -50,35 +51,27 @@
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>Employee Number</th>
-					<% //Get the list of departments from the database
-					String[] dateList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectAttendanceByDept((String) request.getAttribute("deptViewAttendance")), "attendance_date");
-					for (int i = 0; i < dateList.length; i++){
-					%>
-							<th><%=dateList[i]%></th>
-					<%}
-					//get employee information 
-					String[] empFNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("deptViewAttendance")), "firstname");
-					String[] empLNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("deptViewAttendance")), "lastname");	
-					String[] empNoList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("deptViewAttendance")), "emp_no");		
-					String[] empIdList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("deptViewAttendance")), "emp_id");	
-					for (int i = 0; i < empIdList.length; i++){%>
-					</tr>
-					<tr>
-						<td><%=empFNameList[i]%></td>
-						<td><%=empLNameList[i]%></td>
-						<td><%=empNoList[i]%></td>
-					<%//get all attendance dates for the selected department
-					String[] attendanceList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectPresentEmployees(Integer.parseInt(empIdList[i])), "present");		
-					if(attendanceList != null){
-						for (int j = 0; j < attendanceList.length; j++){
-							if(attendanceList[j] != null){
-					%>
-								<td><input type="checkbox" name="present" checked disabled></td>
-						<% 	}
-							else{
-						%>
+				<c:forEach items = "${dateList}" var="date">
+					<th>${date}</th>
+				</c:forEach>
+				</tr>
+				<c:forEach items = "${employeesByDept}" var="e">
+				<tr>
+					<td>${e.firstName}</td>
+					<td>${e.lastName}</td>
+					<td>${e.empNo}</td>
+					<!-- <c:forEach items = "${attendanceList}" var = "a">
+						<c:forEach items = "${attendance}" var = "a"> 
+							<c:if test = "${a.present == null}">
 								<td><input type="checkbox" name="present" disabled></td>
-						<% }}}} %>
+							</c:if>	
+							<c:if test = "${a.present != null}">
+								<td><input type="checkbox" name="present" checked disabled></td>
+							</c:if>
+						</c:forEach> 
+					</c:forEach>  -->
+				</tr>
+				</c:forEach>
 			</table>
 		</div>
 		<br>
