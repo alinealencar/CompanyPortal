@@ -33,12 +33,6 @@ public class ViewGroup extends HttpServlet {
 			request.setAttribute("group", request.getParameter("group"));
 			
 		}
-		
-
-		//String group = request.getParameter("group");
-		//request.setAttribute("group", group);
-		//String department = request.getParameter("department");
-		//request.setAttribute("department", dept);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-group.jsp");
         dispatcher.forward(request, response);

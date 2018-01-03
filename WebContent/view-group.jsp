@@ -55,9 +55,6 @@
 					<!-- <option value="" ${(group == null) ? 'selected' : ''}>Group</option>
 					<option value = "${group}" ${(groups != null) ? 'selected': ''}>${deptName}</option> -->
 			
-			
-					
-
 					</select>
 					</div>
 					<br>
@@ -106,4 +103,4 @@
 		<div class="row align-items-center justify-content-center">
 			<input type = "submit" value = "Home" class="btn btn-primary" onClick="window.location='home.jsp';"/>
 		</div>
-		
+<%@include file="WEB-INF/footer.jsp" %>
