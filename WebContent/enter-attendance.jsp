@@ -25,21 +25,19 @@
 					String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
 						
 					//check if a department is selected
-					if(request.getAttribute("department") == null || request.getAttribute("department").equals("")){ %>
-						<option value="" selected>Department</option>
-						<% 
-						//Populate drop down list
-						for(int i = 0; i < deptList.length; i++)
-							out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
-						}
-					else{
-						for(int i = 0; i < deptList.length; i++) {
-							if(request.getAttribute("department").equals(deptList[i]))
-								out.print("<option value =\"" + deptList[i] + "\"selected>" + deptList[i] + "</option>");
-							else
-								out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
-						} 
-					}%>
+					%>	
+					<option value="" ${(department == null) ? 'selected' : ''}>Department</option>
+			
+					<% //Populate drop down list
+					for(int i = 0; i < deptList.length; i++){%>
+						<option value ="<%=deptList[i]%>"
+							<%if(request.getAttribute("department") != null 
+								&& request.getAttribute("department").equals(deptList[i])){%>
+							selected
+						<%}%>
+						><%=deptList[i]%></option>
+				
+					<%}%>
 					</select>
 					</div>
 					<div class="row align-items-center justify-content-center">

@@ -17,23 +17,20 @@
 					<% 
 					//Get the list of departments from the database
 					String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
-						
 					//check if a department is selected
-					if(request.getAttribute("deptViewAttendance") == null || request.getAttribute("deptViewAttendance").equals("")){ %>
-						<option value="" selected>Department</option>
-						<% 
-						//Populate drop down list
-						for(int i = 0; i < deptList.length; i++)
-							out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
-						}
-					else{
-						for(int i = 0; i < deptList.length; i++) {
-							if(request.getAttribute("deptViewAttendance").equals(deptList[i]))
-								out.print("<option value =\"" + deptList[i] + "\"selected>" + deptList[i] + "</option>");
-							else
-								out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");
-						} 
-					}%>
+					%>	
+					<option value="" ${(deptViewAttendance == null) ? 'selected' : ''}>Department</option>
+			
+					<% //Populate drop down list
+					for(int i = 0; i < deptList.length; i++){%>
+						<option value ="<%=deptList[i]%>"
+							<%if(request.getAttribute("deptViewAttendance") != null 
+								&& request.getAttribute("deptViewAttendance").equals(deptList[i])){%>
+							selected
+						<%}%>
+						><%=deptList[i]%></option>
+				
+					<%}%>
 					</select>
 					</div>
 					<div class="row align-items-center justify-content-center">
@@ -59,6 +56,7 @@
 					%>
 							<th><%=dateList[i]%></th>
 					<%}
+					//get employee information 
 					String[] empFNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("deptViewAttendance")), "firstname");
 					String[] empLNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("deptViewAttendance")), "lastname");	
 					String[] empNoList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("deptViewAttendance")), "emp_no");		
@@ -69,16 +67,17 @@
 						<td><%=empFNameList[i]%></td>
 						<td><%=empLNameList[i]%></td>
 						<td><%=empNoList[i]%></td>
-					<%String[] attendanceList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectPresentEmployees(Integer.parseInt(empIdList[i])), "present");		
+					<%//get all attendance dates for the selected department
+					String[] attendanceList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectPresentEmployees(Integer.parseInt(empIdList[i])), "present");		
 					if(attendanceList != null){
 						for (int j = 0; j < attendanceList.length; j++){
 							if(attendanceList[j] != null){
 					%>
-								<td><input type="checkbox" name="present" checked></td>
+								<td><input type="checkbox" name="present" checked disabled></td>
 						<% 	}
 							else{
 						%>
-								<td><input type="checkbox" name="present"></td>
+								<td><input type="checkbox" name="present" disabled></td>
 						<% }}}} %>
 			</table>
 		</div>

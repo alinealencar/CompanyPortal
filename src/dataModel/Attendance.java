@@ -15,7 +15,6 @@ public class Attendance implements Serializable{
 	public Attendance(Date attendanceDate, String deptName) {
 		super();
 		this.attendanceDate = attendanceDate;
-		//this.present = present;
 		this.deptName = deptName;
 	}
 
