@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataModel.Group;
 import dataModel.Report;
 import dataModel.ReportTemplate;
 import helper.DatabaseHelper;
@@ -53,6 +54,14 @@ public class EnterReport extends HttpServlet {
 				//Add all report templates for a certain department to the request scope
 				request.setAttribute("reportTemplates", templates);
 				
+				//Get all groups attached to the selected department
+				ResultSet groupeResult = DatabaseManagement.selectGroupByDepartment(department);				
+				List<Group> groups = DatabaseHelper.getGroups(groupeResult);
+				
+				//Add all groups for a certain department to the request scope
+				request.setAttribute("groups", groups);
+				
+				
 				//If template is selected
 				if(!ValidateInput.isMissing(templateId)){
 					//Add the selected templateId to the request scope
@@ -72,8 +81,7 @@ public class EnterReport extends HttpServlet {
 					
 					//Send totalMax value to the request scope
 					request.setAttribute("totalMax", totalMax);
-					
-					
+	
 					//Get all report names for the selected template
 //					ResultSet reportsResult = DatabaseManagement.selectReportByTemplate(templateId);
 //					

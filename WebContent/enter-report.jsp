@@ -1,6 +1,7 @@
 <% session.setAttribute("title", "Enter Report"); %>
 <%@page import="java.util.*"%>
 <%@page import="helper.*" %>
+<%@page import="dataModel.*" %>
 <%@page import="dataModel.ReportTemplate" %>
 <%@include file="WEB-INF/header.jsp" %>
 <%@include file="WEB-INF/menu.jsp" %>
@@ -74,15 +75,17 @@
 		</div>
 		<div class="row align-items-center justify-content-center">
 			<select id = "group" name = "group" disabled="true">
-				<% 
-				//Get the list of departments from the database
-				String[] groupList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("groups"), "group_name");%>
-				<option value="" selected = "selected">Group</option>
-				<% 
-				//Populate drop down list
-				for(int i = 0; i < groupList.length; i++){
-					out.print("<option value =\"" + groupList[i] + "\">" + groupList[i] + "</option>");
-				}%>
+			<option value="" selected = "selected">Group</option>
+				<% if(request.getAttribute("groups") != null){
+					List<Group> resultGroups = (List<Group>) request.getAttribute("groups");
+					for(int i = 0; i < resultGroups.size(); i++){ %>
+					<option value="<%=resultGroups.get(i).getGroupName()%>"
+					<%if(request.getAttribute("group")!= null 
+							&& (String) request.getAttribute("group")== resultGroups.get(i).getGroupName()) {
+							out.println("selected");}%>
+					><%=resultGroups.get(i).getGroupName() %></option>
+			<% }} %>
+				
 			</select>
 			&nbsp;&nbsp;&nbsp;
 			<select id = "employee" name = "employee" disabled="true">

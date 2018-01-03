@@ -20,8 +20,15 @@
     <url-pattern>/dept-entry.jsp</url-pattern>
     <url-pattern>/employee-entry.jsp</url-pattern>
     <url-pattern>/group-entry.jsp</url-pattern>
-    <url-pattern>/report.jsp</url-pattern>
     <url-pattern>/attendance.jsp</url-pattern>
+    <url-pattern>/create-report.jsp</url-pattern>
+    <url-pattern>/enter-attendance.jsp</url-pattern>
+    <url-pattern>/enter-report.jsp</url-pattern>
+    <url-pattern>/view-attendance.jsp</url-pattern>
+    <url-pattern>/view-department.jsp</url-pattern>
+    <url-pattern>/view-employees.jsp</url-pattern>
+    <url-pattern>/view-group.jsp</url-pattern>
+    <url-pattern>/view-report.jsp</url-pattern>
   </filter-mapping>
   <filter>
     <filter-name>RememberMeFilter</filter-name>

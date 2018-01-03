@@ -317,6 +317,27 @@ public class DatabaseHelper {
 		return employees;
 	}
 	
+	public static List<Group> getGroups(ResultSet rs) throws SQLException{
+		List<Group> groups = new ArrayList<Group>();
+		
+		while(rs.next()){
+			Group group = new Group();
+			group.setGroupId(rs.getInt(1));
+			group.setDeptName(rs.getString(2));
+			group.setGroupName(rs.getString(3));
+			group.setMember1(rs.getString(4));
+			group.setMember2(rs.getString(5));
+			group.setMember3(rs.getString(6));
+			group.setMember4(rs.getString(7));
+			group.setMember5(rs.getString(8));
+			group.setMember6(rs.getString(9));
+			group.setDepartmentId(rs.getInt(10));
+			
+			groups.add(group);
+		}
+		
+		return groups;
+	}
 	
 	public static String getDeptNameById(int deptId) throws Exception{
 		String deptName = null;
