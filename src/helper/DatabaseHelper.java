@@ -27,6 +27,7 @@ import java.util.List;
 
 import dataModel.Attendance;
 import dataModel.Employee;
+import dataModel.Group;
 import dataModel.Report;
 import dataModel.ReportTemplate;
 import database.DatabaseAccess;
@@ -294,6 +295,50 @@ public class DatabaseHelper {
 		conn.close();
 		
 		return deptName;
+	}
+	
+	public static String getReportFor(Report report) throws Exception{
+		String reportFor = null;
+		Connection conn = DatabaseAccess.connectDataBase();
+		Statement statement = conn.createStatement();
+	
+		//Employee report
+		if(report.getReportType().equals("e")){
+			reportFor = DatabaseManagement.selectEmployeeByReport(report).getFirstName() + " " +
+					DatabaseManagement.selectEmployeeByReport(report).getLastName(); 
+		}
+		//Group report
+		else if(report.getReportType().equals("g")){
+			reportFor = DatabaseManagement.selectGroupByReport(report).getGroupName();
+		}
+		return reportFor;
+	}
+	
+	public static Employee getEmployeeById(int employeeId) throws Exception{
+		Connection conn = DatabaseAccess.connectDataBase();
+		String query = "select first_name, last_name from employee where emp_id=" + employeeId;
+		Statement statement = conn.createStatement();
+		ResultSet rs = statement.executeQuery(query);
+		
+		Employee employee = new Employee();
+		if(rs!= null && rs.next()){
+			employee.setFirstName(rs.getString("first_name"));
+			employee.setLastName(rs.getString("last_name"));
+		}
+		return employee;
+	}
+	
+	public static Group getGroupById(int groupId) throws Exception{
+		Connection conn = DatabaseAccess.connectDataBase();
+		String query = "select group_name from group where group_id=" + groupId;
+		Statement statement = conn.createStatement();
+		ResultSet rs = statement.executeQuery(query);
+		
+		Group group = new Group();
+		if(rs!= null && rs.next()){
+			group.setGroupName("group_name");
+		}
+		return group;
 	}
 }
 

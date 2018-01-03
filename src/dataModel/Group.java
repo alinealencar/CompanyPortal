@@ -25,18 +25,8 @@ public class Group {
     private String member5;
     private String member6;
     
-    // Constructors
-	public Group(String deptName, String groupName, String member1, String member2, String member3, String member4,
-			String member5, String member6) {
-		super();
-		this.deptName = deptName;
-		this.groupName = groupName;
-		this.member1 = member1;
-		this.member2 = member2;
-		this.member3 = member3;
-		this.member4 = member4;
-		this.member5 = member5;
-		this.member6 = member6;
+    // Constructor
+	public Group() {
 	}
 	
 	// Properties

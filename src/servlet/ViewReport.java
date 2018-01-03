@@ -30,19 +30,11 @@ public class ViewReport extends HttpServlet {
 			//If template is selected
 			if(!ValidateInput.isMissing(request.getParameter("reportTemplate"))){
 				String templateId = request.getParameter("reportTemplate");
-				
-				//Get all templates attached to the selected department
-				ResultSet templatesResult = DatabaseManagement.selectFromTable("report_template");
-				
-				List<ReportTemplate> templates = DatabaseHelper.getReportTemplates(templatesResult);
-				
-				//Add all report templates to the request scope
-				request.setAttribute("reportTemplates", templates);
-				
+
 				//Add selected template to the request scope
 				request.setAttribute("templateId", Integer.parseInt(templateId));
 				
-				//Get department associated with a template
+				//Get department associated with the template
 				ReportTemplate selectedTemplate = DatabaseManagement.selectReportTemplateById(templateId);
 
 				//Add department associated to the selected template to the request scope
@@ -52,14 +44,20 @@ public class ViewReport extends HttpServlet {
 				ResultSet reportsResult = DatabaseManagement.selectReportByTemplate(templateId);
 				List<Report> reports = DatabaseHelper.getReports(reportsResult);
 				request.setAttribute("reports", reports);
-					
-				String reportId = request.getParameter("report");
 				
-				Report selectedReport = DatabaseManagement.selectReportById(reportId);
-						
+				String reportFor = null;
+				Report selectedReport = null;
+				if(!ValidateInput.isMissing(request.getParameter("report"))){
+					String reportId = request.getParameter("report");
+				
+					selectedReport = DatabaseManagement.selectReportById(reportId);
+
+//					reportFor = DatabaseHelper.getReportFor(selectedReport);
+				}		
 				//Send report and template objects to the request scope
 				request.setAttribute("selectedReport", selectedReport);
-				request.setAttribute("selectedTemplate", selectedTemplate);	
+				request.setAttribute("selectedTemplate", selectedTemplate);
+//				request.setAttribute("reportFor", reportFor);
 			}
 		}
 		catch(Exception e){

@@ -9,21 +9,10 @@
 			</div>
 			<div class="col col-lg-6">
 				<div>
-					<%	//show success message if database insertion is successful
-						if((String) session.getAttribute("deptInsertSuccess") != null){
-							out.println("<span  class = \"alert alert-success\" role = \"alert\">" +
-								(String) session.getAttribute("deptInsertSuccess") +
-								"</span>");
-						}
-
-						//show error message if database insertion failed
-						if((String) session.getAttribute("deptInsertError") != null){
-							out.println("<span  class = \"alert alert-danger\" role = \"alert\">" +
-								(String) session.getAttribute("deptInsertError") +
-									"</span>");
-						}
-					%>
+					<span class="${(deptInsertSuccess != null) ? 'alert alert-success':''}" role="alert">${deptInsertSuccess}</span>
+					<span class="${(deptInsertError != null) ? 'alert alert-danger':''}" role="alert">${deptInsertError}</span>
 				</div>
+				<br>
 				<h1 class="text-center">DEPARTMENT ENTRY</h1>
 				<form method = "post" action = "DepartmentEntry">
 					<div class="form-group">

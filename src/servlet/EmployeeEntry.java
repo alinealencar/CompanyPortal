@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -176,7 +177,7 @@ public class EmployeeEntry extends HttpServlet {
 						anEmployee.getEmail(), 
 						anEmployee.getHireYear(), 
 						anEmployee.getJobPosition())){
-					session.setAttribute("employeeInsertSuccess","Employee " + anEmployee.getFirstName() + " " + anEmployee.getLastName() + " has been successfully added to the system ") ;
+					request.setAttribute("employeeInsertSuccess","Employee " + anEmployee.getFirstName() + " " + anEmployee.getLastName() + " has been successfully added to the system ") ;
 					
 					//clear form
 					session.setAttribute("firstName", "");
@@ -187,18 +188,20 @@ public class EmployeeEntry extends HttpServlet {
 					session.setAttribute("jobPosition", "");
 				}
 				else {
-					session.setAttribute("employeeInsertFail", "Employee " + anEmployee.getFirstName()  + " " + anEmployee.getLastName() + " has NOT been added to the system ");
+					request.setAttribute("employeeInsertFail", "Employee " + anEmployee.getFirstName()  + " " + anEmployee.getLastName() + " has NOT been added to the system ");
 				}
 			}
 			catch(Exception e){
 				System.out.println(e);
 			}
 			
-			response.sendRedirect("employee-entry.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("employee-entry.jsp");
+			dispatcher.forward(request, response);
 			return;
 		}
 		else {
-			response.sendRedirect("employee-entry.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("employee-entry.jsp");
+			dispatcher.forward(request, response);
 		}
 
 	}//end of doPost()

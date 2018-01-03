@@ -22,6 +22,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import dataModel.Employee;
+import dataModel.Group;
 import dataModel.Report;
 import dataModel.ReportTemplate;
 
@@ -473,6 +475,44 @@ public class DatabaseManagement {
 		preparedStmt.executeUpdate();
 		
 		conn.close();
+	}
+	
+	public static Employee selectEmployeeByReport(Report report) throws Exception{
+		Connection conn = DatabaseAccess.connectDataBase();
+		
+		Statement statement = conn.createStatement();
+		String query = "select employee_id from employee_report where report_id_fk=" + report.getReportId();
+		ResultSet rs = statement.executeQuery(query);
+		
+		Employee employee = new Employee();
+		
+		int employeeId = 0;
+		if(rs.next()){
+			employeeId = rs.getInt("employee_id");
+		}
+		
+		employee = DatabaseHelper.getEmployeeById(employeeId);
+		
+		return employee;
+	}
+	
+	public static Group selectGroupByReport(Report report) throws Exception{
+Connection conn = DatabaseAccess.connectDataBase();
+		
+		Statement statement = conn.createStatement();
+		String query = "select group_id from group_report where report_id_fk=" + report.getReportId();
+		ResultSet rs = statement.executeQuery(query);
+		
+		Group group = new Group();
+		
+		int groupId = 0;
+		if(rs.next()){
+			groupId = rs.getInt("group_id");
+		}
+		
+		group = DatabaseHelper.getGroupById(groupId);
+		
+		return group;
 	}
 }
 

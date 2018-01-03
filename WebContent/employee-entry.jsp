@@ -6,17 +6,8 @@
 
 <div>
 	<div class="text-center">
-		<% if((String) session.getAttribute("employeeInsertSuccess") != null){
-				out.println("<span class = \"alert alert-success\" role = \"alert\">" +
-				(String) session.getAttribute("employeeInsertSuccess") +
-				"</span>");
-			}
-			else if((String) session.getAttribute("employeeInsertFail") != null){
-				out.println("<span class = \"alert alert-danger\" role = \"alert\">" +
-				(String) session.getAttribute("employeeInsertFail") +
-				"</span>");
-			}
-		%>
+		<span class="${(employeeInsertSuccess != null) ? 'alert alert-success':''}" role="alert">${employeeInsertSuccess}</span>
+		<span class="${(employeeInsertError != null) ? 'alert alert-danger':''}" role="alert">${employeeInsertError}</span>
 	</div>
 	<br>
 	<div class="container">

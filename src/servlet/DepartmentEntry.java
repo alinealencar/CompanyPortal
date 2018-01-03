@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -76,7 +77,7 @@ public class DepartmentEntry extends HttpServlet {
 		
 		Department aDept = new Department(deptName, loc);
 		
-		response.sendRedirect("dept-entry.jsp");
+//		response.sendRedirect("dept-entry.jsp");
 		
 		//check if department name is missing
 		if (ValidateInput.isMissing(aDept.getDeptName())) {
@@ -107,7 +108,7 @@ public class DepartmentEntry extends HttpServlet {
 			
 				//check if insertion to the database succeeded
 				if(DatabaseManagement.insertDepartment(aDept.getDeptName(), aDept.getDeptLoc(), conn)) {
-					request.getSession().setAttribute("deptInsertSuccess", "The " + aDept.getDeptName() + " department was successfully created!");
+					request.setAttribute("deptInsertSuccess", "The " + aDept.getDeptName() + " department was successfully created!");
 				
 					//clear form
 					request.getSession().setAttribute("deptName", "");
@@ -117,7 +118,7 @@ public class DepartmentEntry extends HttpServlet {
 			}
 			catch(Exception e){
 				//error message if insert failed
-				request.getSession().setAttribute("deptInsertError", e + "\nPlease try again.");
+				request.setAttribute("deptInsertError", e + "\nPlease try again.");
 			}
 			finally {
 				try{
@@ -128,6 +129,9 @@ public class DepartmentEntry extends HttpServlet {
 				catch(SQLException ex){
 				ex.printStackTrace();
 				}
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("dept-entry.jsp");
+				dispatcher.forward(request, response);
 			}
 		}
 	}
