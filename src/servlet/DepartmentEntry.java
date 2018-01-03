@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.DatabaseAccess;
+import helper.DatabaseHelper;
 import helper.DatabaseManagement;
 import helper.ValidateInput;
 import dataModel.Department;
@@ -105,16 +106,20 @@ public class DepartmentEntry extends HttpServlet {
 			try {
 				//DatabaseAccess.createDatabase();
 				conn = DatabaseAccess.connectDataBase();
-			
-				//check if insertion to the database succeeded
-				if(DatabaseManagement.insertDepartment(aDept.getDeptName(), aDept.getDeptLoc(), conn)) {
-					request.setAttribute("deptInsertSuccess", "The " + aDept.getDeptName() + " department was successfully created!");
 				
-					//clear form
-					request.getSession().setAttribute("deptName", "");
-					request.getSession().setAttribute("location", "");
+				if(!DatabaseHelper.isDuplicateDept(aDept.getDeptName())){
+					//check if insertion to the database succeeded
+					if(DatabaseManagement.insertDepartment(aDept.getDeptName(), aDept.getDeptLoc(), conn)) {
+						request.setAttribute("deptInsertSuccess", "The " + aDept.getDeptName() + " department was successfully created!");
+				
+						//clear form
+						request.getSession().setAttribute("deptName", "");
+						request.getSession().setAttribute("location", "");
 					
+					}
 				}
+				else
+					request.setAttribute("deptInsertError",aDept.getDeptName() + " department already exists. Please enter a different department name");
 			}
 			catch(Exception e){
 				//error message if insert failed

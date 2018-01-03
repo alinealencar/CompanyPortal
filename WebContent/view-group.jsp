@@ -14,13 +14,9 @@
 				<div class="row align-items-center justify-content-center">
 				
 					<div>
-<<<<<<< HEAD
+
 					<select id = "department" name = "department" id = "department" onChange="this.form.submit()">
-						<% 
-=======
-					<select id = "department" name = "department" id = "department">
 					<% 
->>>>>>> 84c502b37c82e5a21145617cce1d3eb321856970
 					//Get the list of departments from the database
 					String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
 					//check if a department is selected
@@ -42,34 +38,26 @@
 					&nbsp;
 					<div>
 					<select id = "group" name = "group" id = "group">
-<<<<<<< HEAD
-=======
-					
->>>>>>> 84c502b37c82e5a21145617cce1d3eb321856970
+					<option value="" ${(dept == null) ? 'selected' : ''}>Group</option>
 					<% 
 					//Get the list of groups from the database
 					String[] groupList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectGroupByDept((String) request.getAttribute("dept")), "group_name");
-					for(int i = 0; i < groupList.length; i++) {
-					%>	
-<<<<<<< HEAD
-					<option value = "<%=groupList[i]%>"><%=groupList[i]%></option>
-					<%} %>
-=======
-					<option value="" ${(group == null) ? 'selected' : ''}>Group</option>
-					<option value = "${group}" ${(groups != null) ? 'selected': ''}>${deptName}</option>
-			
-			
-					<% //Populate drop down list
 					for(int i = 0; i < groupList.length; i++){%>
-						<option value ="<%=groupList[i]%>"
-							<%if(request.getAttribute("group") != null 
-								&& request.getAttribute("group").equals(groupList[i])){%>
-							selected
-						<%}%>
-						><%=groupList[i]%></option>
-				
+					<option value ="<%=groupList[i]%>"
+						<%if(request.getAttribute("group") != null 
+							&& request.getAttribute("group").equals(groupList[i])){%>
+						selected
 					<%}%>
->>>>>>> 84c502b37c82e5a21145617cce1d3eb321856970
+					><%=groupList[i]%></option>
+			
+				<%}%>
+
+					<!-- <option value="" ${(group == null) ? 'selected' : ''}>Group</option>
+					<option value = "${group}" ${(groups != null) ? 'selected': ''}>${deptName}</option> -->
+			
+			
+					
+
 					</select>
 					</div>
 					<br>
@@ -95,19 +83,19 @@
 					<th>Employee No</th>
 					<%
 					//get employee information
-					String[] gGroupId = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("group")), "groups_id");		
-					String[] gDepartment = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("group")), "dept_name");
-					String[] gGroupName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("group")), "group_name");	
-					String[] gLastName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("group")), "lastname");
-					String[] gFirstName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("group")), "firstname");		
-					String[] gEmployeeNo = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("group")), "hire_year");	
+					String[] gGroupId = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectGroupEmployees((String) request.getAttribute("group")), "groups_id");		
+					String[] gDepartment = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectGroupEmployees((String) request.getAttribute("group")), "dept_name");
+					String[] gGroupName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectGroupEmployees((String) request.getAttribute("group")), "group_name");	
+					String[] gLastName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectGroupEmployees((String) request.getAttribute("group")), "lastname");
+					String[] gFirstName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectGroupEmployees((String) request.getAttribute("group")), "firstname");		
+					String[] gEmployeeNo = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectGroupEmployees((String) request.getAttribute("group")), "emp_no");	
 					
 					for (int i = 0; i < gGroupId.length; i++){%>
 					</tr>
 					<tr>
 						<td><%=gDepartment[i]%></td>
 						<td><%=gGroupName[i]%></td>
-						<td><%=gEmployeeNo[i]%></td>
+						<td><%=gLastName[i]%></td>
 						<td><%=gFirstName[i]%></td>
 						<td><%=gEmployeeNo[i]%></td>
 						

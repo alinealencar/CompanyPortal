@@ -31,7 +31,7 @@
 	<form action="ViewReport" method="post" id="viewReportForm">
 	<div class="row justify-content-md-center">
 	<div class="col col-lg-4">
-		<select id = "reportTemplate" class="viewReportDropdown" name="reportTemplate">
+		<select id = "reportTemplate" class="viewReportDropdown" name="reportTemplate" onchange="this.form.submit()">
 			<% 
 			//Get the list of reportTemplates from the database
 			List<ReportTemplate> allTemplates = DatabaseHelper.getReportTemplates(DatabaseManagement.selectFromTable("report_template")); %>
@@ -279,7 +279,7 @@
 	<br>
 	<input type="hidden" value="${selectedReport.reportId}" name="reportId">
 	<div class="row align-items-center float-right">
-		<span>Total: <u>${selectedReport.total}</u> / ${selectedTemplate.total}</span>
+		<span>Total: <span id="totalReport">${selectedReport.total}</span> / ${selectedTemplate.total}</span>
 	</div>
 	<br>
 	<hr>

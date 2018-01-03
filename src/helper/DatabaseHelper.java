@@ -165,7 +165,7 @@ public class DatabaseHelper {
         return names;
 	}
 	
-	public static boolean isDuplicate(String deptName, Date date) 
+	public static boolean isDuplicateAttendance(String deptName, Date date) 
 		throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
 		Statement statement = conn.createStatement();
@@ -179,6 +179,21 @@ public class DatabaseHelper {
 		else
 			return false;
 	}
+	
+	public static boolean isDuplicateDept(String deptName) 
+			throws Exception {
+			Connection conn = DatabaseAccess.connectDataBase();
+			Statement statement = conn.createStatement();
+			String query = "select COUNT(*) from department "
+					+ "where dept_name='" + deptName + "'";
+			ResultSet rs = statement.executeQuery(query);
+			if(rs.next())
+				rs.getInt(1);
+			if(rs.getInt(1) > 0)
+				return true;
+			else
+				return false;
+		}
 	
 	public static List<ReportTemplate> getReportTemplates(ResultSet rs) throws SQLException{
 		List<ReportTemplate> reportTemplates = new ArrayList<ReportTemplate>();

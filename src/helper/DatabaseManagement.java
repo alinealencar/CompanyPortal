@@ -564,13 +564,14 @@ Connection conn = DatabaseAccess.connectDataBase();
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
 		Statement statement = conn.createStatement();
-		String query = "select * from groups where dept_name = '" + "'";
+		String query = "select * from groups where dept_name = '" + deptName + "'";
 		ResultSet rs = statement.executeQuery(query);
 		
 		//conn.close();
 		
 		return rs;
 	}
+
 	
 	public static ResultSet selectGroupByDepartment(String deptName)
 			throws Exception {
@@ -579,6 +580,19 @@ Connection conn = DatabaseAccess.connectDataBase();
 		PreparedStatement preparedStmt = conn.prepareStatement(query);
 		ResultSet rs = preparedStmt.executeQuery(query);
 		
+		return rs;
+	}
+	
+	public static ResultSet selectGroupEmployees(String groupName) 
+			throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
+		Statement statement = conn.createStatement();
+		String query = "select * from employee "
+				+ "inner join employee_groups on employee.emp_id = employee_groups.emp_id_fk "
+				+ "inner join groups on groups.groups_id = employee_groups.groups_id_fk "
+				+ "where group_name='" + groupName + "'";
+		ResultSet rs = statement.executeQuery(query);
+		//conn.close();
 		return rs;
 	}
 }

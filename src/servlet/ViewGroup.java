@@ -25,22 +25,21 @@ public class ViewGroup extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
-		
-<<<<<<< HEAD
+
 		String dept = request.getParameter("department");
 		
-		if(!ValidateInput.isMissing(dept)){
+		if(dept != null){
 			request.setAttribute("dept", dept);
 			request.setAttribute("group", request.getParameter("group"));
 			
 		}
 		
-=======
-		String group = request.getParameter("group");
-		request.setAttribute("group", group);
-		String department = request.getParameter("department");
-		request.setAttribute("department", department);
->>>>>>> 84c502b37c82e5a21145617cce1d3eb321856970
+
+		//String group = request.getParameter("group");
+		//request.setAttribute("group", group);
+		//String department = request.getParameter("department");
+		//request.setAttribute("department", dept);
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-group.jsp");
         dispatcher.forward(request, response);
 	}
