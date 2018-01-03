@@ -28,13 +28,31 @@ public class EnterAttendanceHelper extends HttpServlet {
         
     }
 
-	
+    /**
+	 * This method is called whenever this servlet receives a GET request.
+	 * It automatically calls the doPost method.
+	 * 
+	 * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		doPost(request, response);
 	}
 
-	
+	/**
+	 * This method is called whenever this servlet receives a POST request.
+	 * It is responsible for getting the employees associated to a department.
+	 * 
+	 * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		

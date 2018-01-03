@@ -19,10 +19,30 @@ public class ViewGroup extends HttpServlet {
         super();
     }
     
+    /**
+	 * This method is called whenever this servlet receives a GET request.
+	 * It calls the doPost method.
+	 * 
+	 * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 	
+	/**
+	 * This method is called whenever this servlet receives a POST request.
+	 * It is responsible for setting the department and the group drop downs to the user's selection.
+	 * 
+	 * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 
