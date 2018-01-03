@@ -1,3 +1,11 @@
+<<<<<<< HEAD
 /servlet/
 /dataModel/
 /helper/
+=======
+/dataModel/
+/database/
+/filter/
+/helper/
+/servlet/
+>>>>>>> b8a37e68769a928d6652fad3591e65c344c8fe51

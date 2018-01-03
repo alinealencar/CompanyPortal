@@ -514,5 +514,51 @@ Connection conn = DatabaseAccess.connectDataBase();
 		
 		return group;
 	}
+	
+	/**
+	 * This method inserts a report into the database.
+	 * 
+	 * @param report
+	 * @return
+	 * @throws Exception
+	 */
+	public static boolean insertReport(Report report) throws Exception{
+		Connection conn = DatabaseAccess.connectDataBase();
+		
+		String query = "insert into report(report_title, report_date, report_type,"
+				+ "s1_c1_evaluation, s1_c2_evaluation, s1_c3_evaluation, s1_c4_evaluation, s1_c5_evaluation, comment1,"
+				+ "s2_c1_evaluation, s2_c2_evaluation, s2_c3_evaluation, comment2,"
+				+ "s3_c1_evaluation, s3_c2_evaluation, s3_c3_evaluation, comment3,"
+				+ "template_id_fk)"
+				+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+		
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		
+		preparedStmt.setString(1, report.getReportTitle());
+		preparedStmt.setDate(2, report.getReportDate());
+		preparedStmt.setString(3, report.getReportType());
+		//Section 1
+		preparedStmt.setInt(4, report.getS1Crit1());
+		preparedStmt.setInt(5, report.getS1Crit2());
+		preparedStmt.setInt(6, report.getS1Crit3());
+		preparedStmt.setInt(7, report.getS1Crit4());
+		preparedStmt.setInt(8, report.getS1Crit5());
+		preparedStmt.setString(9, report.getComment1());
+		//Section 2
+		preparedStmt.setInt(10, report.getS2Crit1());
+		preparedStmt.setInt(11, report.getS2Crit2());
+		preparedStmt.setInt(12, report.getS2Crit3());
+		preparedStmt.setString(13, report.getComment2());
+		//Section 3
+		preparedStmt.setInt(14, report.getS3Crit1());
+		preparedStmt.setInt(15, report.getS3Crit2());
+		preparedStmt.setInt(16, report.getS3Crit3());
+		preparedStmt.setString(17, report.getComment3());
+		preparedStmt.setInt(18,  report.getTemplateId());
+		
+		int rowsAffected = preparedStmt.executeUpdate();
+		return (rowsAffected > 0);
+	}
 }
 

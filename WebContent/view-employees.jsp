@@ -4,23 +4,34 @@
 
 <div class="container">
 <div class="row">
-	<div class="col col-lg-7">
+	<div class="col col-lg-2">
 	</div>
-	<div class="col col-lg-12">
-		<h1 class="text-center">VIEW EMPLOYEES</h1>
+	<div class="col col-lg-7">
+		<h1 class="text-center">EMPLOYEE LISTING</h1>
 		<br>
 		<div class="form-group">
-			<form method = "post" action = "ViewEmployee" name = "employee-dept" onsubmit="return validateDepartment()" novalidate>
+			<form method = "post" action = "ViewEmployee" name = "attendance-dept" onsubmit="return validateDepartment()" novalidate>
 				<div class="row align-items-center justify-content-center">
 					<label for="department">Department:&nbsp;</label>
 					<select id = "department" name = "department" id = "department">
-					<% //Get the list of departments from the database
-					  String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");%>
-					<option value="" selected>Department</option>
 					<% 
-					//Populate drop down list
-					for(int i = 0; i < deptList.length; i++)
-						out.print("<option value =\"" + deptList[i] + "\">" + deptList[i] + "</option>");%>
+					//Get the list of departments from the database
+					String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");
+					//check if a department is selected
+					%>	
+					<option value="" ${(department == null) ? 'selected' : ''}>Department</option>
+					<option value = "${department}" ${(department != null) ? 'selected': ''}>${department}</option>
+			
+					<% //Populate drop down list
+					for(int i = 0; i < deptList.length; i++){%>
+						<option value ="<%=deptList[i]%>"
+							<%if(request.getAttribute("department") != null 
+								&& request.getAttribute("department").equals(deptList[i])){%>
+							selected
+						<%}%>
+						><%=deptList[i]%></option>
+				
+					<%}%>
 					</select>
 					</div>
 					<div class="row align-items-center justify-content-center">
@@ -36,44 +47,43 @@
 		</form>
 		<div class="row align-items-center justify-content-center">
 			<table class="table table-striped text-center">
-				<%	
-			String[] employeeFNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "firstname");
- 			String[] employeeLNameList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "lastname");
- 			String[] employeeNoList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "emp_no");
- 			String[] employeeHireDate = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "hire_year");
- 			String[] employeeEmail = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "email");
- 			String[] employeeJobPosition = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) session.getAttribute("department")), "job_position");
-			//create table
-		%>
-		<div class="row align-items-center justify-content-center">
-			<table class="table table-striped text-center">
 				<tr>
-					<th><center>Last Name</center></th>
-					<th><center>First Name</center></th>
-					<th><center>Number</center></th>
-					<th><center>Hire Date</center></th>
-					<th><center>Email</center></th>
-					<th><center>Job Position</center></th>
-				</tr>
-		<% 	if(session.getAttribute("department") != null ){
-			for(int i = 0; i < employeeFNameList.length; i++) { %>
-			<tr>
-					<td><center><%=employeeFNameList[i]%></center></td>
-					<td><center><%=employeeLNameList[i]%></center></td>
-					<td><center><%=employeeNoList[i]%></center></td>
-					<td><center><%=employeeHireDate[i]%></center></td>
-					<td><center><%=employeeEmail[i]%></center></td>
-					<td><center><%=employeeJobPosition[i]%></center></td>
+					<th>Last Name</th>
+					<th>First Name</th>
+					<th>Employee Number</th>
+					<th>Hire Year</th>
+					<th>Email</th>
+					<th>Job Position</th>
+					<%
+					//get employee information
+					String[] employeeId = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "emp_id");
+					String[] empLName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "lastname");	
+					String[] empFName = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "firstname");
+					String[] empNo = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "emp_no");		
+					String[] empHireYear = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "hire_year");	
+					String[] empEmail = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "email");
+					String[] empJobPosition = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectEmployees((String) request.getAttribute("department")), "job_position");
 					
-			</tr>
-		<%}}%>
-		</table>
+					for (int i = 0; i < employeeId.length; i++){%>
+					</tr>
+					<tr>
+						<td><%=empLName[i]%></td>
+						<td><%=empFName[i]%></td>
+						<td><%=empNo[i]%></td>
+						<td><%=empHireYear[i]%></td>
+						<td><%=empEmail[i]%></td>
+						<td><%=empJobPosition[i]%></td>
+						
+					<%}%>
+			</table>
 		</div>
 		<br>
-			</table>
+		<div class="row align-items-center justify-content-center">
+			<input type = "submit" value = "Home" class="btn btn-primary" onClick="window.location='home.jsp';"/>
 		</div>
 	</div>
 </div>
 </div>
 </div>
-<%@include file="WEB-INF/footer.jsp" %>
+
+		

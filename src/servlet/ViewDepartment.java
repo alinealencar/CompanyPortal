@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,15 +18,16 @@ public class ViewDepartment extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doPost(request, response);
 	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		response.setContentType("text/html");
 		
 		String dept = request.getParameter("department");
-		request.getSession().setAttribute("department", dept);
-		response.sendRedirect("view-department.jsp");
-		return;
+		request.setAttribute("department", dept);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("view-department.jsp");
+        dispatcher.forward(request, response);
 	}
 
 }
