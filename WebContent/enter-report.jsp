@@ -43,7 +43,7 @@
 							out.println("selected");}%>
 					><%=resultTemplates.get(i).getTemplateName() %></option>
 			<% }} %>
-<!--  -->			
+			
 			</select>
 		</div>
 		<div class="row align-items-center justify-content-center">
@@ -53,18 +53,19 @@
 			<label>Date:&nbsp;</label><input type="text" name="date" id="datepicker">
 		</div>
 		<div class="row align-items-center justify-content-center">
-			<div class="error" id="errorTemplateName">Please enter a report name.</div>
+			<div class="error" id="errorReport">Please enter a report name.</div>
 		</div>
 		
 		<div class="row align-items-center justify-content-center">
-			<div class="error" id="errorDepartment">Please enter a department.</div>
+			<div class="error" id="errorDate">Please select a date.</div>
 		</div>
+<!--  -->
 		<div class="row align-items-center justify-content-center">
 		<br>
 			<label>Report Type:&nbsp;</label>
 			<ul class="list-unstyled">
-				<li><input type="radio"  class="reportType" name="reportType" value="Group" >Group</li>
-				<li><input type="radio" class="reportType" name="reportType" value="Employee">Employee</li>
+				<li><input type="radio"  class="reportType" name="reportType" value="g" >Group</li>
+				<li><input type="radio" class="reportType" name="reportType" value="e">Employee</li>
 			</ul>
 		</div>
 		<div class="row align-items-center justify-content-center">
@@ -169,7 +170,7 @@
     		</div>
 
     		<div class="col-4">
-    			<textarea rows="8" cols="30"></textarea>
+    			<textarea name="comment1" rows="8" cols="30"></textarea>
     		</div>
 
   		</div>
@@ -218,7 +219,7 @@
       			<%} %>
     		</div>
     		<div class="col-4">
-    			<textarea rows="8" cols="30"></textarea>
+    			<textarea name="comment2" rows="8" cols="30"></textarea>
     		</div>
   		</div>
   		<hr>
@@ -232,9 +233,9 @@
     			<%if(!ValidateInput.isMissing(rt.getS3Criteria2())) {%>
       			<label>Criteria 2:&nbsp;</label><input type = "text" name="s3c2" value='<%= rt.getS3Criteria2()%>' disabled/><br>
 				<%} %>
-				<!-- ****************************************************when set validation, doesn't work properly -->
+				<%if(!ValidateInput.isMissing(rt.getS3Criteria3())) {%>
       			<label>Criteria 3:&nbsp;</label><input type = "text" name="s3c3" value='<%= rt.getS3Criteria3()%>' disabled/><br>
-
+				<%} %>
     		</div>
     		<div class="col-2">
     			<label for="s3c1e">Evaluation: </label>
@@ -255,7 +256,7 @@
       				<div class="error" id="errors3c2e">Please choose a value.</div>
       				<br>
       			<%} %>
-      			<!-- ****************************************************when set validation, doesn't work properly -->
+      			<%if(!ValidateInput.isMissing(rt.getS3Criteria3())) {%>
       			<label for="s3c3e">Evaluation: </label>
       				<select name="s3c3e" class="evaluation" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
@@ -263,10 +264,10 @@
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
       				</select>
       				<div class="error" id="errors3c3e">Please choose a value.</div>
-
+				<%} %>
     		</div>
     		<div class="col-4">
-    			<textarea rows="8" cols="30"></textarea>
+    			<textarea name="comment3" rows="8" cols="30"></textarea>
     		</div>
   		</div>
   		<hr>
@@ -313,7 +314,7 @@ $(document).ready(function(){
           	   	}); 
        	});
            var radioValue = $("input[name='reportType']:checked").val();
-            if(radioValue == "Group"){
+            if(radioValue == "g"){
                $( "#group" ).prop( "disabled", false );
                $(".reportType").on("click", function () {
 	               $('#employee option').prop('selected', function() {

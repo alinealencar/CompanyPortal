@@ -95,7 +95,38 @@ public class EnterReport extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-
+		Report report = new Report();
+		try{
+			//Set ReportTemplate attributes with the input from the form
+			report.setReportTitle(request.getParameter("reportTitle"));
+			report.setReportDate(java.sql.Date.valueOf(request.getParameter("date")));
+			report.setReportType(request.getParameter("reportType"));
+			report.setS1Crit1(Integer.parseInt(request.getParameter("s1c1e")));
+			report.setS1Crit2(Integer.parseInt(request.getParameter("s1c2e")));
+			report.setS1Crit3(Integer.parseInt(request.getParameter("s1c3e")));
+			report.setS1Crit4(Integer.parseInt(request.getParameter("s1c4e")));
+			report.setS1Crit5(Integer.parseInt(request.getParameter("s1c5e")));
+			report.setComment1(request.getParameter("comment1"));
+			report.setS2Crit1(Integer.parseInt(request.getParameter("s2c1e")));
+			report.setS2Crit2(Integer.parseInt(request.getParameter("s2c2e")));
+			report.setS2Crit3(Integer.parseInt(request.getParameter("s2c3e")));
+			report.setComment2(request.getParameter("comment2"));
+			report.setS3Crit1(Integer.parseInt(request.getParameter("s3c1e")));
+			report.setS3Crit2(Integer.parseInt(request.getParameter("s3c2e")));
+			report.setS3Crit3(Integer.parseInt(request.getParameter("s3c3e")));
+			report.setComment3(request.getParameter("comment3"));
+			report.setTemplateId(Integer.parseInt(request.getParameter("reportTemplate")));
+			
+			//Insert ReportTemplate into the database
+        	if(DatabaseManagement.insertReport(report))
+        		request.setAttribute("reportInsertSuccess", "Report " + report.getReportTitle() + " has been successfully added to the system.");
+        	else
+        		request.setAttribute("reportInsertFail", "Report " + report.getReportTitle() + " has NOT been added to the system.");
+        }
+        catch(Exception e){
+        	request.setAttribute("reportInsertFail", "Report " + report.getReportTitle() + " has NOT been added to the system.");
+			e.printStackTrace();
+		}
 		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("enter-report.jsp");
