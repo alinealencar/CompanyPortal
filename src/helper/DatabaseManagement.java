@@ -19,7 +19,6 @@ package helper;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import dataModel.Employee;
@@ -311,6 +310,14 @@ public class DatabaseManagement {
 		return (rowsAffected > 0);
 	}
 
+	/**
+	 * This method searches for a report, given the reportId and returns the 
+	 * found report as a Report object.
+	 * 
+	 * @param reportId
+	 * @return
+	 * @throws Exception
+	 */
 	public static Report selectReportById(String reportId) throws Exception{
 		Connection conn = DatabaseAccess.connectDataBase();
 		Report report = new Report();
@@ -342,6 +349,14 @@ public class DatabaseManagement {
 		return report;
 	}
 	
+	/**
+	 * This method searches for a Report Template, given the templateId, and returns the template
+	 * as a ReportTemplate object.
+	 * 
+	 * @param templateId
+	 * @return
+	 * @throws Exception
+	 */
 	public static ReportTemplate selectReportTemplateById(String templateId) throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
 		ReportTemplate template = new ReportTemplate();
@@ -476,6 +491,14 @@ public class DatabaseManagement {
 		conn.close();
 	}
 	
+	/**
+	 * This method searches for the employee associated with a certain report and returns the employee
+	 * as an Employee object.
+	 * 
+	 * @param report
+	 * @return
+	 * @throws Exception
+	 */
 	public static Employee selectEmployeeByReport(Report report) throws Exception{
 		Connection conn = DatabaseAccess.connectDataBase();
 		
@@ -495,8 +518,15 @@ public class DatabaseManagement {
 		return employee;
 	}
 	
+	/**
+	 * This method searches for the group associated with a certain report and returns the group
+	 * as a Group object.
+	 * @param report
+	 * @return
+	 * @throws Exception
+	 */
 	public static Group selectGroupByReport(Report report) throws Exception{
-Connection conn = DatabaseAccess.connectDataBase();
+		Connection conn = DatabaseAccess.connectDataBase();
 		
 		Statement statement = conn.createStatement();
 		String query = "select group_id from group_report where report_id_fk=" + report.getReportId();
@@ -560,6 +590,13 @@ Connection conn = DatabaseAccess.connectDataBase();
 		return (rowsAffected > 0);
 	}
 	
+	/**
+	 * This method finds all the groups associated with a provided department, by department name.
+	 * 
+	 * @param deptName
+	 * @return
+	 * @throws Exception
+	 */
 	public static ResultSet selectGroupByDept(String deptName)
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
@@ -572,7 +609,12 @@ Connection conn = DatabaseAccess.connectDataBase();
 		return rs;
 	}
 
-	
+	/**
+	 * This method finds all the groups associated with a provided department, by department id.
+	 * @param deptName
+	 * @return
+	 * @throws Exception
+	 */
 	public static ResultSet selectGroupByDepartment(String deptName)
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
@@ -583,6 +625,13 @@ Connection conn = DatabaseAccess.connectDataBase();
 		return rs;
 	}
 	
+	/**
+	 * This method finds all employees that belong to a group, by group name.
+	 * 
+	 * @param groupName
+	 * @return
+	 * @throws Exception
+	 */
 	public static ResultSet selectGroupEmployees(String groupName) 
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();

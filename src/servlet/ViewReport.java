@@ -25,6 +25,17 @@ public class ViewReport extends HttpServlet {
         super();
     }
 
+    /**
+	 * This method is called whenever this servlet receives a GET request.
+	 * It is responsible for filtering the reportTemplate and report drop downs and showing a
+	 * selected report.
+	 * 
+	 * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		try{
 			//If template is selected
@@ -68,6 +79,16 @@ public class ViewReport extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	/**
+	 * This method is called whenever this servlet receives a POST request.
+	 * It calls the doGet method.
+	 * 
+	 * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
