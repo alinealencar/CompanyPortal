@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +24,10 @@ public class ViewEmployee extends HttpServlet {
 		doGet(request, response);
 		
 		String dept = request.getParameter("department");
-		request.getSession().setAttribute("department", dept);
-		response.sendRedirect("view-employees.jsp");
-		return;
+		request.setAttribute("department", dept);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("view-employees.jsp");
+        dispatcher.forward(request, response);
 	}
 
 }
