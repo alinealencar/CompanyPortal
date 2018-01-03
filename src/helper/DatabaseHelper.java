@@ -27,6 +27,7 @@ import java.util.List;
 
 import dataModel.Attendance;
 import dataModel.Employee;
+import dataModel.EmployeeAttendance;
 import dataModel.Group;
 import dataModel.Report;
 import dataModel.ReportTemplate;
@@ -255,8 +256,8 @@ public class DatabaseHelper {
 	
 	public static List<Attendance> getAttendance(ResultSet rs) throws SQLException{
 		List<Attendance> attendanceList = new ArrayList<Attendance>();
-		Attendance attendance = new Attendance();
 		while(rs.next()){
+			Attendance attendance = new Attendance();
 			attendance.setAttendanceDate(rs.getDate(1));
 			attendance.setDeptName(rs.getString(2));
 			
@@ -267,17 +268,31 @@ public class DatabaseHelper {
 	
 	public static List<Employee> getEmployees(ResultSet rs) throws SQLException{
 		List<Employee> employees = new ArrayList<Employee>();
-		Employee employee = new Employee();
 		while(rs.next()){
-			employee.setFirstName(rs.getString(1));
-			employee.setLastName(rs.getString(2));
-			employee.setEmail(rs.getString(3));
-			employee.setEmpNo(rs.getString(4));
-			employee.setHireYear(rs.getString(5));
-			employee.setJobPosition(rs.getString(6));
+			Employee employee = new Employee();
+			employee.setEmpId(rs.getInt(1));
+			employee.setFirstName(rs.getString(2));
+			employee.setLastName(rs.getString(3));
+			employee.setEmail(rs.getString(4));
+			employee.setEmpNo(rs.getString(5));
+			employee.setHireYear(rs.getString(6));
+			employee.setJobPosition(rs.getString(7));
+			
+			employees.add(employee);
 		}
 		return employees;
 	}
+	
+	public static List<EmployeeAttendance> getPresentEmployees(ResultSet rs) throws SQLException{
+		List<EmployeeAttendance> presentList = new ArrayList<EmployeeAttendance>();
+		while(rs.next()){
+			EmployeeAttendance ea = new EmployeeAttendance();
+			ea.setPresent(rs.getBoolean(4));
+			
+			presentList.add(ea);
+		}
+		return presentList;
+	}	
 	
 	public static String getDeptNameById(int deptId) throws Exception{
 		String deptName = null;

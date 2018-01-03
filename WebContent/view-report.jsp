@@ -84,7 +84,7 @@
 <div id="reportView"  class="container" ${(selectedReport == null) ? 'style="display:none;"' : ''}>
 <hr>
 	<div class="row">
-		<span>1. Details:</span>
+		<span><b>1. Details:</b></span>
 	</div>
 	<br>
 	<div class="row justify-content-md-center">
@@ -125,7 +125,7 @@
 					<td>${selectedTemplate.s1Criteria1}</td>
 					<td>Evaluation: </td>
 					<td>
-						<select id="s1c1" class="editable" name = "s1c1" disabled>
+						<select id="s1c1" class="editable" name = "s1c1" onChange="updateTotal()" disabled>
 							<c:forEach var = "i" begin = "1" end = "${selectedTemplate.s1Crit1Max}">
 		         				<option value="${i}" ${(i eq selectedReport.s1Crit1) ? 'selected' : ''}>${i}</option>
 		      				</c:forEach>
@@ -136,7 +136,7 @@
 					<td>${selectedTemplate.s1Criteria2}</td>
 					<td>Evaluation: </td>
 					<td>
-						<select id="s1c2" class="editable" name = "s1c2" disabled>
+						<select id="s1c2" class="editable" name = "s1c2" onChange="updateTotal()" disabled>
 							<c:forEach var = "i" begin = "1" end = "${selectedTemplate.s1Crit2Max}">
 		         				<option value="${i}" ${(i eq selectedReport.s1Crit2) ? 'selected' : ''}>${i}</option>
 		      				</c:forEach>
@@ -147,18 +147,18 @@
 					<td>${selectedTemplate.s1Criteria3}</td>
 					<td>Evaluation: </td>
 					<td>
-						<select id="s1c3" class="editable" name = "s1c3" disabled>
+						<select id="s1c3" class="editable" name = "s1c3" onChange="updateTotal()" disabled>
 							<c:forEach var = "i" begin = "1" end = "${selectedTemplate.s1Crit3Max}">
 		         				<option value="${i}" ${(i eq selectedReport.s1Crit3) ? 'selected' : ''}>${i}</option>
 		      				</c:forEach>
 						</select>
 					</td>
 				</tr>
-				<tr ${(selectedTemplate.s1Criteria4 == null or selectedTemplate.s1Criteria4 eq "") ? 'style="display:none"' : ''}>
+				<tr id = "rows1C4" ${(selectedTemplate.s1Criteria4 == null or selectedTemplate.s1Criteria4 eq "") ? 'style="display:none"' : ''}>
 					<td>${selectedTemplate.s1Criteria4}</td>
 					<td>Evaluation: </td>
 					<td>
-						<select id="s1c3" class="editable" name = "s1c4" disabled>
+						<select id="s1c4" class="editable" name = "s1c4" onChange="updateTotal()" disabled>
 							<c:forEach var = "i" begin = "1" end = "${selectedTemplate.s1Crit4Max}">
 		         				<option value="${i}" ${(i eq selectedReport.s1Crit4) ? 'selected' : ''}>${i}</option>
 		      				</c:forEach>
@@ -169,7 +169,7 @@
 					<td>${selectedTemplate.s1Criteria5}</td>
 					<td>Evaluation: </td>
 					<td>
-						<select id="s1c5" class="editable" name = "s1c5" disabled>
+						<select id="s1c5" class="editable" name = "s1c5" onChange="updateTotal()" disabled>
 							<c:forEach var = "i" begin = "1" end = "${selectedTemplate.s1Crit5Max}">
 		         				<option value="${i}" ${(i eq selectedReport.s1Crit5) ? 'selected' : ''}>${i}</option>
 		      				</c:forEach>
@@ -179,7 +179,7 @@
 			</table>
 		</div>
 		<div class="col col-lg-6">
-			<textarea rows="4" cols="50" class="editable" name="comment1" disabled>${selectedReport.comment1}</textarea>
+			<textarea rows="4" cols="50" class="editable" name="comment1" onChange="updateTotal()" disabled>${selectedReport.comment1}</textarea>
 		</div>
 	</div>
 	<hr>
@@ -194,7 +194,7 @@
 					<td>${selectedTemplate.s2Criteria1}</td>
 					<td>Evaluation: </td>
 					<td>
-						<select id="s2c1" class="editable" name = "s2c1" disabled>
+						<select id="s2c1" class="editable" name = "s2c1" onChange="updateTotal()" disabled>
 							<c:forEach var = "i" begin = "1" end = "${selectedTemplate.s2Crit1Max}">
 		         				<option value="${i}" ${(i eq selectedReport.s2Crit1) ? 'selected' : ''}>${i}</option>
 		      				</c:forEach>
@@ -205,7 +205,7 @@
 					<td>${selectedTemplate.s2Criteria2}</td>
 					<td>Evaluation: </td>
 					<td>
-						<select id="s2c2" class="editable" name = "s2c2" disabled>
+						<select id="s2c2" class="editable" name = "s2c2" onChange="updateTotal()" disabled>
 							<c:forEach var = "i" begin = "1" end = "${selectedTemplate.s2Crit2Max}">
 		         				<option value="${i}" ${(i eq selectedReport.s2Crit2) ? 'selected' : ''}>${i}</option>
 		      				</c:forEach>
@@ -216,7 +216,7 @@
 					<td>${selectedTemplate.s2Criteria3}</td>
 					<td>Evaluation: </td>
 					<td>
-						<select id="s2c3" class="editable" name = "s2c3" disabled>
+						<select id="s2c3" class="editable" name = "s2c3" onChange="updateTotal()" disabled>
 							<c:forEach var = "i" begin = "1" end = "${selectedTemplate.s2Crit3Max}">
 		         				<option value="${i}" ${(i eq selectedReport.s2Crit3) ? 'selected' : ''}>${i}</option>
 		      				</c:forEach>
@@ -241,7 +241,7 @@
 					<td>${selectedTemplate.s3Criteria1}</td>
 					<td>Evaluation: </td>
 					<td>
-						<select id="s3c1" class="editable" name = "s3c1" disabled>
+						<select id="s3c1" class="editable" name = "s3c1" onChange="updateTotal()" disabled>
 							<c:forEach var = "i" begin = "1" end = "${selectedTemplate.s3Crit1Max}">
 		         				<option value="${i}" ${(i eq selectedReport.s3Crit1) ? 'selected' : ''}>${i}</option>
 		      				</c:forEach>
@@ -252,7 +252,7 @@
 					<td>${selectedTemplate.s3Criteria2}</td>
 					<td>Evaluation: </td>
 					<td>
-						<select id="s3c2" class="editable" name = "s3c2" disabled>
+						<select id="s3c2" class="editable" name = "s3c2" onChange="updateTotal()" disabled>
 							<c:forEach var = "i" begin = "1" end = "${selectedTemplate.s3Crit2Max}">
 		         				<option value="${i}" ${(i eq selectedReport.s3Crit2) ? 'selected' : ''}>${i}</option>
 		      				</c:forEach>
@@ -263,7 +263,7 @@
 					<td>${selectedTemplate.s3Criteria3}</td>
 					<td>Evaluation: </td>
 					<td>
-						<select id="s3c3" class="editable" name = "s3c3" disabled>
+						<select id="s3c3" class="editable" name = "s3c3" onChange="updateTotal()" disabled>
 							<c:forEach var = "i" begin = "1" end = "${selectedTemplate.s3Crit3Max}">
 		         				<option value="${i}" ${(i eq selectedReport.s3Crit3) ? 'selected' : ''}>${i}</option>
 		      				</c:forEach>
@@ -276,7 +276,12 @@
 			<textarea rows="4" cols="50" name="comment3" class="editable" disabled>${selectedReport.comment3}</textarea>
 		</div>
 	</div>
+	<br>
 	<input type="hidden" value="${selectedReport.reportId}" name="reportId">
+	<div class="row align-items-center float-right">
+		<span>Total: <u>${selectedReport.total}</u> / ${selectedTemplate.total}</span>
+	</div>
+	<br>
 	<hr>
 	<div class="row align-items-center justify-content-center">
 		<input type="submit" value="Save" class="btn btn-success" id="updateReport" style="display:none;"/>

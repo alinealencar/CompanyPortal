@@ -15,15 +15,17 @@
 
 package dataModel;
 
-public class Employee {
-	private String firstName, lastname, empNo, email, hireYear, jobPosition;
+import java.io.Serializable;
+
+public class Employee implements Serializable{
+	private String firstName, lastName, empNo, email, hireYear, jobPosition;
 	private int empId, deptId;
 	
 	// Constructors
 	public Employee(String firstName, String lastName, String empNo, String email, String hireYear, String jobPosition) {
 		super();
 		this.firstName = firstName;
-		this.lastname = lastName;
+		this.lastName = lastName;
 		this.empNo = empNo;
 		this.email = email;
 		this.hireYear = hireYear;
@@ -44,11 +46,11 @@ public class Employee {
 	}
 	
 	public String getLastName() {
-		return lastname;
+		return lastName;
 	}
 	
 	public void setLastName(String lastname) {
-		this.lastname = lastname;
+		this.lastName = lastname;
 	}
 	
 	public String getEmpNo() {

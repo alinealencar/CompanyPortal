@@ -174,6 +174,12 @@ public class Report {
 	public void setTemplateId(int templateId) {
 		this.templateId = templateId;
 	}
+	
+	public int getTotal(){
+		return s1Crit1 + s1Crit2 + s1Crit3 + s1Crit4 + s1Crit5 +
+				s2Crit1 + s2Crit2 + s2Crit3 +
+				s3Crit1 + s3Crit2 + s3Crit3;
+	}
 
 
 	@Override

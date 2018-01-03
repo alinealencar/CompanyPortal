@@ -428,12 +428,12 @@ public class DatabaseManagement {
 	 * @return	ResultSet This object holds all rows in the result of the select statement.
 	 * @throws Exception
 	 */
-	public static ResultSet selectPresentEmployees(int empId) 
+	public static ResultSet selectPresentEmployees(int deptId) 
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
 		Statement statement = conn.createStatement();
 		String query = "select * from employee_attendance "
-				+ "where emp_id_fk='" + empId + "'";
+				+ "where dept_id_fk='" + deptId + "'";
 		ResultSet rs = statement.executeQuery(query);
 
 		return rs;
