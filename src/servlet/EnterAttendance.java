@@ -1,3 +1,18 @@
+/*********************************************************************************
+* Project: COMP3095_TechGirls
+* Assignment: Assignment 2
+* Author(s): Aline Neves Alencar,
+* 				Kie Ogiya,
+* 				Maria Alyssa Villacete,
+* 				Princess Ilasin
+* Student Number: 101036808,
+* 					100984638
+* 					100923181
+* 					100879176
+* Date: December 29th, 2017.
+* Description: This servlet handles the attendance record creation.
+*********************************************************************************/
+
 package servlet;
 
 import java.io.IOException;

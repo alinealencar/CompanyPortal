@@ -10,7 +10,6 @@
 * 					100923181
 * 					100879176
 * Date: October 17, 2017.
-<<<<<<< HEAD
 * Description: This class contains methods that help provide and generate values to 
 * 			   be stored in the database
 *********************************************************************************/
