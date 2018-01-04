@@ -225,7 +225,6 @@ function validateEnterReport(){
 	//validate section 1 evaluation
 	$(".evaluation1").each(function(){
 	    if(isEmpty(this.value)){
-	    	console.log("evaluation error");
 	    	$("#evaluationError1").show();
 	    	validForm = false;
 	    }
@@ -234,7 +233,6 @@ function validateEnterReport(){
 	//validate section 2 evaluation
 	$(".evaluation2").each(function(){
 	    if(isEmpty(this.value)){
-	    	console.log("evaluation error");
 	    	$("#evaluationError2").show();
 	    	validForm = false;
 	    }
@@ -243,7 +241,6 @@ function validateEnterReport(){
 	//validate section 3 evaluation
 	$(".evaluation3").each(function(){
 	    if(isEmpty(this.value)){
-	    	console.log("evaluation error");
 	    	$("#evaluationError3").show();
 	    	validForm = false;
 	    }
