@@ -107,7 +107,6 @@
 			<div class="error" id="errorType">Please select a report type. Then choose the option from the dropdown list.</div>
 		</div>
 			<br>
-		</div>	
 <!-- section 1  -->
 		<% ReportTemplate rt = (ReportTemplate) request.getAttribute("selectedTemplate"); %>
 		<%if(rt != null){ %>

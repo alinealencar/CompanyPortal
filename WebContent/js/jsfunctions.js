@@ -188,6 +188,7 @@ function validateEnterReport(){
 	
 	//Validate report title
 	if(isEmpty(form["reportTitle"].value)){
+		console.log("no title");
 		$("#errorReportName").show();
 		validForm = false;
 	}
@@ -243,6 +244,5 @@ function validateEnterReport(){
 //		}
 //	}
 
-	return validForm;
-	
+	return validForm;	
 }
