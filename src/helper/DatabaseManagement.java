@@ -625,6 +625,7 @@ public class DatabaseManagement {
 		return rs;
 	}
 	
+
 	public static ResultSet selectEmployeeByDepartment(String deptName)
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
@@ -643,6 +644,7 @@ public class DatabaseManagement {
 	 * @return
 	 * @throws Exception
 	 */
+
 	public static ResultSet selectGroupEmployees(String groupName) 
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
