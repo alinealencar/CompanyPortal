@@ -85,3 +85,4 @@
 		<div class="row align-items-center justify-content-center">
 			<input type = "submit" value = "Enter" class="btn btn-primary" onClick="window.location='enter-attendance.jsp';"/>
 		</div>
+<%@include file="WEB-INF/footer.jsp" %>

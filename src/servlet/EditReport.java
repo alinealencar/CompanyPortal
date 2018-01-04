@@ -20,6 +20,17 @@ public class EditReport extends HttpServlet {
         super();
     }
 
+    /**
+     * This method is called whenever this servlet receives a GET request.
+     * It is responsible for editing a report and updating it in the database.
+     * 
+     * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+     * @see #doPost(HttpServletRequest, HttpServletResponse)
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
 			System.out.println("submeteu pra editar");
@@ -65,6 +76,16 @@ public class EditReport extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	/**
+	 * This method is called whenever this servlet receives a POST request.
+	 * It automatically calls the doGet method.
+	 * 
+	 * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

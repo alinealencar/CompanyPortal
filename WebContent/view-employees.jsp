@@ -10,7 +10,7 @@
 		<h1 class="text-center">EMPLOYEE LISTING</h1>
 		<br>
 		<div class="form-group">
-			<form method = "post" action = "ViewEmployee" name = "attendance-dept" onsubmit="return validateDepartment()" novalidate>
+			<form method = "post" action = "ViewEmployee" name = "employee" onsubmit="return validateDepartment()" novalidate>
 				<div class="row align-items-center justify-content-center">
 					<label for="department">Department:&nbsp;</label>
 					<select id = "department" name = "department" id = "department">
@@ -84,5 +84,5 @@
 </div>
 </div>
 </div>
-
+<%@include file="WEB-INF/footer.jsp" %>
 		

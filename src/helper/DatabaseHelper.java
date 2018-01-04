@@ -165,6 +165,15 @@ public class DatabaseHelper {
         return names;
 	}
 	
+	/**
+	 * This method checks if the attendance for a certain date is already present in the database, in
+	 * order to avoid duplicates.
+	 * 
+	 * @param deptName
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
 	public static boolean isDuplicateAttendance(String deptName, Date date) 
 		throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
@@ -180,6 +189,14 @@ public class DatabaseHelper {
 			return false;
 	}
 	
+	/**
+	 * This method checks if a department name is already present in the database, in order to avoid
+	 * duplicates. 
+	 * 
+	 * @param deptName
+	 * @return
+	 * @throws Exception
+	 */
 	public static boolean isDuplicateDept(String deptName) 
 			throws Exception {
 			Connection conn = DatabaseAccess.connectDataBase();
@@ -193,8 +210,17 @@ public class DatabaseHelper {
 				return true;
 			else
 				return false;
-		}
+	}
 	
+	
+	/**
+	 * This method transforms report templates from a ResultSet into a List of
+	 * Report Template objects.
+	 * 
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	public static List<ReportTemplate> getReportTemplates(ResultSet rs) throws SQLException{
 		List<ReportTemplate> reportTemplates = new ArrayList<ReportTemplate>();
 		
@@ -236,6 +262,13 @@ public class DatabaseHelper {
 		return reportTemplates;
 	}
 	
+	/**
+	 * This method transforms reports from a ResultSet into a List of
+	 * Report objects.
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	public static List<Report> getReports(ResultSet rs) throws SQLException{
 		List<Report> reports = new ArrayList<Report>();
 		
@@ -268,6 +301,14 @@ public class DatabaseHelper {
 		
 	}
 	
+	/**
+	 * This method transforms attendance from a ResultSet into a List of
+	 * Attendance objects.
+	 * 
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	public static List<Attendance> getAttendance(ResultSet rs) throws SQLException{
 		List<Attendance> attendanceList = new ArrayList<Attendance>();
 		while(rs.next()){
@@ -280,6 +321,14 @@ public class DatabaseHelper {
 		return attendanceList;
 	}	
 	
+	/**
+	 * This method transforms employees from a ResultSet into a list of
+	 * Employee objects.
+	 * 
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	public static List<Employee> getEmployees(ResultSet rs) throws SQLException{
 		List<Employee> employees = new ArrayList<Employee>();
 		while(rs.next()){
@@ -302,6 +351,13 @@ public class DatabaseHelper {
 		return employees;
 	}
 	
+	/**
+	 * This method returns a list of Employees with a presence in their attendance.
+	 * 
+	 * @param rs1
+	 * @return
+	 * @throws Exception
+	 */
 	public static List<Employee> getPresentEmployees(ResultSet rs1) throws Exception{
 		List<Employee> employees = new ArrayList<Employee>();
 		List<Integer> presentList = new ArrayList<Integer>();
@@ -322,6 +378,14 @@ public class DatabaseHelper {
 		return employees;
 	}
 	
+	/**
+	 * This method transforms groups from a ResultSet into a List of
+	 * Group objects.
+	 * 
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
 	public static List<Group> getGroups(ResultSet rs) throws SQLException{
 		List<Group> groups = new ArrayList<Group>();
 		
@@ -344,7 +408,14 @@ public class DatabaseHelper {
 		return groups;
 	}
 	
-	
+	/**
+	 * This method returns the name of a department, given its id.
+	 * 
+	 * @param deptId	id of the department
+	 * @return String	name of the department
+	 * @throws Exception
+	 */
+
 	public static String getDeptNameById(int deptId) throws Exception{
 		String deptName = null;
 		
@@ -363,6 +434,14 @@ public class DatabaseHelper {
 		return deptName;
 	}
 	
+	/**
+	 * This method returns a String that represents either the group name or the employee name, which
+	 * a report, given as a Report object, is associated to.
+	 * 
+	 * @param report	Report object
+	 * @return String
+	 * @throws Exception
+	 */
 	public static String getReportFor(Report report) throws Exception{
 		String reportFor = null;
 		Connection conn = DatabaseAccess.connectDataBase();
@@ -380,6 +459,13 @@ public class DatabaseHelper {
 		return reportFor;
 	}
 	
+	/**
+	 * This method returns an Employee object based on the employee Id.
+	 * 
+	 * @param employeeId
+	 * @return
+	 * @throws Exception
+	 */
 	public static Employee getEmployeeById(int employeeId) throws Exception{
 		Connection conn = DatabaseAccess.connectDataBase();
 		String query = "select first_name, last_name from employee where emp_id=" + employeeId;
@@ -394,6 +480,13 @@ public class DatabaseHelper {
 		return employee;
 	}
 	
+	/**
+	 * This method returns a Group object based on the group Id.
+	 * 
+	 * @param groupId
+	 * @return
+	 * @throws Exception
+	 */
 	public static Group getGroupById(int groupId) throws Exception{
 		Connection conn = DatabaseAccess.connectDataBase();
 		String query = "select group_name from group where group_id=" + groupId;

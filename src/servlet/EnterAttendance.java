@@ -10,18 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dataModel.Attendance;
-import database.DatabaseAccess;
 import helper.DatabaseHelper;
 import helper.DatabaseManagement;
 import helper.HelperUtilities;
 import helper.ValidateInput;
-
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 
 @WebServlet("/EnterAttendance")
@@ -33,18 +25,38 @@ public class EnterAttendance extends HttpServlet {
     }
 
 
+    /**
+     * This method is called whenever this servlet receives a GET request.
+     * It automatically calls the doPost method.
+     * 
+     * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+     * @see #doPost(HttpServletRequest, HttpServletResponse)
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-
+	/**
+	 * This method is called whenever this servlet receives a POST request.
+	 * It is responsible for creating an attendance record and inserting it into the database.
+	 * 
+	 * @param	request	HttpServletRequest object
+     * @param	response HttpServletResponse object
+     * @return	void
+     * @exception	ServletException
+     * @exception	 IOException on input error
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
-		String deptName;
-		deptName = EnterAttendanceHelper.dept;
+		String deptName = EnterAttendanceHelper.dept;
 		Attendance anAttendance = new Attendance();
 		String[] selectedEmployeeIds = new String[50];
 		
+		if(!ValidateInput.isMissing(deptName)){
 		//access form values
 		anAttendance.setAttendanceDate(java.sql.Date.valueOf(request.getParameter("attendanceDate")));
 		anAttendance.setDeptName(deptName);
@@ -89,7 +101,9 @@ public class EnterAttendance extends HttpServlet {
 				//error message if insert failed
 				request.setAttribute("attendanceInsertError", e + "\nPlease try again.");
 			}
-		
+		}
+		else
+			request.setAttribute("attendanceInsertError", "Please select a department.");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("enter-attendance.jsp");
         dispatcher.forward(request, response);
 
