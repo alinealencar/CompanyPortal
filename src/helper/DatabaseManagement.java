@@ -503,14 +503,16 @@ public class DatabaseManagement {
 		Connection conn = DatabaseAccess.connectDataBase();
 		
 		Statement statement = conn.createStatement();
-		String query = "select employee_id from employee_report where report_id_fk=" + report.getReportId();
+		String query = "select emp_id_fk from employee_report where report_id_fk=" + report.getReportId();
+		System.out.println(query);
 		ResultSet rs = statement.executeQuery(query);
 		
 		Employee employee = new Employee();
 		
 		int employeeId = 0;
+		
 		if(rs.next()){
-			employeeId = rs.getInt("employee_id");
+			employeeId = rs.getInt(1);
 		}
 		
 		employee = DatabaseHelper.getEmployeeById(employeeId);
@@ -529,14 +531,14 @@ public class DatabaseManagement {
 		Connection conn = DatabaseAccess.connectDataBase();
 		
 		Statement statement = conn.createStatement();
-		String query = "select group_id from group_report where report_id_fk=" + report.getReportId();
+		String query = "select group_id_fk from group_report where report_id_fk=" + report.getReportId();
 		ResultSet rs = statement.executeQuery(query);
 		
 		Group group = new Group();
 		
 		int groupId = 0;
 		if(rs.next()){
-			groupId = rs.getInt("group_id");
+			groupId = rs.getInt("group_id_fk");
 		}
 		
 		group = DatabaseHelper.getGroupById(groupId);
@@ -551,7 +553,7 @@ public class DatabaseManagement {
 	 * @return
 	 * @throws Exception
 	 */
-	public static boolean insertReport(Report report) throws Exception{
+	public static int insertReport(Report report) throws Exception{
 		Connection conn = DatabaseAccess.connectDataBase();
 		
 		String query = "insert into report(report_title, report_date, report_type,"
@@ -562,7 +564,7 @@ public class DatabaseManagement {
 				+ " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		
-		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		PreparedStatement preparedStmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		
 		preparedStmt.setString(1, report.getReportTitle());
 		preparedStmt.setDate(2, report.getReportDate());
@@ -587,7 +589,14 @@ public class DatabaseManagement {
 		preparedStmt.setInt(18,  report.getTemplateId());
 		
 		int rowsAffected = preparedStmt.executeUpdate();
-		return (rowsAffected > 0);
+		if (rowsAffected > 0){
+			ResultSet generatedId = preparedStmt.getGeneratedKeys();
+	            if (generatedId.next()) {
+	                report.setReportId(generatedId.getInt(1));
+	            }
+		}
+		
+		return report.getReportId();
 	}
 	
 	/**
@@ -644,7 +653,6 @@ public class DatabaseManagement {
 	 * @return
 	 * @throws Exception
 	 */
-
 	public static ResultSet selectGroupEmployees(String groupName) 
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();
@@ -657,5 +665,48 @@ public class DatabaseManagement {
 		//conn.close();
 		return rs;
 	}
+	
+	/**
+	 * Insert into the employee_report table a record that associates an employee with a report.
+	 * 
+	 * @param employeeId
+	 * @param reportId
+	 * @return
+	 * @throws Exception
+	 */
+	public static boolean insertEmployeeReport(int employeeId, int reportId) throws Exception{
+		String query = "insert into employee_report(emp_id_fk, report_id_fk) values(?,?)";
+		Connection conn = DatabaseAccess.connectDataBase();
+	    PreparedStatement preparedStmt = conn.prepareStatement(query);
+	    
+	    preparedStmt.setInt(1, employeeId);
+	    preparedStmt.setInt(2, reportId);
+	    
+	    int rowsAffected = preparedStmt.executeUpdate();
+	    return (rowsAffected > 0);
+	    
+	}
+
+	/**
+	 * Insert into the group_report table a record that associates a group with a report.
+	 * 
+	 * @param employeeId
+	 * @param reportId
+	 * @return
+	 * @throws Exception
+	 */
+	public static boolean insertGroupReport(int groupId, int reportId) throws Exception{
+		String query = "insert into group_report(group_id_fk, report_id_fk) values(?,?)";
+		Connection conn = DatabaseAccess.connectDataBase();
+	    PreparedStatement preparedStmt = conn.prepareStatement(query);
+	    
+	    preparedStmt.setInt(1, groupId);
+	    preparedStmt.setInt(2, reportId);
+	    
+	    int rowsAffected = preparedStmt.executeUpdate();
+	    return (rowsAffected > 0);
+	    
+	}
+	
 }
 

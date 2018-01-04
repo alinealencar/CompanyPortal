@@ -106,10 +106,10 @@
 					<td><strong>Department</strong></td>
 					<td>${deptName}</td>
 				</tr>
-<%-- 				<tr>
+ 				<tr>
 					<td><strong>Report for:</strong></td>
 					<td>${reportFor}</td>
-				</tr> --%>
+				</tr>
 			</table>
 		</div>
 	</div>

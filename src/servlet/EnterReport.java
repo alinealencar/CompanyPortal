@@ -168,12 +168,22 @@ public class EnterReport extends HttpServlet {
 				System.out.println("title 2 " + reportTitle);
 				System.out.println("Title 3 object " + report.toString());
 	
+				//If the report is for an employee
+				if(report.getReportType().equals("e")){
+					//Insert Report into the database
+		        	if(DatabaseManagement.insertEmployeeReport(Integer.parseInt(employee), DatabaseManagement.insertReport(report)))
+		        		request.setAttribute("reportInsertSuccess", "Report " + report.getReportTitle() + " has been successfully added to the system.");
+		        	else
+		        		request.setAttribute("reportInsertFail", "Report " + report.getReportTitle() + " has NOT been added to the system. DB");
+				}
+				else if(report.getReportType().equals("g")){
+					//Insert Report into the database
+		        	if(DatabaseManagement.insertGroupReport(Integer.parseInt(group), DatabaseManagement.insertReport(report)))
+		        		request.setAttribute("reportInsertSuccess", "Report " + report.getReportTitle() + " has been successfully added to the system.");
+		        	else
+		        		request.setAttribute("reportInsertFail", "Report " + report.getReportTitle() + " has NOT been added to the system. DB");
 				
-				//Insert ReportTemplate into the database
-	        	if(DatabaseManagement.insertReport(report))
-	        		request.setAttribute("reportInsertSuccess", "Report " + report.getReportTitle() + " has been successfully added to the system.");
-	        	else
-	        		request.setAttribute("reportInsertFail", "Report " + report.getReportTitle() + " has NOT been added to the system. DB");
+				}
 	        }
 	        catch(Exception e){
 	        	request.setAttribute("reportInsertFail", "Report " + report.getReportTitle() + " has NOT been added to the system. EX");

@@ -142,4 +142,14 @@ public class Employee implements Serializable{
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+	@Override
+	public String toString() {
+		return "Employee [firstName=" + firstName + ", lastName=" + lastName + ", empNo=" + empNo + ", email=" + email
+				+ ", hireYear=" + hireYear + ", jobPosition=" + jobPosition + ", role=" + role + ", userName="
+				+ userName + ", password=" + password + ", token=" + token + ", empId=" + empId + ", deptId=" + deptId
+				+ ", present=" + present + "]";
+	}
+	
+	
 }

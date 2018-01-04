@@ -444,8 +444,6 @@ public class DatabaseHelper {
 	 */
 	public static String getReportFor(Report report) throws Exception{
 		String reportFor = null;
-		Connection conn = DatabaseAccess.connectDataBase();
-		Statement statement = conn.createStatement();
 	
 		//Employee report
 		if(report.getReportType().equals("e")){
@@ -468,15 +466,17 @@ public class DatabaseHelper {
 	 */
 	public static Employee getEmployeeById(int employeeId) throws Exception{
 		Connection conn = DatabaseAccess.connectDataBase();
-		String query = "select first_name, last_name from employee where emp_id=" + employeeId;
+		String query = "select firstname, lastname from employee where emp_id=" + employeeId;
 		Statement statement = conn.createStatement();
 		ResultSet rs = statement.executeQuery(query);
 		
 		Employee employee = new Employee();
 		if(rs!= null && rs.next()){
-			employee.setFirstName(rs.getString("first_name"));
-			employee.setLastName(rs.getString("last_name"));
+			employee.setFirstName(rs.getString(1));
+			employee.setLastName(rs.getString(2));
 		}
+		
+		System.out.println(employee.toString());
 		return employee;
 	}
 	
@@ -489,13 +489,13 @@ public class DatabaseHelper {
 	 */
 	public static Group getGroupById(int groupId) throws Exception{
 		Connection conn = DatabaseAccess.connectDataBase();
-		String query = "select group_name from group where group_id=" + groupId;
+		String query = "select group_name from groups where groups_id=" + groupId;
 		Statement statement = conn.createStatement();
 		ResultSet rs = statement.executeQuery(query);
 		
 		Group group = new Group();
 		if(rs!= null && rs.next()){
-			group.setGroupName("group_name");
+			group.setGroupName(rs.getString(1));
 		}
 		return group;
 	}
