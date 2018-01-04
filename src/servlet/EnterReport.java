@@ -14,11 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataModel.Employee;
 import dataModel.Group;
 import dataModel.Report;
 import dataModel.ReportTemplate;
 import helper.DatabaseHelper;
 import helper.DatabaseManagement;
+import helper.HelperUtilities;
 import helper.ValidateInput;
 
 @WebServlet("/EnterReport")
@@ -61,6 +63,12 @@ public class EnterReport extends HttpServlet {
 				//Add all groups for a certain department to the request scope
 				request.setAttribute("groups", groups);
 				
+				//Get all employees attached to the selected department
+				ResultSet employeeResult = DatabaseManagement.selectEmployeeByDepartment(department);	
+				List<Employee> employees = DatabaseHelper.getEmployees(employeeResult);
+				
+				//Add all employees for a certain department to the request scope
+				request.setAttribute("employees", employees);
 				
 				//If template is selected
 				if(!ValidateInput.isMissing(templateId)){

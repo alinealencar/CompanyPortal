@@ -19,7 +19,11 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Employee implements Serializable{
-	private String firstName, lastName, empNo, email, hireYear, jobPosition;
+	private String firstName, lastName, empNo, email, hireYear, jobPosition, role, userName, password, token;
+	public String getRole() {
+		return role;
+	}
+
 	private int empId, deptId;
 	private List<Integer> present;
 	
@@ -111,5 +115,31 @@ public class Employee implements Serializable{
 		this.present = present;
 	}
 
-	
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 }

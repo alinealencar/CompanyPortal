@@ -583,6 +583,16 @@ Connection conn = DatabaseAccess.connectDataBase();
 		return rs;
 	}
 	
+	public static ResultSet selectEmployeeByDepartment(String deptName)
+			throws Exception {
+		Connection conn = DatabaseAccess.connectDataBase();
+		String query = "select * from employee where dept_id_fk = " + DatabaseHelper.getDeptId(deptName);
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		ResultSet rs = preparedStmt.executeQuery(query);
+		
+		return rs;
+	}
+	
 	public static ResultSet selectGroupEmployees(String groupName) 
 			throws Exception {
 		Connection conn = DatabaseAccess.connectDataBase();

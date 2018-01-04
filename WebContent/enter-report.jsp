@@ -89,15 +89,19 @@
 			</select>
 			&nbsp;&nbsp;&nbsp;
 			<select id = "employee" name = "employee" disabled="true">
-				<% 
-				//Get the list of departments from the database
-				String[] employeeList = HelperUtilities.getFullNameFromResultSet(DatabaseManagement.selectFromTable("employee"), "firstname", "lastname");%>
 				<option value=""  selected = "selected">Employee</option>
-				<%
-				//Populate drop down list
-				for(int i = 0; i < employeeList.length; i++)
-					out.print("<option value =\"" + employeeList[i] + "\">" + employeeList[i] + "</option>");
-				%>
+				<% if(request.getAttribute("employees") != null){
+					List<Employee> resultEmployees = (List<Employee>) request.getAttribute("employees");
+						for(int i = 0; i < resultEmployees.size(); i++){ 
+						String fullName = resultEmployees.get(i).getFirstName() + " " + resultEmployees.get(i).getLastName();%>
+						<option value="<%= fullName%>"
+						<%if(request.getAttribute("employee")!= null 
+								&& (String) request.getAttribute("employee") == fullName) {
+								out.println("selected");}%>
+						><%=fullName %></option>
+				<% }} %>
+					
+				
 			</select>
 			<br>
 		</div>	

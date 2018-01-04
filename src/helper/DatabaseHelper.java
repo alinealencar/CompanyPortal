@@ -291,6 +291,11 @@ public class DatabaseHelper {
 			employee.setEmpNo(rs.getString(5));
 			employee.setHireYear(rs.getString(6));
 			employee.setJobPosition(rs.getString(7));
+			employee.setRole(rs.getString(8));
+			employee.setUserName(rs.getString(9));
+			employee.setPassword(rs.getString(10));
+			employee.setToken(rs.getString(11));
+			employee.setDeptId(rs.getInt(12));
 			
 			employees.add(employee);
 		}
@@ -338,6 +343,7 @@ public class DatabaseHelper {
 		
 		return groups;
 	}
+	
 	
 	public static String getDeptNameById(int deptId) throws Exception{
 		String deptName = null;
