@@ -222,14 +222,32 @@ function validateEnterReport(){
 		validForm = false;
 	}
 	
-	$(".evaluation").each(function(){
+	//validate section 1 evaluation
+	$(".evaluation1").each(function(){
 	    if(isEmpty(this.value)){
 	    	console.log("evaluation error");
-	    	$("#evaluationError").show();
+	    	$("#evaluationError1").show();
 	    	validForm = false;
 	    }
 	});
 	
+	//validate section 2 evaluation
+	$(".evaluation2").each(function(){
+	    if(isEmpty(this.value)){
+	    	console.log("evaluation error");
+	    	$("#evaluationError2").show();
+	    	validForm = false;
+	    }
+	});
+	
+	//validate section 3 evaluation
+	$(".evaluation3").each(function(){
+	    if(isEmpty(this.value)){
+	    	console.log("evaluation error");
+	    	$("#evaluationError3").show();
+	    	validForm = false;
+	    }
+	});
 //	//Validate a evaluation was entered for each criteria
 //	for (var i = 1; i <= 3; i++){
 //		for(var j = 1; j <= 5; j++){

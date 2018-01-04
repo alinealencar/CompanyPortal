@@ -105,15 +105,17 @@
 			<div class="error" id="errorType">Please select a report type. Then choose the option from the dropdown list.</div>
 		</div>
 		<br>
-		<div class="row align-items-center justify-content-center">
-			<div class="error" id="evaluationError">Please choose an evaluation value for every criteria.</div>
-		</div>
+		
 			<br>
 <!-- section 1  -->
 		<% ReportTemplate rt = (ReportTemplate) request.getAttribute("selectedTemplate"); %>
 		<%if(rt != null){ %>
 		<hr>
+		<div class="row align-items-center justify-content-center">
+			<div class="error" id="evaluationError1">Please choose an evaluation value for every criteria.</div>
+		</div>
   		<div class="row">
+
     		<div class="col-2">   		   
      	 		<input id = "section1" type = "text" name="section1" size="12" value='2. <%= rt.getSection1()%>' disabled/>    			
     		</div>
@@ -135,7 +137,7 @@
     		</div>
     		<div class="col-2">
       			<label for="s1c1e">Evaluation: </label>
-      				<select name="s1c1e" class="evaluation" onchange="evaluationTotal()">
+      				<select name="s1c1e" class="evaluation1" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit1Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
@@ -144,7 +146,7 @@
       				<br>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria2())) {%>
       			<label for="s1c2e">Evaluation: </label>
-      				<select name="s1c2e" class="evaluation" onchange="evaluationTotal()">
+      				<select name="s1c2e" class="evaluation1" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit2Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
@@ -154,7 +156,7 @@
       			<%} %>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria3())) {%>
       			<label for="s1c3e">Evaluation: </label>
-      				<select name="s1c3e" class="evaluation" onchange="evaluationTotal()">
+      				<select name="s1c3e" class="evaluation1" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit3Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
@@ -164,7 +166,7 @@
       			<%} %>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria4())) {%>
       			<label for="s1c4e">Evaluation: </label>
-      				<select name="s1c4e" class="evaluation" onchange="evaluationTotal()">
+      				<select name="s1c4e" class="evaluation1" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit4Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
@@ -174,7 +176,7 @@
       			<%} %>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria5())) {%>
       			<label for="s1c5e">Evaluation: </label>
-      				<select name="s1c5e" class="evaluation" onchange="evaluationTotal()">
+      				<select name="s1c5e" class="evaluation1" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS1Crit5Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
@@ -191,6 +193,9 @@
   		</div>
   		<hr>
 <!-- section 2  -->
+		<div class="row align-items-center justify-content-center">
+			<div class="error" id="evaluationError2">Please choose an evaluation value for every criteria.</div>
+		</div>
   		<div class="row">
     		<div class="col-2">
 				<input id = "section2" type = "text" name="section2" size="12" value='3. <%= rt.getSection2()%>' disabled/>
@@ -206,7 +211,7 @@
     		</div>
     		<div class="col-2">
 				<label for="s2c1e">Evaluation: </label>
-      				<select name="s2c1e" class="evaluation" onchange="evaluationTotal()">
+      				<select name="s2c1e" class="evaluation2" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS2Crit1Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
@@ -215,7 +220,7 @@
       				<br>
       			<%if(!ValidateInput.isMissing(rt.getS2Criteria2())) {%>
       			<label for="s2c2e">Evaluation: </label>
-      				<select name="s2c2e" class="evaluation" onchange="evaluationTotal()">
+      				<select name="s2c2e" class="evaluation2" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS2Crit2Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
@@ -225,7 +230,7 @@
       			<%} %>
       			<%if(!ValidateInput.isMissing(rt.getS2Criteria3())) {%>
       			<label for="s2c3e">Evaluation: </label>
-      				<select name="s2c3e" class="evaluation" onchange="evaluationTotal()">
+      				<select name="s2c3e" class="evaluation2" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS2Crit3Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
@@ -240,6 +245,9 @@
   		</div>
   		<hr>
 <!-- section 3  -->
+		<div class="row align-items-center justify-content-center">
+			<div class="error" id="evaluationError3">Please choose an evaluation value for every criteria.</div>
+		</div>
   		<div class="row">
     		<div class="col-2">
 				<input id = "section3" type = "text" name="section3" size="12" value='4. <%= rt.getSection3()%>' disabled/>
@@ -255,7 +263,7 @@
     		</div>
     		<div class="col-2">
     			<label for="s3c1e">Evaluation: </label>
-      				<select name="s3c1e" class="evaluation" onchange="evaluationTotal()">
+      				<select name="s3c1e" class="evaluation3" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS3Crit1Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
@@ -264,7 +272,7 @@
       				<br>
       			<%if(!ValidateInput.isMissing(rt.getS3Criteria2())) {%>
       			<label for="s3c2e">Evaluation: </label>
-      				<select name="s3c2e" class="evaluation" onchange="evaluationTotal()">
+      				<select name="s3c2e" class="evaluation3" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS3Crit2Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
@@ -274,7 +282,7 @@
       			<%} %>
       			<%if(!ValidateInput.isMissing(rt.getS3Criteria3())) {%>
       			<label for="s3c3e">Evaluation: </label>
-      				<select name="s3c3e" class="evaluation" onchange="evaluationTotal()">
+      				<select name="s3c3e" class="evaluation3" onchange="evaluationTotal()">
       					<option value = "" selected>-</option>
       					<%for(int i = 1; i <= rt.getS3Crit3Max(); i++)
       						out.print("<option value =\"" + i + "\">" + i + "</option>"); %>
