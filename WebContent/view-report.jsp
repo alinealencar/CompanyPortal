@@ -6,17 +6,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@include file="WEB-INF/header.jsp" %>
 <%@include file="WEB-INF/menu.jsp" %>
-<script>
-/* $(function(){
-	$(document).ready(function(){
-		//If a report is selected, show the view report area
-		var report = document.getElementById("report").value;
-		if(report != ""){
-			$("#reportView").show();
-		}
-	})
-}); */
-</script>
+
 <div class="container form-group viewReport">
 <div class="container">
 	<div class="row align-items-center justify-content-center">
