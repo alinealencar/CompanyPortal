@@ -229,27 +229,24 @@ function validateEnterReport(){
 	    	validForm = false;
 	    }
 	});
-	
-//	//Validate a evaluation was entered for each criteria
-//	for (var i = 1; i <= 3; i++){
-//		for(var j = 1; j <= 5; j++){
-//			//Sections 2 and 3 only have 3 criteria
-//			if(i == 2 || i == 3){
-//				if(j > 3){
-//					break;
-//				}
-//			}
-//			
-//			var criteria = "s" + i + "c" + j;
-//			
-//			if(isEmpty(form[criteria +"e"].value) == false){
-//				if(isEmpty(form[criteria + "e"].value)){
-//					$("#error" + criteria + "e").show()
-//					validForm = false;
-//				}
-//			}
-//		}
-//	}
 
 	return validForm;	
+}
+
+function disableEnterForm(){
+	$("#secondHalfReportForm").hide();
+	document.getElementById("enterReport").reset();
+	document.getElementById("department").value = "";
+	document.getElementById("reportTemplate").value = "";
+}
+
+function enableEnterForm(){
+	$("#secondHalfReportForm").show();
+	document.getElementById("enterReport").submit();
+}
+
+function selectedDepartment(){
+	$("#secondHalfReportForm").hide();
+	document.getElementById("reportTemplate").value = "";
+	document.getElementById("enterReport").submit();
 }

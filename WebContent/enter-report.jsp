@@ -15,12 +15,12 @@
 	<div class="row align-items-center justify-content-center">
 		<h1 class="text-center">Enter Report</h1>
 	</div>
-	<form action="EnterReport" method="get" name="enter-report" onsubmit="return validateEnterReport()" novalidate>
+	<form action="EnterReport" method="get" id="enterReport" name="enter-report" onsubmit="return validateEnterReport()" novalidate>
 		<label>1. Details</label>
 		<div class="row align-items-center justify-content-center">
 			<br>
 			<label for="department">Department:&nbsp;</label>
-			<select id = "department" name = "department" onchange="this.form.submit()">
+			<select id = "department" name = "department" onchange="selectedDepartment()">
 				<% 
 				//Get the list of departments from the database
 				String[] deptList = HelperUtilities.getStringFromResultSet(DatabaseManagement.selectFromTable("department"), "dept_name");%>
@@ -37,7 +37,7 @@
 			</select>
 			&nbsp;&nbsp;&nbsp;
 			<label>Report Template:&nbsp;</label>
-			<select name="reportTemplate" id="reportTemplate" onchange="this.form.submit()" >
+			<select name="reportTemplate" id="reportTemplate" onchange="enableEnterForm()" >
 			<option value="" selected>Select a Template Name</option>
 			<% if(request.getAttribute("reportTemplates") != null){
 					List<ReportTemplate> resultTemplates = (List<ReportTemplate>) request.getAttribute("reportTemplates");
@@ -109,8 +109,10 @@
 			<div class="error" id="evaluationError">Please choose an evaluation value for every criteria.</div>
 		</div>
 			<br>
+
 <!-- section 1  -->
 		<% ReportTemplate rt = (ReportTemplate) request.getAttribute("selectedTemplate"); %>
+	<div id="secondHalfReportForm" ${(selectedTemplate == null) ? 'style="display:none;"' : ''}>
 		<%if(rt != null){ %>
 		<hr>
   		<div class="row">
@@ -296,11 +298,11 @@
 		<div class="row align-items-center justify-content-center">
 			<input type="submit" value="Enter" class="btn btn-primary">
 			&nbsp;
-			<input type="reset" value="Cancel" class="btn btn-secondary">
+			<input type="button" value="Cancel" class="btn btn-secondary" onclick="disableEnterForm()">
 		</div>
 		
 	<%} %><!-- end of if(rt != null) -->
-		
+		</div>
 	</form>
 </div>
 

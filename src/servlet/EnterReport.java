@@ -42,6 +42,8 @@ public class EnterReport extends HttpServlet {
 		String group = request.getParameter("group");
 		String employee = request.getParameter("employee");
 
+		//Clear cache
+		request.setAttribute("selectedTemplate", null);
 		
 		//when department is selected, related template name is generated in combobox		
 		try{
