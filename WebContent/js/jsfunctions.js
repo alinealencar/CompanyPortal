@@ -255,6 +255,8 @@ function validateEnterReport(){
 function disableEnterForm(){
 	$("#secondHalfReportForm").hide();
 	document.getElementById("enter-report").reset();
+	$("#group").prop("disabled", true);
+	$("#employee").prop("disabled", true);
 	document.getElementById("department").value = "";
 	document.getElementById("reportTemplate").value = "";
 }
@@ -266,6 +268,8 @@ function enableEnterForm(){
 
 function selectedDepartment(){
 	$("#secondHalfReportForm").hide();
+	$("#group").prop("disabled", true);
+	$("#employee").prop("disabled", true);
 	document.getElementById("reportTemplate").value = "";
 	document.getElementById("enter-report").submit();
 }
