@@ -188,7 +188,6 @@ function validateEnterReport(){
 	
 	//Validate report title
 	if(isEmpty(form["reportTitle"].value)){
-		console.log("no title");
 		$("#errorReportName").show();
 		validForm = false;
 	}
@@ -223,6 +222,14 @@ function validateEnterReport(){
 		validForm = false;
 	}
 	
+	$(".evaluation").each(function(){
+	    if(isEmpty(this.value)){
+	    	console.log("evaluation error");
+	    	$("#evaluationError").show();
+	    	validForm = false;
+	    }
+	});
+	
 //	//Validate a evaluation was entered for each criteria
 //	for (var i = 1; i <= 3; i++){
 //		for(var j = 1; j <= 5; j++){
@@ -234,8 +241,8 @@ function validateEnterReport(){
 //			}
 //			
 //			var criteria = "s" + i + "c" + j;
-//			//If the criteria field is not empty, check the evaluation dropdown next to it
-//			if(isEmpty(form[criteria].value) == false){
+//			
+//			if(isEmpty(form[criteria +"e"].value) == false){
 //				if(isEmpty(form[criteria + "e"].value)){
 //					$("#error" + criteria + "e").show()
 //					validForm = false;
