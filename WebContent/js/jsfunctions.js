@@ -246,3 +246,5 @@ function validateEnterReport(){
 	return validForm;
 	
 }
+
+

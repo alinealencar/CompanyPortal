@@ -13,9 +13,9 @@
 	</div>
 		<br>
 	<div class="row align-items-center justify-content-center">
-		<h1 class="text-center">Enter Report</h1>
+		<h1 class="text-center">ENTER REPORT</h1>
 	</div>
-	<form action="EnterReport" method="get" name="enter-report" onsubmit="return validateEnterReport()" novalidate>
+	<form action="EnterReport" method="get" name="enter-report" id="enter-report" onsubmit="return validateEnterReport()" novalidate>
 		<label>1. Details</label>
 		<div class="row align-items-center justify-content-center">
 			<br>
