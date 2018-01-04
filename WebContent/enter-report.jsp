@@ -80,7 +80,7 @@
 				<% if(request.getAttribute("groups") != null){
 					List<Group> resultGroups = (List<Group>) request.getAttribute("groups");
 					for(int i = 0; i < resultGroups.size(); i++){ %>
-					<option value="<%=resultGroups.get(i).getGroupName()%>"
+					<option value="<%=resultGroups.get(i).getGroupId()%>"
 					<%if(request.getAttribute("group")!= null 
 							&& (String) request.getAttribute("group")== resultGroups.get(i).getGroupName()) {
 							out.println("selected");}%>
@@ -95,7 +95,7 @@
 					List<Employee> resultEmployees = (List<Employee>) request.getAttribute("employees");
 						for(int i = 0; i < resultEmployees.size(); i++){ 
 						String fullName = resultEmployees.get(i).getFirstName() + " " + resultEmployees.get(i).getLastName();%>
-						<option value="<%= fullName%>"
+						<option value="<%=resultEmployees.get(i).getEmpId()%>"
 						<%if(request.getAttribute("employee")!= null 
 								&& (String) request.getAttribute("employee") == fullName) {
 								out.println("selected");}%>
