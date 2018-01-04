@@ -59,9 +59,7 @@
 		</div>
 		<div class="row align-items-center justify-content-center">
 			<div class="error" id="errorReportName">Please enter a report title.</div>
-		</div>
-		
-		<div class="row align-items-center justify-content-center">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div class="error" id="errorDate">Please select a date.</div>
 		</div>
 <!--  -->
@@ -106,6 +104,7 @@
 		<div class="row align-items-center justify-content-center">
 			<div class="error" id="errorType">Please select a report type. Then choose the option from the dropdown list.</div>
 		</div>
+		<br>
 		<div class="row align-items-center justify-content-center">
 			<div class="error" id="evaluationError">Please choose an evaluation value for every criteria.</div>
 		</div>
