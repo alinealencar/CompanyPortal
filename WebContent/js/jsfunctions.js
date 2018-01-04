@@ -178,3 +178,71 @@ function updateTotal(){
 	document.getElementById("totalReport").textContent = String(totalReport);
 }
 
+/****************************
+ *  enter-report
+ *****************************/
+function validateEnterReport(){
+	var form = document.forms["enter-report"];
+	var validForm = true;
+	$(".error").hide();
+	
+	//Validate report title
+	if(isEmpty(form["reportTitle"].value)){
+		$("#errorReportName").show();
+		validForm = false;
+	}
+	
+	//Validate date
+	if(isEmpty(form["date"].value)){
+		$("#errorDate").show();
+		validForm = false;
+	}
+	
+	//Validate report type
+	if((isEmpty(form["group"].value)) && (isEmpty(form["employee"].value))){
+		$("#errorType").show();
+		validForm = false;
+	}
+
+	//validate comment1
+	if(isEmpty(form["comment1"].value)){
+		$("#errorComm1").show();
+		validForm = false;
+	}
+	
+	//validate comment2
+	if(isEmpty(form["comment2"].value)){
+		$("#errorComm2").show();
+		validForm = false;
+	}
+	
+	//validate comment3
+	if(isEmpty(form["comment3"].value)){
+		$("#errorComm3").show();
+		validForm = false;
+	}
+	
+//	//Validate a evaluation was entered for each criteria
+//	for (var i = 1; i <= 3; i++){
+//		for(var j = 1; j <= 5; j++){
+//			//Sections 2 and 3 only have 3 criteria
+//			if(i == 2 || i == 3){
+//				if(j > 3){
+//					break;
+//				}
+//			}
+//			
+//			var criteria = "s" + i + "c" + j;
+//			//If the criteria field is not empty, check the evaluation dropdown next to it
+//			if(isEmpty(form[criteria].value) == false){
+//				if(isEmpty(form[criteria + "e"].value)){
+//					$("#error" + criteria + "e").show()
+//					validForm = false;
+//				}
+//			}
+//		}
+//	}
+
+	return validForm;
+	
+}

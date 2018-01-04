@@ -15,7 +15,7 @@
 	<div class="row align-items-center justify-content-center">
 		<h1 class="text-center">Enter Report</h1>
 	</div>
-	<form action="EnterReport" method="get" name="enter-report" onsubmit="return validateCreateTemplate()" novalidate>
+	<form action="EnterReport" method="get" name="enter-report" onsubmit="return validateEnterReport()" novalidate>
 		<label>1. Details</label>
 		<div class="row align-items-center justify-content-center">
 			<br>
@@ -58,7 +58,7 @@
 			<label>Date:&nbsp;</label><input type="text" name="date" id="datepicker">
 		</div>
 		<div class="row align-items-center justify-content-center">
-			<div class="error" id="errorReport">Please enter a report name.</div>
+			<div class="error" id="errorReportName">Please enter a report title.</div>
 		</div>
 		
 		<div class="row align-items-center justify-content-center">
@@ -73,6 +73,7 @@
 				<li><input type="radio" class="reportType" name="reportType" value="e">Employee</li>
 			</ul>
 		</div>
+
 		<div class="row align-items-center justify-content-center">
 			<select id = "group" name = "group" disabled="true">
 			<option value="" selected = "selected">Group</option>
@@ -99,10 +100,12 @@
 								&& (String) request.getAttribute("employee") == fullName) {
 								out.println("selected");}%>
 						><%=fullName %></option>
-				<% }} %>
-					
-				
+				<% }} %>				
 			</select>
+			</div>
+		<div class="row align-items-center justify-content-center">
+			<div class="error" id="errorType">Please select a report type. Then choose the option from the dropdown list.</div>
+		</div>
 			<br>
 		</div>	
 <!-- section 1  -->
@@ -115,7 +118,7 @@
     		</div>
     		
     		<div class="col-4 text-center">
-      			<label>Criteria 1:&nbsp;</label><input type = "text" name="s1c1" value='<%= rt.getS1Criteria1()%>' disabled/>
+      			<label>Criteria 1:&nbsp;</label><input type = "text" name="s1c1" value='<%= rt.getS1Criteria1()%>' disabled/><br>
       			<%if(!ValidateInput.isMissing(rt.getS1Criteria2())) {%>
       			<label>Criteria 2:&nbsp;</label><input type = "text" name="s1c2" value='<%= rt.getS1Criteria2()%>' disabled/><br>
       			<%} %>
@@ -182,6 +185,7 @@
 
     		<div class="col-4">
     			<textarea name="comment1" rows="8" cols="30"></textarea>
+    			<div class="error" id="errorComm1">Please enter the comment</div>
     		</div>
 
   		</div>
@@ -192,7 +196,7 @@
 				<input id = "section2" type = "text" name="section2" size="12" value='3. <%= rt.getSection2()%>' disabled/>
     		</div>
     		<div class="col-4 text-center">
-    			<label>Criteria 1:&nbsp;</label><input type = "text" name="s2c1" value='<%= rt.getS2Criteria1()%>' disabled/>
+    			<label>Criteria 1:&nbsp;</label><input type = "text" name="s2c1" value='<%= rt.getS2Criteria1()%>' disabled/><br>
     			<%if(!ValidateInput.isMissing(rt.getS2Criteria2())) {%>
       			<label>Criteria 2:&nbsp;</label><input type = "text" name="s2c2" value='<%= rt.getS2Criteria2()%>' disabled/><br>
       			<%} %>
@@ -231,6 +235,7 @@
     		</div>
     		<div class="col-4">
     			<textarea name="comment2" rows="8" cols="30"></textarea>
+    			<div class="error" id="errorComm2">Please enter the comment</div>
     		</div>
   		</div>
   		<hr>
@@ -240,7 +245,7 @@
 				<input id = "section3" type = "text" name="section3" size="12" value='4. <%= rt.getSection3()%>' disabled/>
     		</div>
     		<div class="col-4 text-center">
-    			<label>Criteria 1:&nbsp;</label><input type = "text" name="s3c1" value='<%= rt.getS3Criteria1()%>' disabled/>
+    			<label>Criteria 1:&nbsp;</label><input type = "text" name="s3c1" value='<%= rt.getS3Criteria1()%>' disabled/><br>
     			<%if(!ValidateInput.isMissing(rt.getS3Criteria2())) {%>
       			<label>Criteria 2:&nbsp;</label><input type = "text" name="s3c2" value='<%= rt.getS3Criteria2()%>' disabled/><br>
 				<%} %>
@@ -279,6 +284,7 @@
     		</div>
     		<div class="col-4">
     			<textarea name="comment3" rows="8" cols="30"></textarea>
+    			<div class="error" id="errorComm3">Please enter the comment</div>
     		</div>
   		</div>
   		<hr>
