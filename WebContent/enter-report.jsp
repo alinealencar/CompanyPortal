@@ -59,9 +59,7 @@
 		</div>
 		<div class="row align-items-center justify-content-center">
 			<div class="error" id="errorReportName">Please enter a report title.</div>
-		</div>
-		
-		<div class="row align-items-center justify-content-center">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div class="error" id="errorDate">Please select a date.</div>
 		</div>
 <!--  -->
@@ -106,8 +104,11 @@
 		<div class="row align-items-center justify-content-center">
 			<div class="error" id="errorType">Please select a report type. Then choose the option from the dropdown list.</div>
 		</div>
+		<br>
+		<div class="row align-items-center justify-content-center">
+			<div class="error" id="evaluationError">Please choose an evaluation value for every criteria.</div>
+		</div>
 			<br>
-		</div>	
 <!-- section 1  -->
 		<% ReportTemplate rt = (ReportTemplate) request.getAttribute("selectedTemplate"); %>
 		<%if(rt != null){ %>
@@ -132,7 +133,6 @@
       			<label>Criteria 5:&nbsp;</label><input type = "text" name="s1c5" value='<%= rt.getS1Criteria5()%>' disabled/><br>
     			<%} %>
     		</div>
-    	
     		<div class="col-2">
       			<label for="s1c1e">Evaluation: </label>
       				<select name="s1c1e" class="evaluation" onchange="evaluationTotal()">

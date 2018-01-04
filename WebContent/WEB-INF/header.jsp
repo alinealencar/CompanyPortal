@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="css/stylesheet.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"><!-- for datepicker in enter-report.jsp -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -13,27 +14,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/jsfunctions.js"></script>
 <title>
-	<% String pageTitle = (String)session.getAttribute("title");%>
-	<% out.print(pageTitle); %>
-
+<%-- 	<% String pageTitle = (String)session.getAttribute("title");%>
+	<% out.print(pageTitle); %> --%>
+	${title}
  </title>
- <style>
- .error{
- 	display: none;
- 	color:red;
- 	font-size: 14px;
- 	font-style: italic;
- }
- .editReport td{
- 	width: 100%;
- 	padding-right: 10%;
- 	padding-bottom: 2%;
- }
- .viewReport{
- 	max-width: 70%;
- }
- .viewReportDropdown{
- 	width: 250px;
- }
- </style>
 </head>

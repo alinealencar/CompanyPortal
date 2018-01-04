@@ -89,24 +89,6 @@ public class EnterReport extends HttpServlet {
 					
 					//Send totalMax value to the request scope
 					request.setAttribute("totalMax", totalMax);
-	
-					//Get all report names for the selected template
-//					ResultSet reportsResult = DatabaseManagement.selectReportByTemplate(templateId);
-//					
-//					List<Report> reports = DatabaseHelper.getReports(reportsResult);
-//					
-//					request.setAttribute("reports", reports);
-//					
-//					String reportId = request.getParameter("report");
-//					//If report is selected
-//					if(!ValidateInput.isMissing(reportId)){
-//						Report selectedReport = DatabaseManagement.selectReportById(reportId);
-//						ReportTemplate selectedTemplate = DatabaseManagement.selectReportTemplateById(templateId);
-//						
-//						//Send report and template objects to the request scope
-//						request.setAttribute("selectedReport", selectedReport);
-//						request.setAttribute("selectedTemplate", selectedTemplate);
-//					}
 				}
 			}
 		}
@@ -131,12 +113,7 @@ public class EnterReport extends HttpServlet {
 			
 			
 			Report report = new Report();
-			try{
-				System.out.println("title 1 " + reportTitle);
-				System.out.println("Date " + request.getParameter("date"));
-				System.out.println("Parse Date " + date);
-				System.out.println("title request " + request.getParameter("reportTitle"));
-				System.out.println("Start");
+			try{				
 				//Set ReportTemplate attributes with the input from the form
 				report.setReportTitle(request.getParameter("reportTitle"));
 				report.setReportDate(java.sql.Date.valueOf(date));
