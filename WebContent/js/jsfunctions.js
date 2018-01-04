@@ -235,18 +235,18 @@ function validateEnterReport(){
 
 function disableEnterForm(){
 	$("#secondHalfReportForm").hide();
-	document.getElementById("enterReport").reset();
+	document.getElementById("enter-report").reset();
 	document.getElementById("department").value = "";
 	document.getElementById("reportTemplate").value = "";
 }
 
 function enableEnterForm(){
 	$("#secondHalfReportForm").show();
-	document.getElementById("enterReport").submit();
+	document.getElementById("enter-report").submit();
 }
 
 function selectedDepartment(){
 	$("#secondHalfReportForm").hide();
 	document.getElementById("reportTemplate").value = "";
-	document.getElementById("enterReport").submit();
+	document.getElementById("enter-report").submit();
 }
